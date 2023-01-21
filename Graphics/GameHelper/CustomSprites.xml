@@ -4,4 +4,12 @@
         <Loop id="idle" path="idle"/>
         <Anim id="hit" path="hit" goto="idle" delay="0.5"/>
     </trampoline>
+		<enemy path="objects/GameHelper/Enemy/" start="walking">
+        <Justify x="0.5" y="0.5" />
+        <Loop id="walking" path="walking" delay="0.1" frames="0-3" />
+    </enemy>
+	<flyingEnemy path="objects/GameHelper/FlyingEnemy/" start="flying">
+        <Justify x="0.5" y="0.5" />
+        <Loop id="flying" path="flying" delay="0.1" frames="0-3" />
+    </flyingEnemy>
 </Sprites>

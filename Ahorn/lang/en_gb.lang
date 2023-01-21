@@ -1,0 +1,8 @@
+# Sample Entity
+placements.entities.GameHelper/Enemy.tooltips.speedX=Horizontal speed (default value is 40.0)
+placements.entities.GameHelper/Enemy.tooltips.speedY=Falling speed (default value is 200.0)
+placements.entities.GameHelper/FlyingEnemy.tooltips.speedX=Horizontal speed (default value is 50.0)
+placements.entities.GameHelper/FlyingEnemy.tooltips.speedY=Vertical speed (default value is 50.0)
+
+# Sample Trigger
+placements.triggers.GameHelper/SampleTrigger.tooltips.sampleProperty=A sample property for your trigger.

@@ -5,7 +5,7 @@
     <TargetFrameworks>net452</TargetFrameworks>
     <AssemblyName>GameHelper</AssemblyName>
     <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
-    <LangVersion>11</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..</CelesteGamePath>
     <PathMap>$(MSBuildProjectDirectory)=X:\ABCDEFGH\</PathMap>
   </PropertyGroup>
