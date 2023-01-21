@@ -1,0 +1,3 @@
+entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline [GameHelper]
+entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis in the facing direction
+entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Whether the trampoline is facing up-left or up-right

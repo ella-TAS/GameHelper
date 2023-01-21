@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+    <trampoline path="objects/GameHelper/trampoline/" start="idle">
+        <Loop id="idle" path="idle"/>
+        <Anim id="hit" path="hit" goto="idle" delay="0.5"/>
+    </trampoline>
+</Sprites>

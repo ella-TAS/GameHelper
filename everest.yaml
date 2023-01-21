@@ -1,6 +1,6 @@
-﻿- Name: $MODNAME$
+﻿- Name: GameHelper
   Version: 1.0.0
-  DLL: bin/Debug/net452/$MODNAME$.dll
+  DLL: bin/Debug/net452/GameHelper.dll
   Dependencies:
     - Name: Everest
       Version: 1.3164.0
