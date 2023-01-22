@@ -1,3 +1,15 @@
-entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline [GameHelper]
-entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis in the facing direction
-entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Whether the trampoline is facing up-left or up-right
+entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline [Game Helper]
+entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis when on collision (default value is 40.0)
+entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
+
+entities.GameHelper/Enemy.placements.name.enemy=Enemy [Game Helper]
+entities.GameHelper/Enemy.attributes.speedX=Horizontal speed (default value is 40.0)
+entities.GameHelper/Enemy.attributes.speedY=Falling speed (default value is 200.0)
+
+entities.GameHelper/FlyingEnemy.placements.name.flyingenemy=Flying Enemy [Game Helper]
+entities.GameHelper/FlyingEnemy.attributes.speedX=Horizontal speed (default value is 50.0)
+entities.GameHelper/FlyingEnemy.attributes.speedY=Vertical speed (default value is 50.0)
+
+entities.GameHelper/WaterEnemy.placements.name.waterenemy=Water Enemy [Game Helper]
+entities.GameHelper/WaterEnemy.attributes.speedX=Horizontal speed (default value is 50.0)
+entities.GameHelper/WaterEnemy.attributes.speedY=Vertical speed (default value is 50.0)

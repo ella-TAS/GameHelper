@@ -1,6 +1,7 @@
-using Celeste.Mod.Entities;
-using Microsoft.Xna.Framework;
+using System;
 using Monocle;
+using Microsoft.Xna.Framework;
+using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -27,8 +28,13 @@ public class Trampoline : Entity {
     private void onCollide(Player player) {
         if(collidable == 0) {
             float speedX = player.Speed.X;
-            player.Speed.X = (player.Speed.Y + speedBoost) * (facingUpLeft ? -1 : 1);
-            player.Speed.Y = speedX * (facingUpLeft ? -1 : 1) - speedBoost;
+            if(facingUpLeft) {
+                player.Speed.X = Math.Min(Math.Min(-player.Speed.Y - speedBoost, -130), player.Speed.X - speedBoost);
+                player.Speed.Y = Math.Min(-speedX - speedBoost, -200);
+            } else {
+                player.Speed.X = Math.Max(Math.Max(player.Speed.Y + speedBoost, 130), player.Speed.X + speedBoost);
+                player.Speed.Y = Math.Min(speedX - speedBoost, -200);
+            }
         }
         collidable++;
         if(oneUse) {
@@ -47,6 +53,7 @@ public class Trampoline : Entity {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(collidable == 1){
             p.StateMachine.State = 0;
+            p.AutoJump = true;
 			if (!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();
             }
