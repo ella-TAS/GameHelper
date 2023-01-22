@@ -13,8 +13,8 @@ namespace Celeste.Mod.GameHelper.Entities
         private Sprite sprite;
         public Vector2 speed = new Vector2(0f, 0f);
         public Actor actor;
-        private float speedX = 50;
-        private float speedY = 200;
+        private float speedX = 50f;
+        private float speedY = 200f;
         private bool left = true;
         private bool dead = false;
         private Collider bounceCollider;
@@ -41,7 +41,7 @@ namespace Celeste.Mod.GameHelper.Entities
         {
             base.Added(scene);
             level = SceneAs<Level>();
-            Add(sprite = GFX.SpriteBank.Create("enemy"));
+            Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
         }
 
         //Kills you if you touch it, and then it disappears

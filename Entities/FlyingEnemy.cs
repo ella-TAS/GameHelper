@@ -42,7 +42,7 @@ namespace Celeste.Mod.GameHelper.Entities
         {
             base.Added(scene);
             level = SceneAs<Level>();
-            Add(sprite = GFX.SpriteBank.Create("flyingEnemy"));
+            Add(sprite = GameHelperModule.getSpriteBank().Create("flyingEnemy"));
         }
 
         //Kills you if you touch it, and then it disappears

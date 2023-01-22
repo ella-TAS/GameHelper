@@ -19,7 +19,7 @@ public class Trampoline : Entity {
         facingUpLeft = data.Bool("facingUpLeft");
         refillDash = data.Bool("refillDash");
         oneUse = data.Bool("oneUse");
-        base.Collider = new ColliderList(new Hitbox(6f, 6f, -14f, -14f));
+        base.Collider = new ColliderList(new Hitbox(16f, 16f, 0f, 0f));
         Add(new PlayerCollider(onCollide));
         Add(sprite = GameHelperModule.getSpriteBank().Create("trampoline"));
     }
