@@ -1,5 +1,5 @@
-namespace Celeste.Mod.GameHelper {
-    public class GameHelperModuleSettings : EverestModuleSettings {
+namespace Celeste.Mod.GameHelper;
 
-    }
+public class GameHelperModuleSettings : EverestModuleSettings {
+
 }

@@ -1,5 +1,5 @@
-namespace Celeste.Mod.GameHelper {
-    public class GameHelperModuleSession : EverestModuleSession {
+namespace Celeste.Mod.GameHelper;
 
-    }
+public class GameHelperModuleSession : EverestModuleSession {
+
 }
