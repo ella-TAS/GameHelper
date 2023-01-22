@@ -1,5 +1,5 @@
 entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline [Game Helper]
-entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis when on collision (default value is 40.0)
+entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis on collision (default value is 40.0)
 entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
 
 entities.GameHelper/Enemy.placements.name.enemy=Enemy [Game Helper]
