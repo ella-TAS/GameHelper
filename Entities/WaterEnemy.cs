@@ -2,14 +2,14 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
-[CustomEntity("GameHelper/FlyingEnemy")]
-public class FlyingEnemy : Actor
+[CustomEntity("GameHelper/WaterEnemy")]
+public class WaterEnemy : Actor
 {
-
     private Level level;
     private Sprite sprite;
     public Vector2 speed = new Vector2(0f, 0f);
@@ -23,19 +23,18 @@ public class FlyingEnemy : Actor
     private float noGravityTimer;
     public Holdable Hold;
     public Solid solid;
+    public Vector2 previousPosition = new Vector2(0f, 0f); // this will be used to go back to previous position if somehow it gets out of water
 
     // Constructor
-    public FlyingEnemy(EntityData data, Vector2 offset)
+    public WaterEnemy(EntityData data, Vector2 offset)
     : base(data.Position + offset)
     {
-        
-        base.Collider = new Hitbox(8f, 8f, -7f, 0f);
-        bounceCollider = new Hitbox(8f, 4f, -7f, -3f);
+        base.Collider = new Hitbox(46f, 12f, -22f, -2f);
         Position = data.Position + offset;
+        previousPosition = Position;
         speedX = data.Float("speedX");
         speedY = data.Float("speedY");
         Add(new PlayerCollider(OnPlayer));
-        Add(new PlayerCollider(OnPlayerBounce, bounceCollider));
     }
 
     //Adds the entity then the room loads
@@ -43,21 +42,13 @@ public class FlyingEnemy : Actor
     {
         base.Added(scene);
         level = SceneAs<Level>();
-        Add(sprite = GameHelperModule.getSpriteBank().Create("flyingEnemy"));
+        Add(sprite = GameHelperModule.getSpriteBank().Create("swimmingEnemy"));
     }
 
     //Kills you if you touch it, and then it disappears
     private void OnPlayer(Player player)
     {
         player.Die(new Vector2(-1f, 0f));
-    }
-
-    private void OnPlayerBounce(Player player)
-    {
-        Celeste.Freeze(0.1f);
-        player.Bounce(base.Top - 2f);
-        Die();
-
     }
 
     public override void Update()
@@ -70,12 +61,20 @@ public class FlyingEnemy : Actor
             Die();
         }*/
         sprite.FlipX = !(left);
+        if (SwimCheck() == true)
+        {
+        previousPosition = Position; // If it's on water, previousPosition updates
+        }
+        else
+        {
+            Position = previousPosition; //If it's not on water, goes back to previousPosition
+        }
     }
 
     private void moveTowardsPlayer (Player player)
     {
         //Acceleration + moving one pixel at a time
-        if (player != null)
+        if (player != null && SwimCheck())
         {
             float targetPositionX = Calc.Approach(ExactPosition.X, player.Position.X, speedX * Engine.DeltaTime);
             float toX = ExactPosition.X;
@@ -94,7 +93,7 @@ public class FlyingEnemy : Actor
             float toY = ExactPosition.Y;
             while (toY != targetPositionY)
             {
-                toY = Calc.Approach(toY, targetPositionY, 2f);
+                toY = Calc.Approach(toY, targetPositionY, 1f);
             }
             if ((ExactPosition.Y - player.Position.Y) > 0)
                 down = true;
@@ -141,16 +140,12 @@ public class FlyingEnemy : Actor
         }
     }
 
-    /*public bool HitSpring (Spring spring)
+    private bool SwimCheck()
     {
-        if (spring.Orientation == Spring.Orientations.Floor && speed.Y >= 0f)
+        if (CollideCheck<Water>(Position + Vector2.UnitY * -8f))
         {
-            MoveTowardsX(spring.CenterX, 4f);
-            speed.Y = -160f;
-            noGravityTimer = 0.15f;
-            return true;
+            return CollideCheck<Water>(Position);
         }
-        else
-            return false;
-    }*/
+        return false;
+    }
 }
