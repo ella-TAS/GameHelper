@@ -20,16 +20,29 @@ public class Enemy : Actor
     private Collider bounceCollider;
     public Holdable Hold;
     public Solid solid;
+    //Some extra variables to make the entity more customizable
+    public float hitboxWidth = 8;
+    public float hitboxHeight = 16;
+    public float hitboxXOffset = -3;
+    public float hitboxYOffset = 0;
+    public float bounceHitboxWidth = 8;
+    public float bounceHitboxHeight = 4;
+    public float bounceHitboxXOffset = -3;
+    public float bounceHitboxYOffset = -3;
+    public bool canDie = true;
+    public string customSpritePath;
+    public bool drawOutline = false;
 
     // Constructor
     public Enemy(EntityData data, Vector2 offset)
     : base(data.Position + offset)
     {
-        base.Collider = new Hitbox(8f, 16f, -3f, 0f);
-        bounceCollider = new Hitbox(8f, 4f, -3f, -3f);
+        base.Collider = new Hitbox(hitboxWidth, hitboxHeight, hitboxXOffset, hitboxYOffset);
+        bounceCollider = new Hitbox(bounceHitboxWidth, bounceHitboxHeight, bounceHitboxXOffset, bounceHitboxYOffset);
         Position = data.Position + offset;
         speedX = data.Float("speedX");
         speedY = data.Float("speedY");
+        customSpritePath = data.Attr("sprite", "");
         Add(new PlayerCollider(OnPlayer));
         Add(new PlayerCollider(OnPlayerBounce, bounceCollider));
     }
@@ -39,7 +52,7 @@ public class Enemy : Actor
     {
         base.Added(scene);
         level = SceneAs<Level>();
-        Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
+        //Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
     }
 
     //Kills you if you touch it, and then it disappears
@@ -99,18 +112,26 @@ public class Enemy : Actor
     }
 
     //Draws an outline around the sprite
-    /*public override void Render()
+    public override void Render()
     {
-        if (sprite != null)
+        if (sprite != null && drawOutline)
             sprite.DrawOutline();
-
+        //Something about this is not working and if there's some custom path it does weird things :(
+        if (customSpritePath == "" || GFX.Game["objects/" + customSpritePath].get_AtlasPath() == null)
+        {
+            GFX.Game["objects/GameHelper/Enemy/walking00"].DrawCentered(Position);
+        }
+        else
+        {
+            GFX.Game["objects/" + customSpritePath].DrawCentered(Position);
+        }
         base.Render();
-    }*/
+    }
 
     //Creates the death effect and plays a sound before disappearing
     public void Die()
     {
-        if (!dead)
+        if (!dead && canDie == true)
         {
             sprite.RemoveSelf();
             Audio.Play("event:/char/madeline/death", Position);

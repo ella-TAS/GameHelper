@@ -3,7 +3,10 @@ module GameHelperEnemy
 using ..Ahorn, Maple
 
 @mapdef Entity "GameHelper/Enemy" Enemy(
-    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=200.0
+    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=200.0,
+    hitboxWidth::Number=8.0, hitboxHeight::Number=16.0, hitboxXOffset::Number=-3.0, hitboxYOffset::Number=0.0,
+    bounceHitboxWidth::Number=8.0, bounceHitboxHeight=4.0, bounceHitboxXOffset::Number=-3.0, bounceHitboxYOffset::Number=-3.0,
+    canDie::Bool=true, drawOutline::Bool=false, customSpritePath::String=""
 )
 
 const placements = Ahorn.PlacementDict(
@@ -19,8 +22,7 @@ function Ahorn.selection(entity::Enemy)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::Enemy, room::Maple.Room)
-theSprite = "objects/GameHelper/Enemy/walking00.png"
-sprite = theSprite
+sprite = ((get(entity.data, "customSpritePath", "")=="") ? "objects/GameHelper/Enemy/walking00.png" : "objects/" + (get(entity.data, "customSpritePath", "")))
 Ahorn.drawSprite(ctx, sprite, 0, 0)
 end
 

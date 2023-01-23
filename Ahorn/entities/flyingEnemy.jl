@@ -3,7 +3,7 @@ module GameHelperFlyingEnemy
 using ..Ahorn, Maple
 
 @mapdef Entity "GameHelper/FlyingEnemy" FlyingEnemy(
-    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=200.0
+    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=50.0
 )
 
 const placements = Ahorn.PlacementDict(

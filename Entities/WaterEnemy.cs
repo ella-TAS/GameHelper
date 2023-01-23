@@ -15,7 +15,7 @@ public class WaterEnemy : Actor
     public Vector2 speed = new Vector2(0f, 0f);
     public Actor actor;
     private float speedX = 50f;
-    private float speedY = 50f;
+    private float speedY = 40f;
     private bool left = true;
     private bool dead = false;
     private Collider bounceCollider;

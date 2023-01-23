@@ -3,7 +3,7 @@ module GameHelperWaterEnemy
 using ..Ahorn, Maple
 
 @mapdef Entity "GameHelper/WaterEnemy" WaterEnemy(
-    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=50.0
+    x::Integer, y::Integer, speedX::Number=50.0, speedY::Number=40.0
 )
 
 const placements = Ahorn.PlacementDict(
