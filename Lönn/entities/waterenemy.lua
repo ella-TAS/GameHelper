@@ -8,7 +8,7 @@ waterenemy.placements = {
     name = "waterenemy",
     data = {
         speedX = 50.0,
-        speedY = 50.0
+        speedY = 40.0
     }
 }
 

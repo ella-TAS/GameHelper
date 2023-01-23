@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Sprites>
     <trampoline path="objects/GameHelper/trampoline/" start="idle">
+        <Justify x="0.15" y="0.15"/>
         <Loop id="idle" path="idle"/>
-        <Anim id="hit" path="hit" goto="idle" delay="0.5"/>
     </trampoline>
 		<enemy path="objects/GameHelper/Enemy/" start="walking">
         <Justify x="0.5" y="0.5" />

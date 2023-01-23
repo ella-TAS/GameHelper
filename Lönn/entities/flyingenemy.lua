@@ -8,7 +8,7 @@ flyingenemy.placements = {
     name = "flyingenemy",
     data = {
         speedX = 50.0,
-        speedY = 200.0
+        speedY = 50.0
     }
 }
 

@@ -1,15 +1,28 @@
 entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline [Game Helper]
-entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis on collision (default value is 40.0)
+entities.GameHelper/Trampoline.attributes.description.speedBoost=The speed added on each axis on collision (default 40)
 entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
 
+entities.GameHelper/Pigarithm.placements.name.pigarithm=Pigarithm [Game Helper]
+entities.GameHelper/WaterEnemy.attributes.speed=Horizontal speed (default 60)
+entities.GameHelper/WaterEnemy.attributes.startRight=Which direction the entity should start moving in
+
 entities.GameHelper/Enemy.placements.name.enemy=Enemy [Game Helper]
-entities.GameHelper/Enemy.attributes.speedX=Horizontal speed (default value is 40.0)
-entities.GameHelper/Enemy.attributes.speedY=Falling speed (default value is 200.0)
+entities.GameHelper/Enemy.attributes.speedX=Horizontal speed (default 50)
+entities.GameHelper/Enemy.attributes.speedY=Falling speed (default 200)
+entities.GameHelper/Enemy.attributes.canDie=If the enemy should be able to die (e.g. when bounced or when falling off screen)
+entities.GameHelper/Enemy.attributes.hitboxWidth=The width of the killing hitbox
+entities.GameHelper/Enemy.attributes.hitboxHeight=The height of the killing hitbox
+entities.GameHelper/Enemy.attributes.bounceHitboxWidth=The width of the Bouncing hitbox. Leave to 0 if you don't want to bounce on it
+entities.GameHelper/Enemy.attributes.bounceHitboxHeight=The height of the Bouncing hitbox. Leave to 0 if you don't want to bounce on it
+entities.GameHelper/Enemy.attributes.hitboxXOffset=Use this field to move the hitbox if you're reskinning the enemy
+entities.GameHelper/Enemy.attributes.hitboxYOffset=Use this field to move the hitbox if you're reskinning the enemy
+entities.GameHelper/Enemy.attributes.drawOutline=If the entity should have a black outline for readability
+entities.GameHelper/Enemy.attributes.customSpritePath=Path to a custom frame sprite, relative to Graphics/Atlases/Gameplay/objects/
 
 entities.GameHelper/FlyingEnemy.placements.name.flyingenemy=Flying Enemy [Game Helper]
-entities.GameHelper/FlyingEnemy.attributes.speedX=Horizontal speed (default value is 50.0)
-entities.GameHelper/FlyingEnemy.attributes.speedY=Vertical speed (default value is 50.0)
+entities.GameHelper/FlyingEnemy.attributes.speedX=Horizontal speed (default 50)
+entities.GameHelper/FlyingEnemy.attributes.speedY=Vertical speed (default 50)
 
 entities.GameHelper/WaterEnemy.placements.name.waterenemy=Water Enemy [Game Helper]
-entities.GameHelper/WaterEnemy.attributes.speedX=Horizontal speed (default value is 50.0)
-entities.GameHelper/WaterEnemy.attributes.speedY=Vertical speed (default value is 50.0)
+entities.GameHelper/WaterEnemy.attributes.speedX=Horizontal speed (default 50)
+entities.GameHelper/WaterEnemy.attributes.speedY=Vertical speed (default 40)

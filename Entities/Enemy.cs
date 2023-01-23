@@ -43,6 +43,11 @@ public class Enemy : Actor
         speedX = data.Float("speedX");
         speedY = data.Float("speedY");
         customSpritePath = data.Attr("sprite", "");
+        if(customSpritePath == "") {
+            Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
+        } else {
+            //custom sprite? I just added this so my game doesn't crash for now lol
+        }
         Add(new PlayerCollider(OnPlayer));
         Add(new PlayerCollider(OnPlayerBounce, bounceCollider));
     }
@@ -52,7 +57,6 @@ public class Enemy : Actor
     {
         base.Added(scene);
         level = SceneAs<Level>();
-        //Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
     }
 
     //Kills you if you touch it, and then it disappears
