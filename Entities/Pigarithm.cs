@@ -8,6 +8,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Pigarithm")]
 public class Pigarithm : Solid {
     private Level level;
+    private Sprite sprite;
     private int speed;
     private bool movingRight;
     private int restTimer;
@@ -17,6 +18,7 @@ public class Pigarithm : Solid {
         speed = data.Int("speed");
         movingRight = data.Bool("startRight");
         restTimer = 0;
+        Add(sprite = GameHelperModule.getSpriteBank().Create(data.Attr("sprite")));
     }
 
     public override void Update() {
