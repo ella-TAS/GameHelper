@@ -9,6 +9,9 @@ local spriteOptions = {
 pigarithm.name = "GameHelper/Pigarithm"
 pigarithm.depth = 8998
 pigarithm.justification = {0.0, 0.0}
+pigarithm.minimumSize = {16, 16}
+pigarithm.maximumSize = {48, 32}
+pigarithm.canResize = {true, true}
 pigarithm.placements = {
     {
         name = "pigarithm",
@@ -29,7 +32,7 @@ pigarithm.fieldInformation = {
 }
 
 function pigarithm.texture(room, entity)
-    return "objects/GameHelper/pigarithm/small_idle" and entity.sprite == "pigarithm_small" or "objects/GameHelper/pigarithm/medium_idle" and entity.size == "pigarithm_medium" or "objects/GameHelper/pigarithm/big_idle"
+    return "objects/GameHelper/pigarithm/" .. (entity.sprite == "pigarithm_small" ? "small" : (entity.sprite == "pigarithm_medium" ? "medium" : "big")) .. "_idle"
 end
 
 return pigarithm

@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 local trampoline = {}
 
 trampoline.name = "GameHelper/Trampoline"
@@ -14,9 +16,13 @@ trampoline.placements = {
     }
 }
 
---function trampoline.justification(room, entity)
---    return entity.facingUpLeft and {1.0, 0.5} or {0.0, 0.5}
---end
+function trampoline.rectangle(room, entity, viewport)
+    return utils.rectangle(entity.x, entity.y, 16, 16)
+end
+
+function trampoline.justification(room, entity)
+    return 0.32, (entity.facingUpLeft and 0.32 or 0.95)
+end
 
 function trampoline.rotation(room, entity)
     return entity.facingUpLeft and 0 or math.pi / 2

@@ -38,7 +38,6 @@ public class Pigarithm : Solid {
     public override void Render() {
 		Vector2 position = Position;
 		Position += base.Shake;
-		Draw.Rect(base.X + 2f, base.Y + 2f, base.Width - 4f, base.Height - 4f, Calc.HexToColor("8A9C60"));
 		base.Render();
 		Position = position;
 	}
