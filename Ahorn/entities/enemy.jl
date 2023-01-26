@@ -22,8 +22,11 @@ function Ahorn.selection(entity::Enemy)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::Enemy, room::Maple.Room)
-sprite = ((get(entity.data, "customSpritePath", "")=="") ? "objects/GameHelper/Enemy/walking00.png" : "objects/" + (get(entity.data, "customSpritePath", "")))
-Ahorn.drawSprite(ctx, sprite, 0, 0)
+customSpritePath = get(entity.data,"customSpritePath", "objects/GameHelper/Enemy")
+if customSpritePath == ""
+    customSpritePath = "objects/GameHelper/Enemy"
+end
+Ahorn.drawSprite(ctx, "$(customSpritePath)/walking00.png", 16, 8)
 end
 
 end

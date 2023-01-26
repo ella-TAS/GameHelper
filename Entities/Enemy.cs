@@ -42,12 +42,8 @@ public class Enemy : Actor
         Position = data.Position + offset;
         speedX = data.Float("speedX");
         speedY = data.Float("speedY");
-        customSpritePath = data.Attr("sprite", "");
-        if(customSpritePath == "") {
-            Add(sprite = GameHelperModule.getSpriteBank().Create("enemy"));
-        } else {
-            //custom sprite? I just added this so my game doesn't crash for now lol
-        }
+        customSpritePath = (string.IsNullOrEmpty(data.Attr("customSpritePath")) ? "objects/GameHelper/Enemy" : data.Attr("customSpritePath")); // If no path is introduced, default sprite, else, customSpritePath
+        Add(sprite = new Sprite(GFX.Game, customSpritePath + "/"));
         Add(new PlayerCollider(OnPlayer));
         Add(new PlayerCollider(OnPlayerBounce, bounceCollider));
     }
@@ -120,15 +116,6 @@ public class Enemy : Actor
     {
         if (sprite != null && drawOutline)
             sprite.DrawOutline();
-        //Something about this is not working and if there's some custom path it does weird things :(
-        if (customSpritePath == "" || GFX.Game["objects/" + customSpritePath].get_AtlasPath() == null)
-        {
-            GFX.Game["objects/GameHelper/Enemy/walking00"].DrawCentered(Position);
-        }
-        else
-        {
-            GFX.Game["objects/" + customSpritePath].DrawCentered(Position);
-        }
         base.Render();
     }
 
@@ -140,9 +127,7 @@ public class Enemy : Actor
             sprite.RemoveSelf();
             Audio.Play("event:/char/madeline/death", Position);
             Collidable = false;
-            /*Add(new DeathEffect(Calc.HexToColor("212121"), base.Center - Position));
-            this.RemoveSelf();*/
-
+            //Add(new DeathEffect(Calc.HexToColor("212121"), base.Center - Position));
             Entity entity = new Entity(Position);
             DeathEffect component = new DeathEffect(Calc.HexToColor("585e58"), base.Center - Position)
             {
