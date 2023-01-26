@@ -6,6 +6,7 @@
         <Anim id="hit" path="hit" goto="idle" delay="0.3"/>
         <Loop id="broken" path="broken"/>
     </trampoline>
+
     <pigarithm_small path="objects/GameHelper/pigarithm/" start="idle">
         <Loop id="idle" path="small_idle"/>
         <Anim id="turn" path="small_turn" delay="0.05" goto="idle"/>
@@ -18,6 +19,7 @@
         <Loop id="idle" path="big_idle"/>
         <Anim id="turn" path="big_turn" delay="0.05" goto="idle"/>
     </pigarithm_big>
+
     <enemy path="objects/GameHelper/Enemy/" start="walking">
         <Justify x="0.5" y="0.5" />
         <Loop id="walking" path="walking" delay="0.1" frames="0-3" />

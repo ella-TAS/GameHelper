@@ -22,6 +22,15 @@ public class Pigarithm : Solid {
     }
 
     public override void Update() {
+        //player kill check
+        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        if(p != null) {
+            if(p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX)) {
+                p.Die(Vector2.Normalize(p.Center - this.Center));
+            }
+        }
+
+        //movement
         if(restTimer > 0) {
             restTimer--;
         } else {
@@ -32,10 +41,12 @@ public class Pigarithm : Solid {
                 restTimer = 24;
             }
         }
+
         base.Update();
     }
 
     public override void Render() {
+        //shake animation, remove when turnaround sprite is added
         Vector2 position = Position;
         Position += base.Shake;
         base.Render();

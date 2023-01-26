@@ -8,6 +8,9 @@ entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the ent
 entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
 entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
 
+entities.GameHelper/PushBox.placements.name.pushbox=Push Box [Game Helper]
+entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30)
+
 entities.GameHelper/Enemy.placements.name.enemy=Enemy [Game Helper]
 entities.GameHelper/Enemy.attributes.description.speedX=Horizontal speed (default 50)
 entities.GameHelper/Enemy.attributes.description.speedY=Falling speed (default 200)

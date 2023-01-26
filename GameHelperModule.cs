@@ -3,10 +3,9 @@
 namespace Celeste.Mod.GameHelper;
 
 public class GameHelperModule : EverestModule {
-    
     public static GameHelperModule Instance;
     private static SpriteBank spriteBank;
-    
+
     public GameHelperModule() {
         Instance = this;
     }
