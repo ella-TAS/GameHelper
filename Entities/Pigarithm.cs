@@ -36,11 +36,11 @@ public class Pigarithm : Solid {
     }
 
     public override void Render() {
-		Vector2 position = Position;
-		Position += base.Shake;
-		base.Render();
-		Position = position;
-	}
+        Vector2 position = Position;
+        Position += base.Shake;
+        base.Render();
+        Position = position;
+    }
 
     public override void Added(Scene scene) {
         base.Added(scene);
