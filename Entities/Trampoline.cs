@@ -63,10 +63,10 @@ public class Trampoline : Entity {
         if(collidable == 1){
             p.StateMachine.State = 0;
             p.AutoJump = true;
-			if (!p.Inventory.NoRefills && refillDash) {
+            if (!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();
             }
-			p.RefillStamina();
+        p.RefillStamina();
         }
     }
 }
