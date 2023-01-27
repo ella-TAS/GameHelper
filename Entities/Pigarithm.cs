@@ -11,12 +11,14 @@ public class Pigarithm : Solid {
     private Sprite sprite;
     private int speed;
     private bool movingRight;
+    private bool kill;
     private int restTimer;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speed = data.Int("speed");
         movingRight = data.Bool("startRight");
+        kill = data.Bool("kill");
         restTimer = 0;
         Add(sprite = GameHelperModule.getSpriteBank().Create(data.Attr("sprite")));
     }
@@ -24,7 +26,7 @@ public class Pigarithm : Solid {
     public override void Update() {
         //player kill check
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p != null) {
+        if(p != null && kill) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX)) {
                 p.Die(Vector2.Normalize(p.Center - this.Center));
             }

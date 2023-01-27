@@ -20,7 +20,8 @@ pigarithm.placements = {
             height = 32,
             sprite = "pigarithm_big",
             speed = 60.0,
-            startRight = true
+            startRight = true,
+            kill = true
         }
     }
 }

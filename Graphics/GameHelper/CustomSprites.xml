@@ -9,15 +9,15 @@
 
     <pigarithm_small path="objects/GameHelper/pigarithm/" start="idle">
         <Loop id="idle" path="small_idle"/>
-        <Anim id="turn" path="small_turn" delay="0.05" goto="idle"/>
+        <Anim id="spin" path="small_spin" delay="0.05" goto="idle"/>
     </pigarithm_small>
     <pigarithm_medium path="objects/GameHelper/pigarithm/" start="idle">
         <Loop id="idle" path="medium_idle"/>
-        <Anim id="turn" path="medium_turn" delay="0.05" goto="idle"/>
+        <Anim id="spin" path="medium_spin" delay="0.05" goto="idle"/>
     </pigarithm_medium>
     <pigarithm_big path="objects/GameHelper/pigarithm/" start="idle">
         <Loop id="idle" path="big_idle"/>
-        <Anim id="turn" path="big_turn" delay="0.05" goto="idle"/>
+        <Anim id="spin" path="big_spin" delay="0.05" goto="idle"/>
     </pigarithm_big>
 
     <enemy path="objects/GameHelper/Enemy/" start="walking">
