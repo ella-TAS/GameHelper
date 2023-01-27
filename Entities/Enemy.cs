@@ -20,7 +20,6 @@ public class Enemy : Actor
     private Collider bounceCollider;
     public Holdable Hold;
     public Solid solid;
-    //Some extra variables to make the entity more customizable
     public float hitboxWidth = 8;
     public float hitboxHeight = 16;
     public float hitboxXOffset = -3;
@@ -32,6 +31,7 @@ public class Enemy : Actor
     public bool canDie = true;
     public string customSpritePath;
     public bool drawOutline = false;
+    public float fallSpeedLimit = 400;
 
     // Constructor
     public Enemy(EntityData data, Vector2 offset)
@@ -42,8 +42,11 @@ public class Enemy : Actor
         Position = data.Position + offset;
         speedX = data.Float("speedX");
         speedY = data.Float("speedY");
+        fallSpeedLimit = data.Float("fallSpeedLimit");
         customSpritePath = (string.IsNullOrEmpty(data.Attr("customSpritePath")) ? "objects/GameHelper/Enemy" : data.Attr("customSpritePath")); // If no path is introduced, default sprite, else, customSpritePath
         Add(sprite = new Sprite(GFX.Game, customSpritePath + "/"));
+        sprite.AddLoop("walking", "walking", 0.08f);
+        sprite.Play("walking");
         Add(new PlayerCollider(OnPlayer));
         Add(new PlayerCollider(OnPlayerBounce, bounceCollider));
     }
@@ -75,7 +78,7 @@ public class Enemy : Actor
     {
         base.Update();
         Player player = Scene.Tracker.GetEntity<Player>();
-        moveTowardsPlayer(player);
+        moving(player);
         if (base.Top > (float)SceneAs<Level>().Bounds.Bottom)
         {
             Die();
@@ -83,7 +86,7 @@ public class Enemy : Actor
         sprite.FlipX = !(left);
     }
 
-    private void moveTowardsPlayer (Player player)
+    private void moving (Player player)
     {
         //Acceleration + moving one pixel at a time
         if (player != null)
@@ -103,10 +106,15 @@ public class Enemy : Actor
             //Falls to the bottom of the screen if it's not on ground
             if (!OnGround(new Vector2(toX, ExactPosition.Y)))
             {
-            float falling = Calc.Approach(speedY, (float)SceneAs<Level>().Bounds.Bottom, speedY * Engine.DeltaTime);
-            float toY = ExactPosition.Y;
-            toY = Calc.Approach(toY, 400f, 2f);
-            MoveToY(toY);
+                // velY = Calc.Approach(velY, fallCap, gravity)
+                float falling = Calc.Approach(ExactPosition.Y, fallSpeedLimit, - speedY * Engine.DeltaTime);
+                float toY = ExactPosition.Y;
+                /*while (toY != falling)
+                {
+                    toY = Calc.Approach(toY, falling, 2f);
+                }*/
+                //MoveToY(toY);
+                MoveToY(falling);
             }
         }
     }
