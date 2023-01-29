@@ -1,5 +1,4 @@
 //EllaTAS
-using System;
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
@@ -12,7 +11,7 @@ public class PushBoxButton : Entity {
 
     public PushBoxButton(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         Add(sprite);
-        base.Collider = new ColliderList(new Hitbox(16f, 16f, 0f, 0f));
+        base.Collider = new Hitbox(16f, 4f, 0f, 0f);
         Add(new PlayerCollider(onCollide));
     }
 
@@ -21,6 +20,6 @@ public class PushBoxButton : Entity {
     }
 
     public override void Update() {
-
+        base.Update();
     }
 }

@@ -31,7 +31,7 @@ public class Pigarithm : Solid {
 
     public override void Update() {
         //player kill check
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && kill) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX)) {
                 p.Die(Vector2.Normalize(p.Center - this.Center));

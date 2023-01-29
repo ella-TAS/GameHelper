@@ -25,7 +25,7 @@ public class PushBox : Solid {
 
     public override void Update() {
         //player check, move X
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX)) {
                 MoveHCollideSolids(speedX * Engine.DeltaTime, thruDashBlocks: true);
