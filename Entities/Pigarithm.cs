@@ -13,6 +13,7 @@ public class Pigarithm : Solid {
     private bool movingRight;
     private bool kill;
     private int restTimer;
+    private string size;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
@@ -20,7 +21,12 @@ public class Pigarithm : Solid {
         movingRight = data.Bool("startRight");
         kill = data.Bool("kill");
         restTimer = 0;
-        Add(sprite = GameHelperModule.getSpriteBank().Create(data.Attr("sprite")));
+        size = data.Attr("sprite");
+        sprite = GameHelperModule.getSpriteBank().Create(size);
+        if(size == "pigarithm_big") {
+            sprite.RenderPosition = new Vector2(-8, 0);
+        }
+        Add(sprite);
     }
 
     public override void Update() {
@@ -39,8 +45,13 @@ public class Pigarithm : Solid {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speed * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;
-                StartShaking(0.4f);
-                restTimer = 24;
+                if(size == "pigarithm_big") {
+                    sprite.Play("spin");
+                    restTimer = 33;
+                } else {
+                    StartShaking(0.4f);
+                    restTimer = 24;
+                }
             }
         }
 
