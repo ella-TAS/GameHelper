@@ -8,7 +8,7 @@ local spriteOptions = {
 
 pigarithm.name = "GameHelper/Pigarithm"
 pigarithm.depth = 8998
-pigarithm.justification = {0.0, 0.0}
+pigarithm.justification = {0.14, 0.0}
 pigarithm.minimumSize = {16, 16}
 pigarithm.maximumSize = {48, 32}
 pigarithm.canResize = {true, true}
@@ -21,7 +21,8 @@ pigarithm.placements = {
             sprite = "pigarithm_big",
             speed = 60.0,
             startRight = true,
-            kill = true
+            kill = true,
+            flag = ""
         }
     }
 }

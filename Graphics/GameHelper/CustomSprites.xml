@@ -20,6 +20,11 @@
         <Anim id="spin" path="big_spin" delay="0.05" goto="idle"/>
     </pigarithm_big>
 
+    <push_box_button path="objects/GameHelper/push_box_button/" start="idle">
+        <Loop id="idle" path="idle"/>
+        <Loop id="down" path="down"/>
+    </push_box_button>
+
     <enemy path="objects/GameHelper/Enemy/" start="walking">
         <Justify x="0.5" y="0.5" />
         <Loop id="walking" path="walking" delay="0.1" frames="0-3" />

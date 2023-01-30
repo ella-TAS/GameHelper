@@ -9,13 +9,9 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Trampoline")]
 public class Trampoline : Entity {
     private Sprite sprite;
-    private float speedBoostX;
-    private float speedBoostY;
-    private bool facingUpLeft;
-    private bool refillDash;
-    private bool oneUse;
-    private int hasCollided = 0;
-    private int collidable = 0;
+    private float speedBoostX, speedBoostY;
+    private bool facingUpLeft, refillDash, oneUse;
+    private int hasCollided, collidable;
 
     public Trampoline(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         speedBoostX = data.Float("speedBoostX");
@@ -23,6 +19,7 @@ public class Trampoline : Entity {
         facingUpLeft = data.Bool("facingUpLeft");
         refillDash = data.Bool("refillDash");
         oneUse = data.Bool("oneUse");
+        hasCollided = collidable = 0;
         sprite = GameHelperModule.getSpriteBank().Create("trampoline");
         if(!facingUpLeft) {
             sprite.FlipX = true;

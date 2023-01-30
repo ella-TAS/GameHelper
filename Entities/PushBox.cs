@@ -6,6 +6,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/PushBox")]
+[Tracked]
 public class PushBox : Solid {
     private const float gravity = 7.5f;
     private const float fallCap = 160f;
@@ -21,6 +22,7 @@ public class PushBox : Solid {
         speedX = data.Int("speedX");
         velY = 0f;
         Add(GameHelperModule.getSpriteBank().Create("pigarithm_small"));
+        base.Depth = -1;
     }
 
     public override void Update() {
