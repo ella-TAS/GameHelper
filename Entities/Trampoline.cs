@@ -26,7 +26,7 @@ public class Trampoline : Entity {
             sprite.RenderPosition = new Vector2(6f, 0f);
         }
         Add(sprite);
-        base.Collider = new Hitbox(16f, 16f, 0f, 0f);
+        base.Collider = new Hitbox(16f, 16f);
         Add(new PlayerCollider(onCollide));
     }
 

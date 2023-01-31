@@ -20,7 +20,7 @@ public class PushBoxButton : Entity {
         hasCollided = collidable = 0;
         down = wasDown = false;
         Add(sprite = GameHelperModule.getSpriteBank().Create("push_box_button"));
-        base.Collider = new Hitbox(16f, 8f, 0f, 0f);
+        base.Collider = new Hitbox(16f, 8f);
         if(playerActivates) {
             Add(new PlayerCollider(onCollide));
         }
