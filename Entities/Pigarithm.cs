@@ -23,9 +23,7 @@ public class Pigarithm : Solid {
         flag = data.Attr("flag");
         restTimer = 0;
         sprite = GameHelperModule.getSpriteBank().Create(size);
-        if(size == "pigarithm_big") {
-            sprite.RenderPosition = new Vector2(-8, 0);
-        }
+        sprite.RenderPosition = new Vector2(-8, 0);
         Add(sprite);
     }
 
@@ -45,25 +43,12 @@ public class Pigarithm : Solid {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speed * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;
-                if(size == "pigarithm_big") {
-                    sprite.Play("spin");
-                    restTimer = 33;
-                } else {
-                    StartShaking(0.4f);
-                    restTimer = 24;
-                }
+                sprite.Play("spin");
+                restTimer = 33;
             }
         }
 
         base.Update();
-    }
-
-    public override void Render() {
-        //shake animation, remove when turnaround sprite is added
-        Vector2 position = Position;
-        Position += base.Shake;
-        base.Render();
-        Position = position;
     }
 
     public override void Added(Scene scene) {
