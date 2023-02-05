@@ -28,6 +28,8 @@ public class Pigarithm : Solid {
     }
 
     public override void Update() {
+        base.Update();
+
         //player kill check
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && kill) {
@@ -44,11 +46,9 @@ public class Pigarithm : Solid {
             if(collided) {
                 movingRight = !movingRight;
                 sprite.Play("spin");
-                restTimer = 33;
+                restTimer = 34;
             }
         }
-
-        base.Update();
     }
 
     public override void Added(Scene scene) {

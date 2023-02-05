@@ -26,6 +26,8 @@ public class PushBox : Solid {
     }
 
     public override void Update() {
+        base.Update();
+
         //player check, move X
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
@@ -41,8 +43,12 @@ public class PushBox : Solid {
         if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
             velY = 0f;
         }
-
-        base.Update();
+        if (base.Top > (float)SceneAs<Level>().Bounds.Bottom + 8f) {
+            foreach(StaticMover s in staticMovers) {
+                s.RemoveSelf();
+            }
+            RemoveSelf();
+        }
     }
 
     public override void Render() {

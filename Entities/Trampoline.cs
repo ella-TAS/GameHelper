@@ -51,12 +51,16 @@ public class Trampoline : Entity {
 
     public override void Update() {
         base.Update();
+
+        //collidable check
         if(collidable != 0) {
             hasCollided++;
             if(collidable != hasCollided) {
                 collidable = hasCollided = 0;
             }
         }
+
+        //edit player state
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(collidable == 1){
             p.StateMachine.State = 0;
