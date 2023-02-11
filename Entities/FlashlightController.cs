@@ -8,7 +8,6 @@ namespace Celeste.Mods.GameHelper.Entities;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
-    private static GameHelperModuleSettings settings;
     private Level level;
     private float fadeSpeed;
     private int cooldownTime, cooldown;
