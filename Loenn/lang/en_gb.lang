@@ -28,24 +28,3 @@ entities.GameHelper/RoasterController.attributes.description.timer=The amount of
 
 entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
 entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall
-
-entities.GameHelper/Enemy.placements.name.enemy=Enemy
-entities.GameHelper/Enemy.attributes.description.speedX=Horizontal speed (default 50)
-entities.GameHelper/Enemy.attributes.description.speedY=Falling speed (default 200)
-entities.GameHelper/Enemy.attributes.description.canDie=If the enemy should be able to die (e.g. when bounced or when falling off screen)
-entities.GameHelper/Enemy.attributes.description.hitboxWidth=The width of the killing hitbox
-entities.GameHelper/Enemy.attributes.description.hitboxHeight=The height of the killing hitbox
-entities.GameHelper/Enemy.attributes.description.bounceHitboxWidth=The width of the Bouncing hitbox. Leave to 0 if you don't want to bounce on it
-entities.GameHelper/Enemy.attributes.description.bounceHitboxHeight=The height of the Bouncing hitbox. Leave to 0 if you don't want to bounce on it
-entities.GameHelper/Enemy.attributes.description.hitboxXOffset=Use this field to move the hitbox if you're reskinning the enemy
-entities.GameHelper/Enemy.attributes.description.hitboxYOffset=Use this field to move the hitbox if you're reskinning the enemy
-entities.GameHelper/Enemy.attributes.description.drawOutline=If the entity should have a black outline for readability
-entities.GameHelper/Enemy.attributes.description.customSpritePath=Path to a custom frame sprite, relative to Graphics/Atlases/Gameplay/objects/
-
-entities.GameHelper/FlyingEnemy.placements.name.flyingenemy=Flying Enemy
-entities.GameHelper/FlyingEnemy.attributes.description.speedX=Horizontal speed (default 50)
-entities.GameHelper/FlyingEnemy.attributes.description.speedY=Vertical speed (default 50)
-
-entities.GameHelper/WaterEnemy.placements.name.waterenemy=Water Enemy
-entities.GameHelper/WaterEnemy.attributes.description.speedX=Horizontal speed (default 50)
-entities.GameHelper/WaterEnemy.attributes.description.speedY=Vertical speed (default 40)
