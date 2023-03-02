@@ -2,34 +2,40 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using Celeste.Mod.GameHelper;
 
-namespace Celeste.Mods.GameHelper.Entities;
+namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
     private Level level;
+    private float baseAlpha;
     private float fadeSpeed;
-    private int cooldownTime, cooldown;
+    private int _cooldown, cooldown;
 
     public FlashlightController(EntityData data, Vector2 levelOffset) {
-        fadeSpeed = data.Float("fadeSpeed");
-        cooldownTime = data.Int("cooldown");
+        fadeSpeed = 1 / data.Float("fadeTime");
+        _cooldown = data.Int("cooldown");
     }
 
     public override void Update() {
         base.Update();
+        cooldown--;
         if(Input.Talk && cooldown <= 0) {
             Input.Talk.ConsumePress();
-            level.Lighting.Alpha = level.Session.DarkRoomAlpha - 1;
-            cooldown = cooldownTime;
+            level.Lighting.Alpha = 0;
+            cooldown = _cooldown;
+            Audio.Play("event:/GameHelper/Flashlight");
         }
-        cooldown--;
-        level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, level.Session.DarkRoomAlpha, fadeSpeed);
+        level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed);
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
         level = SceneAs<Level>();
+        baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
+        if(_cooldown <= 0) {
+            Logger.Log("GameHelper", "FlashlightController has bad cooldown value");
+            RemoveSelf();
+        }
     }
 }

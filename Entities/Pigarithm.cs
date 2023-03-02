@@ -24,6 +24,7 @@ public class Pigarithm : Solid {
         restTimer = 0;
         sprite = GameHelperModule.getSpriteBank().Create(size);
         sprite.RenderPosition = new Vector2(-8, 0);
+        sprite.FlipY = data.Bool("flipSprite");
         Add(sprite);
     }
 
@@ -34,7 +35,7 @@ public class Pigarithm : Solid {
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && kill) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX)) {
-                p.Die(Vector2.Normalize(p.Center - this.Center));
+                p.Die((p.Center - this.Center).SafeNormalize());
             }
         }
 

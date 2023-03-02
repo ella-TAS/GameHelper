@@ -8,44 +8,57 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/Bloodhound")]
 public class Bloodhound : Actor {
+    private const float maxSpeed = 3f;
+    private const float accel = 0.2f;
+    private const int stunTime = 10;
+    private bool charging;
+    private int stunned;
+    private float speed;
     private Vector2 homePos, targetPos;
-    private bool facingRightOrUp, charging;
-    private bool horizontal;
 
     public Bloodhound(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
-        targetPos = data.Nodes[0];
-        horizontal = data.Bool("horizontal");
-        homePos = data.Position;
-        //base.Collider = new Hitbox(16f, 16f);
+        targetPos = data.Nodes[0] + levelOffset;
+        homePos = data.Position + levelOffset;
+        charging = false;
+        base.Depth = -1;
         base.Collider = new Circle(6f);
-        Hitbox trackRange = new Hitbox(32f, 8f);
-
-        Entity e = new Entity();
-        e.Collider = trackRange;
-
         Add(new PlayerCollider(onCollide));
-        Add(new PlayerCollider(onSight, trackRange));
     }
 
     public override void Update() {
         base.Update();
 
+        //tracking
+        if(base.Scene.CollideFirst<Player>(homePos, targetPos) != null && stunned <= 0) {
+            charging = true;
+        }
+
+        stunned--;
+
         //movement
         if(charging) {
-            base.Collider.Position += Vector2.Normalize(targetPos - Position);
-            if(Vector2.Distance(targetPos, base.Collider.Position) < 2) {
-                charging = false;
+            speed = Calc.Approach(speed, maxSpeed, accel);
+            Position = Calc.Approach(Position, targetPos, speed);
+            if(Position == Calc.Approach(Position, targetPos, 1f)) {
                 targetPos = homePos;
                 homePos = Position;
+                stunned = stunTime;
+                charging = false;
             }
         }
     }
 
-    private void onSight(Player p) {
-        charging = true;
-    }
 
     private void onCollide(Player p) {
-        p.Die(Vector2.Normalize(p.Center - this.Center));
+        p.Die((p.Position - Position).SafeNormalize() + (charging ? (targetPos - homePos).SafeNormalize() : Vector2.Zero));
+    }
+
+    public override void Render() {
+        Draw.Circle(Position, 6, Color.Orange, 1);
+    }
+
+    public override void DebugRender(Camera camera) {
+        base.DebugRender(camera);
+        Draw.Line(homePos, targetPos, Color.Aqua);
     }
 }

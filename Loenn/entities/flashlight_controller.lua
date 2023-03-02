@@ -6,13 +6,16 @@ flc.texture = "loenn/GameHelper/flashlight_controller"
 flc.justification = {0.0, 0.0}
 flc.fieldInformation = {
     cooldown = {
-        fieldType = "integer",
+        fieldType = "integer"
+    },
+    fadeTime = {
+        fieldType = "integer"
     }
 }
 flc.placements = {
     name = "flc",
     data = {
-        fadeSpeed = 0.03,
+        fadeTime = 60,
         cooldown = 180
     }
 }

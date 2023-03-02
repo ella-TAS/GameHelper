@@ -9,6 +9,7 @@ entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (def
 entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
 entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player
 entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's movement. Leave empty for no condition.
+entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box
 entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30)
@@ -19,8 +20,11 @@ entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether
 entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag is set to false with the room reset
 
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
-entities.GameHelper/FlashlightController.attributes.description.fadeSpeed=The step size the light uses to fade back to darkness. 1 means instantaneous. (default 0.03)
+entities.GameHelper/FlashlightController.attributes.description.fadeTime=The amount of frames the light alpha takes to fade back to darkness (default 60)
 entities.GameHelper/FlashlightController.attributes.description.cooldown=The amount of frames after which the flashlight can be used again (default 180)
+
+entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
+entities.GameHelper/RoasterController.attributes.description.timer=The amount of frames you you can stay on ground or walls before being killed (default 120)
 
 entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
 entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall

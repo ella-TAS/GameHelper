@@ -21,6 +21,7 @@ pigarithm.placements = {
             speed = 60.0,
             startRight = true,
             kill = true,
+            flipSprite = false,
             flag = ""
         }
     }

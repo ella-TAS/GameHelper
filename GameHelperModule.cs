@@ -10,7 +10,9 @@ public class GameHelperModule : EverestModule {
         Instance = this;
     }
 
-    public override void Load() {}
+    public override void Load() {
+        Logger.SetLogLevel("GameHelper", 0);
+    }
 
     public override void Unload() {}
 
