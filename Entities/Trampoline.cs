@@ -1,8 +1,8 @@
 //EllaTAS
-using System;
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 

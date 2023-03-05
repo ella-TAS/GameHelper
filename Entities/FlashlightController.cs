@@ -7,6 +7,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
+    private Sprite sprite;
     private Level level;
     private float baseAlpha;
     private float fadeSpeed;
@@ -15,6 +16,13 @@ public class FlashlightController : Entity {
     public FlashlightController(EntityData data, Vector2 levelOffset) {
         fadeSpeed = 1 / data.Float("fadeTime");
         _cooldown = data.Int("cooldown");
+        sprite = new Sprite(GFX.Gui, "GameHelper/");
+        sprite.AddLoop("idle", "flashlight", 1f);
+        sprite.Play("idle");
+        sprite.Visible = false;
+        Add(sprite);
+        base.Tag = Tags.HUD;
+        base.Position = new Vector2(1800, 960);
     }
 
     public override void Update() {
@@ -24,7 +32,10 @@ public class FlashlightController : Entity {
             Input.Talk.ConsumePress();
             level.Lighting.Alpha = 0;
             cooldown = _cooldown;
+            sprite.Visible = true;
             Audio.Play("event:/GameHelper/Flashlight");
+        } else if(cooldown <= 0) {
+            sprite.Visible = false;
         }
         level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed);
     }

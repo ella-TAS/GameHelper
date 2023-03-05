@@ -44,6 +44,7 @@ public class Bloodhound : Actor {
                 homePos = Position;
                 stunned = stunTime;
                 charging = false;
+                speed = 0;
             }
         }
     }

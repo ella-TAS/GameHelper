@@ -1,3 +1,3 @@
 # Contributors
 Code: EllaTAS, KoseiDiamond
-Dead spring sprite: Lua
+Custom sprites: Inferno/Roomba, Lua
