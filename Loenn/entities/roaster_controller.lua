@@ -12,7 +12,8 @@ rc.fieldInformation = {
 rc.placements = {
     name = "rc",
     data = {
-        timer = 120
+        timer = 90,
+        flag = "roasted"
     }
 }
 

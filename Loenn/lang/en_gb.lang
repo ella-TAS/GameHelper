@@ -24,7 +24,8 @@ entities.GameHelper/FlashlightController.attributes.description.fadeTime=The amo
 entities.GameHelper/FlashlightController.attributes.description.cooldown=The amount of frames after which the flashlight can be used again (default 180)
 
 entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
-entities.GameHelper/RoasterController.attributes.description.timer=The amount of frames you you can stay on ground or walls before being killed (default 120)
+entities.GameHelper/RoasterController.attributes.description.timer=The amount of frames you you can stay on ground or walls before being killed (default 90)
+entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently
 
 entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
 entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall
