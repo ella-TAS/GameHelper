@@ -25,6 +25,13 @@
         <Loop id="down" path="down"/>
     </push_box_button>
 
+    <balloon path="objects/GameHelper/balloon/" start="idle">
+        <Justify x="0.27" y="0.27"/>
+        <Loop id="idle" path="idle"/>
+        <Anim id="pop" path="pop" delay="0.1"/>
+        <Anim id="spawn" path="spawn" delay="0.1" goto="idle"/>
+    </balloon>
+
     <enemy path="objects/GameHelper/Enemy/" start="walking">
         <Justify x="0.5" y="0.5" />
         <Loop id="walking" path="walking" delay="0.1" frames="0-3" />

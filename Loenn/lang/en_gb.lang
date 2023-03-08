@@ -26,6 +26,11 @@ entities.GameHelper/FlashlightController.attributes.description.cooldown=The amo
 entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
 entities.GameHelper/RoasterController.attributes.description.timer=The amount of frames you you can stay on ground or walls before being killed (default 90)
 entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently
+entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers
+
+triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Trigger
 
 entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
 entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall
+
+entities.GameHelper/Balloon.placements.name.balloon=Balloon

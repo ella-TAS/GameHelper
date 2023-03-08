@@ -1,4 +1,3 @@
-//EllaTAS
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;

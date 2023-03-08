@@ -1,4 +1,3 @@
-//EllaTAS
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
@@ -44,8 +43,12 @@ public class FlashlightController : Entity {
         base.Added(scene);
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
+        if(level.Entities.AmountOf<FlashlightController>() > 1) {
+            Logger.Log("GameHelper", "WARN – Multiple FlashlightControllers in room " + SceneAs<Level>().Session.LevelData.Name);
+            RemoveSelf();
+        }
         if(_cooldown <= 0) {
-            Logger.Log("GameHelper", "FlashlightController has bad cooldown value");
+            Logger.Log("GameHelper", "WARN – FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }

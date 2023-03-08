@@ -1,4 +1,3 @@
-//EllaTAS
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
@@ -6,18 +5,22 @@ using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
+[Tracked]
 [CustomEntity("GameHelper/RoasterController")]
 public class RoasterController : Entity {
     private ParticleType pType;
     private Color color;
     private String flag;
     private float _timer, timer;
+    private bool waterOnly;
     private float progress;
 
     public RoasterController(EntityData data, Vector2 levelOffset) {
         _timer = data.Int("timer");
         flag = data.Attr("flag");
+        waterOnly = data.Bool("OnlyExtinguishInWater");
         base.Depth = -9999999;
+        base.Collider = new Hitbox(8, 8);
 
         //particles
         pType = new ParticleType(){
@@ -41,15 +44,16 @@ public class RoasterController : Entity {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(p != null) {
             SceneAs<Level>().Session.SetFlag(flag, true);
-            if(p.OnGround()) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(p.Facing == Facings.Right ? 2 : 1, 10), Vector2.UnitX * 4f, 4.7123890f);
-            } else if(p.CollideCheck<Solid>(p.Position + new Vector2(3, 0))) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(6, 3), new Vector2(0, 6), 3.9269908f);
-            } else if(p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0))) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(-4, 3), new Vector2(0, 6), 5.4977871f);
-            } else {
-                timer = 0;
-                SceneAs<Level>().Session.SetFlag(flag, false);
+            bool ground = p.OnGround();
+            bool wallL = p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0));
+            bool wallR = p.CollideCheck<Solid>(p.Position + new Vector2(3, 0));
+            if((!waterOnly && !ground && !wallL && !wallR) ||
+                (waterOnly && p.CollideCheck<Water>()) ||
+                (!p.InControl && p.JustRespawned)) {
+                ResetTimer();
+            }
+            if(timer > 1) {
+                createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
             if(timer >= _timer) {
                 p.Die(Vector2.Zero);
@@ -60,6 +64,27 @@ public class RoasterController : Entity {
         float ratio = (float) timer / (float) _timer;
         progress = 15 - (15 * ratio);
         color = new Color(255, (int) (255f * (1 - ratio)), 0);
+    }
+
+    private void createParticles(bool water, bool ground = false, bool wallL = false, bool wallR = false, bool facing_right = false) {
+        if(water) {
+            SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(facing_right ? 2 : 1, 5), Vector2.One * 6f, 4.7123890f);
+        } else {
+            if(ground) {
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(facing_right ? 2 : 1, 10), Vector2.UnitX * 4f, 4.7123890f);
+            }
+            if(wallR) {
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(6, 3), new Vector2(0, 6), 3.9269908f);
+            }
+            if(wallL) {
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(-4, 3), new Vector2(0, 6), 5.4977871f);
+            }
+        }
+    }
+
+    public void ResetTimer() {
+        timer = 0;
+        SceneAs<Level>().Session.SetFlag(flag, false);
     }
 
     public override void Render() {
@@ -94,8 +119,12 @@ public class RoasterController : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
+        if(SceneAs<Level>().Entities.AmountOf<RoasterController>() > 1) {
+            Logger.Log("GameHelper", "WARN – Multiple RoasterControllers in room " + SceneAs<Level>().Session.LevelData.Name);
+            RemoveSelf();
+        }
         if(_timer <= 0) {
-            Logger.Log("GameHelper", "RoasterController has bad timer value");
+            Logger.Log("GameHelper", "WARN – RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }

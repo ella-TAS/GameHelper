@@ -13,7 +13,8 @@ rc.placements = {
     name = "rc",
     data = {
         timer = 90,
-        flag = "roasted"
+        flag = "roasted",
+        OnlyExtinguishInWater = false
     }
 }
 
