@@ -30,8 +30,9 @@ entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWat
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Trigger
 
-entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
-entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall
+entities.GameHelper/Chainsaw.placements.name.chainsaw=Chainsaw
+entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis
 
 entities.GameHelper/Balloon.placements.name.balloon=Balloon
 entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
+entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)

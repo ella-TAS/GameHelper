@@ -22,8 +22,9 @@ balloon.fieldInformation = {
 balloon.placements = {
     name = "balloon",
     data = {
-        oneUse = false,
-        color = "red"
+        color = "red",
+        superBounce = false,
+        oneUse = false
     }
 }
 

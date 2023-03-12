@@ -9,11 +9,12 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class Balloon : Entity {
     private Sprite sprite;
     private bool isController;
-    private int respawnTimer, timeActive;
-    private bool oneUse;
+    private int respawnTimer;
+    private bool oneUse, superBounce;
 
     public Balloon(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         oneUse = data.Bool("oneUse");
+        superBounce = data.Bool("superBounce");
         base.Collider = new Hitbox(15, 8);
         respawnTimer = (int) (-189 * GameHelperModule.Random.NextFloat());
         Add(new PlayerCollider(onCollide));
@@ -38,7 +39,14 @@ public class Balloon : Entity {
     }
 
     private void onCollide(Player player) {
-        player.Bounce(Position.Y);
+        if(superBounce) {
+            float speedX = player.Speed.X;
+            player.SuperBounce(Position.Y);
+            player.Speed.X = speedX;
+        } else {
+            player.Bounce(Position.Y);
+        }
+        player.AutoJumpTimer = 0f;
         player.Speed.X *= 1.2f;
         base.Collidable = false;
         respawnTimer = 150;

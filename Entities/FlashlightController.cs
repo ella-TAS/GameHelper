@@ -27,8 +27,8 @@ public class FlashlightController : Entity {
     public override void Update() {
         base.Update();
         cooldown--;
-        if(Input.Talk && cooldown <= 0) {
-            Input.Talk.ConsumePress();
+        if(Input.MenuJournal && cooldown <= 0) {
+            Input.MenuJournal.ConsumePress();
             level.Lighting.Alpha = 0;
             cooldown = _cooldown;
             sprite.Visible = true;

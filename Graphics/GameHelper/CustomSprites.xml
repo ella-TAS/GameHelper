@@ -27,39 +27,17 @@
 
     <balloon_red path="objects/GameHelper/balloon/red/" start="idle">
         <Justify x="0.27" y="0.27"/>
-        <Loop id="idle" path="idle"/>
+        <Loop id="idle" path="idle" frames="0,1,0,2" delay="3"/>
         <Anim id="pop" path="pop" delay="0.06666"/>
         <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
     </balloon_red>
-    <balloon_blue path="objects/GameHelper/balloon/blue/" start="idle">
-        <Justify x="0.27" y="0.27"/>
-        <Loop id="idle" path="idle"/>
-        <Anim id="pop" path="pop" delay="0.06666"/>
-        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
-    </balloon_blue>
-    <balloon_green path="objects/GameHelper/balloon/green/" start="idle">
-        <Justify x="0.27" y="0.27"/>
-        <Loop id="idle" path="idle"/>
-        <Anim id="pop" path="pop" delay="0.06666"/>
-        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
-    </balloon_green>
-    <balloon_yellow path="objects/GameHelper/balloon/yellow/" start="idle">
-        <Justify x="0.27" y="0.27"/>
-        <Loop id="idle" path="idle"/>
-        <Anim id="pop" path="pop" delay="0.06666"/>
-        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
-    </balloon_yellow>
+    <balloon_blue path="objects/GameHelper/balloon/blue/" copy="balloon_red"/>
+    <balloon_green path="objects/GameHelper/balloon/green/" copy="balloon_red"/>
+    <balloon_yellow path="objects/GameHelper/balloon/yellow/" copy="balloon_red"/>
 
-    <enemy path="objects/GameHelper/Enemy/" start="walking">
-        <Justify x="0.5" y="0.5" />
-        <Loop id="walking" path="walking" delay="0.1" frames="0-3" />
-    </enemy>
-    <flyingEnemy path="objects/GameHelper/FlyingEnemy/" start="flying">
-        <Justify x="0.5" y="0.5" />
-        <Loop id="flying" path="flying" delay="0.1" frames="0-3" />
-    </flyingEnemy>
-    <swimmingEnemy path="objects/GameHelper/SwimmingEnemy/" start="swimming">
-        <Justify x="0.5" y="0.5" />
-        <Loop id="swimming" path="swimming" delay="0.1" frames="0-3" />
-    </swimmingEnemy>
+    <chainsaw path="objects/GameHelper/chainsaw/" start="idle">
+        <Justify x="0.5" y="0.5"/>
+        <Loop id="idle" path="idle" delay="0.05"/>
+        <Loop id="chasing" path="chasing" delay="0.05"/>
+    </chainsaw>
 </Sprites>

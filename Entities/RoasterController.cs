@@ -20,7 +20,6 @@ public class RoasterController : Entity {
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
         base.Depth = -9999999;
-        base.Collider = new Hitbox(8, 8);
 
         //particles
         pType = new ParticleType(){
