@@ -11,6 +11,12 @@ pigarithm.depth = 8998
 pigarithm.minimumSize = {16, 16}
 pigarithm.maximumSize = {48, 32}
 pigarithm.canResize = {true, true}
+pigarithm.fieldInformation = {
+    sprite = {
+        options = spriteOptions,
+        editable = false
+    }
+}
 pigarithm.placements = {
     {
         name = "pigarithm",
@@ -24,12 +30,6 @@ pigarithm.placements = {
             flipSprite = false,
             flag = ""
         }
-    }
-}
-pigarithm.fieldInformation = {
-    sprite = {
-        options = spriteOptions,
-        editable = false
     }
 }
 

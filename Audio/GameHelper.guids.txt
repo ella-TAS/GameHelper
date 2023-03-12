@@ -1,3 +1,4 @@
+{058a5b8d-3e72-451f-9e72-c4221bc5bdd1} event:/GameHelper/balloon/Balloon_pop
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
 {ad25a031-880b-4f88-ac12-82d6c52fbdea} event:/char/badeline/appear
 {7a71fc61-b688-4d82-a2b7-781c2434e942} event:/char/badeline/booster_begin

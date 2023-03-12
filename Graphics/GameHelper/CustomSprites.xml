@@ -25,12 +25,30 @@
         <Loop id="down" path="down"/>
     </push_box_button>
 
-    <balloon path="objects/GameHelper/balloon/" start="idle">
+    <balloon_red path="objects/GameHelper/balloon/red/" start="idle">
         <Justify x="0.27" y="0.27"/>
         <Loop id="idle" path="idle"/>
-        <Anim id="pop" path="pop" delay="0.1"/>
-        <Anim id="spawn" path="spawn" delay="0.1" goto="idle"/>
-    </balloon>
+        <Anim id="pop" path="pop" delay="0.06666"/>
+        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
+    </balloon_red>
+    <balloon_blue path="objects/GameHelper/balloon/blue/" start="idle">
+        <Justify x="0.27" y="0.27"/>
+        <Loop id="idle" path="idle"/>
+        <Anim id="pop" path="pop" delay="0.06666"/>
+        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
+    </balloon_blue>
+    <balloon_green path="objects/GameHelper/balloon/green/" start="idle">
+        <Justify x="0.27" y="0.27"/>
+        <Loop id="idle" path="idle"/>
+        <Anim id="pop" path="pop" delay="0.06666"/>
+        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
+    </balloon_green>
+    <balloon_yellow path="objects/GameHelper/balloon/yellow/" start="idle">
+        <Justify x="0.27" y="0.27"/>
+        <Loop id="idle" path="idle"/>
+        <Anim id="pop" path="pop" delay="0.06666"/>
+        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
+    </balloon_yellow>
 
     <enemy path="objects/GameHelper/Enemy/" start="walking">
         <Justify x="0.5" y="0.5" />

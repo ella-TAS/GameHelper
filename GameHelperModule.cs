@@ -1,13 +1,16 @@
 ﻿using Monocle;
+using System;
 
 namespace Celeste.Mod.GameHelper;
 
 public class GameHelperModule : EverestModule {
-    public static GameHelperModule Instance;
     private static SpriteBank spriteBank;
+    internal static Random Random;
+    internal static int BalloonCount;
 
     public GameHelperModule() {
-        Instance = this;
+        Random = new Random(0);
+        BalloonCount = 0;
     }
 
     public override void Load() {
@@ -20,7 +23,13 @@ public class GameHelperModule : EverestModule {
         spriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
     }
 
-    public static SpriteBank getSpriteBank() {
+    public static SpriteBank GetSpriteBank() {
         return spriteBank;
+    }
+
+    public static void IncreaseBalloon() {
+        if(BalloonCount < 7) {
+            BalloonCount++;
+        }
     }
 }

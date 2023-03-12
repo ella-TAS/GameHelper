@@ -20,7 +20,7 @@ public class PushBox : Solid {
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Int("speedX");
         velY = 0f;
-        Add(GameHelperModule.getSpriteBank().Create("pigarithm_small"));
+        Add(GameHelperModule.GetSpriteBank().Create("pigarithm_small"));
         base.Depth = -1;
     }
 

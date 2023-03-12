@@ -34,3 +34,4 @@ entities.GameHelper/Bloodhound.placements.name.bloodhound=Bloodhound
 entities.GameHelper/Bloodhound.attributes.description.horizontal=Whether the entity is placed on a horizontal or vertical wall
 
 entities.GameHelper/Balloon.placements.name.balloon=Balloon
+entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
