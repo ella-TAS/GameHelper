@@ -1,13 +1,16 @@
 # Contributors
 Code: EllaTAS
 
-Custom sprites:  
+### Custom sprites
 Inferno/Roomba – Flashlight UI  
 Flamecrafter113 – Balloons  
 Lua – Dead spring  
 Purppelle – Bloodhound
 
-SFX from:  
+### SFX
 King of Thives  
 A Hat in Time  
 It Steals
+
+### Others
+Lua – drastic file size reduction

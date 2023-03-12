@@ -1,1 +1,0 @@
-GameHelper_text= Some sample text.

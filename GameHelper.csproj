@@ -7,7 +7,7 @@
     <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
     <LangVersion>latest</LangVersion>
     <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..</CelesteGamePath>
-    <PathMap>$(MSBuildProjectDirectory)=X:\ABCDEFGH\</PathMap>
+    <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
   </PropertyGroup>
 
   <!--Disable "Copy Local" for all references-->
@@ -42,5 +42,4 @@
       </ItemGroup>
     </Otherwise>
   </Choose>
-  
 </Project>
