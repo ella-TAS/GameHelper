@@ -26,12 +26,18 @@ entities.GameHelper/Balloon.placements.name.balloon=Balloon
 entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
 entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)
 
+entities.GameHelper/DecalMover.placements.name.moving_decal=Decal Mover
+entities.GameHelper/DecalMover.placements.description.moving_decal=The base node chooses the nearest decal, the other nodes are for movement
+entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60)
+entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move
+entities.GameHelper/DecalMover.attributes.description.loop=Whether the decal should return to the original position and restart
+
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
-entities.GameHelper/FlashlightController.attributes.description.fadeTime=The amount of seconds the light alpha takes to fade back to darkness (default 1)
-entities.GameHelper/FlashlightController.attributes.description.cooldown=The amount of seconds after which the flashlight can be used again (default 3)
+entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)
+entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3)
 
 entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
-entities.GameHelper/RoasterController.attributes.description.timer=The amount of frames you you can stay on ground or walls before being killed (default 90)
+entities.GameHelper/RoasterController.attributes.description.timer=The number of seconds you you can stay on ground or walls before being killed (default 1.5)
 entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently
 entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers
 
