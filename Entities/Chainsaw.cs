@@ -9,12 +9,10 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class Chainsaw : Entity {
     private const float maxSpeed = 3f;
     private const float accel = 0.2f;
-    private const int stunTime = 10;
     private Sprite sprite;
     private EventInstance sfx;
     private bool charging;
-    private int stunned;
-    private float speed;
+    private float stunned, speed;
     private Vector2 homePos, targetPos, collidePos1, collidePos2;
 
     public Chainsaw(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
@@ -41,7 +39,7 @@ public class Chainsaw : Entity {
             sfx = Audio.Play("event:/GameHelper/chainsaw/chainsaw_attack");
         }
 
-        stunned--;
+        stunned -= Engine.DeltaTime;
 
         //movement
         if(charging) {
@@ -50,7 +48,7 @@ public class Chainsaw : Entity {
             if(Position == Calc.Approach(Position, targetPos, 1f)) {
                 targetPos = homePos;
                 homePos = Position;
-                stunned = stunTime;
+                stunned = 1f/6f;
                 charging = false;
                 speed = 0;
                 sprite.FlipX = !sprite.FlipX;

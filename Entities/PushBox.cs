@@ -13,13 +13,11 @@ public class PushBox : Solid {
     private Color colorFill = Calc.HexToColor("fbb954");
     private Color colorCorner = Calc.HexToColor("8ff8e2");
     private Level level;
-    private int speedX;
-    private float velY;
+    private float speedX, velY;
 
     public PushBox(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
-        speedX = data.Int("speedX");
-        velY = 0f;
+        speedX = data.Float("speedX");
         Add(GameHelperModule.GetSpriteBank().Create("pigarithm_small"));
         base.Depth = -1;
     }
@@ -43,9 +41,6 @@ public class PushBox : Solid {
             velY = 0f;
         }
         if (base.Top > (float)SceneAs<Level>().Bounds.Bottom + 8f) {
-            foreach(StaticMover s in staticMovers) {
-                s.RemoveSelf();
-            }
             RemoveSelf();
         }
     }
@@ -68,7 +63,7 @@ public class PushBox : Solid {
     }
 
     public override void Added(Scene scene) {
-        level = SceneAs<Level>();
         base.Added(scene);
+        level = SceneAs<Level>();
     }
 }

@@ -10,11 +10,11 @@ public class FlashlightController : Entity {
     private Level level;
     private float baseAlpha;
     private float fadeSpeed;
-    private int _cooldown, cooldown;
+    private float _cooldown, cooldown;
 
     public FlashlightController(EntityData data, Vector2 levelOffset) {
         fadeSpeed = 1 / data.Float("fadeTime");
-        _cooldown = data.Int("cooldown");
+        _cooldown = data.Float("cooldown");
         sprite = new Sprite(GFX.Gui, "GameHelper/");
         sprite.AddLoop("idle", "flashlight", 1f);
         sprite.Play("idle");
@@ -26,7 +26,7 @@ public class FlashlightController : Entity {
 
     public override void Update() {
         base.Update();
-        cooldown--;
+        cooldown -= Engine.DeltaTime;
         if(Input.MenuJournal && cooldown <= 0) {
             Input.MenuJournal.ConsumePress();
             level.Lighting.Alpha = 0;
@@ -36,7 +36,7 @@ public class FlashlightController : Entity {
         } else if(cooldown <= 0) {
             sprite.Visible = false;
         }
-        level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed);
+        level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed * Engine.DeltaTime);
     }
 
     public override void Added(Scene scene) {

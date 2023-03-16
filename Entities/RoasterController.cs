@@ -16,7 +16,7 @@ public class RoasterController : Entity {
     private float progress;
 
     public RoasterController(EntityData data, Vector2 levelOffset) {
-        _timer = data.Int("timer");
+        timer = _timer = data.Float("timer");
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
         base.Depth = -9999999;
@@ -39,7 +39,6 @@ public class RoasterController : Entity {
 
     public override void Update() {
         base.Update();
-        timer++;
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(p != null) {
             SceneAs<Level>().Session.SetFlag(flag, true);
@@ -51,18 +50,19 @@ public class RoasterController : Entity {
                 (!p.InControl && p.JustRespawned)) {
                 ResetTimer();
             }
-            if(timer > 1) {
+            if (_timer != timer) {
                 createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
-            if(timer >= _timer) {
+            if(timer <= 0) {
                 p.Die(Vector2.Zero);
                 base.Visible = false;
             }
             Position = p.Center + new Vector2(p.Facing == Facings.Right ? -1 : 0, -3);
         }
-        float ratio = (float) timer / (float) _timer;
-        progress = 15 - (15 * ratio);
-        color = new Color(255, (int) (255f * (1 - ratio)), 0);
+        float ratio = timer / _timer;
+        progress = 15 - (15 * (1 - ratio));
+        color = new Color(255, (int) (255f * ratio), 0);
+        timer -= Engine.DeltaTime;
     }
 
     private void createParticles(bool water, bool ground = false, bool wallL = false, bool wallR = false, bool facing_right = false) {
@@ -82,7 +82,7 @@ public class RoasterController : Entity {
     }
 
     public void ResetTimer() {
-        timer = 0;
+        timer = _timer;
         SceneAs<Level>().Session.SetFlag(flag, false);
     }
 
