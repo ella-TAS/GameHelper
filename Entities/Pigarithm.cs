@@ -20,7 +20,7 @@ public class Pigarithm : Solid {
         kill = data.Bool("kill");
         size = data.Attr("sprite");
         flag = data.Attr("flag");
-        sprite = GameHelperModule.GetSpriteBank().Create(size);
+        sprite = GameHelperModule.SpriteBank.Create(size);
         sprite.RenderPosition = new Vector2(-8, 0);
         sprite.FlipY = data.Bool("flipSprite");
         Add(sprite);

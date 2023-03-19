@@ -1,4 +1,4 @@
-# Contributors
+### Contributors
 Code: EllaTAS
 
 ### Custom sprites
@@ -8,9 +8,10 @@ Lua – Dead spring
 Purppelle – Bloodhound
 
 ### SFX
-King of Thives  
+King of Thieves  
 A Hat in Time  
 It Steals
 
 ### Others
-Lua – drastic file size reduction
+Lua – drastic file size reduction  
+Popax21 – friendly help

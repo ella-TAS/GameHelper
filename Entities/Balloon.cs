@@ -8,8 +8,8 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Balloon")]
 public class Balloon : Entity {
     private Sprite sprite;
-    private bool isController;
     private float respawnTimer;
+    private bool isLead;
     private bool oneUse, superBounce;
 
     public Balloon(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
@@ -18,7 +18,7 @@ public class Balloon : Entity {
         base.Collider = new Hitbox(15, 8);
         respawnTimer = (int) (-3.15f * GameHelperModule.Random.NextFloat());
         Add(new PlayerCollider(onCollide));
-        Add(sprite = GameHelperModule.GetSpriteBank().Create("balloon_" + data.Attr("color", "red")));
+        Add(sprite = GameHelperModule.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
     }
 
     public override void Update() {
@@ -29,8 +29,7 @@ public class Balloon : Entity {
             sprite.Play("spawn");
         }
         sprite.RenderPosition = Position + 1.5f * Vector2.UnitY * (float) Math.Sin(2 * respawnTimer);
-
-        if(isController) {
+        if(isLead) {
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p == null || p.OnGround()) {
                 GameHelperModule.BalloonCount = 0;
@@ -57,7 +56,14 @@ public class Balloon : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        GameHelperModule.BalloonCount = 0;
-        isController = SceneAs<Level>().Entities.AmountOf<Balloon>() == 1;
+        GameHelperModule.BalloonCount = -1;
+    }
+
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
+        if(GameHelperModule.BalloonCount == -1) {
+            isLead = true;
+            GameHelperModule.BalloonCount = 0;
+        }
     }
 }

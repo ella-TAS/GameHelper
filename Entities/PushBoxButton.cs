@@ -18,7 +18,7 @@ public class PushBoxButton : Entity {
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
         hasCollided = collidable = 0;
         down = wasDown = false;
-        Add(sprite = GameHelperModule.GetSpriteBank().Create("push_box_button"));
+        Add(sprite = GameHelperModule.SpriteBank.Create("push_box_button"));
         base.Collider = new Hitbox(16f, 8f);
         if(playerActivates) {
             Add(new PlayerCollider(onCollide));

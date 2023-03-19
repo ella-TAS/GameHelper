@@ -22,7 +22,7 @@ public class Chainsaw : Entity {
         collidePos2 = targetPos + 5.5f * (targetPos - homePos).SafeNormalize();
         base.Depth = -1;
         base.Collider = new Circle(6f);
-        sprite = GameHelperModule.GetSpriteBank().Create("chainsaw");
+        sprite = GameHelperModule.SpriteBank.Create("chainsaw");
         sprite.Rotation = (targetPos - homePos).Angle();
         sprite.FlipY = data.Bool("flipSprite");
         Add(sprite);

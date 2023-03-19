@@ -4,13 +4,12 @@ using System;
 namespace Celeste.Mod.GameHelper;
 
 public class GameHelperModule : EverestModule {
-    private static SpriteBank spriteBank;
+    internal static SpriteBank SpriteBank;
     internal static Random Random;
     internal static int BalloonCount;
 
     public GameHelperModule() {
         Random = new Random(0);
-        BalloonCount = 0;
     }
 
     public override void Load() {
@@ -20,11 +19,7 @@ public class GameHelperModule : EverestModule {
     public override void Unload() {}
 
     public override void LoadContent(bool firstLoad) {
-        spriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
-    }
-
-    public static SpriteBank GetSpriteBank() {
-        return spriteBank;
+        SpriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
     }
 
     public static void IncreaseBalloon() {

@@ -32,6 +32,9 @@ entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal 
 entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move
 entities.GameHelper/DecalMover.attributes.description.loop=Whether the decal should return to the original position and restart
 
+entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
+entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
+
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
 entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)
 entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3)
