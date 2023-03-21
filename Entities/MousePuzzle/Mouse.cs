@@ -4,6 +4,7 @@ using System;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
+[Tracked]
 public class Mouse : Actor {
     public enum Direction {Left, Up, Right, Down}
     private Direction dir;
@@ -11,18 +12,16 @@ public class Mouse : Actor {
     public Mouse(Vector2 Position) : base(Position) {
         base.Collider = new Hitbox(8, 8, -4, -4);
         dir = Direction.Down;
+        Add(GameHelperModule.SpriteBank.Create("mouse"));
     }
 
     public override void Update() {
         base.Update();
         NaiveMove(dirToVector());
-        foreach(MouseRotator m in CollideAll<MouseRotator>()) {
-            NaiveMove(-dirToVector());
-            rotate(m.Clockwise);
-        }
     }
 
-    private void rotate(bool clockwise) {
+    public void Rotate(bool clockwise) {
+        NaiveMove(-dirToVector());
         dir = (Direction) (((int) dir + (clockwise ? 1 : -1) + 4) % 4);
     }
 

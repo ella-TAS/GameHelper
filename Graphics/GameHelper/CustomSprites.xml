@@ -40,4 +40,12 @@
         <Loop id="idle" path="idle" delay="0.05"/>
         <Loop id="chasing" path="chasing" delay="0.05"/>
     </chainsaw>
+
+    <mouse_rotator path="objects/GameHelper/mouse_puzzle/" start="right">
+        <Loop id="right" path="rotator_right"/>
+        <Loop id="left" path="rotator_left"/>
+    </mouse_rotator>
+    <mouse path="objects/GameHelper/mouse_puzzle/" start="running">
+        <Loop id="running" path="maus" frames="0,1,0,2,3,2"/>
+    </mouse>
 </Sprites>

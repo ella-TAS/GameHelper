@@ -19,6 +19,7 @@ public class Balloon : Entity {
         respawnTimer = (int) (-3.15f * GameHelperModule.Random.NextFloat());
         Add(new PlayerCollider(onCollide));
         Add(sprite = GameHelperModule.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
+        sprite.Play("idle", true, true);
     }
 
     public override void Update() {
