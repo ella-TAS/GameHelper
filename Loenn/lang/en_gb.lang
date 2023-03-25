@@ -35,6 +35,11 @@ entities.GameHelper/DecalMover.attributes.description.loop=Whether the decal sho
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
 
+entities.GameHelper/MouseHole.placements.name.hole_spawner=Mouse Hole (Spawner)
+entities.GameHelper/MouseHole.placements.name.hole_exit=Mouse Hole (Exit)
+entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole
+entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true\nExit: Sets flag when a mouse enters
+
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
 entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)
 entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3)

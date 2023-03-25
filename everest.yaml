@@ -1,5 +1,5 @@
 ﻿- Name: GameHelper
-  Version: 1.0.1
+  Version: 1.0.3
   DLL: bin/Debug/net452/GameHelper.dll
   Dependencies:
     - Name: Everest

@@ -5,17 +5,18 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
 [CustomEntity("GameHelper/MouseRotator")]
+[Tracked]
 public class MouseRotator : Solid {
     private Vector2 movement;
-    private bool clockwise;
+    public bool Clockwise;
 
     public MouseRotator(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, 16, 16, safe: false) {
-        clockwise = data.Bool("clockwise");
+        Clockwise = data.Bool("clockwise");
         base.OnDashCollide = OnDashed;
         base.Depth = -1;
         Sprite sprite = GameHelperModule.SpriteBank.Create("mouse_rotator");
-        if(clockwise) {
+        if(Clockwise) {
             sprite.Play("left");
         }
         Add(sprite);
@@ -29,9 +30,6 @@ public class MouseRotator : Solid {
             if(collideX || collideY) {
                 movement = Vector2.Zero;
             }
-        }
-        foreach(Mouse m in CollideAll<Mouse>()) {
-            m.Rotate(clockwise);
         }
     }
 

@@ -46,6 +46,13 @@
         <Loop id="left" path="rotator_left"/>
     </mouse_rotator>
     <mouse path="objects/GameHelper/mouse_puzzle/" start="running">
-        <Loop id="running" path="maus" frames="0,1,0,2,3,2"/>
+        <Loop id="running" path="maus" frames="0,1,0,2,3,2" delay="0.1"/>
     </mouse>
+    <mouse_hole path="objects/GameHelper/mouse_puzzle/" start="closed">
+        <Loop id="closed" path="hole_closed"/>
+        <Anim id="opening" path="hole_open" delay="0.1"/>
+        <Anim id="closing" path="hole_close" delay="0.1" goto="closed"/>
+        <Loop id="exit" path="exit"/>
+        <Anim id="complete" path="complete" delay="0.1"/>
+    </mouse_hole>
 </Sprites>
