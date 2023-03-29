@@ -13,7 +13,10 @@ public class Mouse : Actor {
     public Mouse(Vector2 Position) : base(Position) {
         base.Collider = new Hitbox(8, 8);
         dir = Direction.Down;
-        Add(sprite = GameHelperModule.SpriteBank.Create("mouse"));
+        sprite = GameHelperModule.SpriteBank.Create("mouse");
+        sprite.CenterOrigin();
+        sprite.RenderPosition = new Vector2(4, 4);
+        Add(sprite);
     }
 
     public override void Update() {
@@ -32,7 +35,7 @@ public class Mouse : Actor {
     private void rotate(bool clockwise) {
         NaiveMove(-dirToVector() * 120f * Engine.DeltaTime);
         dir = (Direction) (((int) dir + (clockwise ? 1 : -1) + 4) % 4);
-        sprite.Rotation = (float) (((double) dir - 0.5) * Math.PI);
+        sprite.Rotation = (float) (((double) dir + 1) * 0.5 * Math.PI);
     }
 
     private Vector2 dirToVector() {

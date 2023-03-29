@@ -21,7 +21,7 @@ hole.placements = {
 }
 
 function hole.texture(room, entity)
-    return "objects/GameHelper/mouse_hole/" .. entity.spawner ? "hole_closed" : "exit"
+    return "objects/GameHelper/mouse_puzzle/" .. (entity.spawner and "hole_closed" or "exit")
 end
 
 return hole

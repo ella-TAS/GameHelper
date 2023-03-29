@@ -13,4 +13,8 @@ rotator.placements = {
     }
 }
 
+function rotator.texture(room, entity)
+    return "objects/GameHelper/mouse_puzzle/rotator_" .. (entity.clockwise and "left" or "right")
+end
+
 return rotator

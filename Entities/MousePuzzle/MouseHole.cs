@@ -8,6 +8,7 @@ namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 public class MouseHole : Entity {
     private Sprite sprite;
     private bool wasFlag, complete;
+    private float spawnTimer;
     private bool spawner;
     private string flag;
 
@@ -34,17 +35,20 @@ public class MouseHole : Entity {
                 }
             }
         } else {
+            spawnTimer += Engine.DeltaTime;
             bool isFlag = SceneAs<Level>().Session.GetFlag(flag);
-            if(isFlag && Scene.OnInterval(1f/3f)) {
-                SceneAs<Level>().Add(new Mouse(Position));
-            }
             if(isFlag && !wasFlag) {
                 sprite.Play("opening");
                 wasFlag = true;
+                spawnTimer = 0.2f;
             }
             if(!isFlag && wasFlag) {
                 sprite.Play("closing");
                 wasFlag = false;
+            }
+            if(isFlag && spawnTimer >= 1f/3f) {
+                SceneAs<Level>().Add(new Mouse(Position + new Vector2(5, 6)));
+                spawnTimer = 0;
             }
         }
     }
