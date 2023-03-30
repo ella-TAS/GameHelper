@@ -20,7 +20,8 @@ public class Pigarithm : Solid {
         kill = data.Bool("kill");
         size = data.Attr("sprite");
         flag = data.Attr("flag");
-        sprite = GameHelperModule.SpriteBank.Create(size);
+        base.Depth = -1;
+        sprite = GameHelper.SpriteBank.Create(size);
         sprite.RenderPosition = new Vector2(-8, 0);
         sprite.FlipY = data.Bool("flipSprite");
         Add(sprite);
@@ -28,14 +29,6 @@ public class Pigarithm : Solid {
 
     public override void Update() {
         base.Update();
-
-        //player kill check
-        Player p = Scene.Tracker.GetEntity<Player>();
-        if(p != null && kill) {
-            if(p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX)) {
-                p.Die((p.Center - this.Center).SafeNormalize());
-            }
-        }
 
         //movement
         if(restTimer > 0 || (flag != "" && !SceneAs<Level>().Session.GetFlag(flag))) {
@@ -47,6 +40,12 @@ public class Pigarithm : Solid {
                 sprite.Play("spin");
                 restTimer = 34f / 60f;
             }
+        }
+
+        //player kill check
+        Player p = Scene.Tracker.GetEntity<Player>();
+        if(p != null && kill && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
+            p.Die((p.Center - this.Center).SafeNormalize());
         }
     }
 

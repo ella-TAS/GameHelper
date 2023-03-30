@@ -8,13 +8,11 @@ pushbox.justification = {0.0, 0.0}
 pushbox.minimumSize = {16, 16}
 pushbox.canResize = {true, true}
 pushbox.placements = {
-    {
-        name = "pushbox",
-        data = {
-            width = 16,
-            height = 16,
-            speedX = 30.0
-        }
+    name = "pushbox",
+    data = {
+        width = 16,
+        height = 16,
+        speedX = 30.0
     }
 }
 

@@ -19,7 +19,7 @@ public class Trampoline : Entity {
         refillDash = data.Bool("refillDash");
         oneUse = data.Bool("oneUse");
         hasCollided = collidable = 0;
-        sprite = GameHelperModule.SpriteBank.Create("trampoline");
+        sprite = GameHelper.SpriteBank.Create("trampoline");
         if(!facingUpLeft) {
             sprite.FlipX = true;
             sprite.RenderPosition = new Vector2(6f, 0f);

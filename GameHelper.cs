@@ -3,12 +3,12 @@ using System;
 
 namespace Celeste.Mod.GameHelper;
 
-public class GameHelperModule : EverestModule {
+public class GameHelper : EverestModule {
     internal static SpriteBank SpriteBank;
     internal static Random Random;
     internal static int BalloonCount;
 
-    public GameHelperModule() {
+    public GameHelper() {
         Random = new Random(0);
     }
 

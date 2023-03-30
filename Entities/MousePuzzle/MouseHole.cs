@@ -18,7 +18,7 @@ public class MouseHole : Entity {
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
         base.Depth = 2;
         base.Collider = new Hitbox(16, 16);
-        Add(sprite = GameHelperModule.SpriteBank.Create("mouse_hole"));
+        Add(sprite = GameHelper.SpriteBank.Create("mouse_hole"));
         if(!spawner) {
             sprite.Play("exit");
         }
@@ -41,7 +41,7 @@ public class MouseHole : Entity {
             if(isFlag && !wasFlag) {
                 sprite.Play("opening");
                 wasFlag = true;
-                spawnTimer = 0.2f;
+                spawnTimer = 0.25f;
             }
             if(!isFlag && wasFlag) {
                 sprite.Play("closing");

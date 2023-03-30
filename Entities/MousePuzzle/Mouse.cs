@@ -13,7 +13,7 @@ public class Mouse : Actor {
     public Mouse(Vector2 Position) : base(Position) {
         base.Collider = new Hitbox(8, 8);
         dir = Direction.Down;
-        sprite = GameHelperModule.SpriteBank.Create("mouse");
+        sprite = GameHelper.SpriteBank.Create("mouse");
         sprite.CenterOrigin();
         sprite.RenderPosition = new Vector2(4, 4);
         Add(sprite);

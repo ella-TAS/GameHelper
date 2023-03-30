@@ -18,18 +18,16 @@ pigarithm.fieldInformation = {
     }
 }
 pigarithm.placements = {
-    {
-        name = "pigarithm",
-        data = {
-            width = 48,
-            height = 32,
-            sprite = "pigarithm_big",
-            speed = 60.0,
-            startRight = true,
-            kill = true,
-            flipSprite = false,
-            flag = ""
-        }
+    name = "pigarithm",
+    data = {
+        width = 48,
+        height = 32,
+        sprite = "pigarithm_big",
+        speed = 60.0,
+        startRight = true,
+        kill = true,
+        flipSprite = false,
+        flag = ""
     }
 }
 

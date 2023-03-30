@@ -15,7 +15,7 @@ public class MouseRotator : Solid {
         Clockwise = data.Bool("clockwise");
         base.OnDashCollide = OnDashed;
         base.Depth = -1;
-        Sprite sprite = GameHelperModule.SpriteBank.Create("mouse_rotator");
+        Sprite sprite = GameHelper.SpriteBank.Create("mouse_rotator");
         if(Clockwise) {
             sprite.Play("left");
         }

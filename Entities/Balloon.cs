@@ -16,9 +16,9 @@ public class Balloon : Entity {
         oneUse = data.Bool("oneUse");
         superBounce = data.Bool("superBounce");
         base.Collider = new Hitbox(15, 8);
-        respawnTimer = (int) (-3.15f * GameHelperModule.Random.NextFloat());
+        respawnTimer = (int) (-3.15f * GameHelper.Random.NextFloat());
         Add(new PlayerCollider(onCollide));
-        Add(sprite = GameHelperModule.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
+        Add(sprite = GameHelper.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
         sprite.Play("idle", true, true);
     }
 
@@ -33,7 +33,7 @@ public class Balloon : Entity {
         if(isLead) {
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p == null || p.OnGround()) {
-                GameHelperModule.BalloonCount = 0;
+                GameHelper.BalloonCount = 0;
             }
         }
     }
@@ -51,20 +51,20 @@ public class Balloon : Entity {
         base.Collidable = false;
         respawnTimer = 2.5f;
         sprite.Play("pop");
-        Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", GameHelperModule.BalloonCount);
-        GameHelperModule.IncreaseBalloon();
+        Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", GameHelper.BalloonCount);
+        GameHelper.IncreaseBalloon();
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        GameHelperModule.BalloonCount = -1;
+        GameHelper.BalloonCount = -1;
     }
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(GameHelperModule.BalloonCount == -1) {
+        if(GameHelper.BalloonCount == -1) {
             isLead = true;
-            GameHelperModule.BalloonCount = 0;
+            GameHelper.BalloonCount = 0;
         }
     }
 }
