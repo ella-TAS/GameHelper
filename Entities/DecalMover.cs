@@ -19,7 +19,7 @@ public class DecalMover : Entity {
         flag = data.Attr("flag");
         loop = data.Bool("loop");
         nodes = new Vector2[data.Nodes.Length];
-        for(int i=0; i<nodes.Length; i++) {
+        for(int i = 0; i < nodes.Length; i++) {
             nodes[i] = data.Nodes[i] + levelOffset;
         }
     }

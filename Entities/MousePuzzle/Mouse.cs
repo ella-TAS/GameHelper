@@ -6,7 +6,7 @@ namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
 [Tracked]
 public class Mouse : Actor {
-    public enum Direction {Left, Up, Right, Down}
+    public enum Direction { Left, Up, Right, Down }
     private Sprite sprite;
     private Direction dir;
 

@@ -48,7 +48,7 @@ public class Chainsaw : Entity {
             if(Position == Calc.Approach(Position, targetPos, 1f)) {
                 targetPos = homePos;
                 homePos = Position;
-                stunned = 1f/6f;
+                stunned = 1f / 6f;
                 charging = false;
                 speed = 0;
                 sprite.FlipX = !sprite.FlipX;

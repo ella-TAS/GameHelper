@@ -35,6 +35,6 @@ public class MouseRotator : Solid {
 
     private DashCollisionResults OnDashed(Player player, Vector2 direction) {
         movement = direction;
-		return DashCollisionResults.Rebound;
-	}
+        return DashCollisionResults.Rebound;
+    }
 }

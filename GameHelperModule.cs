@@ -16,7 +16,7 @@ public class GameHelperModule : EverestModule {
         Logger.SetLogLevel("GameHelper", 0);
     }
 
-    public override void Unload() {}
+    public override void Unload() { }
 
     public override void LoadContent(bool firstLoad) {
         SpriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");

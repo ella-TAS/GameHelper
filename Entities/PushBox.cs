@@ -40,7 +40,7 @@ public class PushBox : Solid {
         if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
             velY = 0f;
         }
-        if (base.Top > (float)SceneAs<Level>().Bounds.Bottom + 8f) {
+        if(base.Top > (float) SceneAs<Level>().Bounds.Bottom + 8f) {
             RemoveSelf();
         }
     }

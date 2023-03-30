@@ -8,14 +8,16 @@ hole.placements = {
         name = "hole_spawner",
         data = {
             spawner = true,
-            flag = "mice"
+            flag = "mice",
+            resetFlagOnDeath = false
         }
     },
     {
         name = "hole_exit",
         data = {
             spawner = false,
-            flag = "mice"
+            flag = "mice",
+            resetFlagOnDeath = true
         }
     }
 }

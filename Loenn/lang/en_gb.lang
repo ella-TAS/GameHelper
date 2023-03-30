@@ -17,7 +17,7 @@ entities.GameHelper/PushBox.attributes.description.speed=The speed you move at w
 entities.GameHelper/PushBoxButton.placements.name.pushboxbutton=Push Box Button
 entities.GameHelper/PushBoxButton.attributes.description.flag=The flag the button activates
 entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether the player can activate the button
-entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag is set to false with the room reset
+entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
 
 entities.GameHelper/Chainsaw.placements.name.chainsaw=Chainsaw
 entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis
@@ -39,6 +39,7 @@ entities.GameHelper/MouseHole.placements.name.hole_spawner=Mouse Hole (Spawner)
 entities.GameHelper/MouseHole.placements.name.hole_exit=Mouse Hole (Exit)
 entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole
 entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true\nExit: Sets flag when a mouse enters
+entities.GameHelper/MouseHole.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
 
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
 entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)

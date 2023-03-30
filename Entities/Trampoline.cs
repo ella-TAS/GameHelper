@@ -61,13 +61,13 @@ public class Trampoline : Entity {
 
         //edit player state
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(collidable == 1){
+        if(collidable == 1) {
             p.StateMachine.State = 0;
             p.AutoJump = true;
-            if (!p.Inventory.NoRefills && refillDash) {
+            if(!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();
             }
-        p.RefillStamina();
+            p.RefillStamina();
         }
     }
 }

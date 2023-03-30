@@ -54,7 +54,7 @@ public class PushBoxButton : Entity {
             sprite.Play("down");
             wasDown = true;
             SceneAs<Level>().Session.SetFlag(flag, true);
-        } else if (!down && wasDown) {
+        } else if(!down && wasDown) {
             sprite.Play("idle");
             wasDown = false;
             SceneAs<Level>().Session.SetFlag(flag, false);

@@ -22,7 +22,7 @@ public class RoasterController : Entity {
         base.Depth = -9999999;
 
         //particles
-        pType = new ParticleType(){
+        pType = new ParticleType() {
             Color = Color.Orange,
             Color2 = Color.OrangeRed,
             ColorMode = ParticleType.ColorModes.Choose,
@@ -50,7 +50,7 @@ public class RoasterController : Entity {
                 (!p.InControl && p.JustRespawned)) {
                 ResetTimer();
             }
-            if (_timer != timer) {
+            if(_timer != timer) {
                 createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
             if(timer <= 0) {

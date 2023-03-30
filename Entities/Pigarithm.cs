@@ -45,7 +45,7 @@ public class Pigarithm : Solid {
             if(collided) {
                 movingRight = !movingRight;
                 sprite.Play("spin");
-                restTimer = 34f/60f;
+                restTimer = 34f / 60f;
             }
         }
     }
