@@ -1,5 +1,6 @@
 using Monocle;
 using Microsoft.Xna.Framework;
+using FMOD.Studio;
 using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
@@ -29,12 +30,14 @@ public class MouseRotator : Solid {
             bool collideY = MoveVCollideSolidsAndBounds(SceneAs<Level>(), movement.Y * 120 * Engine.DeltaTime, false, null);
             if(collideX || collideY) {
                 movement = Vector2.Zero;
+                Audio.Play("event:/GameHelper/annoyingmice/stop");
             }
         }
     }
 
     private DashCollisionResults OnDashed(Player player, Vector2 direction) {
         movement = direction;
+        Audio.Play("event:/GameHelper/annoyingmice/hit");
         return DashCollisionResults.Rebound;
     }
 }

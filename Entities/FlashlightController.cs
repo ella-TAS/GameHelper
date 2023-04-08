@@ -10,11 +10,11 @@ public class FlashlightController : Entity {
     private Level level;
     private float baseAlpha;
     private float fadeSpeed;
-    private float _cooldown, cooldown;
+    private float maxCooldown, cooldown;
 
     public FlashlightController(EntityData data, Vector2 levelOffset) {
         fadeSpeed = 1 / data.Float("fadeTime");
-        _cooldown = data.Float("cooldown");
+        maxCooldown = data.Float("cooldown");
         sprite = new Sprite(GFX.Gui, "GameHelper/");
         sprite.AddLoop("idle", "flashlight", 1f);
         sprite.Play("idle");
@@ -30,7 +30,7 @@ public class FlashlightController : Entity {
         if(Input.MenuJournal && cooldown <= 0) {
             Input.MenuJournal.ConsumePress();
             level.Lighting.Alpha = 0;
-            cooldown = _cooldown;
+            cooldown = maxCooldown;
             sprite.Visible = true;
             Audio.Play("event:/GameHelper/Flashlight");
         } else if(cooldown <= 0) {
@@ -47,7 +47,7 @@ public class FlashlightController : Entity {
             Logger.Log("GameHelper", "WARN – Multiple FlashlightControllers in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
-        if(_cooldown <= 0) {
+        if(maxCooldown <= 0) {
             Logger.Log("GameHelper", "WARN – FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }

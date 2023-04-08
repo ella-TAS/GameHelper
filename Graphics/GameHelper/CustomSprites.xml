@@ -55,4 +55,8 @@
         <Loop id="exit" path="exit"/>
         <Anim id="complete" path="complete" delay="0.06666"/>
     </mouse_hole>
+
+    <ricochet_fist path="objects/GameHelper/" start="idle">
+        <Loop id="idle" path="ricochet_fist"/>
+    </ricochet_fist>
 </Sprites>

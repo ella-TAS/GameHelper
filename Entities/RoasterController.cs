@@ -11,12 +11,12 @@ public class RoasterController : Entity {
     private ParticleType pType;
     private Color color;
     private String flag;
-    private float _timer, timer;
+    private float maxTimer, timer;
     private bool waterOnly;
     private float progress;
 
     public RoasterController(EntityData data, Vector2 levelOffset) {
-        timer = _timer = data.Float("timer");
+        timer = maxTimer = data.Float("timer");
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
         base.Depth = -9999999;
@@ -50,7 +50,7 @@ public class RoasterController : Entity {
                 (!p.InControl && p.JustRespawned)) {
                 ResetTimer();
             }
-            if(_timer != timer) {
+            if(maxTimer != timer) {
                 createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
             if(timer <= 0) {
@@ -59,7 +59,7 @@ public class RoasterController : Entity {
             }
             Position = p.Center + new Vector2(p.Facing == Facings.Right ? -1 : 0, -3);
         }
-        float ratio = timer / _timer;
+        float ratio = timer / maxTimer;
         progress = 15 - (15 * (1 - ratio));
         color = new Color(255, (int) (255f * ratio), 0);
         timer -= Engine.DeltaTime;
@@ -82,7 +82,7 @@ public class RoasterController : Entity {
     }
 
     public void ResetTimer() {
-        timer = _timer;
+        timer = maxTimer;
         SceneAs<Level>().Session.SetFlag(flag, false);
     }
 
@@ -122,7 +122,7 @@ public class RoasterController : Entity {
             Logger.Log("GameHelper", "WARN – Multiple RoasterControllers in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
-        if(_timer <= 0) {
+        if(maxTimer <= 0) {
             Logger.Log("GameHelper", "WARN – RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }

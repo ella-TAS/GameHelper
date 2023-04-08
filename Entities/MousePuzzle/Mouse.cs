@@ -25,6 +25,7 @@ public class Mouse : Actor {
         bool hitRotator = false;
         foreach(MouseRotator m in CollideAll<MouseRotator>()) {
             rotate(m.Clockwise);
+            Audio.Play("event:/GameHelper/annoyingmice/rotate");
             hitRotator = true;
         }
         if(CollideCheck<Solid>() && !hitRotator) {
