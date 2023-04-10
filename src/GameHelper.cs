@@ -10,21 +10,14 @@ public class GameHelper : EverestModule {
 
     public GameHelper() {
         Random = new Random(0);
-    }
-
-    public override void Load() {
         Logger.SetLogLevel("GameHelper", 0);
     }
+
+    public override void Load() { }
 
     public override void Unload() { }
 
     public override void LoadContent(bool firstLoad) {
         SpriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
-    }
-
-    public static void IncreaseBalloon() {
-        if(BalloonCount < 7) {
-            BalloonCount++;
-        }
     }
 }

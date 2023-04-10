@@ -52,7 +52,9 @@ public class Balloon : Entity {
         respawnTimer = 2.5f;
         sprite.Play("pop");
         Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", GameHelper.BalloonCount);
-        GameHelper.IncreaseBalloon();
+        if(GameHelper.BalloonCount < 7) {
+            GameHelper.BalloonCount++;
+        }
     }
 
     public override void Added(Scene scene) {

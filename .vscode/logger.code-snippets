@@ -1,0 +1,10 @@
+{
+	"Log with Logger": {
+		"scope": "csharp",
+		"prefix": "log",
+		"body": [
+			"Logger.Log(\"GameHelper\", $0);"
+		],
+		"description": "Log output to console"
+	}
+}
