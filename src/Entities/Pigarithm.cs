@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -8,9 +9,8 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class Pigarithm : Solid {
     private Level level;
     private Sprite sprite;
-    private float restTimer;
     private float speed;
-    private bool movingRight, kill;
+    private bool movingRight, kill, resting;
     private string size, flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
@@ -31,14 +31,12 @@ public class Pigarithm : Solid {
         base.Update();
 
         //movement
-        if(restTimer > 0 || (flag != "" && !SceneAs<Level>().Session.GetFlag(flag))) {
-            restTimer -= Engine.DeltaTime;
-        } else {
+        if(!resting && (flag == "" || SceneAs<Level>().Session.GetFlag(flag))) {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speed * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;
                 sprite.Play("spin");
-                restTimer = 34f / 60f;
+                Add(new Coroutine(routineRest()));
             }
         }
 
@@ -47,6 +45,12 @@ public class Pigarithm : Solid {
         if(p != null && kill && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
             p.Die((p.Center - this.Center).SafeNormalize());
         }
+    }
+
+    private IEnumerator routineRest() {
+        resting = true;
+        yield return 34f / 60f;
+        resting = false;
     }
 
     public override void Added(Scene scene) {

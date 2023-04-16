@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
 
-namespace Celeste.Mod.GameHelper.Entities;
+namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [Tracked]
 [CustomEntity("GameHelper/RoasterController")]

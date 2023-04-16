@@ -16,7 +16,7 @@
         },
         {
             "label": "release build",
-            "command": "dotnet build src -o bin -c Release",
+            "command": "dotnet build src -o bin -c Release;rm bin/GameHelper.pdb",
             "type": "shell",
             "group": {
                 "kind": "build",
@@ -26,18 +26,6 @@
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "del pdb",
-            "command": "rm bin/GameHelper.pdb",
-            "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "presentation": {
-                "reveal": "silent"
-            }
         },
         {
             "label": "zip build",

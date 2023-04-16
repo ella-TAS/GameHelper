@@ -8,6 +8,7 @@
     <LangVersion>latest</LangVersion>
     <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..\..</CelesteGamePath>
     <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
   </PropertyGroup>
 
   <!--Disable "Copy Local" for all references-->

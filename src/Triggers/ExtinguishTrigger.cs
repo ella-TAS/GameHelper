@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using Celeste.Mod.GameHelper.Entities;
+using Celeste.Mod.GameHelper.Entities.Controllers;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 

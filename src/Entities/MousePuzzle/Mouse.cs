@@ -1,36 +1,52 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
-[Tracked]
 public class Mouse : Actor {
     public enum Direction { Left, Up, Right, Down }
     private Sprite sprite;
     private Direction dir;
+    private bool deathRoutine;
 
     public Mouse(Vector2 Position) : base(Position) {
-        base.Collider = new Hitbox(8, 8);
+        base.Collider = new Hitbox(16, 16);
+        base.Depth = -2;
         dir = Direction.Down;
         sprite = GameHelper.SpriteBank.Create("mouse");
         sprite.CenterOrigin();
-        sprite.RenderPosition = new Vector2(4, 4);
+        sprite.RenderPosition = new Vector2(8, 8);
         Add(sprite);
     }
 
     public override void Update() {
         base.Update();
         NaiveMove(dirToVector() * 120f * Engine.DeltaTime);
-        bool hitRotator = false;
-        foreach(MouseRotator m in CollideAll<MouseRotator>()) {
-            rotate(m.Clockwise);
-            Audio.Play("event:/GameHelper/annoyingmice/rotate");
-            hitRotator = true;
+        if(!deathRoutine && CollideCheck<Solid>()) {
+            bool surviveFrame = false;
+            foreach(MouseRotator m in CollideAll<MouseRotator>()) {
+                rotate(m.Clockwise);
+                Audio.Play("event:/GameHelper/annoyingmice/rotate");
+                surviveFrame = true;
+            }
+            foreach(MouseHole n in CollideAll<MouseHole>()) {
+                if(n.Complete()) {
+                    Add(new Coroutine(routineDestroy()));
+                    deathRoutine = true;
+                }
+                surviveFrame = true;
+            }
+            if(!surviveFrame) {
+                RemoveSelf();
+            }
         }
-        if(CollideCheck<Solid>() && !hitRotator) {
-            RemoveSelf();
-        }
+    }
+
+    private IEnumerator routineDestroy() {
+        yield return 0.05f;
+        RemoveSelf();
     }
 
     private void rotate(bool clockwise) {

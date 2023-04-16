@@ -52,7 +52,12 @@ entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWat
 
 entities.GameHelper/TimeFreezeController.placements.name.tfc=Time Freeze Controller
 
+entities.GameHelper/FloatyJumpController.placements.name.fjc=Floaty Jump Controller
+entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled
+
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
 
-triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Trigger
+triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
+
+triggers.GameHelper/RegisterHeartTrigger.placements.name.rht=Register Level Heart

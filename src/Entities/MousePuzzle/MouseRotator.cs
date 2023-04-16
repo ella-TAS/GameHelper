@@ -1,14 +1,13 @@
 using Monocle;
 using Microsoft.Xna.Framework;
-using FMOD.Studio;
 using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
-[CustomEntity("GameHelper/MouseRotator")]
 [Tracked]
+[CustomEntity("GameHelper/MouseRotator")]
 public class MouseRotator : Solid {
-    private Vector2 movement;
+    public Vector2 Movement;
     public bool Clockwise;
 
     public MouseRotator(EntityData data, Vector2 levelOffset)
@@ -25,18 +24,29 @@ public class MouseRotator : Solid {
 
     public override void Update() {
         base.Update();
-        if(movement != Vector2.Zero) {
-            bool collideX = MoveHCollideSolidsAndBounds(SceneAs<Level>(), movement.X * 120 * Engine.DeltaTime, false);
-            bool collideY = MoveVCollideSolidsAndBounds(SceneAs<Level>(), movement.Y * 120 * Engine.DeltaTime, false, null);
+        if(Movement != Vector2.Zero) {
+            bool collideX = MoveHCollideSolidsAndBounds(SceneAs<Level>(), Movement.X * 120 * Engine.DeltaTime, false);
+            bool collideY = MoveVCollideSolidsAndBounds(SceneAs<Level>(), Movement.Y * 120 * Engine.DeltaTime, false, null);
             if(collideX || collideY) {
-                movement = Vector2.Zero;
+                Movement = Vector2.Zero;
                 Audio.Play("event:/GameHelper/annoyingmice/stop");
             }
         }
     }
 
     private DashCollisionResults OnDashed(Player player, Vector2 direction) {
-        movement = direction;
+        Movement = direction;
+        if(CollideCheck<Solid>(Position + Movement)) {
+            bool chain = false;
+            foreach(MouseRotator m in CollideAll<MouseRotator>(Position + Movement)) {
+                m.Movement = Movement;
+                Movement = Vector2.Zero;
+                chain = true;
+            }
+            if(!chain) {
+                Movement = -direction;
+            }
+        }
         Audio.Play("event:/GameHelper/annoyingmice/hit");
         return DashCollisionResults.Rebound;
     }
