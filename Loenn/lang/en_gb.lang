@@ -57,6 +57,9 @@ entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether t
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
+entities.GameHelper/ImmediateFeather.placements.name.if=Custom Feather (Immediate Flight)
+entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the feather lasts in seconds (default 2.0)
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

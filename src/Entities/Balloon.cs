@@ -35,13 +35,6 @@ public class Balloon : Entity {
         }
     }
 
-    private IEnumerator routineRespawn() {
-        base.Collidable = false;
-        yield return 2.5f;
-        base.Collidable = true;
-        sprite.Play("spawn");
-    }
-
     private void onCollide(Player player) {
         if(superBounce) {
             float speedX = player.Speed.X;
@@ -57,9 +50,16 @@ public class Balloon : Entity {
         if(BalloonCount < 7) {
             BalloonCount++;
         }
+        base.Collidable = false;
         if(!oneUse) {
             Add(new Coroutine(routineRespawn()));
         }
+    }
+
+    private IEnumerator routineRespawn() {
+        yield return 2.5f;
+        base.Collidable = true;
+        sprite.Play("spawn");
     }
 
     public override void Added(Scene scene) {

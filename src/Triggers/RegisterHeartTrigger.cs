@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Monocle;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -13,5 +14,11 @@ public class RegisterHeart : Trigger {
         SaveData.Instance.RegisterHeartGem(level.Session.Area);
         level.AutoSave();
         base.Collidable = false;
+    }
+
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        AreaKey area = SceneAs<Level>().Session.Area;
+        base.Collidable = !SaveData.Instance.Areas_Safe[area.ID].Modes[(int) area.Mode].HeartGem;
     }
 }
