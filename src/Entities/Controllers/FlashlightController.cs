@@ -39,8 +39,8 @@ public class FlashlightController : Entity {
         level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed * Engine.DeltaTime);
     }
 
-    public override void Added(Scene scene) {
-        base.Added(scene);
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
         if(level.Entities.AmountOf<FlashlightController>() > 1) {

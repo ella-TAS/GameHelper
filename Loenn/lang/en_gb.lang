@@ -60,6 +60,8 @@ entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 entities.GameHelper/ImmediateFeather.placements.name.if=Custom Feather (Immediate Flight)
 entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the feather lasts in seconds (default 2.0)
 
+entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

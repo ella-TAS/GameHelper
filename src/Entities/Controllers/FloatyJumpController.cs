@@ -42,6 +42,11 @@ public class FloatyJumpController : Entity {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
+        if(SceneAs<Level>().Entities.AmountOf<FloatyJumpController>() > 1) {
+            Logger.Log("GameHelper", "WARN – Multiple FloatyJumpControllers in room " + SceneAs<Level>().Session.LevelData.Name);
+            RemoveSelf();
+            return;
+        }
         GameHelper.Instance.Session.FloatyJumps = enable;
     }
 }
