@@ -25,12 +25,4 @@ public class TimeFreezeController : Entity {
             }
         }
     }
-
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if(SceneAs<Level>().Entities.AmountOf<TimeFreezeController>() > 1) {
-            Logger.Log("GameHelper", "WARN – Multiple TimeFreezeControllers in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
-        }
-    }
 }

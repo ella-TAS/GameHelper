@@ -4,7 +4,9 @@ rht.name = "GameHelper/RegisterHeartTrigger"
 rht.depth = 8998
 rht.placements = {
     name = "rht",
-    data = {}
+    data = {
+        flag = ""
+    }
 }
 
 return rht

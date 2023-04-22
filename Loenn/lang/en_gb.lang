@@ -66,3 +66,11 @@ entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
 triggers.GameHelper/RegisterHeartTrigger.placements.name.rht=Register Level Heart
+triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty for no requirement
+
+triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withTrigger=Exit Collab Level + Register Heart
+triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withoutTrigger=Exit Collab Level
+triggers.GameHelper/ExitCollabLevelTrigger.placements.name.addHeartTrigger=Spawn a Register Heart Trigger on top of the trigger to award the crystal heart while exiting the map
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5)
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement

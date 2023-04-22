@@ -116,12 +116,8 @@ public class RoasterController : Entity {
         }
     }
 
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if(SceneAs<Level>().Entities.AmountOf<RoasterController>() > 1) {
-            Logger.Log("GameHelper", "WARN – Multiple RoasterControllers in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
-        }
+    public override void Added(Scene scene) {
+        base.Added(scene);
         if(maxTimer <= 0) {
             Logger.Log("GameHelper", "WARN – RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();

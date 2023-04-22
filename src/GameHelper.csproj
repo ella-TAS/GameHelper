@@ -26,6 +26,7 @@
     <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.exe" />
     <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
     <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
+    <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\lib\CollabUtils2.dll" />
   </ItemGroup>
 
   <Choose>

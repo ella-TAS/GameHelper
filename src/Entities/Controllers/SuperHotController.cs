@@ -18,14 +18,6 @@ public class SuperHotController : Entity {
             return;
         }
         bool input = p.InControl & Input.Aim.Value.Length() < 0.3f & !Input.Jump & !Input.Dash & !Input.CrouchDash & !Input.Grab;
-        Engine.TimeRate = Calc.Approach(Engine.TimeRate, input ? 0.05f : 1f, 0.1f);
-    }
-
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if(SceneAs<Level>().Entities.AmountOf<SuperHotController>() > 1) {
-            Logger.Log("GameHelper", "WARN – Multiple SuperHotControllers in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
-        }
+        Engine.TimeRate = Calc.Approach(Engine.TimeRate, input ? 0.1f : 1f, 0.1f);
     }
 }

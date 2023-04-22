@@ -40,13 +40,8 @@ public class FloatyJumpController : Entity {
         On.Celeste.Player.Update -= OnUpdate;
     }
 
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if(SceneAs<Level>().Entities.AmountOf<FloatyJumpController>() > 1) {
-            Logger.Log("GameHelper", "WARN – Multiple FloatyJumpControllers in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
-            return;
-        }
+    public override void Added(Scene scene) {
+        base.Added(scene);
         GameHelper.Instance.Session.FloatyJumps = enable;
     }
 }

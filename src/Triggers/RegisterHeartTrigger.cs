@@ -5,20 +5,31 @@ using Monocle;
 namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/RegisterHeartTrigger")]
-public class RegisterHeart : Trigger {
-    public RegisterHeart(EntityData data, Vector2 levelOffset) : base(data, levelOffset) { }
+public class RegisterHeartTrigger : Trigger {
+    private string flag;
 
-    public override void OnEnter(Player player) {
-        base.OnEnter(player);
-        Level level = SceneAs<Level>();
-        SaveData.Instance.RegisterHeartGem(level.Session.Area);
-        level.AutoSave();
-        base.Collidable = false;
+    public RegisterHeartTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
+        flag = data.Attr("flag");
     }
 
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        AreaKey area = SceneAs<Level>().Session.Area;
-        base.Collidable = !SaveData.Instance.Areas_Safe[area.ID].Modes[(int) area.Mode].HeartGem;
+    public override void OnStay(Player player) {
+        base.OnStay(player);
+        if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
+            return;
+        }
+        if(GameHelper.Instance.Session.HeartTriggerActivated) {
+            RemoveSelf();
+            return;
+        }
+        base.Collidable = false;
+        Level level = SceneAs<Level>();
+        if(!SaveData.Instance.Areas_Safe[level.Session.Area.ID].Modes[(int) level.Session.Area.Mode].HeartGem) {
+            SaveData.Instance.RegisterHeartGem(level.Session.Area);
+            level.AutoSave();
+        }
+        for(int i = 0; i < 25; i++) {
+            Scene.Add(new AbsorbOrb(player.Center));
+        }
+        GameHelper.Instance.Session.HeartTriggerActivated = true;
     }
 }

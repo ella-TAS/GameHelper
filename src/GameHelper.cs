@@ -11,14 +11,19 @@ public class GameHelper : EverestModule {
 
     internal static SpriteBank SpriteBank;
     internal static Random Random;
+    internal static bool CollabUtilsLoaded;
 
     public GameHelper() {
         Instance = this;
         Random = new Random(0);
-        Logger.SetLogLevel("GameHelper", 0);
     }
 
     public override void Load() {
+        Logger.SetLogLevel("GameHelper", 0);
+        CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {
+            Name = "CollabUtils2",
+            Version = new Version(1, 8, 11)
+        });
         FloatyJumpController.Load();
     }
 

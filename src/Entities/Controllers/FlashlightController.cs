@@ -39,14 +39,10 @@ public class FlashlightController : Entity {
         level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed * Engine.DeltaTime);
     }
 
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
+    public override void Added(Scene scene) {
+        base.Added(scene);
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
-        if(level.Entities.AmountOf<FlashlightController>() > 1) {
-            Logger.Log("GameHelper", "WARN – Multiple FlashlightControllers in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
-        }
         if(maxCooldown <= 0) {
             Logger.Log("GameHelper", "WARN – FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
