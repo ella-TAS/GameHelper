@@ -57,13 +57,14 @@ entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether t
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
-entities.GameHelper/ImmediateFeather.placements.name.if=Custom Feather (Immediate Flight)
-entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the feather lasts in seconds (default 2.0)
+entities.GameHelper/ImmediateFeather.placements.name.if=Immediate Feather
+entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
+entities.GameHelper/ImmediateFeather.attributes.description.cancelAtSpeed=Whether the flight should be cancelled at or below speed 190
 
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 
-entities.GameHelper/SpeedSavingFeather.placements.name.if=Custom Feather (Immediate Flight)
-entities.GameHelper/SpeedSavingFeather.attributes.description.flightDuration=How long the feather lasts in seconds (default 2.0)
+entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
+entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster

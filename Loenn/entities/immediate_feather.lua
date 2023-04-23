@@ -10,7 +10,8 @@ feather.placements = {
     data = {
         shielded = false,
         singleUse = true,
-        flightDuration = 2.0
+        flightDuration = 2.0,
+        cancelAtSpeed = false
     }
 }
 

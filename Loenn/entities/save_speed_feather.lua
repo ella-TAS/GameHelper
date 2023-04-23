@@ -3,12 +3,11 @@ local utils = require("utils")
 
 local feather = {}
 
-feather.name = "GameHelper/SpeedSavingFeather"
+feather.name = "GameHelper/SaveSpeedFeather"
 feather.depth = 8998
 feather.placements = {
     name = "ssf",
     data = {
-        releaseSpeedAtLaunch = false
         shielded = false,
         singleUse = true,
         flightDuration = 2.0
