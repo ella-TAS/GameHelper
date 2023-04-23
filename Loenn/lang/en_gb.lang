@@ -62,6 +62,9 @@ entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How l
 
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 
+entities.GameHelper/SpeedSavingFeather.placements.name.if=Custom Feather (Immediate Flight)
+entities.GameHelper/SpeedSavingFeather.attributes.description.flightDuration=How long the feather lasts in seconds (default 2.0)
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using MonoMod.Utils;
 
-namespace Celeste.Mod.GameHelper.Entities;
+namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
-[CustomEntity("GameHelper/ImmediateFeather")]
-public class ImmediateFeather : FlyFeather {
-    public ImmediateFeather(EntityData data, Vector2 levelOffset)
+[CustomEntity("GameHelper/SpeedSavingFeather")]
+public class SpeedSavingFeather : FlyFeather {
+    public SpeedSavingFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
         base.Depth = -1;
         PlayerCollider pc = Get<PlayerCollider>();
@@ -15,7 +15,6 @@ public class ImmediateFeather : FlyFeather {
             orig(p);
             p.Speed.X *= 1.2f;
             DynamicData playerData = DynamicData.For(p);
-            playerData.Set("starFlyTransforming", false);
             playerData.Set("starFlyLastDir", p.Speed);
             playerData.Set("starFlyTimer", data.Float("flightDuration"));
             playerData.Set("starFlySpeedLerp", 1f);
