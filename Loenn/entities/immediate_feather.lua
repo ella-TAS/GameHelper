@@ -6,12 +6,23 @@ local feather = {}
 feather.name = "GameHelper/ImmediateFeather"
 feather.depth = 8998
 feather.placements = {
-    name = "if",
-    data = {
-        shielded = false,
-        singleUse = true,
-        flightDuration = 2.0,
-        cancelAtSpeed = false
+    {
+        name = "normal",
+        data = {
+            cancelFeather = false,
+            shielded = false,
+            singleUse = true,
+            flightDuration = 2.0
+        }
+    },
+    {
+        name = "cancel",
+        data = {
+            cancelFeather = true,
+            shielded = false,
+            singleUse = false,
+            flightDuration = 2.0
+        }
     }
 }
 

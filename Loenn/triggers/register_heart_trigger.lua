@@ -5,7 +5,8 @@ rht.depth = 8998
 rht.placements = {
     name = "rht",
     data = {
-        flag = ""
+        flag = "",
+        hideAnimation = false
     }
 }
 

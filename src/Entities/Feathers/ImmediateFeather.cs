@@ -9,7 +9,6 @@ namespace Celeste.Mod.GameHelper.Entities.Feathers;
 public class ImmediateFeather : FlyFeather {
     internal static bool CancelFeather;
     private Color color = Color.OrangeRed;
-    private Color flyColor = Color.OrangeRed;
 
     public ImmediateFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
@@ -18,16 +17,16 @@ public class ImmediateFeather : FlyFeather {
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
         pc.OnCollide = delegate (Player p) {
-            CancelFeather = data.Bool("cancelAtSpeed");
+            CancelFeather = data.Bool("cancelFeather");
             orig(p);
-            p.Speed.X *= 1.2f;
+            p.Speed *= data.Bool("cancelFeather") ? 600f / p.Speed.Length() : 1.2f;
             DynamicData playerData = DynamicData.For(p);
             playerData.Set("starFlyTransforming", false);
             playerData.Set("starFlyLastDir", p.Speed);
             playerData.Set("starFlyTimer", data.Float("flightDuration"));
             playerData.Set("starFlySpeedLerp", 1f);
             p.Sprite.Play("starFly");
-            p.Sprite.SetColor(flyColor);
+            p.Sprite.SetColor(color);
             p.Sprite.HairCount = 7;
             p.Hair.DrawPlayerSpriteOutline = true;
             p.RefillDash();
@@ -44,8 +43,6 @@ public class ImmediateFeather : FlyFeather {
             CancelFeather = false;
             return 0;
         }
-        Logger.Log("GameHelper", CancelFeather.ToString());
-        Logger.Log("GameHelper", p.Speed.Length().ToString());
         return 19;
     }
 

@@ -7,9 +7,11 @@ namespace Celeste.Mod.GameHelper.Triggers;
 [CustomEntity("GameHelper/RegisterHeartTrigger")]
 public class RegisterHeartTrigger : Trigger {
     private string flag;
+    private bool hideAnimation;
 
     public RegisterHeartTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         flag = data.Attr("flag");
+        hideAnimation = data.Bool("hideAnimation");
     }
 
     public override void OnStay(Player player) {
@@ -27,8 +29,10 @@ public class RegisterHeartTrigger : Trigger {
             SaveData.Instance.RegisterHeartGem(level.Session.Area);
             level.AutoSave();
         }
-        for(int i = 0; i < 25; i++) {
-            Scene.Add(new AbsorbOrb(player.Center));
+        if(!hideAnimation) {
+            for(int i = 0; i < 25; i++) {
+                Scene.Add(new AbsorbOrb(player.Center));
+            }
         }
         GameHelper.Instance.Session.HeartTriggerActivated = true;
     }
