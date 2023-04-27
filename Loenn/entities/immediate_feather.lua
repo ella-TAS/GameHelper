@@ -9,19 +9,19 @@ feather.placements = {
     {
         name = "normal",
         data = {
-            cancelFeather = false,
+            startBoost = false,
             shielded = false,
             singleUse = true,
             flightDuration = 2.0
         }
     },
     {
-        name = "cancel",
+        name = "boost",
         data = {
-            cancelFeather = true,
+            startBoost = true,
             shielded = false,
             singleUse = false,
-            flightDuration = 2.0
+            flightDuration = 1.0
         }
     }
 }

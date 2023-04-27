@@ -2,12 +2,12 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Monocle;
 using MonoMod.Utils;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
 [CustomEntity("GameHelper/ImmediateFeather")]
 public class ImmediateFeather : FlyFeather {
-    internal static bool CancelFeather;
     private Color color = Color.OrangeRed;
 
     public ImmediateFeather(EntityData data, Vector2 levelOffset)
@@ -17,9 +17,13 @@ public class ImmediateFeather : FlyFeather {
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
         pc.OnCollide = delegate (Player p) {
-            CancelFeather = data.Bool("cancelFeather");
             orig(p);
-            p.Speed *= data.Bool("cancelFeather") ? 600f / p.Speed.Length() : 1.2f;
+            if(data.Bool("startBoost") && p.Speed.Length() < 600f) {
+                p.Speed *= 600f / p.Speed.Length();
+            }
+            if(!data.Bool("startBoost")) {
+                p.Speed *= 1.2f;
+            }
             DynamicData playerData = DynamicData.For(p);
             playerData.Set("starFlyTransforming", false);
             playerData.Set("starFlyLastDir", p.Speed);
@@ -32,25 +36,5 @@ public class ImmediateFeather : FlyFeather {
             p.RefillDash();
             p.RefillStamina();
         };
-    }
-
-    private static int OnStarFlyUpdate(On.Celeste.Player.orig_StarFlyUpdate orig, Player p) {
-        int state = orig(p);
-        if(state != 19) {
-            CancelFeather = false;
-            return state;
-        } else if(CancelFeather && p.Speed.Length() <= 190f) {
-            CancelFeather = false;
-            return 0;
-        }
-        return 19;
-    }
-
-    public static void Hook() {
-        On.Celeste.Player.StarFlyUpdate += OnStarFlyUpdate;
-    }
-
-    public static void Unhook() {
-        On.Celeste.Player.StarFlyUpdate -= OnStarFlyUpdate;
     }
 }

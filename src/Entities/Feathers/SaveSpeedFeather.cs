@@ -19,7 +19,9 @@ public class SaveSpeedFeather : FlyFeather {
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
         pc.OnCollide = delegate (Player p) {
-            StoredSpeed = 1.2f * p.Speed.X;
+            if(StoredSpeed == 0) {
+                StoredSpeed = 1.2f * p.Speed.X;
+            }
             orig(p);
             p.Sprite.SetColor(flyColor);
         };

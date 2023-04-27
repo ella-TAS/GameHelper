@@ -57,10 +57,10 @@ entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether t
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
-entities.GameHelper/ImmediateFeather.placements.name.normal=Immediate Feather (Keep Speed)
-entities.GameHelper/ImmediateFeather.placements.name.cancel=Immediate Feather (Boost and Cancel)
-entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
-entities.GameHelper/ImmediateFeather.attributes.description.cancelFeather=Whether the flight should start at 600 speed and be cancelled at or below speed 190
+entities.GameHelper/ImmediateFeather.placements.name.normal=Immediate Feather
+entities.GameHelper/ImmediateFeather.placements.name.boost=Immediate Feather (Start Boost)
+entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0 for normal, 1.0 for boosted)
+entities.GameHelper/ImmediateFeather.attributes.description.startBoost=Whether the flight should start with 600 speed
 
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 
