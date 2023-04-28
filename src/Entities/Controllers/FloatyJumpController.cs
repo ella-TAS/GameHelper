@@ -19,6 +19,7 @@ public class FloatyJumpController : Entity {
         if(GameHelper.Instance.Session.FloatyJumps) {
             if(p.OnGround()) {
                 CanFloat = true;
+                Floating = false;
             } else if(CanFloat && Math.Abs(p.Speed.Y) <= 40f && Input.Jump.Check && p.StateMachine.State == 0) {
                 p.DummyGravity = false;
                 p.Speed.Y = Calc.Approach(p.Speed.Y, 30f, 7.5f);

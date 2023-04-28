@@ -8,12 +8,13 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/RicochetFist")]
 public class RicochetFist : Actor {
     private Sprite sprite;
-    private Vector2 direction;
+    private Vector2 homePos, direction;
     private int stamina;
 
     public RicochetFist(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
+        homePos = Position;
         direction = (data.Nodes[0] - data.Position).SafeNormalize() * data.Float("speed");
-        stamina = 4;
+        stamina = 8;
         base.Depth = 1;
         base.Collider = new Hitbox(12, 12);
         Add(new PlayerCollider(onCollide));
@@ -31,9 +32,12 @@ public class RicochetFist : Actor {
         if(collideX || collideY) {
             Audio.Play("event:/GameHelper/fist/bullet_collide");
             stamina--;
-            if(stamina == 0) {
+            if(stamina == 4) {
                 collideX = collideY = true;
-                stamina = 4;
+            } else if(stamina == 0) {
+                collideX = collideY = true;
+                Position = homePos;
+                stamina = 8;
             }
             if(collideX) {
                 direction.X = -direction.X;
