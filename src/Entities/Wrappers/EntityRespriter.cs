@@ -7,21 +7,36 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
 [CustomEntity("GameHelper/EntityRespriter")]
 public class EntityRespriter : Entity {
-    private Sprite sprite;
-    private string fieldName;
+    private Vector2[] nodes;
+    private Vector2 levelOffset;
+    private string fieldName, spriteFolder, spriteName, xmlPath, spriteID;
+    private float delay;
+    private bool allEntities;
 
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
+        nodes = data.Nodes;
+        this.levelOffset = levelOffset;
+        allEntities = data.Bool("allEntities");
         fieldName = data.Attr("fieldName", "sprite");
-        //prepare sprite
-        if(data.Attr("spriteFolder") != "") {
+        spriteFolder = data.Attr("spriteFolder");
+        spriteName = data.Attr("spriteName");
+        delay = data.Float("delay");
+        xmlPath = data.Attr("xmlPath");
+        spriteID = data.Attr("spriteID");
+    }
+
+    private Sprite createSprite() {
+        Sprite sprite;
+        if(spriteFolder != "") {
             //direct
-            sprite = new Sprite(GFX.Game, data.Attr("spriteFolder"));
-            sprite.AddLoop("idle", data.Attr("spriteName"), data.Float("delay"));
+            sprite = new Sprite(GFX.Game, spriteFolder);
+            sprite.AddLoop("idle", spriteName, delay);
             sprite.Play("idle");
         } else {
             //xml
-            sprite = new SpriteBank(GFX.Game, data.Attr("xmlPath")).Create(data.Attr("spriteID"));
+            sprite = new SpriteBank(GFX.Game, xmlPath).Create(spriteID);
         }
+        return sprite;
     }
 
     private Entity nearestEntity(Vector2 pos) {
@@ -43,17 +58,30 @@ public class EntityRespriter : Entity {
             return;
         }
         //exchange component
+        Sprite localSprite = createSprite();
         Sprite targetSprite = targetEntity.Get<Sprite>();
         if(targetSprite != null) {
             targetSprite.RemoveSelf();
         }
-        targetEntity.Add(sprite);
+        targetEntity.Add(localSprite);
         //set reference
-        DynamicData.For(targetEntity).Set(fieldName, sprite);
+        DynamicData.For(targetEntity).Set(fieldName, localSprite);
     }
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        injectSprite(nearestEntity(Position));
+        Entity targetEntity = nearestEntity(Position);
+        if(allEntities) {
+            foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
+                if(e.GetType() == targetEntity.GetType()) {
+                    injectSprite(e);
+                }
+            }
+        } else {
+            injectSprite(targetEntity);
+            foreach(Vector2 n in nodes) {
+                injectSprite(nearestEntity(n + levelOffset));
+            }
+        }
     }
 }

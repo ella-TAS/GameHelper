@@ -76,6 +76,7 @@ entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between t
 entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
 entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
 entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)
+entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of this type in the room
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
