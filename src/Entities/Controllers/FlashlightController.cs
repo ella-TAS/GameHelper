@@ -44,7 +44,7 @@ public class FlashlightController : Entity {
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
         if(maxCooldown <= 0) {
-            Logger.Log("GameHelper", "WARN – FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
+            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }

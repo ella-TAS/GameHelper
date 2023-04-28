@@ -16,4 +16,5 @@ It Steals
 ### Others
 Kosei – FMOD help  
 Lua – file size reduction  
-Popax21 – friendly help
+Popax21 – friendly help  
+Viv – friendly help

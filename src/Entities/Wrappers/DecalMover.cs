@@ -2,7 +2,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 
-namespace Celeste.Mod.GameHelper.Entities;
+namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
 [CustomEntity("GameHelper/DecalMover")]
 public class DecalMover : Entity {
@@ -54,7 +54,7 @@ public class DecalMover : Entity {
             }
         }
         if(decal == null) {
-            Logger.Log("GameHelper", "WARN – Decal Mover found no decal in room " + SceneAs<Level>().Session.LevelData.Name);
+            Logger.Log(LogLevel.Warn, "GameHelper", "Decal Mover found no decal in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
         homePos = Position = decal.Position;

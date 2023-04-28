@@ -67,6 +67,16 @@ entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
 entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
 
+entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
+entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)
+entities.GameHelper/EntityRespriter.attributes.description.spriteFolder=The folder path the sprites are in, starting from Graphics/Atlases/Gameplay/\nAdd another / after the last folder\nYou should have your (campaign) name somewhere in the path to make it unique
+entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here
+entities.GameHelper/EntityRespriter.attributes.name.delay=Animation Delay
+entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites
+entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
+entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
+entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
