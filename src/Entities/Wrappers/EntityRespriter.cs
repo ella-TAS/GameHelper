@@ -8,7 +8,7 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 [CustomEntity("GameHelper/EntityRespriter")]
 public class EntityRespriter : Entity {
     private Vector2[] nodes;
-    private Vector2 levelOffset;
+    private Vector2 levelOffset, spriteOffset;
     private string fieldName, spriteFolder, spriteName, xmlPath, spriteID;
     private float delay;
     private bool allEntities;
@@ -16,6 +16,7 @@ public class EntityRespriter : Entity {
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         nodes = data.Nodes;
         this.levelOffset = levelOffset;
+        spriteOffset = new Vector2(data.Float("offsetX"), data.Float("offsetY"));
         allEntities = data.Bool("allEntities");
         fieldName = data.Attr("fieldName", "sprite");
         spriteFolder = data.Attr("spriteFolder");
@@ -31,6 +32,7 @@ public class EntityRespriter : Entity {
             //direct
             sprite = new Sprite(GFX.Game, spriteFolder);
             sprite.AddLoop("idle", spriteName, delay);
+            sprite.RenderPosition = spriteOffset;
             sprite.Play("idle");
         } else {
             //xml
