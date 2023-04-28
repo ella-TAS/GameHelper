@@ -1,5 +1,6 @@
 ﻿using Monocle;
 using System;
+using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 
@@ -27,11 +28,13 @@ public class GameHelper : EverestModule {
         });
         FloatyJumpController.Hook();
         SaveSpeedFeather.Hook();
+        SlowdownCobweb.Hook();
     }
 
     public override void Unload() {
         FloatyJumpController.Unhook();
         SaveSpeedFeather.Unhook();
+        SlowdownCobweb.Hook();
     }
 
     public override void LoadContent(bool firstLoad) {

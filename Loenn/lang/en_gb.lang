@@ -80,6 +80,8 @@ entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of th
 entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)
 entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of this type in the room
 
+entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

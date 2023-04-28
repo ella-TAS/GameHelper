@@ -14,7 +14,7 @@ public class FloatyJumpController : Entity {
         enable = data.Bool("enable");
     }
 
-    private static void OnUpdate(On.Celeste.Player.orig_Update orig, Player p) {
+    private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
         if(GameHelper.Instance.Session.FloatyJumps) {
             if(p.OnGround()) {
@@ -31,16 +31,17 @@ public class FloatyJumpController : Entity {
         }
     }
 
-    public static void Hook() {
-        On.Celeste.Player.Update += OnUpdate;
-    }
-
-    public static void Unhook() {
-        On.Celeste.Player.Update -= OnUpdate;
-    }
 
     public override void Added(Scene scene) {
         base.Added(scene);
         GameHelper.Instance.Session.FloatyJumps = enable;
+    }
+
+    public static void Hook() {
+        On.Celeste.Player.Update += OnPlayerUpdate;
+    }
+
+    public static void Unhook() {
+        On.Celeste.Player.Update -= OnPlayerUpdate;
     }
 }

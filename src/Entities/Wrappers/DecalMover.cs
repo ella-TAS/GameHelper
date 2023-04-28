@@ -48,7 +48,7 @@ public class DecalMover : Entity {
         base.Awake(scene);
         float minDistance = float.MaxValue;
         foreach(Decal d in scene.Entities.FindAll<Decal>()) {
-            if(decal == null || Vector2.Distance(d.Position, Position) < minDistance) {
+            if(Vector2.Distance(d.Position, Position) < minDistance) {
                 decal = d;
                 minDistance = Vector2.Distance(d.Position, Position);
             }
@@ -56,6 +56,7 @@ public class DecalMover : Entity {
         if(decal == null) {
             Logger.Log(LogLevel.Warn, "GameHelper", "Decal Mover found no decal in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
+            return;
         }
         homePos = Position = decal.Position;
     }
