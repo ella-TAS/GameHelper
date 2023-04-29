@@ -5,7 +5,8 @@ Code: EllaTAS
 Inferno_ – Flashlight UI  
 Flamecrafter113 – Balloons  
 Lua – Dead spring  
-Purppelle – Chainsaw, Fist
+Purppelle – Chainsaw, Fist  
+Kosei – Cobwebs
 
 ### SFX
 Inferno_  

@@ -60,10 +60,12 @@
         <Loop id="idle" path="ricochet_fist"/>
     </ricochet_fist>
 
-    <cobweb0 path="objects/GameHelper/cobweb/" start="normal">
-        <Loop id="normal" path="normal"/>
-        <Loop id="decay0" path="decay0"/>
+    <cobweb0 path="objects/GameHelper/cobweb/A/" start="normal">
+        <Loop id="normal" path="web" frames="0"/>
+        <Anim id="decay" path="web" delay="0.1"/>
     </cobweb0>
+    <cobweb1 path="objects/GameHelper/cobweb/B/" copy="cobweb0"/>
+    <cobweb2 path="objects/GameHelper/cobweb/C/" copy="cobweb0"/>
 
     <dispenser path="objects/GameHelper/dispenser/" start="idle">
         <Loop id="idle" path="dispenser"/>
