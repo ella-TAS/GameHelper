@@ -15,8 +15,6 @@ public class SlowdownCobweb : Entity {
 
     public SlowdownCobweb(Vector2 position) : base(position) {
         width = height = 8;
-        base.Collider = new Hitbox(8, 8);
-        Add(sprite = GameHelper.SpriteBank.Create("cobweb" + GameHelper.Random.Next(3)));
     }
 
     public SlowdownCobweb(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
@@ -49,11 +47,11 @@ public class SlowdownCobweb : Entity {
         }
         if(nearestWeb != null) {
             nearestWeb.Decay();
-            p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 50);
+            p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 40);
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
                 p.Speed.Y = 0;
-                DynamicData.For(p).Set("varJumpTimer", 0);
+                DynamicData.For(p).Set("varJumpTimer", 0f);
             }
         }
     }
@@ -61,6 +59,9 @@ public class SlowdownCobweb : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(width == 8 && height == 8) {
+            base.Depth = -1;
+            base.Collider = new Hitbox(8, 8);
+            Add(sprite = GameHelper.SpriteBank.Create("cobweb" + GameHelper.Random.Next(3)));
             return;
         }
         for(int w = 0; w < width; w += 8) {
