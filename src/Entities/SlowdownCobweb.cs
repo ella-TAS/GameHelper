@@ -2,19 +2,21 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using MonoMod.Utils;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [Tracked]
 [CustomEntity("GameHelper/SlowdownCobweb")]
 public class SlowdownCobweb : Entity {
-    internal static bool PlayerInWeb;
+    private Sprite sprite;
     private int width, height;
-    private float decay; //max 0.5 s
+    private bool decaying;
 
     public SlowdownCobweb(Vector2 position) : base(position) {
         width = height = 8;
         base.Collider = new Hitbox(8, 8);
+        Add(sprite = GameHelper.SpriteBank.Create("cobweb" + GameHelper.Random.Next(3)));
     }
 
     public SlowdownCobweb(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
@@ -23,10 +25,16 @@ public class SlowdownCobweb : Entity {
     }
 
     public void Decay() {
-        decay += Engine.DeltaTime;
-        if(decay >= 0.5f) {
-            RemoveSelf();
+        if(!decaying) {
+            decaying = true;
+            sprite.Play("decay");
+            Add(new Coroutine(routineDecay()));
         }
+    }
+
+    private IEnumerator routineDecay() {
+        yield return 0.5f;
+        RemoveSelf();
     }
 
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
@@ -34,14 +42,14 @@ public class SlowdownCobweb : Entity {
         SlowdownCobweb nearestWeb = null;
         float minDistance = float.MaxValue;
         foreach(SlowdownCobweb c in p.CollideAll<SlowdownCobweb>()) {
-            if(Vector2.Distance(p.Position, c.Position) < minDistance) {
+            if(Vector2.Distance(p.Position, c.Center) < minDistance) {
                 nearestWeb = c;
-                minDistance = Vector2.Distance(p.Position, c.Position);
+                minDistance = Vector2.Distance(p.Position, c.Center);
             }
         }
         if(nearestWeb != null) {
             nearestWeb.Decay();
-            p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 20);
+            p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 50);
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
                 p.Speed.Y = 0;
@@ -49,7 +57,6 @@ public class SlowdownCobweb : Entity {
             }
         }
     }
-
 
     public override void Added(Scene scene) {
         base.Added(scene);
@@ -62,6 +69,14 @@ public class SlowdownCobweb : Entity {
             }
         }
         RemoveSelf();
+    }
+
+    public override void DebugRender(Camera camera) {
+        if(decaying) {
+            Collider.Render(camera, Color.Green);
+        } else {
+            base.DebugRender(camera);
+        }
     }
 
     public static void Hook() {
