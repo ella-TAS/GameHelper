@@ -66,6 +66,7 @@ entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 
 entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
 entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
+entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whether the speed should be given in the flight direction
 
 entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
 entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)

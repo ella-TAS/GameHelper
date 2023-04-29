@@ -2,25 +2,35 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.Entities;
 using MonoMod.Utils;
-using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
 [CustomEntity("GameHelper/SaveSpeedFeather")]
 public class SaveSpeedFeather : FlyFeather {
     private static float StoredSpeed;
-    private Color color = Color.Aqua;
-    private Color flyColor = Color.SeaGreen;
+    private static bool Redirect, hasLead;
+    private Color color, flyColor;
+    private Color colorN = Color.Aqua;
+    private Color flyColorN = Color.SeaGreen;
+    private Color colorR = Color.DarkRed;
+    private bool isLead;
 
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
         base.Depth = -1;
+        if(data.Bool("redirectSpeed")) {
+            color = flyColor = colorR;
+        } else {
+            color = colorN;
+            flyColor = flyColorN;
+        }
         DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
         pc.OnCollide = delegate (Player p) {
             if(StoredSpeed == 0) {
-                StoredSpeed = 1.2f * p.Speed.X;
+                Redirect = data.Bool("redirectSpeed");
+                StoredSpeed = 1.2f * (Redirect ? p.Speed.Length() : p.Speed.X);
             }
             orig(p);
             p.Sprite.SetColor(flyColor);
@@ -29,15 +39,25 @@ public class SaveSpeedFeather : FlyFeather {
 
     public override void Update() {
         base.Update();
-        if(StoredSpeed != 0) {
-            SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(flyColor);
+        if(isLead) {
+            if(StoredSpeed != 0) {
+                if(Redirect) {
+                    SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(colorR);
+                } else {
+                    SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(flyColorN);
+                }
+            }
         }
     }
 
     private static void OnStarFlyEnd(On.Celeste.Player.orig_StarFlyEnd orig, Player p) {
         orig(p);
         if(StoredSpeed != 0) {
-            p.Speed.X = StoredSpeed;
+            if(Redirect) {
+                p.Speed *= StoredSpeed / p.Speed.Length();
+            } else {
+                p.Speed.X = StoredSpeed;
+            }
             StoredSpeed = 0;
         }
     }
@@ -53,5 +73,14 @@ public class SaveSpeedFeather : FlyFeather {
     public override void Added(Scene scene) {
         base.Added(scene);
         StoredSpeed = 0;
+        hasLead = false;
+    }
+
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
+        if(!hasLead) {
+            hasLead = true;
+            isLead = true;
+        }
     }
 }
