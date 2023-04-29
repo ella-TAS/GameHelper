@@ -42,9 +42,9 @@ public class SlowdownCobweb : Entity {
         SlowdownCobweb nearestWeb = null;
         float minDistance = float.MaxValue;
         foreach(SlowdownCobweb c in p.CollideAll<SlowdownCobweb>()) {
-            if(Vector2.Distance(p.Position, c.Center) < minDistance) {
+            if(Vector2.Distance(p.Center, c.Center) < minDistance) {
                 nearestWeb = c;
-                minDistance = Vector2.Distance(p.Position, c.Center);
+                minDistance = Vector2.Distance(p.Center, c.Center);
             }
         }
         if(nearestWeb != null) {

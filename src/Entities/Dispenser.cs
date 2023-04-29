@@ -8,13 +8,14 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Dispenser")]
 public class Dispenser : Solid {
     private ParticleType pType;
-    private bool wasFlag;
+    private float shootTimer, maxShootTimer;
     private string flag;
     private bool facingLeft;
 
     public Dispenser(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, 16, 16, safe: false) {
         flag = data.Attr("flag");
         facingLeft = data.Bool("faceLeft");
+        maxShootTimer = data.Float("cooldown");
         base.Depth = -1;
         Sprite sprite = GameHelper.SpriteBank.Create("dispenser");
         sprite.FlipX = facingLeft;
@@ -37,6 +38,7 @@ public class Dispenser : Solid {
     }
 
     private void shoot() {
+        shootTimer = maxShootTimer;
         SceneAs<Level>().Add(new Arrow(Position + new Vector2(facingLeft ? -16 : 16, 8), facingLeft));
         Audio.Play("event:/GameHelper/dispenser/dispenser");
         SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? 3.1415927f : 0);
@@ -44,12 +46,9 @@ public class Dispenser : Solid {
 
     public override void Update() {
         base.Update();
-        bool isFlag = SceneAs<Level>().Session.GetFlag(flag);
-        if(!wasFlag && isFlag) {
-            wasFlag = true;
+        shootTimer -= Engine.DeltaTime;
+        if(shootTimer <= 0 && SceneAs<Level>().Session.GetFlag(flag)) {
             shoot();
-        } else if(wasFlag && !isFlag) {
-            wasFlag = false;
         }
     }
 }

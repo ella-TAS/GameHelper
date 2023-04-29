@@ -7,7 +7,8 @@ dispenser.placements = {
     name = "dispenser",
     data = {
         flag = "dispenser",
-        faceLeft = false
+        faceLeft = false,
+        cooldown = 1.0
     }
 }
 
