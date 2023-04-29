@@ -59,4 +59,16 @@
     <ricochet_fist path="objects/GameHelper/" start="idle">
         <Loop id="idle" path="ricochet_fist"/>
     </ricochet_fist>
+
+    <cobweb0 path="objects/GameHelper/cobweb/" start="normal">
+        <Loop id="normal" path="normal"/>
+        <Loop id="decay0" path="decay0"/>
+    </cobweb0>
+
+    <dispenser path="objects/GameHelper/dispenser/" start="idle">
+        <Loop id="idle" path="dispenser"/>
+    </dispenser>
+    <arrow path="objects/GameHelper/dispenser/" start="idle">
+        <Loop id="idle" path="arrow"/>
+    </arrow>
 </Sprites>

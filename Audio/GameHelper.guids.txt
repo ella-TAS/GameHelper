@@ -3,6 +3,7 @@
 {2aa42fc5-6dfc-49d7-8a89-423e7ad76501} event:/GameHelper/annoyingmice/stop
 {058a5b8d-3e72-451f-9e72-c4221bc5bdd1} event:/GameHelper/balloon/Balloon_pop
 {99159f2d-866a-499c-8672-e1b507fdcbfe} event:/GameHelper/chainsaw/chainsaw_attack
+{b27d5d6a-db14-4a85-be91-cbed0a6370d1} event:/GameHelper/dispenser/dispenser
 {abcc8c1a-7fe9-4749-988d-241b6ae1cc0c} event:/GameHelper/fist/bullet_collide
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
 {ad25a031-880b-4f88-ac12-82d6c52fbdea} event:/char/badeline/appear

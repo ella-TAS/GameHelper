@@ -11,7 +11,7 @@ public class EntityRespriter : Entity {
     private Vector2 levelOffset, spriteOffset;
     private string fieldName, spriteFolder, spriteName, xmlPath, spriteID;
     private float delay;
-    private bool allEntities;
+    private bool allEntities, debug;
 
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         nodes = data.Nodes;
@@ -24,6 +24,7 @@ public class EntityRespriter : Entity {
         delay = data.Float("delay");
         xmlPath = data.Attr("xmlPath");
         spriteID = data.Attr("spriteID");
+        debug = data.Bool("debug");
     }
 
     private Sprite createSprite() {
@@ -58,6 +59,9 @@ public class EntityRespriter : Entity {
             Logger.Log(LogLevel.Warn, "GameHelper", "Entity Respriter found no entity in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
             return;
+        }
+        if(debug) {
+            Logger.Log("GameHelper", "Respriting entity " + targetEntity.GetType().ToString() + " in room " + SceneAs<Level>().Session.LevelData.Name);
         }
         //exchange component
         Sprite localSprite = createSprite();

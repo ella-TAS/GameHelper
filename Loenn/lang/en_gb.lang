@@ -77,10 +77,13 @@ entities.GameHelper/EntityRespriter.attributes.description.offsetY=The offset of
 entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites
 entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
 entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
-entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)
+entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)\nIf your game crashes with a NullPointerException, this might be the issue
 entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of this type in the room
+entities.GameHelper/EntityRespriter.attributes.description.debug=Print resprited entities to log.txt
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
+
+entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
@@ -90,7 +93,8 @@ triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty
 
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withTrigger=Exit Collab Level + Register Heart
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withoutTrigger=Exit Collab Level
-triggers.GameHelper/ExitCollabLevelTrigger.placements.name.addHeartTrigger=Spawn a Register Heart Trigger on top of the trigger to award the crystal heart while exiting the map
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5)
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement
+
+triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)

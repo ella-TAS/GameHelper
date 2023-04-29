@@ -1,8 +1,8 @@
 local web = {}
 
 web.name = "GameHelper/SlowdownCobweb"
-web.depth = 8998
-web.fillColor = {10/10, 10/10, 10/10}
+web.depth = 99999
+web.fillColor = {10/10, 10/10, 10/10, 1/2}
 web.borderColor = {7/10, 7/10, 7/10}
 web.justification = {0.0, 0.0}
 web.minimumSize = {8, 8}
