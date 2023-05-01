@@ -15,6 +15,7 @@ respriter.placements = {
             offsetY = 0.0,
             delay = 1/60,
             fieldName = "sprite",
+            onlyType = "",
             allEntities = false,
             debug = false
         }
@@ -23,7 +24,10 @@ respriter.placements = {
         data = {
             xmlPath = "",
             spriteID = "",
+            offsetX = 0.0,
+            offsetY = 0.0,
             fieldName = "sprite",
+            onlyType = "",
             allEntities = false,
             debug = false
         }
@@ -33,7 +37,7 @@ respriter.fieldOrder = {
     "x", "y",
     "spriteFolder", "spriteName", "offsetX", "offsetY", "delay",
     "xmlPath", "spriteID",
-    "fieldName", "allEntities", "debug"
+    "fieldName", "onlyType", "allEntities", "debug"
 }
 
 return respriter

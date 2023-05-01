@@ -71,16 +71,17 @@ entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whethe
 entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
 entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)
 entities.GameHelper/EntityRespriter.attributes.description.spriteFolder=The folder path the sprites are in, starting from Graphics/Atlases/Gameplay/\nAdd another / after the last folder\nYou should have your (campaign) name somewhere in the path to make it unique
-entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here
+entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here\nThe direct method without XML only works if the entity's sprite has a single animation.\nIf your game crashes with KeyNotFoundException, you probably need to use the XML method.
 entities.GameHelper/EntityRespriter.attributes.name.delay=Animation Delay
 entities.GameHelper/EntityRespriter.attributes.description.offsetX=The offset of the sprite in the X direction (+ is right)
 entities.GameHelper/EntityRespriter.attributes.description.offsetY=The offset of the sprite in the Y direction (+ is down)
 entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites
 entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
 entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
-entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)\nIf your game crashes with a NullPointerException, this might be the issue
-entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of this type in the room
-entities.GameHelper/EntityRespriter.attributes.description.debug=Print resprited entities to log.txt
+entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)\nIf your game crashes with a NullPointerException, a this might be the issue
+entities.GameHelper/EntityRespriter.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Balloon)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
+entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in the room
+entities.GameHelper/EntityRespriter.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 
