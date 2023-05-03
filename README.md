@@ -1,4 +1,4 @@
-### Contributors
+## Credits
 Code: EllaTAS
 
 ### Custom sprites
