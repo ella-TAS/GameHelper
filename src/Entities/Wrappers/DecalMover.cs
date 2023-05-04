@@ -5,7 +5,7 @@ using Celeste.Mod.Entities;
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
 [CustomEntity("GameHelper/DecalMover")]
-public class DecalMover : Entity {
+public class DecalMover : Wrapper {
     private Decal decal;
     private int nextNode;
     private Vector2 homePos;
@@ -46,16 +46,9 @@ public class DecalMover : Entity {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        float minDistance = float.MaxValue;
-        foreach(Decal d in scene.Entities.FindAll<Decal>()) {
-            if(Vector2.Distance(d.Position, Position) < minDistance) {
-                decal = d;
-                minDistance = Vector2.Distance(d.Position, Position);
-            }
-        }
+        decal = FindNearest<Decal>(Position);
         if(decal == null) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "Decal Mover found no decal in room " + SceneAs<Level>().Session.LevelData.Name);
-            RemoveSelf();
+            ComplainEntityNotFound("Decal Mover");
             return;
         }
         homePos = Position = decal.Position;
