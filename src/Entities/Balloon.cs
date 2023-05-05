@@ -51,9 +51,10 @@ public class Balloon : Entity {
             BalloonCount++;
         }
         base.Collidable = false;
-        if(!oneUse) {
-            Add(new Coroutine(routineRespawn()));
+        if(oneUse) {
+            RemoveSelf();
         }
+        Add(new Coroutine(routineRespawn()));
     }
 
     private IEnumerator routineRespawn() {

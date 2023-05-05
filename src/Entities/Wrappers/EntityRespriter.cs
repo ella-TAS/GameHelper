@@ -15,6 +15,7 @@ public class EntityRespriter : Wrapper {
     private bool allEntities, debug;
 
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
+        base.Depth = int.MinValue;
         nodes = data.Nodes;
         this.levelOffset = levelOffset;
         debug = data.Bool("debug");
@@ -77,5 +78,6 @@ public class EntityRespriter : Wrapper {
         foreach(Entity e in targets) {
             injectSprite(e);
         }
+        RemoveSelf();
     }
 }

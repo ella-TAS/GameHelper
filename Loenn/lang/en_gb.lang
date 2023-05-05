@@ -71,17 +71,38 @@ entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whethe
 entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
 entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)
 entities.GameHelper/EntityRespriter.attributes.description.spriteFolder=The folder path the sprites are in, starting from Graphics/Atlases/Gameplay/\nAdd another / after the last folder\nYou should have your (campaign) name somewhere in the path to make it unique
-entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here\nThe direct method without XML only works if the entity's sprite has a single animation.\nIf your game crashes with KeyNotFoundException, you probably need to use the XML method.
+entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without file extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here\nThe direct method without XML only works if the entity's sprite has a single animation.\nIf your game crashes with KeyNotFoundException, you probably need to use the XML method.
 entities.GameHelper/EntityRespriter.attributes.name.delay=Animation Delay
 entities.GameHelper/EntityRespriter.attributes.description.offsetX=The offset of the sprite in the X direction (+ is right)
 entities.GameHelper/EntityRespriter.attributes.description.offsetY=The offset of the sprite in the Y direction (+ is down)
 entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites
-entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
+entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with file extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
 entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
 entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)\nIf your game crashes with a NullPointerException, a this might be the issue
 entities.GameHelper/EntityRespriter.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Balloon)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
-entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in the room
+entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in this room
 entities.GameHelper/EntityRespriter.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
+
+entities.GameHelper/EntityModifier.placements.name.number=Entity Modifier (Number)
+entities.GameHelper/EntityModifier.placements.name.string=Entity Modifier (String)
+entities.GameHelper/EntityModifier.placements.name.bool=Entity Modifier (Bool)
+entities.GameHelper/EntityModifier.attributes.name.valueNumber=Value (Number)
+entities.GameHelper/EntityModifier.attributes.name.valueString=Value (String)
+entities.GameHelper/EntityModifier.attributes.name.valueBool=Value (Bool)
+entities.GameHelper/EntityModifier.attributes.description.valueNumber=The float/integer value the field should be set to (see Integer checkbox)
+entities.GameHelper/EntityModifier.attributes.description.integer=Whether the value should be an integer or a float\nUsing the wrong type will cause an ArgumentException\nMany Celeste things use floats, although Depth is an integer
+entities.GameHelper/EntityModifier.attributes.description.valueString=The string the field should be set to
+entities.GameHelper/EntityModifier.attributes.description.valueBool=Whether the field should be set to true or false
+entities.GameHelper/EntityModifier.attributes.description.fieldName=The name of the field in the code\nTo get a list of fields in log.txt (in your Celeste folder), install CelesteTAS, double tap Ctrl to open the info HUD and Ctrl+Click on the entity\nYou can also ask a coder for help
+entities.GameHelper/EntityModifier.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Pigarithm)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
+entities.GameHelper/EntityModifier.attributes.description.activationFlag=If a flag is set, the modifier will wait until it's true\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag
+entities.GameHelper/EntityModifier.attributes.description.invertFlag=Activate the modification when the flag is false instead
+entities.GameHelper/EntityModifier.attributes.description.allEntities=Whether to modify all entities of the found/given type in this room
+entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the modification should only happen once\nTarget entities won't be renewed (see everyFrame tooltip)
+entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame\nPlease turn this off if not neccessary, it can impact performance\nInfo: Currently, when modifying multiple times, the target entities are not renewed, meaning removed entities may cause a crash and newly added entities are not modified\nPlease tell EllaTAS#8019 if this is a huge issue
+entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
+
+
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 
@@ -101,3 +122,6 @@ triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game 
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement
 
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
+
+triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
+triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log

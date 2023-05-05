@@ -5,6 +5,7 @@ moving_decal.depth = -9999999
 moving_decal.texture = "loenn/GameHelper/decal_mover"
 moving_decal.justification = {0.0, 0.0}
 moving_decal.nodeLimits = {1, 999}
+moving_decal.nodeLineRenderType = "line"
 moving_decal.placements = {
     name = "moving_decal",
     data = {
