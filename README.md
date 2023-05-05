@@ -1,3 +1,5 @@
+The Crossover Collab entities are not included in this build.
+
 ## Credits
 Code: EllaTAS
 
