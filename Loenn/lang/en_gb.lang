@@ -82,6 +82,7 @@ entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of
 entities.GameHelper/EntityRespriter.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Balloon)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
 entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in this room
 entities.GameHelper/EntityRespriter.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
+entities.GameHelper/EntityRespriter.attributes.description.removeAllComponents=Remove all sprite components, not just the one associated with the field
 
 entities.GameHelper/EntityModifier.placements.name.number=Entity Modifier (Number)
 entities.GameHelper/EntityModifier.placements.name.string=Entity Modifier (String)

@@ -13,21 +13,29 @@ respriter.placements = {
             spriteName = "",
             offsetX = 0.0,
             offsetY = 0.0,
+            flipX = false,
+            flipY = false,
             delay = 1/60,
             fieldName = "sprite",
             onlyType = "",
             allEntities = false,
-            debug = false
+            debug = false,
+            removeAllComponents = false
         }
     },
     {   name = "xml",
         data = {
             xmlPath = "",
             spriteID = "",
+            offsetX = 0.0,
+            offsetY = 0.0,
+            flipX = false,
+            flipY = false,
             fieldName = "sprite",
             onlyType = "",
             allEntities = false,
-            debug = false
+            debug = false,
+            removeAllComponents = false
         }
     }
 }
@@ -35,7 +43,7 @@ respriter.fieldOrder = {
     "x", "y",
     "spriteFolder", "spriteName", "offsetX", "offsetY", "delay",
     "xmlPath", "spriteID",
-    "fieldName", "onlyType", "allEntities", "debug"
+    "fieldName", "onlyType", "allEntities", "debug", "removeAllComponents", "flipX", "flipY"
 }
 
 return respriter

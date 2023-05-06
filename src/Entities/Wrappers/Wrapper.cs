@@ -37,7 +37,7 @@ public class Wrapper : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
         foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            if(!(e is Wrapper) &&
+            if(!(e is Wrapper) && !(e is Player) &&
             (type == "" || e.GetType().ToString() == type) &&
             Vector2.Distance(e.Position, pos) < minDistance) {
                 entity = e;
@@ -50,17 +50,13 @@ public class Wrapper : Entity {
     public T FindNearest<T>(Vector2 pos) where T : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
-        foreach(Entity e in SceneAs<Level>().Entities.FindAll<Decal>()) {
+        foreach(Entity e in SceneAs<Level>().Entities.FindAll<T>()) {
             if(Vector2.Distance(e.Position, pos) < minDistance) {
                 entity = e;
                 minDistance = Vector2.Distance(e.Position, pos);
             }
         }
         return entity as T;
-    }
-
-    public string EntityStamp(Entity e) {
-        return e.GetType().ToString() + " [" + SceneAs<Level>().Session.LevelData.Name + "]";
     }
 
     public void ComplainEntityNotFound(string wrapperName) {
@@ -75,7 +71,7 @@ public class Wrapper : Entity {
         }
         Logger.Log("GameHelper", "List of all entities in the room:");
         foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            Logger.Log("GameHelper", EntityStamp(e));
+            Logger.Log("GameHelper", e.GetType().ToString());
         }
         RoomLogged = true;
     }

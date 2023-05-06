@@ -63,7 +63,7 @@ public class EntityModifier : Wrapper {
                 ComplainEntityNotFound("Entity Modifier");
             }
             if(debug) {
-                Logger.Log("GameHelper", "Modifying entity " + EntityStamp(target));
+                Logger.Log("GameHelper", "Modifying entity " + target.GetType().ToString());
             }
 
             DynamicData.For(target).Set(fieldName, value);

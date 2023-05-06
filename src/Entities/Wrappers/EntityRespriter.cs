@@ -12,7 +12,7 @@ public class EntityRespriter : Wrapper {
     private Vector2 levelOffset, spriteOffset;
     private string fieldName, spriteFolder, spriteName, xmlPath, spriteID, onlyType;
     private float delay;
-    private bool allEntities, debug;
+    private bool flipX, flipY, allEntities, debug, removeAllComponents;
 
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         base.Depth = int.MinValue;
@@ -22,12 +22,15 @@ public class EntityRespriter : Wrapper {
         allEntities = data.Bool("allEntities");
         onlyType = data.Attr("onlyType");
         spriteOffset = new Vector2(data.Float("offsetX"), data.Float("offsetY"));
+        flipX = data.Bool("flipX");
+        flipY = data.Bool("flipY");
         fieldName = data.Attr("fieldName", "sprite");
         spriteFolder = data.Attr("spriteFolder");
         spriteName = data.Attr("spriteName");
         delay = data.Float("delay");
         xmlPath = data.Attr("xmlPath");
         spriteID = data.Attr("spriteID");
+        removeAllComponents = data.Bool("removeAllComponents");
     }
 
     private Sprite createSprite() {
@@ -36,12 +39,14 @@ public class EntityRespriter : Wrapper {
             //direct
             sprite = new Sprite(GFX.Game, spriteFolder);
             sprite.AddLoop("idle", spriteName, delay);
-            sprite.RenderPosition = spriteOffset;
             sprite.Play("idle");
         } else {
             //xml
             sprite = new SpriteBank(GFX.Game, xmlPath).Create(spriteID);
         }
+        sprite.RenderPosition = spriteOffset;
+        sprite.FlipX = flipX;
+        sprite.FlipY = flipY;
         return sprite;
     }
 
@@ -51,17 +56,30 @@ public class EntityRespriter : Wrapper {
             return;
         }
         if(debug) {
-            Logger.Log("GameHelper", "Respriting entity " + EntityStamp(targetEntity));
+            Logger.Log("GameHelper", "Respriting entity " + targetEntity.GetType().ToString());
         }
+
+        DynamicData targetData = DynamicData.For(targetEntity);
 
         //exchange component
         Sprite localSprite = createSprite();
-        targetEntity.Get<Sprite>()?.RemoveSelf();
+        if(removeAllComponents) {
+            targetEntity.Components.RemoveAll<Sprite>();
+        } else if(fieldName == "") {
+            targetEntity.Get<Sprite>()?.RemoveSelf();
+        } else {
+            foreach(Sprite s in targetEntity.Components.GetAll<Sprite>()) {
+                if((object) s == targetData.Get(fieldName)) {
+                    s.RemoveSelf();
+                    break;
+                }
+            }
+        }
         targetEntity.Add(localSprite);
 
         //set reference
         if(fieldName != "") {
-            DynamicData.For(targetEntity).Set(fieldName, localSprite);
+            targetData.Set(fieldName, localSprite);
         }
     }
 
