@@ -2,6 +2,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
+using Celeste.Mod.GameHelper;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -92,7 +93,7 @@ public class RoasterController : Entity {
         }
     }
 
-    private void drawCircle(Vector2 center, float radius, Color color) {
+    private static void drawCircle(Vector2 center, float radius, Color color) {
         float radius2 = radius * radius - 0.25f;
         int y = (int) Math.Round(radius);
         drawCirclePx(0, y);

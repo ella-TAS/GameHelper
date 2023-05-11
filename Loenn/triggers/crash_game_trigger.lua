@@ -5,7 +5,8 @@ cgt.depth = 8998
 cgt.placements = {
     name = "cgt",
     data = {
-        message = "FOOL"
+        message = "FOOL",
+        saveGame = true
     }
 }
 

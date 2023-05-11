@@ -73,4 +73,8 @@
     <arrow path="objects/GameHelper/dispenser/" start="idle">
         <Loop id="idle" path="arrow"/>
     </arrow>
+
+    <shield path="objects/GameHelper/" start="idle">
+        <Loop id="idle" path="shield_bubble"/>
+    </shield>
 </Sprites>

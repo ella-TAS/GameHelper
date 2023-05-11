@@ -103,12 +103,12 @@ entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the m
 entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame\nPlease turn this off if not neccessary, it can impact performance\nInfo: Currently, when modifying multiple times, the target entities are not renewed, meaning removed entities may cause a crash and newly added entities are not modified\nPlease tell EllaTAS#8019 if this is a huge issue
 entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
 
-
-
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
+
+entities.GameHelper/ShieldController.placements.name.shield=Shield Controller (Invincibility)
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
@@ -126,3 +126,4 @@ triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on
 
 triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
 triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log
+triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)

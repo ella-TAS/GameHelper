@@ -29,12 +29,14 @@ public class GameHelper : EverestModule {
         FloatyJumpController.Hook();
         SaveSpeedFeather.Hook();
         SlowdownCobweb.Hook();
+        ShieldController.Hook();
     }
 
     public override void Unload() {
         FloatyJumpController.Unhook();
         SaveSpeedFeather.Unhook();
-        SlowdownCobweb.Hook();
+        SlowdownCobweb.Unhook();
+        ShieldController.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
