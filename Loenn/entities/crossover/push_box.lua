@@ -1,7 +1,7 @@
 local pushbox = {}
 
 pushbox.name = "GameHelper/PushBox"
-pushbox.depth = 99999
+pushbox.depth = 8999
 pushbox.fillColor = {251/255, 185/255, 84/255}
 pushbox.borderColor = {229/255, 129/255, 37/255}
 pushbox.justification = {0.0, 0.0}
