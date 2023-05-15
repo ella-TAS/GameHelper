@@ -15,7 +15,6 @@ public class RegisterHeartTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        base.OnStay(player);
         if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
             return;
         }

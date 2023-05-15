@@ -108,8 +108,6 @@ entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
 
-entities.GameHelper/ShieldController.placements.name.shield=Shield Controller (Invincibility)
-
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
@@ -127,3 +125,7 @@ triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on
 triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
 triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log
 triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)
+
+triggers.GameHelper/ShieldTrigger.placements.name.shield=Shield (Invincibility)
+triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3)
+triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled

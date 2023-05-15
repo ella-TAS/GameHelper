@@ -3,6 +3,7 @@ using System;
 using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
+using Celeste.Mod.GameHelper.Triggers;
 
 namespace Celeste.Mod.GameHelper;
 
@@ -29,14 +30,14 @@ public class GameHelper : EverestModule {
         FloatyJumpController.Hook();
         SaveSpeedFeather.Hook();
         SlowdownCobweb.Hook();
-        ShieldController.Hook();
+        Shield.Hook();
     }
 
     public override void Unload() {
         FloatyJumpController.Unhook();
         SaveSpeedFeather.Unhook();
         SlowdownCobweb.Unhook();
-        ShieldController.Unhook();
+        Shield.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
