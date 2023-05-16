@@ -108,6 +108,8 @@ entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
 
+entities.GameHelper/DashMagnet.placements.name.magnet=Dash Magnet
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

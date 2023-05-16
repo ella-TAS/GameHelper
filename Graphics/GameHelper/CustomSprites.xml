@@ -77,4 +77,9 @@
     <shield path="objects/GameHelper/" start="idle">
         <Loop id="idle" path="shield_bubble"/>
     </shield>
+    
+    <dash_magnet path="objects/GameHelper/dash_magnet/" start="idle">
+        <Loop id="idle" path="idle" delay="0.1"/>
+        <Anim id="flash" path="flash" delay="0.1" goto="idle"/>
+    </dash_magnet>
 </Sprites>

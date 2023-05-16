@@ -31,6 +31,7 @@ public class GameHelper : EverestModule {
         SaveSpeedFeather.Hook();
         SlowdownCobweb.Hook();
         Shield.Hook();
+        DashMagnet.Load();
     }
 
     public override void Unload() {
@@ -38,6 +39,7 @@ public class GameHelper : EverestModule {
         SaveSpeedFeather.Unhook();
         SlowdownCobweb.Unhook();
         Shield.Unhook();
+        DashMagnet.Unload();
     }
 
     public override void LoadContent(bool firstLoad) {

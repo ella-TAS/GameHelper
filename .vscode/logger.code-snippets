@@ -1,10 +1,14 @@
 {
-	"Log with Logger": {
-		"scope": "csharp",
-		"prefix": "log",
-		"body": [
-			"Logger.Log(\"GameHelper\", $0);"
-		],
-		"description": "Log output to console"
-	}
+    "Log with Logger": {
+        "scope": "csharp",
+        "prefix": "log",
+        "body": "Logger.Log(\"GameHelper\", $0);",
+        "description": "Log output to console"
+    },
+    "Player from Tracker": {
+        "scope": "csharp",
+        "prefix": "player",
+        "body": "Player p = SceneAs<Level>().Tracker.GetEntity<Player>();",
+        "description": "get Player from Tracker"
+    }
 }
