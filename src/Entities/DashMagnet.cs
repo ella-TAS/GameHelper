@@ -1,8 +1,8 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using MonoMod.Utils;
 using System.Collections;
+using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -10,10 +10,10 @@ namespace Celeste.Mod.GameHelper.Entities;
 [Tracked]
 public class DashMagnet : Entity {
     private static bool InsideMagnet;
-    private static Vector2 Direction, Speed;
+    private static Vector2 Direction;
+    private static float Speed;
     private static Vector2[] RenderPoints;
     private Sprite sprite;
-    private Vector2 startPosition;
     private bool inside, wasInside;
 
     public DashMagnet(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
@@ -27,17 +27,13 @@ public class DashMagnet : Entity {
             if(!wasInside && !InsideMagnet) {
                 //entered
                 sprite.Play("flash");
-                startPosition = p.Position;
-            }
-            if(!wasInside || Speed.Length() == 0) {
-                if(!wasInside) {
-                    Direction = (Center - p.Center).SafeNormalize();
+                Direction = (Center - p.Center).SafeNormalize();
+                if(Direction == Vector2.Zero) {
+                    Direction = -Vector2.UnitY;
                 }
-                Speed = Direction * p.Speed.Length();
-                p.Position = startPosition;
             }
             p.DashDir = Direction;
-            p.Speed = Speed * 1.2f;
+            p.Speed = Speed * Direction;
             inside = true;
         }
     }
@@ -64,26 +60,49 @@ public class DashMagnet : Entity {
         InsideMagnet = false;
     }
 
+    private static void DashBegin(On.Celeste.Player.orig_DashBegin orig, Player p) {
+        const float DiagDashSpeed = 169.70562748f;
+        Vector2 s = p.Speed;
+        s.Y = DiagDashSpeed;
+        s.X = Calc.Max(Math.Abs(s.X), DiagDashSpeed);
+        Speed = s.Length();
+        orig(p);
+    }
+
     private static IEnumerator DashCoroutine(On.Celeste.Player.orig_DashCoroutine orig, Player p) {
         IEnumerator origEnum = orig(p);
-        while(origEnum.MoveNext()) {
-            yield return origEnum.Current;
-            if(origEnum.Current != null && InsideMagnet) {
+        while(true) {
+            if(InsideMagnet) {
                 //magnet dash, cancelled by magnet
                 yield return float.MaxValue;
             }
+            if(!origEnum.MoveNext()) {
+                break;
+            }
+            yield return origEnum.Current;
         }
     }
 
     public static void Load() {
+        //precalc indicator offsets
+        RenderPoints = new Vector2[36];
+        for(int i = 0; i < 36; i++) {
+            RenderPoints[i] = Calc.AngleToVector(0.1745329f * i, 30f); //10°
+        }
+
         On.Celeste.Player.DashCoroutine += DashCoroutine;
+        On.Celeste.Player.DashBegin += DashBegin;
     }
 
     public static void Unload() {
         On.Celeste.Player.DashCoroutine -= DashCoroutine;
+        On.Celeste.Player.DashBegin -= DashBegin;
     }
 
     public override void Render() {
         base.Render();
+        foreach(Vector2 pos in RenderPoints) {
+            Draw.Point(Center + pos, Color.White);
+        }
     }
 }

@@ -43,7 +43,7 @@ public class ExitCollabLevelTrigger : Trigger {
         yield return delay;
         Engine.TimeRate = 1f;
         if(p.Dead) {
-            yield return 100f;
+            yield return float.MaxValue;
         }
         base.Tag = Tags.FrozenUpdate;
         level.Frozen = true;
