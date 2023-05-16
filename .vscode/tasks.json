@@ -59,8 +59,7 @@
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
                 "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml",
-                "${workspaceFolder}/README.md"
+                "${workspaceFolder}/everest.yaml"
             ],
             "type": "process",
             "group": {

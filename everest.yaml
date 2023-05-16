@@ -3,7 +3,7 @@
   Version: 1.2.4.1
   Dependencies:
     - Name: Everest
-      Version: 1.3847.0
+      Version: 1.3971.0
   OptionalDependencies:
     - Name: CollabUtils2
-      Version: 1.8.11
+      Version: 1.8.12

@@ -6,6 +6,7 @@ Code: EllaTAS
 ### Custom sprites
 Inferno_ – Flashlight UI  
 Flamecrafter113 – Balloons  
+cellularAutomaton – Dash Magnet  
 Lua – Dead spring  
 Purppelle – Chainsaw, Fist  
 Kosei – Cobwebs
