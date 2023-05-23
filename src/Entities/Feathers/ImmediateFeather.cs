@@ -2,7 +2,6 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Monocle;
 using MonoMod.Utils;
-using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
@@ -16,7 +15,7 @@ public class ImmediateFeather : FlyFeather {
         DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
-        pc.OnCollide = delegate (Player p) {
+        pc.OnCollide = (Player p) => {
             orig(p);
             if(data.Bool("startBoost") && p.Speed.Length() < 600f) {
                 p.Speed *= 600f / p.Speed.Length();

@@ -7,7 +7,7 @@ namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
 public class Mouse : Actor {
     public enum Direction { Left, Up, Right, Down }
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private Direction dir;
     private bool deathRoutine;
 
@@ -56,12 +56,12 @@ public class Mouse : Actor {
     }
 
     private Vector2 dirToVector() {
-        switch(dir) {
-            case Direction.Left: return -Vector2.UnitX;
-            case Direction.Up: return -Vector2.UnitY;
-            case Direction.Right: return Vector2.UnitX;
-            case Direction.Down: return Vector2.UnitY;
-            default: return Vector2.Zero;
-        }
+        return dir switch {
+            Direction.Left => -Vector2.UnitX,
+            Direction.Up => -Vector2.UnitY,
+            Direction.Right => Vector2.UnitX,
+            Direction.Down => Vector2.UnitY,
+            _ => Vector2.Zero,
+        };
     }
 }

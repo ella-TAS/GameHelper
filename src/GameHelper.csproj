@@ -11,6 +11,10 @@
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>IDE1006;IDE0220;RCS1194</NoWarn>
+  </PropertyGroup>
+
   <!--Disable "Copy Local" for all references-->
   <ItemDefinitionGroup>
     <PackageReference PrivateAssets="all" ExcludeAssets="runtime" />

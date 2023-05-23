@@ -8,8 +8,8 @@ namespace Celeste.Mod.GameHelper.Triggers;
 [CustomEntity("GameHelper/CrashGameTrigger")]
 public class CrashGameTrigger : Trigger {
     private bool entered;
-    private string message;
-    private bool save;
+    private readonly string message;
+    private readonly bool save;
 
     public CrashGameTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         message = data.Attr("message");

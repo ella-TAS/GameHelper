@@ -12,11 +12,11 @@ namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/ExitCollabLevelTrigger")]
 public class ExitCollabLevelTrigger : Trigger {
-    private EntityData data;
+    private readonly EntityData data;
     private Vector2 levelOffset;
-    private float delay, timeRateWait;
-    private bool addHeartTrigger;
-    private string flag;
+    private readonly float delay, timeRateWait;
+    private readonly bool addHeartTrigger;
+    private readonly string flag;
 
     public ExitCollabLevelTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         delay = data.Float("delay");
@@ -70,11 +70,10 @@ public class ExitCollabLevelTrigger : Trigger {
     }
 
     private void collectBerries(Player p) {
-        List<IStrawberry> list = new List<IStrawberry>();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
         foreach(Follower follower in p.Leader.Followers) {
             if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry) {
-                (follower.Entity as IStrawberry).OnCollect();
+                (follower.Entity as IStrawberry)?.OnCollect();
             }
         }
     }

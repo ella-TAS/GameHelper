@@ -12,8 +12,8 @@ public class PushBox : Solid {
     private Color colorBorder = Calc.HexToColor("e58125");
     private Color colorFill = Calc.HexToColor("fbb954");
     private Color colorCorner = Calc.HexToColor("8ff8e2");
-    private Level level;
-    private float speedX, velY;
+    private readonly float speedX;
+    private float velY;
 
     public PushBox(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
@@ -48,7 +48,7 @@ public class PushBox : Solid {
     public override void Render() {
         Vector2 w = Vector2.UnitX * (Width - 4);
         Vector2 h = Vector2.UnitY * (Height - 4);
-        Vector2 p = Position + Vector2.One * 2;
+        Vector2 p = Position + (Vector2.One * 2);
         Draw.Rect(Position.X, Position.Y, Width, Height, Color.Black);
         Draw.Rect(Position.X + 1, Position.Y + 1, Width - 2, Height - 2, colorFill);
         Draw.Line(p, p + w, colorBorder, 2);
@@ -60,10 +60,5 @@ public class PushBox : Solid {
         Draw.Rect(Position.X + Width - 3, Position.Y + 1, 2, 2, colorCorner);
         Draw.Rect(Position.X + 1, Position.Y + Height - 3, 2, 2, colorCorner);
         Draw.Rect(Position.X + Width - 3, Position.Y + Height - 3, 2, 2, colorCorner);
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        level = SceneAs<Level>();
     }
 }

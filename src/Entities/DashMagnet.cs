@@ -13,9 +13,9 @@ public class DashMagnet : Entity {
     private static Vector2 Direction;
     private static float Speed;
     private static Vector2[] RenderPoints;
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private bool inside, wasInside, used;
-    private bool bulletTime;
+    private readonly bool bulletTime;
 
     public DashMagnet(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         base.Collider = new Circle(30, 8, 8);
@@ -34,6 +34,7 @@ public class DashMagnet : Entity {
                 }
                 used = true;
             }
+            p.Ducking = false;
             p.DashDir = Direction;
             p.Speed = Speed * Direction;
             Engine.TimeRate = Calc.Approach(Engine.TimeRate, 1f, 0.1f);
@@ -55,7 +56,11 @@ public class DashMagnet : Entity {
             Engine.TimeRate = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p != null) {
-                p.StateMachine.ForceState(0);
+                if(p.Ducking) {
+                    p.Ducking = false;
+                } else {
+                    p.StateMachine.ForceState(0);
+                }
             }
         }
         inside = false;
@@ -71,7 +76,7 @@ public class DashMagnet : Entity {
         Vector2 s = p.Speed;
         s.Y = Calc.Max(Math.Abs(s.Y), DiagDashSpeed);
         s.X = Calc.Max(Math.Abs(s.X), DiagDashSpeed);
-        Speed = s.Length() * 1.1f;
+        Speed = Calc.Max(s.Length() * 1.2f, 300f);
         orig(p);
     }
 

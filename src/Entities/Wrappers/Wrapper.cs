@@ -10,16 +10,16 @@ public class Wrapper : Entity {
     public Wrapper(Vector2 position) : base(position) { }
 
     public List<Entity> FindTargets(Vector2 node, Vector2[] nodes, Vector2 nodeOffset, bool allEntities, string onlyType) {
-        List<Entity> entities = new List<Entity>();
+        List<Entity> entities = new();
         //don't look for entity if allEntities and type is set
         Entity targetEntity = null;
-        if(!allEntities || onlyType == "") {
-            targetEntity = FindNearest(Position, onlyType);
+        if(!allEntities || onlyType?.Length == 0) {
+            targetEntity = FindNearest(node, onlyType);
         }
 
         if(allEntities) {
             foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-                if((onlyType == "" && e.GetType() == targetEntity.GetType()) ||
+                if((onlyType?.Length == 0 && e.GetType() == targetEntity.GetType()) ||
                 e.GetType().ToString() == onlyType) {
                     entities.Add(e);
                 }
@@ -37,8 +37,8 @@ public class Wrapper : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
         foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            if(!(e is Wrapper) && !(e is Player) &&
-            (type == "" || e.GetType().ToString() == type) &&
+            if(e is not Wrapper && e is not Player &&
+            (type?.Length == 0 || e.GetType().ToString() == type) &&
             Vector2.Distance(e.Position, pos) < minDistance) {
                 entity = e;
                 minDistance = Vector2.Distance(e.Position, pos);

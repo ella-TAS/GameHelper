@@ -5,7 +5,7 @@ namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/FlagZoneTrigger")]
 public class FlagZoneTrigger : Trigger {
-    private string flag;
+    private readonly string flag;
 
     public FlagZoneTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         flag = data.Attr("flag");

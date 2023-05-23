@@ -7,10 +7,11 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/Dispenser")]
 public class Dispenser : Solid {
-    private ParticleType pType;
-    private float shootTimer, maxShootTimer;
-    private string flag;
-    private bool facingLeft;
+    private readonly ParticleType pType;
+    private float shootTimer;
+    private readonly float maxShootTimer;
+    private readonly string flag;
+    private readonly bool facingLeft;
 
     public Dispenser(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, 16, 16, safe: false) {
         flag = data.Attr("flag");
@@ -54,7 +55,7 @@ public class Dispenser : Solid {
 }
 
 public class Arrow : Actor {
-    private bool facingLeft;
+    private readonly bool facingLeft;
 
     public Arrow(Vector2 position, bool facingLeft) : base(position) {
         this.facingLeft = facingLeft;

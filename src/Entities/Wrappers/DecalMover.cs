@@ -9,10 +9,10 @@ public class DecalMover : Wrapper {
     private Decal decal;
     private int nextNode;
     private Vector2 homePos;
-    private Vector2[] nodes;
-    private string flag;
-    private float speed;
-    private bool loop;
+    private readonly Vector2[] nodes;
+    private readonly string flag;
+    private readonly float speed;
+    private readonly bool loop;
 
     public DecalMover(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         speed = data.Float("speed");
@@ -26,7 +26,7 @@ public class DecalMover : Wrapper {
 
     public override void Update() {
         base.Update();
-        if(flag == "" || SceneAs<Level>().Session.GetFlag(flag)) {
+        if(flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag)) {
             Position = Calc.Approach(Position, nodes[nextNode], speed * Engine.DeltaTime);
             if(Position == nodes[nextNode]) {
                 nextNode++;

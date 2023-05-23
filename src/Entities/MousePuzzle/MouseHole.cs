@@ -7,11 +7,11 @@ namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 [Tracked]
 [CustomEntity("GameHelper/MouseHole")]
 public class MouseHole : Solid {
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private bool wasFlag, complete;
     private float spawnTimer;
-    private bool spawner, resetFlagOnDeath;
-    private string flag;
+    private readonly bool spawner, resetFlagOnDeath;
+    private readonly string flag;
 
     public MouseHole(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, data.Width, data.Height, safe: true) {
         spawner = data.Bool("spawner");

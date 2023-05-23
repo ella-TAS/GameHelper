@@ -8,10 +8,12 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Pigarithm")]
 public class Pigarithm : Solid {
     private Level level;
-    private Sprite sprite;
-    private float speed;
-    private bool movingRight, kill, resting;
-    private string size, flag;
+    private readonly Sprite sprite;
+    private readonly float speed;
+    private bool movingRight;
+    private readonly bool kill;
+    private bool resting;
+    private readonly string size, flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
@@ -31,7 +33,7 @@ public class Pigarithm : Solid {
         base.Update();
 
         //movement
-        if(!resting && (flag == "" || SceneAs<Level>().Session.GetFlag(flag))) {
+        if(!resting && (flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag))) {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speed * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;

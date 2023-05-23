@@ -6,8 +6,8 @@ namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/RegisterHeartTrigger")]
 public class RegisterHeartTrigger : Trigger {
-    private string flag;
-    private bool hideAnimation;
+    private readonly string flag;
+    private readonly bool hideAnimation;
 
     public RegisterHeartTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         flag = data.Attr("flag");

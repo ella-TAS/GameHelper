@@ -6,13 +6,14 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private Level level;
     private float baseAlpha;
-    private float fadeSpeed;
-    private float maxCooldown, cooldown;
+    private readonly float fadeSpeed;
+    private readonly float maxCooldown;
+    private float cooldown;
 
-    public FlashlightController(EntityData data, Vector2 levelOffset) {
+    public FlashlightController(EntityData data) {
         fadeSpeed = 1 / data.Float("fadeTime");
         maxCooldown = data.Float("cooldown");
         sprite = new Sprite(GFX.Gui, "GameHelper/");

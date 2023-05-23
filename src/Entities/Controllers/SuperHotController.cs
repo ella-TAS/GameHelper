@@ -6,7 +6,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/SuperHotController")]
 public class SuperHotController : Entity {
-    public SuperHotController(EntityData data, Vector2 levelOffset) {
+    public SuperHotController() {
         base.Depth = -1;
     }
 
@@ -17,7 +17,7 @@ public class SuperHotController : Entity {
             Engine.TimeRate = 1f;
             return;
         }
-        bool input = p.InControl & Input.Aim.Value.Length() < 0.3f & !Input.Jump & !Input.Dash & !Input.CrouchDash & !Input.Grab;
+        bool input = p.InControl && Input.Aim.Value.Length() < 0.3f && !Input.Jump && !Input.Dash && !Input.CrouchDash && !Input.Grab;
         Engine.TimeRate = Calc.Approach(Engine.TimeRate, input ? 0.1f : 1f, 0.1f);
     }
 }

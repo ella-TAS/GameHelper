@@ -6,7 +6,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/TimeFreezeController")]
 public class TimeFreezeController : Entity {
-    public TimeFreezeController(EntityData data, Vector2 levelOffset) {
+    public TimeFreezeController() {
         base.Depth = -1;
     }
 

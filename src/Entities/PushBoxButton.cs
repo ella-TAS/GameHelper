@@ -6,11 +6,11 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/PushBoxButton")]
 public class PushBoxButton : Entity {
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private int hasCollided, collidable;
     private bool down, wasDown;
-    private string flag;
-    private bool playerActivates, resetFlagOnDeath;
+    private readonly string flag;
+    private readonly bool playerActivates, resetFlagOnDeath;
 
     public PushBoxButton(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         flag = data.Attr("flag");

@@ -7,7 +7,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/RicochetFist")]
 public class RicochetFist : Actor {
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private Vector2 homePos, direction;
     private int stamina;
 

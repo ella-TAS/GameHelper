@@ -4,7 +4,7 @@ respriter.name = "GameHelper/EntityRespriter"
 respriter.depth = -9999999
 respriter.texture = "loenn/GameHelper/entity_respriter"
 respriter.justification = {0.0, 0.0}
-respriter.nodeLimits = {0, 999}
+respriter.nodeLimits = {0, -1}
 respriter.placements = {
     {
         name = "direct",

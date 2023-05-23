@@ -27,7 +27,7 @@ public class SaveSpeedFeather : FlyFeather {
         DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
         PlayerCollider pc = Get<PlayerCollider>();
         var orig = pc.OnCollide;
-        pc.OnCollide = delegate (Player p) {
+        pc.OnCollide = (Player p) => {
             if(StoredSpeed == 0) {
                 Redirect = data.Bool("redirectSpeed");
                 StoredSpeed = 1.2f * (Redirect ? p.Speed.Length() : p.Speed.X);
@@ -39,13 +39,11 @@ public class SaveSpeedFeather : FlyFeather {
 
     public override void Update() {
         base.Update();
-        if(isLead) {
-            if(StoredSpeed != 0) {
-                if(Redirect) {
-                    SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(colorR);
-                } else {
-                    SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(flyColorN);
-                }
+        if(isLead && StoredSpeed != 0) {
+            if(Redirect) {
+                SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(colorR);
+            } else {
+                SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(flyColorN);
             }
         }
     }

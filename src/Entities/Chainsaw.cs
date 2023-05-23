@@ -10,7 +10,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class Chainsaw : Entity {
     private const float maxSpeed = 3f;
     private const float accel = 0.2f;
-    private Sprite sprite;
+    private readonly Sprite sprite;
     private EventInstance sfx;
     private bool charging, stunned;
     private float speed;
@@ -19,8 +19,8 @@ public class Chainsaw : Entity {
     public Chainsaw(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         targetPos = data.Nodes[0] + levelOffset;
         homePos = data.Position + levelOffset;
-        collidePos1 = homePos + 5.5f * (homePos - targetPos).SafeNormalize();
-        collidePos2 = targetPos + 5.5f * (targetPos - homePos).SafeNormalize();
+        collidePos1 = homePos + (5.5f * (homePos - targetPos).SafeNormalize());
+        collidePos2 = targetPos + (5.5f * (targetPos - homePos).SafeNormalize());
         base.Depth = -1;
         base.Collider = new Circle(6f);
         sprite = GameHelper.SpriteBank.Create("chainsaw");

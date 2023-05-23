@@ -10,7 +10,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/SlowdownCobweb")]
 public class SlowdownCobweb : Entity {
     private Sprite sprite;
-    private int width, height;
+    private readonly int width, height;
     private bool decaying;
 
     public SlowdownCobweb(Vector2 position) : base(position) {

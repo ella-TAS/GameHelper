@@ -8,8 +8,8 @@ namespace Celeste.Mod.GameHelper.Triggers;
 [CustomEntity("GameHelper/ShieldTrigger")]
 public class ShieldTrigger : Trigger {
     public static Shield Shield;
-    private int flashes;
-    private bool enable;
+    private readonly int flashes;
+    private readonly bool enable;
 
     public ShieldTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         enable = data.Bool("enable");

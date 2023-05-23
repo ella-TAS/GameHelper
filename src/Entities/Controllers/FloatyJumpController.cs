@@ -8,9 +8,9 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 [CustomEntity("GameHelper/FloatyJumpController")]
 public class FloatyJumpController : Entity {
     internal static bool Floating, CanFloat;
-    private bool enable;
+    private readonly bool enable;
 
-    public FloatyJumpController(EntityData data, Vector2 levelOffset) {
+    public FloatyJumpController(EntityData data) {
         enable = data.Bool("enable");
     }
 
@@ -30,7 +30,6 @@ public class FloatyJumpController : Entity {
             }
         }
     }
-
 
     public override void Added(Scene scene) {
         base.Added(scene);

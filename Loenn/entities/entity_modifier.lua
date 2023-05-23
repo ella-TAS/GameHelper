@@ -4,7 +4,7 @@ modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -9999999
 modifier.texture = "loenn/GameHelper/entity_modifier"
 modifier.justification = {0.0, 0.0}
-modifier.nodeLimits = {0, 999}
+modifier.nodeLimits = {0, -1}
 modifier.placements = {
     {
         name = "number",

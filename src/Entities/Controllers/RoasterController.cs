@@ -9,14 +9,15 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 [Tracked]
 [CustomEntity("GameHelper/RoasterController")]
 public class RoasterController : Entity {
-    private ParticleType pType;
+    private readonly ParticleType pType;
     private Color color;
-    private String flag;
-    private float maxTimer, timer;
-    private bool waterOnly;
+    private readonly String flag;
+    private readonly float maxTimer;
+    private float timer;
+    private readonly bool waterOnly;
     private float progress;
 
-    public RoasterController(EntityData data, Vector2 levelOffset) {
+    public RoasterController(EntityData data) {
         timer = maxTimer = data.Float("timer");
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
@@ -94,13 +95,13 @@ public class RoasterController : Entity {
     }
 
     private static void drawCircle(Vector2 center, float radius, Color color) {
-        float radius2 = radius * radius - 0.25f;
+        float radius2 = (radius * radius) - 0.25f;
         int y = (int) Math.Round(radius);
         drawCirclePx(0, y);
         for(int x = 1; x < y; x++) {
             //(y-0.5)² = y²-y+0.25
-            if(x * x + y * y - y > radius2) {
-                y -= 1;
+            if((x * x) + (y * y) - y > radius2) {
+                y--;
             }
             drawCirclePx(x, y);
         }

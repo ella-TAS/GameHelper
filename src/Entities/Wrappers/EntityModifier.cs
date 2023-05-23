@@ -9,12 +9,12 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 [CustomEntity("GameHelper/EntityModifier")]
 public class EntityModifier : Wrapper {
     private List<Entity> targets;
-    private Vector2[] nodes;
+    private readonly Vector2[] nodes;
     private Vector2 levelOffset;
     private bool wasFlag;
-    private bool debug, allEntities, invertFlag, onlyOnce, everyFrame;
-    private string onlyType, fieldName, flag;
-    private object value;
+    private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame;
+    private readonly string onlyType, fieldName, flag;
+    private readonly object value;
 
     public EntityModifier(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         base.Depth = int.MinValue;
@@ -46,7 +46,7 @@ public class EntityModifier : Wrapper {
 
     public override void Update() {
         base.Update();
-        bool isFlag = flag == "" || getFlag();
+        bool isFlag = flag?.Length == 0 || getFlag();
         if(isFlag && !wasFlag) {
             modify(targets);
             wasFlag = true;
@@ -96,7 +96,7 @@ public class EntityModifier : Wrapper {
         modify(targets);
         wasFlag = true;
 
-        if(flag == "" && !everyFrame) {
+        if(flag?.Length == 0 && !everyFrame) {
             RemoveSelf();
         }
     }
