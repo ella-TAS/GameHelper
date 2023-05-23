@@ -9,55 +9,55 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/Balloon")]
 public class Balloon : Entity {
     private static int BalloonCount;
-    private Sprite sprite;
-    private float floatyOffset;
+    private readonly Sprite sprite;
+    private readonly float floatyOffset;
+    private readonly bool oneUse, superBounce;
     private bool isLead;
-    private bool oneUse, superBounce;
 
     public Balloon(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         oneUse = data.Bool("oneUse");
         superBounce = data.Bool("superBounce");
         base.Collider = new Hitbox(15, 8);
+        base.Depth = -1;
         floatyOffset = (int) (-3.15f * GameHelper.Random.NextFloat());
-        Add(new PlayerCollider(onCollide));
         Add(sprite = GameHelper.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
         sprite.Play("idle", true, true);
     }
 
     public override void Update() {
         base.Update();
-        sprite.RenderPosition = Position + 1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset));
+        if(CollideCheck<Player>()) {
+            //moved to Update() to avoid OoO messup with dash bubbles
+            Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
+            if(superBounce) {
+                float speedX = player.Speed.X;
+                player.SuperBounce(Position.Y);
+                player.Speed.X = speedX;
+            } else {
+                player.Bounce(Position.Y);
+            }
+            player.AutoJumpTimer = 0f;
+            player.Speed.X *= 1.2f;
+            sprite.Play("pop");
+            Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", BalloonCount);
+            if(BalloonCount < 7) {
+                BalloonCount++;
+            }
+            base.Collidable = false;
+            if(oneUse) {
+                RemoveSelf();
+            }
+            Add(new Coroutine(RoutineRespawn()));
+        }
+        sprite.RenderPosition = Position + (1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset)));
         if(isLead) {
-            Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null && p.OnGround()) {
+            if(SceneAs<Level>().Tracker.GetEntity<Player>()?.OnGround() == true) {
                 BalloonCount = 0;
             }
         }
     }
 
-    private void onCollide(Player player) {
-        if(superBounce) {
-            float speedX = player.Speed.X;
-            player.SuperBounce(Position.Y);
-            player.Speed.X = speedX;
-        } else {
-            player.Bounce(Position.Y);
-        }
-        player.AutoJumpTimer = 0f;
-        player.Speed.X *= 1.2f;
-        sprite.Play("pop");
-        Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", BalloonCount);
-        if(BalloonCount < 7) {
-            BalloonCount++;
-        }
-        base.Collidable = false;
-        if(oneUse) {
-            RemoveSelf();
-        }
-        Add(new Coroutine(routineRespawn()));
-    }
-
-    private IEnumerator routineRespawn() {
+    private IEnumerator RoutineRespawn() {
         yield return 2.5f;
         base.Collidable = true;
         sprite.Play("spawn");
