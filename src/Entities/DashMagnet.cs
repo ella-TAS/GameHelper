@@ -66,8 +66,13 @@ public class DashMagnet : Entity {
         inside = false;
     }
 
-    public override void Removed(Scene scene) {
-        base.Removed(scene);
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        InsideMagnet = false;
+    }
+
+    public override void SceneEnd(Scene scene) {
+        base.SceneEnd(scene);
         InsideMagnet = false;
     }
 

@@ -11,13 +11,13 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/FlagCollectBerry")]
 [RegisterStrawberry(true, true)]
 public class FlagCollectBerry : Strawberry {
-    private readonly string collectFlag, loseFlag;
-    private readonly EntityData data;
-    private readonly Vector2 levelOffset;
-    private readonly bool keepOnDeath;
+    public string collectFlag, loseFlag;
+    public readonly EntityData data;
+    public readonly Vector2 levelOffset;
+    public bool keepOnDeath;
     private DynamicData componentData;
-    private float wobble;
-    private bool hadLeader;
+    public float wobble;
+    public bool hadLeader;
 
     public FlagCollectBerry(EntityData data, Vector2 levelOffset, EntityID id) : base(data, levelOffset, id) {
         this.data = data;
@@ -56,17 +56,16 @@ public class FlagCollectBerry : Strawberry {
 
     //methods can be overridden
     public virtual void AddStored() {
-        //add only if keep on death
         if(keepOnDeath) {
-            GameHelper.Instance.Session.StoredBerries.Add(this);
+            GameHelper.Session.StoredBerries.Add(this);
         }
     }
 
     public virtual void RemoveStored() {
         //find the list clone with the correct ID
-        foreach(FlagCollectBerry f in GameHelper.Instance.Session.StoredBerries) {
+        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
             if(ID.Equals(f.ID)) {
-                GameHelper.Instance.Session.StoredBerries.Remove(f);
+                GameHelper.Session.StoredBerries.Remove(f);
                 return;
             }
         }
@@ -85,15 +84,16 @@ public class FlagCollectBerry : Strawberry {
     public virtual void AddClone(Player p, Scene s) {
         FlagCollectBerry clone = Clone();
         s.Add(clone);
-        clone.ReturnHomeWhenLost = true;
         p.Leader.GainFollower(clone.Follower);
-        clone.hadLeader = true;
-        clone.Depth = -1000000;
         clone.Position = p.Center;
     }
 
     public virtual FlagCollectBerry Clone() {
-        return new(data, levelOffset, ID);
+        return new(data, levelOffset, ID) {
+            ReturnHomeWhenLost = true,
+            Depth = -1000000,
+            hadLeader = true
+        };
     }
 
     private IEnumerator routineReturn() {
@@ -104,8 +104,8 @@ public class FlagCollectBerry : Strawberry {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        GameHelper.Instance.Session.StoredBerries ??= new();
-        foreach(FlagCollectBerry f in GameHelper.Instance.Session.StoredBerries) {
+        GameHelper.Session.StoredBerries ??= new();
+        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
             if(!hadLeader && ID.Equals(f.ID)) {
                 //berry exists
                 RemoveSelf();
@@ -117,8 +117,8 @@ public class FlagCollectBerry : Strawberry {
 
     private static void OnPlayerAdded(On.Celeste.Player.orig_Added orig, Player p, Scene s) {
         orig(p, s);
-        GameHelper.Instance.Session.StoredBerries ??= new();
-        foreach(FlagCollectBerry f in GameHelper.Instance.Session.StoredBerries) {
+        GameHelper.Session.StoredBerries ??= new();
+        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
             f.AddClone(p, s);
         }
     }

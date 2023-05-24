@@ -18,7 +18,7 @@ public class RegisterHeartTrigger : Trigger {
         if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
             return;
         }
-        if(GameHelper.Instance.Session.HeartTriggerActivated) {
+        if(GameHelper.Session.HeartTriggerActivated) {
             RemoveSelf();
             return;
         }
@@ -33,6 +33,6 @@ public class RegisterHeartTrigger : Trigger {
                 Scene.Add(new AbsorbOrb(player.Center));
             }
         }
-        GameHelper.Instance.Session.HeartTriggerActivated = true;
+        GameHelper.Session.HeartTriggerActivated = true;
     }
 }

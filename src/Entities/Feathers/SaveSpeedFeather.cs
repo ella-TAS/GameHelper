@@ -81,4 +81,14 @@ public class SaveSpeedFeather : FlyFeather {
             isLead = true;
         }
     }
+
+    public override void Removed(Scene scene) {
+        base.Removed(scene);
+        StoredSpeed = 0;
+    }
+
+    public override void SceneEnd(Scene scene) {
+        base.SceneEnd(scene);
+        StoredSpeed = 0;
+    }
 }

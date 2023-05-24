@@ -10,7 +10,7 @@ namespace Celeste.Mod.GameHelper;
 public class GameHelper : EverestModule {
     public static GameHelper Instance;
     public override Type SessionType => typeof(GameHelperSession);
-    public GameHelperSession Session => _Session as GameHelperSession;
+    public static GameHelperSession Session => (GameHelperSession) Instance._Session;
 
     internal static SpriteBank SpriteBank;
     internal static Random Random;

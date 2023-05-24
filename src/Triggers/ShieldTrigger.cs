@@ -29,6 +29,11 @@ public class ShieldTrigger : Trigger {
         base.Removed(scene);
         Shield?.RemoveSelf();
     }
+
+    public override void SceneEnd(Scene scene) {
+        base.SceneEnd(scene);
+        Shield?.RemoveSelf();
+    }
 }
 
 public class Shield : Entity {
