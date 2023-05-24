@@ -1,85 +1,85 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Sprites>
     <trampoline path="objects/GameHelper/trampoline/" start="idle">
-        <Justify x="0.3" y="0.3"/>
-        <Loop id="idle" path="idle"/>
-        <Anim id="hit" path="hit" goto="idle" delay="0.3"/>
-        <Loop id="broken" path="broken"/>
+        <Justify x="0.3" y="0.3" />
+        <Loop id="idle" path="idle" />
+        <Anim id="hit" path="hit" goto="idle" delay="0.3" />
+        <Loop id="broken" path="broken" />
     </trampoline>
 
     <pigarithm_small path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="small_idle"/>
-        <Anim id="spin" path="small_spin" delay="0.05" goto="idle"/>
+        <Loop id="idle" path="small_idle" />
+        <Anim id="spin" path="small_spin" delay="0.05" goto="idle" />
     </pigarithm_small>
     <pigarithm_medium path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="medium_idle"/>
-        <Anim id="spin" path="medium_spin" delay="0.05" goto="idle"/>
+        <Loop id="idle" path="medium_idle" />
+        <Anim id="spin" path="medium_spin" delay="0.05" goto="idle" />
     </pigarithm_medium>
     <pigarithm_big path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="big_idle"/>
-        <Anim id="spin" path="big_spin" delay="0.05" goto="idle"/>
+        <Loop id="idle" path="big_idle" />
+        <Anim id="spin" path="big_spin" delay="0.05" goto="idle" />
     </pigarithm_big>
 
     <push_box_button path="objects/GameHelper/push_box_button/" start="idle">
-        <Loop id="idle" path="idle"/>
-        <Loop id="down" path="down"/>
+        <Loop id="idle" path="idle" />
+        <Loop id="down" path="down" />
     </push_box_button>
 
     <balloon_red path="objects/GameHelper/balloon/red/" start="idle">
-        <Justify x="0.27" y="0.27"/>
-        <Loop id="idle" path="idle" frames="0,1,0,2" delay="3"/>
-        <Anim id="pop" path="pop" delay="0.06666"/>
-        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle"/>
+        <Justify x="0.27" y="0.27" />
+        <Loop id="idle" path="idle" frames="0,1,0,2" delay="3" />
+        <Anim id="pop" path="pop" delay="0.06666" />
+        <Anim id="spawn" path="spawn" delay="0.06666" goto="idle" />
     </balloon_red>
-    <balloon_blue path="objects/GameHelper/balloon/blue/" copy="balloon_red"/>
-    <balloon_green path="objects/GameHelper/balloon/green/" copy="balloon_red"/>
-    <balloon_yellow path="objects/GameHelper/balloon/yellow/" copy="balloon_red"/>
+    <balloon_blue path="objects/GameHelper/balloon/blue/" copy="balloon_red" />
+    <balloon_green path="objects/GameHelper/balloon/green/" copy="balloon_red" />
+    <balloon_yellow path="objects/GameHelper/balloon/yellow/" copy="balloon_red" />
 
     <chainsaw path="objects/GameHelper/chainsaw/" start="idle">
-        <Justify x="0.5" y="0.5"/>
-        <Loop id="idle" path="idle" delay="0.05"/>
-        <Loop id="chasing" path="chasing" delay="0.05"/>
+        <Justify x="0.5" y="0.5" />
+        <Loop id="idle" path="idle" delay="0.05" />
+        <Loop id="chasing" path="chasing" delay="0.05" />
     </chainsaw>
 
     <mouse_rotator path="objects/GameHelper/mouse_puzzle/" start="right">
-        <Loop id="right" path="rotator_right"/>
-        <Loop id="left" path="rotator_left"/>
+        <Loop id="right" path="rotator_right" />
+        <Loop id="left" path="rotator_left" />
     </mouse_rotator>
     <mouse path="objects/GameHelper/mouse_puzzle/" start="running">
-        <Loop id="running" path="maus" frames="0,1,0,2,3,2" delay="0.06666"/>
+        <Loop id="running" path="maus" frames="0,1,0,2,3,2" delay="0.06666" />
     </mouse>
     <mouse_hole path="objects/GameHelper/mouse_puzzle/" start="closed">
-        <Loop id="closed" path="hole_closed"/>
-        <Anim id="opening" path="hole_open" delay="0.06666"/>
-        <Anim id="closing" path="hole_close" delay="0.06666" goto="closed"/>
-        <Loop id="exit" path="exit"/>
-        <Anim id="complete" path="complete" delay="0.06666"/>
+        <Loop id="closed" path="hole_closed" />
+        <Anim id="opening" path="hole_open" delay="0.06666" />
+        <Anim id="closing" path="hole_close" delay="0.06666" goto="closed" />
+        <Loop id="exit" path="exit" />
+        <Anim id="complete" path="complete" delay="0.06666" />
     </mouse_hole>
 
     <ricochet_fist path="objects/GameHelper/" start="idle">
-        <Loop id="idle" path="ricochet_fist"/>
+        <Loop id="idle" path="ricochet_fist" />
     </ricochet_fist>
 
     <cobweb0 path="objects/GameHelper/cobweb/A/" start="normal">
-        <Loop id="normal" path="web" frames="0"/>
-        <Anim id="decay" path="web" delay="0.1"/>
+        <Loop id="normal" path="web" frames="0" />
+        <Anim id="decay" path="web" delay="0.1" />
     </cobweb0>
-    <cobweb1 path="objects/GameHelper/cobweb/B/" copy="cobweb0"/>
-    <cobweb2 path="objects/GameHelper/cobweb/C/" copy="cobweb0"/>
+    <cobweb1 path="objects/GameHelper/cobweb/B/" copy="cobweb0" />
+    <cobweb2 path="objects/GameHelper/cobweb/C/" copy="cobweb0" />
 
     <dispenser path="objects/GameHelper/dispenser/" start="idle">
-        <Loop id="idle" path="dispenser"/>
+        <Loop id="idle" path="dispenser" />
     </dispenser>
     <arrow path="objects/GameHelper/dispenser/" start="idle">
-        <Loop id="idle" path="arrow"/>
+        <Loop id="idle" path="arrow" />
     </arrow>
 
     <shield path="objects/GameHelper/" start="idle">
-        <Loop id="idle" path="shield_bubble"/>
+        <Loop id="idle" path="shield_bubble" />
     </shield>
-    
+
     <dash_magnet path="objects/GameHelper/dash_magnet/" start="idle">
-        <Loop id="idle" path="idle" delay="0.1"/>
-        <Anim id="flash" path="flash" delay="0.1" goto="idle"/>
+        <Loop id="idle" path="idle" delay="0.1" />
+        <Anim id="flash" path="flash" delay="0.1" goto="idle" />
     </dash_magnet>
 </Sprites>
