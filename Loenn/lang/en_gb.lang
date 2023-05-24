@@ -109,6 +109,9 @@ entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
 
 entities.GameHelper/DashMagnet.placements.name.magnet=Dash Magnet
+entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the time rate should be slowed down when the player enters the magnet's radius with a dash
+
+entities.GameHelper/FlagCollectBerry.placements.name.normal=Flag Collect Strawberry
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster

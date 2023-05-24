@@ -32,6 +32,7 @@ public class GameHelper : EverestModule {
         SlowdownCobweb.Hook();
         Shield.Hook();
         DashMagnet.Load();
+        FlagCollectBerry.Hook();
     }
 
     public override void Unload() {
@@ -40,6 +41,7 @@ public class GameHelper : EverestModule {
         SlowdownCobweb.Unhook();
         Shield.Unhook();
         DashMagnet.Unload();
+        FlagCollectBerry.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

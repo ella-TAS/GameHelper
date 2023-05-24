@@ -17,7 +17,8 @@ public class RoasterController : Entity {
     private readonly bool waterOnly;
     private float progress;
 
-    public RoasterController(EntityData data) {
+#pragma warning disable IDE0060, RCS1163
+    public RoasterController(EntityData data, Vector2 levelOffset) {
         timer = maxTimer = data.Float("timer");
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
@@ -38,6 +39,7 @@ public class RoasterController : Entity {
             Size = 1
         };
     }
+#pragma warning restore
 
     public override void Update() {
         base.Update();
