@@ -9,6 +9,7 @@ pushboxbutton.placements = {
     data = {
         flag = "button",
         playerActivates = true,
+        theoActivates = false,
         resetFlagOnDeath = true
     }
 }

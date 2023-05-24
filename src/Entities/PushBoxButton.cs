@@ -7,58 +7,42 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/PushBoxButton")]
 public class PushBoxButton : Entity {
     private readonly Sprite sprite;
-    private int hasCollided, collidable;
-    private bool down, wasDown;
+    private bool inside, wasInside;
     private readonly string flag;
-    private readonly bool playerActivates, resetFlagOnDeath;
+    private readonly bool theoActivates, resetFlagOnDeath;
 
     public PushBoxButton(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         flag = data.Attr("flag");
-        playerActivates = data.Bool("playerActivates");
+        theoActivates = data.Bool("theoActivates");
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
-        hasCollided = collidable = 0;
-        down = wasDown = false;
         Add(sprite = GameHelper.SpriteBank.Create("push_box_button"));
         base.Collider = new Hitbox(16f, 8f);
-        if(playerActivates) {
+        if(data.Bool("playerActivates")) {
             Add(new PlayerCollider(onCollide));
         }
         base.Depth = -2;
     }
 
     private void onCollide(Player player) {
-        down = true;
-        collidable++;
+        inside = true;
     }
 
     public override void Update() {
         base.Update();
-        down = false;
-        if(collidable != 0) {
-            hasCollided++;
-            if(collidable == hasCollided) {
-                down = true;
-            } else {
-                collidable = hasCollided = 0;
-            }
+        //push box / theo collision
+        if(!inside && (CollideCheck<PushBox>() || (theoActivates && CollideCheck<TheoCrystal>()))) {
+            inside = true;
         }
-        if(!down) {
-            foreach(Entity e in Scene.Tracker.GetEntities<PushBox>()) {
-                if(CollideCheck(e)) {
-                    down = true;
-                    break;
-                }
-            }
-        }
-        if(down && !wasDown) {
+        if(inside && !wasInside) {
             sprite.Play("down");
-            wasDown = true;
             SceneAs<Level>().Session.SetFlag(flag, true);
-        } else if(!down && wasDown) {
+            wasInside = true;
+        } else if(!inside && wasInside) {
             sprite.Play("idle");
-            wasDown = false;
             SceneAs<Level>().Session.SetFlag(flag, false);
+            wasInside = false;
         }
+        inside = false;
     }
 
     public override void Removed(Scene scene) {

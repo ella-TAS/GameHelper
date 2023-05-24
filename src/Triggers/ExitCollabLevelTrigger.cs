@@ -32,6 +32,7 @@ public class ExitCollabLevelTrigger : Trigger {
             return;
         }
         base.Collidable = false;
+        collectBerries(player);
         Add(new Coroutine(routineExit(player)));
     }
 
@@ -39,7 +40,6 @@ public class ExitCollabLevelTrigger : Trigger {
         Level level = SceneAs<Level>();
         level.CanRetry = false;
         Engine.TimeRate = timeRateWait;
-        collectBerries(p);
         yield return delay;
         Engine.TimeRate = 1f;
         if(p.Dead) {
@@ -70,11 +70,15 @@ public class ExitCollabLevelTrigger : Trigger {
     }
 
     private void collectBerries(Player p) {
+        List<IStrawberry> berries = new();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
         foreach(Follower follower in p.Leader.Followers) {
             if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry) {
-                (follower.Entity as IStrawberry)?.OnCollect();
+                berries.Add(follower.Entity as IStrawberry);
             }
+        }
+        foreach(IStrawberry berry in berries) {
+            berry.OnCollect();
         }
     }
 
