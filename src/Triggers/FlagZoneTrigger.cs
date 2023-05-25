@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Monocle;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -16,6 +17,11 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnLeave(Player p) {
+        SceneAs<Level>().Session.SetFlag(flag, false);
+    }
+
+    public override void SceneEnd(Scene scene) {
+        base.SceneEnd(scene);
         SceneAs<Level>().Session.SetFlag(flag, false);
     }
 }

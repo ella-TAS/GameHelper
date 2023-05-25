@@ -58,7 +58,7 @@ public class DashMagnet : Entity {
             if(p != null) {
                 if(p.Ducking) {
                     p.Ducking = false;
-                } else {
+                } else if(p.StateMachine.State != 9) {
                     p.StateMachine.ForceState(0);
                 }
             }
