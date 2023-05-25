@@ -45,8 +45,8 @@ public class SlowdownCobweb : Entity {
                 minDistance = Vector2.Distance(p.Center, c.Center);
             }
         }
-        if(nearestWeb != null) {
-            nearestWeb.Decay();
+        nearestWeb?.Decay();
+        if(nearestWeb != null && p.StateMachine.State != 2) {
             p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 40);
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
