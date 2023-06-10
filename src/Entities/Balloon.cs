@@ -26,7 +26,7 @@ public class Balloon : Entity {
 
     public override void Update() {
         base.Update();
-        if(CollideCheck<Player>()) {
+        if(Collidable && CollideCheck<Player>()) {
             //moved to Update() to avoid OoO messup with dash bubbles
             Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(superBounce) {
