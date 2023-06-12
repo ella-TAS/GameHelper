@@ -12,7 +12,7 @@ public class FireTrap : Entity {
 
     public FireTrap(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         delay = data.Float("delay");
-        base.Collider = new Hitbox(8, 30 * 8, 0, -30 * 8);
+        base.Collider = new Hitbox(8, 64, 0, -56);
         Add(new PlayerCollider(onPlayer));
     }
 

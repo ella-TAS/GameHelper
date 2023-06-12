@@ -113,6 +113,9 @@ entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the tim
 
 entities.GameHelper/FlagCollectBerry.placements.name.normal=Flag Collect Strawberry
 
+entities.GameHelper/FireTrap.placements.name.trap=Fire Trap
+entities.GameHelper/FireTrap.attributes.description.delay=The delay until the trap sets off after detecting the player
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
