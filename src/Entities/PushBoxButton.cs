@@ -9,11 +9,10 @@ public class PushBoxButton : Entity {
     private readonly Sprite sprite;
     private bool inside, wasInside;
     private readonly string flag;
-    private readonly bool theoActivates, resetFlagOnDeath;
+    private readonly bool resetFlagOnDeath;
 
     public PushBoxButton(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         flag = data.Attr("flag");
-        theoActivates = data.Bool("theoActivates");
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
         Add(sprite = GameHelper.SpriteBank.Create("push_box_button"));
         base.Collider = new Hitbox(16f, 8f);
@@ -29,8 +28,8 @@ public class PushBoxButton : Entity {
 
     public override void Update() {
         base.Update();
-        //push box / theo collision
-        if(!inside && (CollideCheck<PushBox>() || (theoActivates && CollideCheck<TheoCrystal>()))) {
+        //push box collision
+        if(!inside && CollideCheck<PushBox>()) {
             inside = true;
         }
         if(inside && !wasInside) {
