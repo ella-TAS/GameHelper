@@ -82,4 +82,8 @@
         <Loop id="idle" path="idle" delay="0.1" />
         <Anim id="flash" path="flash" delay="0.1" goto="idle" />
     </dash_magnet>
+
+    <fire_trap path="objects/GameHelper/" start="idle">
+        <Loop id="idle" path="fire_trap" />
+    </fire_trap>
 </Sprites>

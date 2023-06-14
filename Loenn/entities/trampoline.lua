@@ -1,5 +1,4 @@
 local utils = require("utils")
-
 local trampoline = {}
 
 trampoline.name = "GameHelper/Trampoline"

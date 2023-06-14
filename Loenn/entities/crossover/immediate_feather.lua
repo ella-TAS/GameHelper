@@ -1,6 +1,5 @@
 local drawableSprite = require("structs.drawable_sprite")
 local utils = require("utils")
-
 local feather = {}
 
 feather.name = "GameHelper/ImmediateFeather"
