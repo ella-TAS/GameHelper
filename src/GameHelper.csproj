@@ -1,51 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>net452</TargetFrameworks>
+        <AssemblyName>GameHelper</AssemblyName>
+        <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
+        <LangVersion>latest</LangVersion>
+        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..\..</CelesteGamePath>
+        <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
+        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>net452</TargetFrameworks>
-    <AssemblyName>GameHelper</AssemblyName>
-    <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
-    <LangVersion>latest</LangVersion>
-    <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..\..</CelesteGamePath>
-    <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-  </PropertyGroup>
+    <PropertyGroup>
+        <NoWarn>IDE1006;IDE0220;RCS1194</NoWarn>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <NoWarn>IDE1006;IDE0220;RCS1194</NoWarn>
-  </PropertyGroup>
+    <!--Disable
+    "Copy Local" for all references-->
+    <ItemDefinitionGroup>
+        <PackageReference PrivateAssets="all" ExcludeAssets="runtime" />
+        <Reference Private="false" />
+    </ItemDefinitionGroup>
 
-  <!--Disable "Copy Local" for all references-->
-  <ItemDefinitionGroup>
-    <PackageReference PrivateAssets="all" ExcludeAssets="runtime" />
-    <Reference Private="false" />
-  </ItemDefinitionGroup>
+    <ItemGroup>
+        <PackageReference Include="MonoMod" Version="22.01.04.03" />
+        <PackageReference Include="MonoMod.RuntimeDetour" Version="22.01.04.03" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MonoMod" Version="22.01.04.03" />
-    <PackageReference Include="MonoMod.RuntimeDetour" Version="22.01.04.03" />
-  </ItemGroup>
+    <ItemGroup>
+        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.exe" />
+        <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
+        <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
+        <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\lib\CollabUtils2.dll" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.exe" />
-    <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
-    <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
-    <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\lib\CollabUtils2.dll" />
-  </ItemGroup>
+    <Choose>
+        <When Condition="'$(OS)' != 'Windows_NT' Or Exists('$(CELESTEGAMEPATH)\FNA.dll')">
+            <ItemGroup>
+                <Reference Include="FNA" HintPath="$(CELESTEGAMEPATH)\FNA.dll" />
+            </ItemGroup>
+        </When>
 
-  <Choose>
-    <When Condition="'$(OS)' != 'Windows_NT' Or Exists('$(CELESTEGAMEPATH)\FNA.dll')">
-      <ItemGroup>
-        <Reference Include="FNA" HintPath="$(CELESTEGAMEPATH)\FNA.dll" />
-      </ItemGroup>
-    </When>
-
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.Xna.Framework" HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll" />
-        <Reference Include="Microsoft.Xna.Framework.Game" HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll" />
-        <Reference Include="Microsoft.Xna.Framework.Graphics" HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+        <Otherwise>
+            <ItemGroup>
+                <Reference Include="Microsoft.Xna.Framework"
+                    HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll" />
+                <Reference Include="Microsoft.Xna.Framework.Game"
+                    HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll" />
+                <Reference Include="Microsoft.Xna.Framework.Graphics"
+                    HintPath="$(WINDIR)\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll" />
+            </ItemGroup>
+        </Otherwise>
+    </Choose>
 </Project>
