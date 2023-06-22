@@ -1,18 +1,32 @@
-local moving_decal = {}
+local mover = {}
+local returnTypes = {
+    Remove = 0,
+    Teleport = 1,
+    Move_Start = 2,
+    Move_Path = 3,
+    Stop = 4
+}
 
-moving_decal.name = "GameHelper/DecalMover"
-moving_decal.depth = -9999999
-moving_decal.texture = "loenn/GameHelper/decal_mover"
-moving_decal.justification = {0.0, 0.0}
-moving_decal.nodeLimits = {1, -1}
-moving_decal.nodeLineRenderType = "line"
-moving_decal.placements = {
-    name = "moving_decal",
+mover.name = "GameHelper/DecalMover"
+mover.depth = -9999999
+mover.texture = "loenn/GameHelper/decal_mover"
+mover.justification = {0.0, 0.0}
+mover.nodeLimits = {1, -1}
+mover.nodeLineRenderType = "line"
+mover.placements = {
+    name = "mover",
     data = {
         speed = 60.0,
         flag = "",
-        loop = true
+        returnType = 1,
+        flipX = false,
+        flipY = false
+    }
+}
+mover.fieldInformation = {
+    returnType = {
+        options = returnTypes
     }
 }
 
-return moving_decal
+return mover
