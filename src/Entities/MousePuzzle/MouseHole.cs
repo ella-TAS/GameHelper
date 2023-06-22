@@ -39,7 +39,7 @@ public class MouseHole : Solid {
                 sprite.Play("closing");
                 wasFlag = false;
             }
-            if(isFlag && spawnTimer >= 1f / 3f) {
+            if(isFlag && spawnTimer >= 0.25f) {
                 SceneAs<Level>().Add(new Mouse(Position));
                 spawnTimer = 0;
             }
