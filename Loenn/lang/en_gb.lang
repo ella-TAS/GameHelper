@@ -3,28 +3,10 @@ entities.GameHelper/Trampoline.attributes.description.speedBoostX=The speed boos
 entities.GameHelper/Trampoline.attributes.description.speedBoostY=The speed boost added on the Y axis (default 60)
 entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
 
-entities.GameHelper/Pigarithm.placements.name.pigarithm=Pigarithm
-entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the entity uses\nRecommended sizes:\nBig: 6×4 tiles\nMedium: 4×3 tiles\nSmall: 2×2 tiles
-entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
-entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
-entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player
-entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's movement. Leave empty for no condition.
-entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down
-
-entities.GameHelper/PushBox.placements.name.pushbox=Push Box
-entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30)
-
 entities.GameHelper/PushBoxButton.placements.name.pushboxbutton=Push Box Button
 entities.GameHelper/PushBoxButton.attributes.description.flag=The flag the button activates
 entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether the player can activate the button
 entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
-
-entities.GameHelper/Chainsaw.placements.name.chainsaw=Chainsaw
-entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis
-
-entities.GameHelper/Balloon.placements.name.balloon=Balloon
-entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
-entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)
 
 entities.GameHelper/DecalMover.placements.name.mover=Decal Mover
 entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60)
@@ -33,41 +15,7 @@ entities.GameHelper/DecalMover.attributes.description.return_type=What the decal
 entities.GameHelper/DecalMover.attributes.description.flipX=Whether the decal should flip when it reaches the end node
 entities.GameHelper/DecalMover.attributes.description.flipY=Whether the decal should flip when it reaches the end node
 
-entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
-entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
-
-entities.GameHelper/MouseHole.placements.name.hole_spawner=Mouse Hole (Spawner)
-entities.GameHelper/MouseHole.placements.name.hole_exit=Mouse Hole (Exit)
-entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole
-entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true\nExit: Sets flag when a mouse enters
-entities.GameHelper/MouseHole.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
-
-entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
-entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)
-entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3)
-
-entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
-entities.GameHelper/RoasterController.attributes.description.timer=The number of seconds you you can stay on ground or walls before being killed (default 1.5)
-entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently
-entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers
-
-entities.GameHelper/TimeFreezeController.placements.name.tfc=Time Freeze Controller
-
-entities.GameHelper/FloatyJumpController.placements.name.fjc=Floaty Jump Controller
-entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled
-
-entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
-
-entities.GameHelper/ImmediateFeather.placements.name.normal=Immediate Feather
-entities.GameHelper/ImmediateFeather.placements.name.boost=Immediate Feather (Start Boost)
-entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0 for normal, 1.0 for boosted)
-entities.GameHelper/ImmediateFeather.attributes.description.startBoost=Whether the flight should start with 600 speed
-
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
-
-entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
-entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
-entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whether the speed should be given in the flight direction
 
 entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
 entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)
@@ -104,8 +52,6 @@ entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the m
 entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame\nPlease turn this off if not neccessary, it can impact performance\nInfo: Currently, when modifying multiple times, the target entities are not renewed, meaning removed entities may cause a crash and newly added entities are not modified\nPlease tell EllaTAS#8019 if this is a huge issue
 entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
 
-entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
-
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
 
@@ -114,29 +60,10 @@ entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the tim
 
 entities.GameHelper/FlagCollectBerry.placements.name.normal=Flag Collect Strawberry
 
-entities.GameHelper/FireTrap.placements.name.trap=Fire Trap
-entities.GameHelper/FireTrap.attributes.description.delay=The delay until the fire becomes collidable after starting\n(default 0.067, lets you not pass with a walking speed jump)
-
-
-triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
-
-triggers.GameHelper/RegisterHeartTrigger.placements.name.rht=Register Level Heart
-triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty for no requirement
-
-triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withTrigger=Exit Collab Level + Register Heart
-triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withoutTrigger=Exit Collab Level
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5)
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement
-
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
 
 triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
 triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log
 triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)
-
-triggers.GameHelper/ShieldTrigger.placements.name.shield=Shield (Invincibility)
-triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3)
-triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled
 
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
