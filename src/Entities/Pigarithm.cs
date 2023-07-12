@@ -7,21 +7,24 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/Pigarithm")]
 public class Pigarithm : Solid {
+    private const float gravity = 7.5f;
+    private const float fallCap = 160f;
     private Level level;
     private readonly Sprite sprite;
-    private readonly float speed;
-    private bool movingRight;
-    private readonly bool kill;
-    private bool resting;
+    private readonly float speedX;
+    private float speedY;
+    private bool movingRight, resting;
+    private readonly bool kill, hasGravity;
     private readonly string size, flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
-        speed = data.Float("speed");
+        speedX = data.Float("speed");
         movingRight = data.Bool("startRight");
         kill = data.Bool("kill");
         size = data.Attr("sprite");
         flag = data.Attr("flag");
+        hasGravity = data.Bool("gravity");
         base.Depth = -1;
         sprite = GameHelper.SpriteBank.Create(size);
         sprite.RenderPosition = new Vector2(-8, 0);
@@ -32,9 +35,17 @@ public class Pigarithm : Solid {
     public override void Update() {
         base.Update();
 
+        //player kill check
+        if(kill) {
+            Player p = Scene.Tracker.GetEntity<Player>();
+            if(p != null && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
+                p.Die((p.Center - this.Center).SafeNormalize());
+            }
+        }
+
         //movement
         if(!resting && (flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag))) {
-            bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speed * Engine.DeltaTime, thruDashBlocks: true);
+            bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;
                 sprite.Play("spin");
@@ -42,10 +53,14 @@ public class Pigarithm : Solid {
             }
         }
 
-        //player kill check
-        Player p = Scene.Tracker.GetEntity<Player>();
-        if(p != null && kill && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
-            p.Die((p.Center - this.Center).SafeNormalize());
+        if(hasGravity) {
+            speedY = Calc.Approach(speedY, fallCap, gravity);
+            if(MoveVCollideSolids(speedY * Engine.DeltaTime, thruDashBlocks: true)) {
+                speedY = 0f;
+            }
+            if(base.Top > (float) SceneAs<Level>().Bounds.Bottom + 8f) {
+                RemoveSelf();
+            }
         }
     }
 

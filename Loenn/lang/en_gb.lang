@@ -10,6 +10,7 @@ entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction 
 entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player
 entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's movement. Leave empty for no condition.
 entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down
+entities.GameHelper/Pigarithm.attributes.description.gravity=Whether the entity should be affected by gravity
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box
 entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30)

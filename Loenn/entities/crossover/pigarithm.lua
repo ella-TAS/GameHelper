@@ -3,7 +3,8 @@ local pigarithm = {}
 local spriteOptions = {
     Small = "pigarithm_small",
     Medium = "pigarithm_medium",
-    Big = "pigarithm_big"
+    Big = "pigarithm_big",
+    MegaMole = "pigarithm_mole"
 }
 
 pigarithm.name = "GameHelper/Pigarithm"
@@ -26,17 +27,28 @@ pigarithm.placements = {
         speed = 60.0,
         startRight = true,
         kill = true,
+        gravity = false,
         flipSprite = false,
         flag = ""
     }
 }
 
 function pigarithm.justification(room, entity)
-    return (entity.sprite == "pigarithm_small" ? {0.28, 0.0} : (entity.sprite == "pigarithm_medium" ? {0.18, 0.0} : {0.14, 0.0}))
+    if entity.sprite == "pigarithm_small" then
+        return {0.28, 0.0}
+    elseif entity.sprite == "pigarithm_medium" then
+        return {0.18, 0.0}
+    else
+        return {0.14, 0.0}
+    end
 end
 
 function pigarithm.texture(room, entity)
-    return "objects/GameHelper/pigarithm/" .. (entity.sprite == "pigarithm_small" ? "small" : (entity.sprite == "pigarithm_medium" ? "medium" : "big")) .. "_idle"
+    local call = getmetatable("").__call
+    getmetatable("").__call = string.sub
+    local sprite = entity.sprite(11)
+    getmetatable("").__call = call
+    return "objects/GameHelper/pigarithm/" .. sprite .. "_idle"
 end
 
 return pigarithm
