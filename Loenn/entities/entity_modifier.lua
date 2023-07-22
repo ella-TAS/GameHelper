@@ -2,7 +2,6 @@ local modifier = {}
 
 modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -9999999
-modifier.texture = "loenn/GameHelper/entity_modifier"
 modifier.justification = {0.0, 0.0}
 modifier.nodeLimits = {0, -1}
 modifier.placements = {
@@ -61,5 +60,9 @@ modifier.fieldOrder = {
 modifier.ignoredFields = {
     "_id", "_name", "originX", "originY", "valueType"
 }
+
+function modifier.texture(room, entity)
+    return "loenn/GameHelper/entity_modifier_" .. entity.valueType
+end
 
 return modifier
