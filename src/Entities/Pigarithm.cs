@@ -14,7 +14,7 @@ public class Pigarithm : Solid {
     private readonly float speedX;
     private float speedY;
     private bool movingRight, resting;
-    private readonly bool kill, hasGravity;
+    private readonly bool kill, hasGravity, mole;
     private readonly string size, flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
@@ -25,10 +25,14 @@ public class Pigarithm : Solid {
         size = data.Attr("sprite");
         flag = data.Attr("flag");
         hasGravity = data.Bool("gravity");
+        mole = size == "pigarithm_mole";
         base.Depth = -1;
         sprite = GameHelper.SpriteBank.Create(size);
-        sprite.RenderPosition = new Vector2(-8, 0);
+        if(!mole) {
+            sprite.RenderPosition = new Vector2(-8, 0);
+        }
         sprite.FlipY = data.Bool("flipSprite");
+        sprite.FlipX = mole && !movingRight;
         Add(sprite);
     }
 
@@ -43,16 +47,22 @@ public class Pigarithm : Solid {
             }
         }
 
-        //movement
+        //x movement
         if(!resting && (flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag))) {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
             if(collided) {
                 movingRight = !movingRight;
-                sprite.Play("spin");
-                Add(new Coroutine(routineRest()));
+                if(mole) {
+                    sprite.FlipX = !sprite.FlipX;
+                    sprite.Play("idle");
+                } else {
+                    sprite.Play("spin");
+                    Add(new Coroutine(routineRest()));
+                }
             }
         }
 
+        //y movement
         if(hasGravity) {
             speedY = Calc.Approach(speedY, fallCap, gravity);
             if(MoveVCollideSolids(speedY * Engine.DeltaTime, thruDashBlocks: true)) {

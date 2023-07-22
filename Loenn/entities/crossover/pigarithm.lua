@@ -38,17 +38,16 @@ function pigarithm.justification(room, entity)
         return {0.28, 0.0}
     elseif entity.sprite == "pigarithm_medium" then
         return {0.18, 0.0}
-    else
+    elseif entity.sprite == "pigarithm_big" then
         return {0.14, 0.0}
+    else
+        return {0.0, 0.0}
     end
 end
 
 function pigarithm.texture(room, entity)
-    local call = getmetatable("").__call
-    getmetatable("").__call = string.sub
-    local sprite = entity.sprite(11)
-    getmetatable("").__call = call
-    return "objects/GameHelper/pigarithm/" .. sprite .. "_idle"
+    local sprite = string.sub(entity.sprite, 11)
+    return "objects/GameHelper/pigarithm/" .. (sprite == "mole" and "mole00" or sprite .. "/idle")
 end
 
 return pigarithm

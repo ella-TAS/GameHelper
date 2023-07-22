@@ -7,18 +7,15 @@
         <Loop id="broken" path="broken" />
     </trampoline>
 
-    <pigarithm_small path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="small_idle" />
-        <Anim id="spin" path="small_spin" delay="0.05" goto="idle" />
+    <pigarithm_small path="objects/GameHelper/pigarithm/small/" start="idle">
+        <Loop id="idle" path="idle" />
+        <Anim id="spin" path="spin" delay="0.05" goto="idle" />
     </pigarithm_small>
-    <pigarithm_medium path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="medium_idle" />
-        <Anim id="spin" path="medium_spin" delay="0.05" goto="idle" />
-    </pigarithm_medium>
-    <pigarithm_big path="objects/GameHelper/pigarithm/" start="idle">
-        <Loop id="idle" path="big_idle" />
-        <Anim id="spin" path="big_spin" delay="0.05" goto="idle" />
-    </pigarithm_big>
+    <pigarithm_medium path="objects/GameHelper/pigarithm/medium/" copy="pigarithm_small" />
+    <pigarithm_big path="objects/GameHelper/pigarithm/big/" copy="pigarithm_small" />
+    <pigarithm_mole path="objects/GameHelper/pigarithm/" start="idle">
+        <Loop id="idle" path="mole" delay="0.1" />
+    </pigarithm_mole>
 
     <push_box_button path="objects/GameHelper/push_box_button/" start="idle">
         <Loop id="idle" path="idle" />
