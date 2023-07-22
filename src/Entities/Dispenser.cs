@@ -10,17 +10,18 @@ public class Dispenser : Solid {
     private readonly ParticleType pType;
     private float shootTimer;
     private readonly float maxShootTimer;
-    private readonly string flag;
+    private readonly string flag, arrowSprite;
     private readonly bool facingLeft;
 
     public Dispenser(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, 16, 16, safe: false) {
         flag = data.Attr("flag");
         facingLeft = data.Bool("faceLeft");
         maxShootTimer = data.Float("cooldown");
+        arrowSprite = data.Attr("arrowSprite", "objects/GameHelper/arrow");
+        Add(new Image(GFX.Game[data.Attr("sprite", "objects/GameHelper/dispenser")]) {
+            FlipX = facingLeft
+        });
         base.Depth = -1;
-        Sprite sprite = GameHelper.SpriteBank.Create("dispenser");
-        sprite.FlipX = facingLeft;
-        Add(sprite);
 
         //particles
         pType = new ParticleType() {
@@ -40,7 +41,7 @@ public class Dispenser : Solid {
 
     private void shoot() {
         shootTimer = maxShootTimer;
-        SceneAs<Level>().Add(new Arrow(Position + new Vector2(facingLeft ? -16 : 16, 8), facingLeft));
+        SceneAs<Level>().Add(new Arrow(Position + new Vector2(facingLeft ? -16 : 16, 8), facingLeft, arrowSprite));
         Audio.Play("event:/GameHelper/dispenser/dispenser");
         SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? 3.1415927f : 0);
     }
@@ -57,13 +58,13 @@ public class Dispenser : Solid {
 public class Arrow : Actor {
     private readonly bool facingLeft;
 
-    public Arrow(Vector2 position, bool facingLeft) : base(position) {
+    public Arrow(Vector2 position, bool facingLeft, string sprite_path) : base(position) {
         this.facingLeft = facingLeft;
         base.Collider = new Hitbox(16, 4);
         base.Depth = -1;
-        Sprite sprite = GameHelper.SpriteBank.Create("arrow");
-        sprite.FlipX = facingLeft;
-        Add(sprite);
+        Add(new Image(GFX.Game[sprite_path]) {
+            FlipX = facingLeft
+        });
         Add(new PlayerCollider(onCollide));
     }
 

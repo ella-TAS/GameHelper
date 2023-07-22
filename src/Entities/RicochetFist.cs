@@ -7,7 +7,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/RicochetFist")]
 public class RicochetFist : Actor {
-    private readonly Sprite sprite;
+    private readonly Image sprite;
     private Vector2 homePos, direction;
     private int stamina;
 
@@ -18,10 +18,11 @@ public class RicochetFist : Actor {
         base.Depth = 1;
         base.Collider = new Hitbox(12, 12);
         Add(new PlayerCollider(onCollide));
-        sprite = GameHelper.SpriteBank.Create("ricochet_fist");
+        sprite = new(GFX.Game[data.Attr("sprite", "objects/GameHelper/ricochet_fist")]) {
+            Rotation = direction.Angle() - 0.7853982f, // sprite direction 45°
+            RenderPosition = 6f * Vector2.One
+        };
         sprite.CenterOrigin();
-        sprite.Rotation = direction.Angle() - 0.7853982f; // sprite direction 45°
-        sprite.RenderPosition = 6f * Vector2.One;
         Add(sprite);
     }
 

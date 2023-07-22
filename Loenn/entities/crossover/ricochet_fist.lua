@@ -8,7 +8,8 @@ fist.nodeLimits = {1, 1}
 fist.placements = {
     name = "fist",
     data = {
-        speed = 100.0
+        speed = 100.0,
+        sprite = "objects/GameHelper/ricochet_fist"
     }
 }
 

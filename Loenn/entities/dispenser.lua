@@ -2,11 +2,13 @@ local dispenser = {}
 
 dispenser.name = "GameHelper/Dispenser"
 dispenser.depth = 8998
-dispenser.texture = "objects/GameHelper/dispenser/dispenser"
+dispenser.texture = "objects/GameHelper/dispenser"
 dispenser.placements = {
     name = "dispenser",
     data = {
         flag = "dispenser",
+        sprite = "objects/GameHelper/dispenser",
+        arrowSprite = "objects/GameHelper/arrow",
         faceLeft = false,
         cooldown = 1.0
     }

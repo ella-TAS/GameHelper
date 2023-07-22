@@ -53,10 +53,6 @@
         <Anim id="complete" path="complete" delay="0.06666" />
     </mouse_hole>
 
-    <ricochet_fist path="objects/GameHelper/" start="idle">
-        <Loop id="idle" path="ricochet_fist" />
-    </ricochet_fist>
-
     <cobweb0 path="objects/GameHelper/cobweb/A/" start="normal">
         <Loop id="normal" path="web" frames="0" />
         <Anim id="decay" path="web" delay="0.1" />
@@ -64,23 +60,8 @@
     <cobweb1 path="objects/GameHelper/cobweb/B/" copy="cobweb0" />
     <cobweb2 path="objects/GameHelper/cobweb/C/" copy="cobweb0" />
 
-    <dispenser path="objects/GameHelper/dispenser/" start="idle">
-        <Loop id="idle" path="dispenser" />
-    </dispenser>
-    <arrow path="objects/GameHelper/dispenser/" start="idle">
-        <Loop id="idle" path="arrow" />
-    </arrow>
-
-    <shield path="objects/GameHelper/" start="idle">
-        <Loop id="idle" path="shield_bubble" />
-    </shield>
-
     <dash_magnet path="objects/GameHelper/dash_magnet/" start="idle">
         <Loop id="idle" path="idle" delay="0.1" />
         <Anim id="flash" path="flash" delay="0.1" goto="idle" />
     </dash_magnet>
-
-    <fire_trap path="objects/GameHelper/" start="idle">
-        <Loop id="idle" path="fire_trap" />
-    </fire_trap>
 </Sprites>

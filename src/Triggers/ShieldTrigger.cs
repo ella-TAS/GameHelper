@@ -41,9 +41,9 @@ public class Shield : Entity {
     public static int FlashAmount;
 
     public Shield() {
-        Sprite sprite = GameHelper.SpriteBank.Create("shield");
-        sprite.RenderPosition = new Vector2(-16, -22);
-        Add(sprite);
+        Add(new Image(GFX.Game["objects/GameHelper/shield_bubble"]) {
+            RenderPosition = new Vector2(-16, -22)
+        });
         base.Depth = -9999999;
     }
 

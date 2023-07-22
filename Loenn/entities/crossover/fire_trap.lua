@@ -8,7 +8,8 @@ trap.justification = {0.25, 0.5}
 trap.placements = {
     name = "trap",
     data = {
-        delay = 0.067
+        delay = 0.067,
+        sprite = "objects/GameHelper/fire_trap"
     }
 }
 

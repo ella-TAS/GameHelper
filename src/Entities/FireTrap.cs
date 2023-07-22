@@ -16,9 +16,9 @@ public class FireTrap : Entity {
         base.Collider = new Hitbox(8, 64, 0, -56);
         base.Depth = -1;
         Add(new PlayerCollider(onPlayer));
-        Sprite sprite = GameHelper.SpriteBank.Create("fire_trap");
-        sprite.RenderPosition = new Vector2(-4, -8);
-        Add(sprite);
+        Add(new Image(GFX.Game[data.Attr("sprite", "objects/GameHelper/fire_trap")]) {
+            RenderPosition = new Vector2(-4, -8)
+        });
 
         //particles
         fireParticles = new ParticleType() {
