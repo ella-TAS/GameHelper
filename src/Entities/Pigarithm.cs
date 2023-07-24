@@ -50,11 +50,18 @@ public class Pigarithm : Solid {
         //x movement
         if(!resting && (flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag))) {
             bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
+            if(!collided) {
+                foreach(SeekerBarrier s in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {
+                    if(s.CollideCheck(this)) {
+                        collided = true;
+                        break;
+                    }
+                }
+            }
             if(collided) {
                 movingRight = !movingRight;
                 if(mole) {
                     sprite.FlipX = !sprite.FlipX;
-                    sprite.Play("idle");
                 } else {
                     sprite.Play("spin");
                     Add(new Coroutine(routineRest()));
