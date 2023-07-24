@@ -63,7 +63,9 @@ public class DecalMover : Wrapper {
                     RemoveSelf();
                     break;
             }
-            decal.SetScale(flip(decal.Scale));
+            if(returnType != 0) {
+                decal.SetScale(flip(decal.Scale));
+            }
         } else if(movingBack && nextNode == 0) {
             //arrived at the start node
             movingBack = false;
