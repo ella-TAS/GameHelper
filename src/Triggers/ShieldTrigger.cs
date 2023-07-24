@@ -61,6 +61,7 @@ public class Shield : Entity {
     }
 
     private static IEnumerator routineBreak() {
+        Audio.Play("event:/GameHelper/shield/shield");
         for(int i = 0; i < FlashAmount; i++) {
             Show = false;
             yield return 0.1f;

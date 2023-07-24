@@ -44,9 +44,6 @@ public class Balloon : Entity {
                 BalloonCount++;
             }
             base.Collidable = false;
-            if(oneUse) {
-                RemoveSelf();
-            }
             Add(new Coroutine(RoutineRespawn()));
         }
         sprite.RenderPosition = Position + (1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset)));
@@ -59,6 +56,10 @@ public class Balloon : Entity {
 
     private IEnumerator RoutineRespawn() {
         yield return 2.5f;
+        if(oneUse) {
+            RemoveSelf();
+            yield break;
+        }
         base.Collidable = true;
         sprite.Play("spawn");
     }

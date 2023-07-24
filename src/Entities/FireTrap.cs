@@ -56,6 +56,7 @@ public class FireTrap : Entity {
     }
 
     private IEnumerator routineActivation() {
+        Audio.Play("event:/GameHelper/firetrap/firetrap");
         Collidable = false;
         yield return delay;
         Collidable = true;
