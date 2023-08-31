@@ -14,7 +14,7 @@ public class ImmediateFeather : FlyFeather {
         base.Depth = -1;
         DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
         PlayerCollider pc = Get<PlayerCollider>();
-        var orig = pc.OnCollide;
+        System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = (Player p) => {
             orig(p);
             if(data.Bool("startBoost") && p.Speed.Length() < 600f) {

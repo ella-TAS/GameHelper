@@ -2,11 +2,13 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
+using FMOD.Studio;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/Dispenser")]
 public class Dispenser : Solid {
+    private static EventInstance sound;
     private readonly ParticleType pType;
     private float shootTimer;
     private readonly float maxShootTimer;
@@ -42,7 +44,9 @@ public class Dispenser : Solid {
     private void shoot() {
         shootTimer = maxShootTimer;
         SceneAs<Level>().Add(new Arrow(Position + new Vector2(facingLeft ? -16 : 16, 8), facingLeft, arrowSprite));
-        Audio.Play("event:/GameHelper/dispenser/dispenser");
+        if(!Audio.IsPlaying(sound)) {
+            sound = Audio.Play("event:/GameHelper/dispenser/dispenser");
+        }
         SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? 3.1415927f : 0);
     }
 

@@ -11,7 +11,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 public class RoasterController : Entity {
     private readonly ParticleType pType;
     private Color color;
-    private readonly String flag;
+    private readonly string flag;
     private readonly float maxTimer;
     private float timer;
     private readonly bool waterOnly;

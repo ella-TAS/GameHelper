@@ -26,7 +26,7 @@ public class SaveSpeedFeather : FlyFeather {
         }
         DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
         PlayerCollider pc = Get<PlayerCollider>();
-        var orig = pc.OnCollide;
+        System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = (Player p) => {
             if(StoredSpeed == 0) {
                 Redirect = data.Bool("redirectSpeed");

@@ -43,7 +43,7 @@ public class Pigarithm : Solid {
         if(kill) {
             Player p = Scene.Tracker.GetEntity<Player>();
             if(p != null && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
-                p.Die((p.Center - this.Center).SafeNormalize());
+                p.Die((p.Center - Center).SafeNormalize());
             }
         }
 
