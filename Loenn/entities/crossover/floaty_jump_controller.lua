@@ -7,7 +7,8 @@ fjc.justification = {0.0, 0.0}
 fjc.placements = {
     name = "fjc",
     data = {
-        enable = true
+        enable = true,
+        flag = ""
     }
 }
 

@@ -9,10 +9,12 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 public class FloatyJumpController : Entity {
     internal static bool Floating, CanFloat;
     private readonly bool enable;
+    private readonly string flag;
 
 #pragma warning disable IDE0060, RCS1163
     public FloatyJumpController(EntityData data, Vector2 levelOffset) {
         enable = data.Bool("enable");
+        flag = data.Attr("flag");
     }
 #pragma warning restore
 
@@ -35,7 +37,9 @@ public class FloatyJumpController : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        GameHelper.Session.FloatyJumps = enable;
+        if(flag == "" || SceneAs<Level>().Session.GetFlag(flag)) {
+            GameHelper.Session.FloatyJumps = enable;
+        }
     }
 
     public static void Hook() {
