@@ -56,6 +56,7 @@ entities.GameHelper/TimeFreezeController.placements.name.tfc=Time Freeze Control
 
 entities.GameHelper/FloatyJumpController.placements.name.fjc=Floaty Jump Controller
 entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled
+entities.GameHelper/FloatyJumpController.attributes.description.flag=Flag needed for the floaty jump controller to change the value. Leave empty for no flag required
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
@@ -89,13 +90,14 @@ entities.GameHelper/EntityRespriter.attributes.description.removeAllComponents=R
 entities.GameHelper/EntityModifier.placements.name.number=Entity Modifier (Number)
 entities.GameHelper/EntityModifier.placements.name.string=Entity Modifier (String)
 entities.GameHelper/EntityModifier.placements.name.bool=Entity Modifier (Bool)
+entities.GameHelper/EntityModifier.placements.name.common=Entity Modifier (Active/Collidable/Visible – Common Bools)
 entities.GameHelper/EntityModifier.attributes.name.valueNumber=Value (Number)
 entities.GameHelper/EntityModifier.attributes.name.valueString=Value (String)
 entities.GameHelper/EntityModifier.attributes.name.valueBool=Value (Bool)
 entities.GameHelper/EntityModifier.attributes.description.valueNumber=The float/integer value the field should be set to (see Integer checkbox)
 entities.GameHelper/EntityModifier.attributes.description.integer=Whether the value should be an integer or a float\nUsing the wrong type will cause an ArgumentException\nMany Celeste things use floats, although Depth is an integer
 entities.GameHelper/EntityModifier.attributes.description.valueString=The string the field should be set to
-entities.GameHelper/EntityModifier.attributes.description.valueBool=Whether the field should be set to true or false
+entities.GameHelper/EntityModifier.attributes.description.changeBool=?
 entities.GameHelper/EntityModifier.attributes.description.fieldName=The name of the field in the code\nTo get a list of fields in log.txt (in your Celeste folder), install CelesteTAS, double tap Ctrl to open the info HUD and Ctrl+Click on the entity\nYou can also ask a coder for help
 entities.GameHelper/EntityModifier.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Pigarithm)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
 entities.GameHelper/EntityModifier.attributes.description.activationFlag=If a flag is set, the modifier will wait until it's true\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag
@@ -104,6 +106,15 @@ entities.GameHelper/EntityModifier.attributes.description.allEntities=Whether to
 entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the modification should only happen once\nTarget entities won't be renewed (see everyFrame tooltip)
 entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame\nPlease turn this off if not neccessary, it can impact performance\nInfo: Currently, when modifying multiple times, the target entities are not renewed, meaning removed entities may cause a crash and newly added entities are not modified\nPlease tell EllaTAS#8019 if this is a huge issue
 entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
+entities.GameHelper/EntityModifier.attributes.description.changeActive=?
+entities.GameHelper/EntityModifier.attributes.description.changeCollidable=?
+entities.GameHelper/EntityModifier.attributes.description.changeVisible=?
+entities.GameHelper/EntityModifier.attributes.description.revertWithFlag=?
+entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=?
+
+entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid (CubeInOut)
+entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds
+entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 

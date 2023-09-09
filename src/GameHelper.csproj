@@ -8,10 +8,13 @@
         <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..\..</CelesteGamePath>
         <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
         <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <OutputPath>..\bin</OutputPath>
     </PropertyGroup>
 
     <PropertyGroup>
-        <NoWarn>IDE1006;IDE0220;RCS1194</NoWarn>
+        <NoWarn>IDE0028;IDE0180;IDE0220;IDE1006;RCS1194</NoWarn>
     </PropertyGroup>
 
     <!--Disable
@@ -27,10 +30,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.exe" />
-        <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
-        <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
-        <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\lib\CollabUtils2.dll" />
+        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\legacyRef\Celeste.exe" />
+        <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\legacyRef\MMHOOK_Celeste.dll" />
+        <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\legacyRef\YamlDotNet.dll" />
+        <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\Mods\Cache\CollabUtils2.CollabUtils2.dll" />
     </ItemGroup>
 
     <Choose>

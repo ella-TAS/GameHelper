@@ -33,6 +33,7 @@ public class GameHelper : EverestModule {
         Shield.Hook();
         DashMagnet.Load();
         FlagCollectBerry.Hook();
+        Util.Load();
     }
 
     public override void Unload() {

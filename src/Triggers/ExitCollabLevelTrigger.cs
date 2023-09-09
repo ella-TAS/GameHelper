@@ -32,7 +32,6 @@ public class ExitCollabLevelTrigger : Trigger {
             return;
         }
         base.Collidable = false;
-        collectBerries(player);
         Add(new Coroutine(routineExit(player)));
     }
 
@@ -40,6 +39,7 @@ public class ExitCollabLevelTrigger : Trigger {
         Level level = SceneAs<Level>();
         level.CanRetry = false;
         Engine.TimeRate = timeRateWait;
+        collectBerries(p);
         yield return delay;
         Engine.TimeRate = 1f;
         if(p.Dead) {

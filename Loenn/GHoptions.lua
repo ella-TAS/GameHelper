@@ -1,0 +1,32 @@
+local easingOptions = {
+    BackIn = "BackIn",
+    BackInOut = "BackInOut",
+    BackOut = "BackOut",
+    BigBackIn = "BigBackIn",
+    BigBackInOut = "BigBackInOut",
+    BigBackOut = "BigBackOut",
+    BounceIn = "BounceIn",
+    BounceInOut = "BounceInOut",
+    BounceOut = "BounceOut",
+    CubeIn = "CubeIn",
+    CubeInOut = "CubeInOut",
+    CubeOut = "CubeOut",
+    ElasticIn = "ElasticIn",
+    ElasticInOut = "ElasticInOut",
+    ElasticOut = "ElasticOut",
+    ExpoIn = "ExpoIn",
+    ExpoInOut = "ExpoInOut",
+    ExpoOut = "ExpoOut",
+    Linear = "Linear",
+    QuadIn = "QuadIn",
+    QuadInOut = "QuadInOut",
+    QuadOut = "QuadOut",
+    QuintIn = "QuintIn",
+    QuintInOut = "QuintInOut",
+    QuintOut = "QuintOut",
+    SineIn = "SineIn",
+    SineInOut = "SineInOut",
+    SineOut = "SineOut"
+}
+
+return easingOptions

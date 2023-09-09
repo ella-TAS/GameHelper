@@ -17,7 +17,13 @@ King of Thieves
 A Hat in Time  
 It Steals
 
+### Code help
+microlith57  
+Popax21  
+Viv  
+Maddie480  
+JaThePlayer – easing reflection
+
 ### Others
 Kosei – FMOD help  
-Lua – file size reduction  
-Popax21, Viv, Maddie480 – friendly help
+Lua – file size reduction
