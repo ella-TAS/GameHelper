@@ -15,9 +15,11 @@ public class EntityModifier : Wrapper {
     private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame;
     private readonly string onlyType, fieldName, flag;
     private readonly object value;
+    private readonly bool isCommon;
+    private readonly string doActive, doCollidable, doVisible;
 
     public EntityModifier(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
-        base.Depth = int.MinValue;
+        Depth = int.MinValue;
         nodes = data.Nodes;
         this.levelOffset = levelOffset;
         debug = data.Bool("debug");
@@ -40,6 +42,12 @@ public class EntityModifier : Wrapper {
                 break;
             case "bool":
                 value = data.Bool("valueBool");
+                break;
+            case "common":
+                isCommon = true;
+                doActive = data.Attr("changeActive");
+                doCollidable = data.Attr("changeCollidable");
+                doVisible = data.Attr("changeVisible");
                 break;
         }
     }

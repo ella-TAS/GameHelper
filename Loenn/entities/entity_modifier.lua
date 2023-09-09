@@ -1,5 +1,13 @@
 local modifier = {}
 
+local booleanOptions = {
+    SetTrue = "set_true",
+    SetFalse = "set_false",
+    Invert = "invert",
+    SetToFlag = "set_flag",
+    Ignore = "ignore"
+}
+
 modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -9999999
 modifier.justification = {0.0, 0.0}
@@ -16,6 +24,7 @@ modifier.placements = {
             activationFlag = "",
             invertFlag = false,
             allEntities = false,
+            doNewlyAddedEntities = false,
             onlyOnce = true,
             everyFrame = false,
             debug = false
@@ -31,6 +40,7 @@ modifier.placements = {
             activationFlag = "",
             invertFlag = false,
             allEntities = false,
+            doNewlyAddedEntities = false,
             onlyOnce = true,
             everyFrame = false,
             debug = false
@@ -46,6 +56,24 @@ modifier.placements = {
             activationFlag = "",
             invertFlag = false,
             allEntities = false,
+            doNewlyAddedEntities = false,
+            onlyOnce = true,
+            everyFrame = false,
+            debug = false
+        }
+    },
+    {
+        name = "common",
+        data = {
+            valueType = "common",
+            changeActive = "ignore",
+            changeCollidable = "ignore",
+            changeVisible = "ignore",
+            onlyType = "",
+            activationFlag = "",
+            invertFlag = false,
+            allEntities = false,
+            doNewlyAddedEntities = false,
             onlyOnce = true,
             everyFrame = false,
             debug = false
@@ -54,8 +82,22 @@ modifier.placements = {
 }
 modifier.fieldOrder = {
     "x", "y",
-    "fieldName", "valueNumber", "valueString", "valueBool",
-    "onlyType", "allEntities", "debug", "activationFlag", "invertFlag", "onlyOnce", "everyFrame", "integer"
+    "fieldName", "valueNumber", "valueString", "valueBool", "changeActive", "changeCollidable", "changeVisible",
+    "onlyType", "allEntities", "doNewlyAddedEntities", "activationFlag", "invertFlag", "onlyOnce", "everyFrame", "integer", "debug"
+}
+modifier.fieldInformation = {
+    changeActive = {
+        options = booleanOptions,
+        editable = false
+    },
+    changeCollidable = {
+        options = booleanOptions,
+        editable = false
+    },
+    changeVisible = {
+        options = booleanOptions,
+        editable = false
+    }
 }
 modifier.ignoredFields = {
     "_id", "_name", "originX", "originY", "valueType"
