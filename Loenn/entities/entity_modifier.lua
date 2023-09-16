@@ -12,6 +12,7 @@ modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -9999999
 modifier.justification = {0.0, 0.0}
 modifier.nodeLimits = {0, -1}
+modifier.nodeLineRenderType = "fan"
 modifier.placements = {
     {
         name = "number",

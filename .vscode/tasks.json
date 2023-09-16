@@ -3,11 +3,23 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet build src",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/GameHelper.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "release build",
+            "command": "dotnet build src -c Release;rm bin/GameHelper.pdb",
             "type": "shell",
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "presentation": {
                 "reveal": "silent"
@@ -15,8 +27,14 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "release build",
-            "command": "dotnet build src -c Release;rm bin/GameHelper.pdb",
+            "label": "debug build",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "${workspaceFolder}\\src\\GameHelper.csproj",
+                "-property:GenerateFullPaths=true",
+                "-consoleloggerparameters:NoSummary"
+            ],
             "type": "shell",
             "group": {
                 "kind": "build",
@@ -69,6 +87,30 @@
             "presentation": {
                 "reveal": "silent"
             }
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/GameHelper.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/src/GameHelper.sln"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }

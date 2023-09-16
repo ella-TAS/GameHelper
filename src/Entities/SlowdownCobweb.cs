@@ -46,7 +46,7 @@ public class SlowdownCobweb : Entity {
             }
         }
         nearestWeb?.Decay();
-        if(nearestWeb != null && p.StateMachine.State != 2) {
+        if(nearestWeb != null && p.DashAttacking) {
             p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 40);
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;

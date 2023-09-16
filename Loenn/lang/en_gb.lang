@@ -109,7 +109,6 @@ entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of 
 entities.GameHelper/EntityModifier.attributes.description.changeActive=?
 entities.GameHelper/EntityModifier.attributes.description.changeCollidable=?
 entities.GameHelper/EntityModifier.attributes.description.changeVisible=?
-entities.GameHelper/EntityModifier.attributes.description.revertWithFlag=?
 entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=?
 
 entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid (CubeInOut)

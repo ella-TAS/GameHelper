@@ -6,20 +6,21 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
+[Tracked]
 [CustomEntity("GameHelper/EntityModifier")]
 public class EntityModifier : Wrapper {
     private List<Entity> targets;
     private readonly Vector2[] nodes;
     private Vector2 levelOffset;
     private bool wasFlag;
-    private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame;
+    private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame, doNewlyAddedEntities;
     private readonly string onlyType, fieldName, flag;
     private readonly object value;
     private readonly bool isCommon;
     private readonly string doActive, doCollidable, doVisible;
 
     public EntityModifier(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
-        Depth = int.MinValue;
+        Depth = int.MinValue + 77;
         nodes = data.Nodes;
         this.levelOffset = levelOffset;
         debug = data.Bool("debug");
@@ -30,6 +31,7 @@ public class EntityModifier : Wrapper {
         invertFlag = data.Bool("invertFlag");
         onlyOnce = data.Bool("onlyOnce");
         everyFrame = data.Bool("everyFrame");
+        doNewlyAddedEntities = data.Bool("doNewlyAddedEntities");
         switch(data.Attr("valueType")) {
             case "number":
                 if(data.Bool("integer"))
@@ -54,7 +56,7 @@ public class EntityModifier : Wrapper {
 
     public override void Update() {
         base.Update();
-        bool isFlag = flag?.Length == 0 || getFlag();
+        bool isFlag = getFlag();
         if(isFlag && !wasFlag) {
             modify(targets);
             wasFlag = true;
@@ -62,19 +64,28 @@ public class EntityModifier : Wrapper {
             modify(targets);
         } else if(!isFlag && wasFlag) {
             wasFlag = false;
+            modify(targets, true);
         }
     }
 
-    private void modify(List<Entity> targetEntities) {
+    private void modify(List<Entity> targetEntities, bool flagDisabled = false) {
+        targetEntities.RemoveAll(gone => gone == null);
+        if(targetEntities.Count == 0 && !doNewlyAddedEntities) {
+            ComplainEntityNotFound("Entity Modifier");
+        }
+
         foreach(Entity target in targetEntities) {
-            if(target == null) {
-                ComplainEntityNotFound("Entity Modifier");
-            }
             if(debug) {
                 Logger.Log("GameHelper", "Modifying entity " + target.GetType().ToString());
             }
 
-            DynamicData.For(target).Set(fieldName, value);
+            if(isCommon) {
+                modCommonBool(target, "Active", doActive, flagDisabled);
+                modCommonBool(target, "Collidable", doCollidable, flagDisabled);
+                modCommonBool(target, "Visible", doVisible, flagDisabled);
+            } else if(!flagDisabled) {
+                DynamicData.For(target).Set(fieldName, value);
+            }
         }
 
         if(onlyOnce) {
@@ -82,8 +93,23 @@ public class EntityModifier : Wrapper {
         }
     }
 
+    private void modCommonBool(Entity target, string name, string mode, bool flagDisabled) {
+        if(mode == "ignore" || (flagDisabled && mode != "set_flag")) {
+            return;
+        }
+        bool value = false;
+        if(mode == "set_true") {
+            value = true;
+        } else if(mode == "set_flag") {
+            value = getFlag();
+        } else if(mode == "invert") {
+            value = !DynamicData.For(target).Get<bool>(name);
+        }
+        DynamicData.For(target).Set(name, value);
+    }
+
     private bool getFlag() {
-        return invertFlag ^ SceneAs<Level>().Session.GetFlag(flag);
+        return flag == "" || (invertFlag ^ SceneAs<Level>().Session.GetFlag(flag));
     }
 
     public override void Awake(Scene scene) {
@@ -97,7 +123,7 @@ public class EntityModifier : Wrapper {
             ComplainEntityNotFound("Entity Modifier");
         }
 
-        if(flag != "" && !getFlag()) {
+        if(!getFlag()) {
             return;
         }
 
@@ -106,6 +132,19 @@ public class EntityModifier : Wrapper {
 
         if(flag?.Length == 0 && !everyFrame) {
             RemoveSelf();
+        }
+    }
+
+    private void handleSceneAdd(Entity t) {
+
+    }
+
+    public static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
+        orig(s, t);
+        foreach(EntityModifier m in s.Tracker.GetEntities<EntityModifier>()) {
+            if(m.doNewlyAddedEntities) {
+                m.handleSceneAdd(t);
+            }
         }
     }
 }
