@@ -119,32 +119,49 @@ public class EntityModifier : Wrapper {
         }
 
         targets = FindTargets(Position, nodes, levelOffset, allEntities, onlyType);
-        if(targets.Count == 0) {
+        if(targets.Count == 0 && !doNewlyAddedEntities) {
             ComplainEntityNotFound("Entity Modifier");
         }
 
         if(!getFlag()) {
+            modify(targets, true);
             return;
         }
 
         modify(targets);
         wasFlag = true;
 
-        if(flag?.Length == 0 && !everyFrame) {
+        if(flag?.Length == 0 && !everyFrame && !doNewlyAddedEntities) {
             RemoveSelf();
         }
     }
 
     private void handleSceneAdd(Entity t) {
-
+        if(onlyType.Length > 0 && t.GetType().ToString() == onlyType && !targets.Contains(t)) {
+            targets.Add(t);
+            if(debug) {
+                Logger.Log("GameHelper", "Newly added entity added: " + t.GetType().ToString());
+            }
+            if(flag?.Length == 0) {
+                modify(targets);
+            }
+        }
     }
 
-    public static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
+    private static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
         orig(s, t);
         foreach(EntityModifier m in s.Tracker.GetEntities<EntityModifier>()) {
             if(m.doNewlyAddedEntities) {
                 m.handleSceneAdd(t);
             }
         }
+    }
+
+    public static void Hook() {
+        On.Monocle.Scene.Add_Entity += OnSceneAdd;
+    }
+
+    public static void Unhook() {
+        On.Monocle.Scene.Add_Entity -= OnSceneAdd;
     }
 }

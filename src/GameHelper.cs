@@ -3,6 +3,7 @@ using System;
 using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
+using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Celeste.Mod.GameHelper.Triggers;
 
 namespace Celeste.Mod.GameHelper;
@@ -34,6 +35,7 @@ public class GameHelper : EverestModule {
         DashMagnet.Load();
         FlagCollectBerry.Hook();
         Util.Load();
+        EntityModifier.Hook();
     }
 
     public override void Unload() {
@@ -43,6 +45,7 @@ public class GameHelper : EverestModule {
         Shield.Unhook();
         DashMagnet.Unload();
         FlagCollectBerry.Unhook();
+        EntityModifier.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

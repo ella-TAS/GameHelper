@@ -23,7 +23,7 @@ public class CrashGameTrigger : Trigger {
                 SceneAs<Level>().AutoSave();
                 Add(new Coroutine(routineCrash()));
             } else {
-                throw (new TrollException(message));
+                throw new TrollException(message);
             }
         }
     }
@@ -32,7 +32,7 @@ public class CrashGameTrigger : Trigger {
         while(SceneAs<Level>().IsAutoSaving()) {
             yield return null;
         }
-        throw (new TrollException(message));
+        throw new TrollException(message);
     }
 }
 
