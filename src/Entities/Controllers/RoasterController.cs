@@ -2,7 +2,6 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
-using Celeste.Mod.GameHelper;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 

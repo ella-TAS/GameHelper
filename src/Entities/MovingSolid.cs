@@ -6,11 +6,10 @@ namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/MovingSolid")]
 public class MovingSolid : Solid {
-    private readonly float moveTime;
+    private readonly float moveTime, pauseDuration;
     private readonly string easeMode;
-    private readonly int width, height;
     private readonly char tileType;
-    private float currentTime;
+    private float currentTime, stopTime;
     private Vector2 homePos, targetPos;
 
     public MovingSolid(EntityData data, Vector2 levelOffset)
@@ -18,8 +17,8 @@ public class MovingSolid : Solid {
         moveTime = data.Float("moveTime");
         easeMode = data.Attr("easeMode");
         tileType = data.Char("tileset", '3');
-        width = data.Width;
-        height = data.Height;
+        pauseDuration = data.Float("pauseTime");
+        stopTime = data.Float("startOffset");
         SurfaceSoundIndex = SurfaceIndex.TileToIndex[tileType];
         homePos = Position;
         targetPos = data.Nodes[0] + levelOffset;
@@ -28,9 +27,16 @@ public class MovingSolid : Solid {
     public override void Update() {
         base.Update();
 
+        if(stopTime > 0) {
+            stopTime -= Engine.DeltaTime;
+            return;
+        }
+
+        //movement
         currentTime += Engine.DeltaTime;
         if(currentTime >= moveTime) {
             currentTime = 0;
+            stopTime = pauseDuration;
             Vector2 swap = targetPos;
             targetPos = homePos;
             homePos = swap;
@@ -43,7 +49,7 @@ public class MovingSolid : Solid {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        TileGrid tileGrid = GFX.FGAutotiler.GenerateBox(tileType, width / 8, height / 8).TileGrid;
+        TileGrid tileGrid = GFX.FGAutotiler.GenerateBox(tileType, (int) Width / 8, (int) Height / 8).TileGrid;
         Add(new LightOcclude());
         Add(tileGrid);
         Add(new TileInterceptor(tileGrid, highPriority: true));

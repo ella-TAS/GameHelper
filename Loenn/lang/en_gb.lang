@@ -111,9 +111,11 @@ entities.GameHelper/EntityModifier.attributes.description.changeCollidable=How t
 entities.GameHelper/EntityModifier.attributes.description.changeVisible=How the Visible field should be changed.\nVisible controls whether an entity is rendered and shown on the screen every frame.\nIf an activation flag is set, everything but SetToFlag will only activate based on that
 entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=Whether entities which were newly added to the scene after the screen transition should be considered. The addition of an entity to the list will trigger a modification if no flag is set. Only works with onlyType set. Not needed in the most cases!\nPlease turn it off if you don't need it! Try it without this option first!
 
-entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid (CubeInOut)
+entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid
 entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds
 entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed
+entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds should wait before starting to move initially
+entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many seconds the platform should pause until it starts to move again
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 

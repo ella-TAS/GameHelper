@@ -3,25 +3,21 @@ local easingOptions = require("mods").requireFromPlugin("GHoptions")
 
 local solid = {}
 
-local function tableConcat(t1,t2)
-    for i=1,#t2 do
-        t1[#t1+1] = t2[i]
-    end
-    return t1
-end
-
 solid.name = "GameHelper/MovingSolid"
 solid.depth = 8998
 solid.canResize = {true, true}
-solid.nodeLimits = {1, -1}
+solid.nodeLimits = {1, 1}
+solid.nodeLineRenderType = "line"
 solid.placements = {
     name = "normal",
     data = {
         width = 8,
         height = 8,
-        tiletype = "3",
+        tileset = "3",
         moveTime = 2.0,
-        easeMode = "CubeInOut"
+        easeMode = "CubeInOut",
+        startOffset = 0.0,
+        pauseTime = 0.0
     }
 }
 solid.fieldInformation = {
@@ -30,7 +26,15 @@ solid.fieldInformation = {
         editable = false
     }
 }
-solid.fieldInformation = fakeTilesHelper.getFieldInformation("tiletype")
-solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tiletype")
+solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tileset")
+
+solid.fieldInformation = function(entity)
+    local orig = fakeTilesHelper.getFieldInformation("tileset")(entity)
+    orig.easeMode = {
+        options = easingOptions,
+        editable = false
+    }
+    return orig
+end
 
 return solid
