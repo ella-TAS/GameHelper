@@ -45,6 +45,10 @@ public class PushBox : Solid {
         }
     }
 
+    public void move(bool right) {
+        MoveHCollideSolids((right ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
+    }
+
     public override void Render() {
         Vector2 w = Vector2.UnitX * (Width - 4);
         Vector2 h = Vector2.UnitY * (Height - 4);
