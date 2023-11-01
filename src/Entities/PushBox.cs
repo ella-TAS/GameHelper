@@ -29,9 +29,9 @@ public class PushBox : Solid {
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX)) {
-                MoveHCollideSolids(speedX * Engine.DeltaTime, thruDashBlocks: true);
+                Move(true);
             } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) {
-                MoveHCollideSolids(-speedX * Engine.DeltaTime, thruDashBlocks: true);
+                Move(false);
             }
         }
 
@@ -45,8 +45,13 @@ public class PushBox : Solid {
         }
     }
 
-    public void move(bool right) {
+    public void Move(bool right) {
         MoveHCollideSolids((right ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
+
+        //move box above
+        foreach(PushBox box in CollideAll<PushBox>(Position - Vector2.UnitY)) {
+            box.Move(right);
+        }
     }
 
     public override void Render() {
