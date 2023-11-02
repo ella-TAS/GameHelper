@@ -36,6 +36,7 @@ public class GameHelper : EverestModule {
         FlagCollectBerry.Hook();
         Util.Load();
         EntityModifier.Hook();
+        PushBox.Hook();
     }
 
     public override void Unload() {
@@ -46,6 +47,7 @@ public class GameHelper : EverestModule {
         DashMagnet.Unload();
         FlagCollectBerry.Unhook();
         EntityModifier.Unhook();
+        PushBox.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

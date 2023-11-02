@@ -28,10 +28,10 @@ public class PushBox : Solid {
         //player check, move X
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
-            if(p.CollideCheck(this, p.Position + Vector2.UnitX)) {
-                Move(true);
-            } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) {
-                Move(false);
+            if(p.CollideCheck(this, p.Position + Vector2.UnitX)) { //moving right
+                MoveHor(speedX);
+            } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) { //moving left
+                MoveHor(-speedX);
             }
         }
 
@@ -45,13 +45,28 @@ public class PushBox : Solid {
         }
     }
 
-    public void Move(bool right) {
-        MoveHCollideSolids((right ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
-
-        //move box above
-        foreach(PushBox box in CollideAll<PushBox>(Position - Vector2.UnitY)) {
-            box.Move(right);
+    public void Shrink() {
+        if(Width > Height) {
+            Collider.Width--;
+        } else {
+            Collider.Height--;
         }
+        if(Width == 0 || Height == 0) {
+            RemoveSelf();
+        }
+    }
+
+    public void MoveHor(float speed) {
+        MoveHCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
+    }
+
+    public void MoveVer(float speed) {
+        MoveVCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
+    }
+
+    public void MoveCollideSolids(Vector2 speed) {
+        MoveHor(speed.X);
+        MoveVer(speed.Y);
     }
 
     public override void Render() {
@@ -69,5 +84,39 @@ public class PushBox : Solid {
         Draw.Rect(Position.X + Width - 3, Position.Y + 1, 2, 2, colorCorner);
         Draw.Rect(Position.X + 1, Position.Y + Height - 3, 2, 2, colorCorner);
         Draw.Rect(Position.X + Width - 3, Position.Y + Height - 3, 2, 2, colorCorner);
+    }
+
+    public static void Hook() {
+        On.Celeste.Solid.MoveHExact += OnSolidMoveHExact;
+        On.Celeste.Solid.MoveVExact += OnSolidMoveVExact;
+    }
+
+    public static void Unhook() {
+        On.Celeste.Solid.MoveHExact -= OnSolidMoveHExact;
+        On.Celeste.Solid.MoveVExact -= OnSolidMoveVExact;
+    }
+
+    //move boxes above any platform
+    private static void OnSolidMoveHExact(On.Celeste.Solid.orig_MoveHExact orig, Solid self, int movedPx) {
+        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - 3 * Vector2.UnitY)) {
+            if(box.Bottom > self.Position.Y) {
+                continue;
+            }
+            box.MoveHor(movedPx * 60f);
+        }
+        orig(self, movedPx);
+    }
+
+    private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
+        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - 3 * Vector2.UnitY)) {
+            if(box.Bottom > self.Position.Y) {
+                continue;
+            }
+            if(movedPx > 0) {
+                box.MoveV(movedPx);
+            }
+            box.MoveVer(movedPx * 60f);
+        }
+        orig(self, movedPx);
     }
 }
