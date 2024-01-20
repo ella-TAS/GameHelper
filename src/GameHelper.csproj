@@ -14,7 +14,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <NoWarn>IDE0028;IDE0180;IDE0220;IDE0290;IDE1006;RCS1194</NoWarn>
+        <NoWarn>IDE0028;IDE0180;IDE0220;IDE0290;IDE0300;IDE1006;RCS1194</NoWarn>
     </PropertyGroup>
 
     <!--Disable
