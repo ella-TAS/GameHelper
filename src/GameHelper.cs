@@ -56,7 +56,7 @@ public class GameHelper : EverestModule {
 
         CrossoverLoaded = Everest.Loader.DependencyLoaded(new() {
             Name = "CrossoverCollab",
-            Version = new Version(0, 3, 26)
+            Version = new Version(0, 3, 27)
         });
     }
 }
