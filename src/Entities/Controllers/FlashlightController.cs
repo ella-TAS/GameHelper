@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Celeste.Mod.CrossoverCollab;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -12,6 +13,16 @@ public class FlashlightController : Entity {
     private readonly float fadeSpeed;
     private readonly float maxCooldown;
     private float cooldown;
+    public bool Binding {
+        get => GameHelper.CrossoverLoaded ? crossoverBinding() : Input.MenuJournal.Pressed;
+        set {
+            if(GameHelper.CrossoverLoaded) {
+                crossoverBinding(false);
+            } else {
+                Input.MenuJournal.ConsumePress();
+            }
+        }
+    }
 
 #pragma warning disable IDE0060, RCS1163
     public FlashlightController(EntityData data, Vector2 levelOffset) {
@@ -30,8 +41,8 @@ public class FlashlightController : Entity {
     public override void Update() {
         base.Update();
         cooldown -= Engine.DeltaTime;
-        if(Input.MenuJournal && cooldown <= 0) {
-            Input.MenuJournal.ConsumePress();
+        if(Binding && cooldown <= 0) {
+            Binding = true;
             level.Lighting.Alpha = 0;
             cooldown = maxCooldown;
             sprite.Visible = true;
@@ -50,5 +61,13 @@ public class FlashlightController : Entity {
             Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
+    }
+
+    private bool crossoverBinding(bool consume = false) {
+        if(consume) {
+            CrossoverCollabModule.Settings.FlashlightButton?.ConsumePress();
+            return true;
+        }
+        return CrossoverCollabModule.Settings.FlashlightButton?.Pressed ?? false;
     }
 }

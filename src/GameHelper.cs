@@ -15,7 +15,7 @@ public class GameHelper : EverestModule {
 
     internal static SpriteBank SpriteBank;
     internal static Random Random;
-    internal static bool CollabUtilsLoaded;
+    internal static bool CollabUtilsLoaded, CrossoverLoaded;
 
     public GameHelper() {
         Instance = this;
@@ -26,8 +26,9 @@ public class GameHelper : EverestModule {
         Logger.SetLogLevel("GameHelper", 0);
         CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {
             Name = "CollabUtils2",
-            Version = new Version(1, 8, 11)
+            Version = new Version(1, 10, 5)
         });
+
         FloatyJumpController.Hook();
         SaveSpeedFeather.Hook();
         SlowdownCobweb.Hook();
@@ -52,5 +53,10 @@ public class GameHelper : EverestModule {
 
     public override void LoadContent(bool firstLoad) {
         SpriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
+
+        CrossoverLoaded = Everest.Loader.DependencyLoaded(new() {
+            Name = "CrossoverCollab",
+            Version = new Version(0, 3, 26)
+        });
     }
 }
