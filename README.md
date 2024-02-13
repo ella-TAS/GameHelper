@@ -26,4 +26,5 @@ JaThePlayer – easing reflection
 
 ### Others
 Kosei – FMOD help  
-Lua – file size reduction
+Lua – file size reductionKosei – FMOD help
+moving_solid.lua function needs to be removed after a Lönn patch for the node rectangle bug

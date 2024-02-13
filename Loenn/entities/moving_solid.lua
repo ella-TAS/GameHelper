@@ -1,3 +1,4 @@
+local utils = require("utils")
 local fakeTilesHelper = require("helpers.fake_tiles")
 local easingOptions = require("mods").requireFromPlugin("GHoptions")
 
@@ -8,6 +9,7 @@ solid.depth = 8998
 solid.canResize = {true, true}
 solid.nodeLimits = {1, 1}
 solid.nodeLineRenderType = "line"
+solid.nodeVisibility = "always"
 solid.placements = {
     name = "normal",
     data = {
@@ -20,12 +22,7 @@ solid.placements = {
         pauseTime = 0.0
     }
 }
-solid.fieldInformation = {
-    easeMode = {
-        options = easingOptions,
-        editable = false
-    }
-}
+
 solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tileset")
 
 solid.fieldInformation = function(entity)
@@ -35,6 +32,11 @@ solid.fieldInformation = function(entity)
         editable = false
     }
     return orig
+end
+
+--take out on Lönn fix
+function solid.nodeRectangle(room, entity, node, nodeIndex, viewport)
+    return utils.rectangle(node.x, node.y, entity.width, entity.height)
 end
 
 return solid

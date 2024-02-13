@@ -1,13 +1,12 @@
 using Monocle;
 using Microsoft.Xna.Framework;
-using System;
 using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/FloatyJumpController")]
 public class FloatyJumpController : Entity {
-    internal static bool Floating, CanFloat;
+    internal static float actualYSpeed;
     private readonly bool enable;
     private readonly string flag;
 
@@ -21,16 +20,13 @@ public class FloatyJumpController : Entity {
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
         if(GameHelper.Session.FloatyJumps) {
-            if(p.OnGround()) {
-                CanFloat = true;
-                Floating = false;
-            } else if(CanFloat && Math.Abs(p.Speed.Y) <= 40f && Input.Jump.Check && p.StateMachine.State == 0) {
-                p.DummyGravity = false;
-                p.Speed.Y = Calc.Approach(p.Speed.Y, 30f, 7.5f);
-                Floating = true;
-            } else if(Floating) {
-                p.DummyGravity = true;
-                Floating = CanFloat = false;
+            if(!p.OnGround() && p.Speed.Y > -40f && Input.Jump.Check && p.StateMachine.State == 0 && p.InControl) {
+                if(actualYSpeed == float.MaxValue) {
+                    actualYSpeed = p.Speed.Y;
+                }
+                p.Speed.Y = actualYSpeed = Calc.Approach(actualYSpeed, 22.5f, p.Speed.Y > 40 ? 22.5f : 7.5f);
+            } else {
+                actualYSpeed = float.MaxValue;
             }
         }
     }

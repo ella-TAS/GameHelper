@@ -60,7 +60,7 @@ entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=W
 entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid
 entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds
 entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed
-entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds should wait before starting to move initially
+entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds the block should wait before starting to move initially
 entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many seconds the platform should pause until it starts to move again
 
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
