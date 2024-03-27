@@ -75,6 +75,9 @@ entities.GameHelper/PlayerStateFlag.placements.name.psf=Player State Flag
 entities.GameHelper/PlayerStateFlag.attributes.description.flag=The flag that should be set when the player is in the right state
 entities.GameHelper/PlayerStateFlag.attributes.description.state=The player state the flag controller should check for\n0 – Normal  1 – Climb\n2 – Dash  3 – Swim\n4 – Boost  5 – RedDash\n6 – HitSquash  7 – Launch\n8 – Pickup  9 – DreamDash\n10 – SummitLaunch  11 – Dummy\n12 – IntroWalk  13 – IntroJump\n14 – IntroRespawn  15 – IntroWakeUp\n16 – BirdDashTutorial  17 – Frozen\n18 – ReflectionFall  19 – StarFly\n20 – TempleFall  21 – CassetteFly\n22 – Attract  23 – IntroMoonJump\n24 – FlingBird  25 – IntroThinkForABit
 entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the flag should be set to false when the state is met instead
+entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead
+entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
+
 
 
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
