@@ -9,7 +9,8 @@ psf.placements = {
     data = {
         flag = "playerstate",
         state = "0",
-        invert = false
+        invert = false,
+        dashAttack = false,
     }
 }
 psf.fieldInformation = {

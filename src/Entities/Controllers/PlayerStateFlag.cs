@@ -8,13 +8,14 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 public class PlayerStateFlag : Entity {
     private readonly string flag;
     private readonly int state;
-    private readonly bool invert;
+    private readonly bool invert, dashAttack;
 
 #pragma warning disable IDE0060, RCS1163
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
         flag = data.Attr("flag");
         state = data.Int("state");
         invert = data.Bool("invert");
+        dashAttack = data.Bool("dashAttack");
         base.Depth = -1;
     }
 #pragma warning restore
@@ -23,7 +24,8 @@ public class PlayerStateFlag : Entity {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(p != null) {
-            bool isState = state == p.StateMachine.State;
+
+            bool isState = (!dashAttack && state == p.StateMachine.State) || (dashAttack && p.DashAttacking);
             SceneAs<Level>().Session.SetFlag(flag, isState ^ invert);
         }
     }
