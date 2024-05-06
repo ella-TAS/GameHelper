@@ -11,6 +11,7 @@ public class Trampoline : Entity {
     private readonly float speedBoostX, speedBoostY;
     private readonly bool facingUpLeft, refillDash, oneUse;
     private bool inside, wasInside;
+    public bool frameBlocked;
 
     public Trampoline(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         speedBoostX = data.Float("speedBoostX");
@@ -30,6 +31,10 @@ public class Trampoline : Entity {
     }
 
     private void onCollide(Player player) {
+        if(frameBlocked) {
+            frameBlocked = false;
+            return;
+        }
         if(!wasInside) {
             sprite.Play("hit");
             float speedX = player.Speed.X;
@@ -40,6 +45,10 @@ public class Trampoline : Entity {
                 player.Speed.X = Math.Max(Math.Max(player.Speed.Y + speedBoostX, 130), player.Speed.X + speedBoostX);
                 player.Speed.Y = Math.Min(speedX - speedBoostY, -200);
             }
+            foreach(Trampoline t in SceneAs<Level>().Entities.FindAll<Trampoline>()) {
+                t.frameBlocked = true;
+            }
+            frameBlocked = false;
         }
         if(oneUse) {
             base.Collidable = false;

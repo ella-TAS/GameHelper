@@ -34,7 +34,6 @@ public class DashMagnet : Entity {
                 }
                 used = true;
             }
-            p.Ducking = false;
             p.DashDir = Direction;
             p.Speed = Speed * Direction;
             Engine.TimeRate = Calc.Approach(Engine.TimeRate, 1f, 0.1f);
@@ -56,10 +55,8 @@ public class DashMagnet : Entity {
             Engine.TimeRate = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p != null) {
-                if(p.Ducking) {
-                    p.Ducking = false;
-                } else if(p.StateMachine.State != 9) {
-                    p.StateMachine.ForceState(0);
+                if(p.StateMachine.State == 2) {
+                    p.StateMachine.State = 0;
                 }
             }
         }
@@ -86,10 +83,17 @@ public class DashMagnet : Entity {
     }
 
     private static IEnumerator DashCoroutine(On.Celeste.Player.orig_DashCoroutine orig, Player p) {
+        const float sqrt2 = 1.41421353816986083984f;
         IEnumerator origEnum = orig(p);
         if(InsideMagnet) {
             //magnet dash from inside, cancelled by magnet
-            yield return float.MaxValue;
+            while(true) {
+                if(p.OnGround()) {
+                    p.Speed = Vector2.UnitX * p.Speed.Length() / sqrt2 * (p.Speed.X > 0 ? 1 : -1);
+                }
+                yield return null;
+            }
+
         }
         while(origEnum.MoveNext()) {
             yield return origEnum.Current;

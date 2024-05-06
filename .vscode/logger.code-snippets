@@ -8,7 +8,7 @@
     "Player from Tracker": {
         "scope": "csharp",
         "prefix": "player",
-        "body": "Player p = SceneAs<Level>().Tracker.GetEntity<Player>();",
+        "body": "SceneAs<Level>().Tracker.GetEntity<Player>();",
         "description": "get Player from Tracker"
     },
     "Scene as Level": {
