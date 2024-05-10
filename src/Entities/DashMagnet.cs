@@ -22,6 +22,7 @@ public class DashMagnet : Entity {
         bulletTime = data.Bool("bulletTime");
         Add(sprite = GameHelper.SpriteBank.Create("dash_magnet"));
         Add(new PlayerCollider(onCollide));
+        Depth = 1;
     }
 
     private void onCollide(Player p) {
@@ -34,7 +35,6 @@ public class DashMagnet : Entity {
                 }
                 used = true;
             }
-            p.Ducking = false;
             p.DashDir = Direction;
             p.Speed = Speed * Direction;
             Engine.TimeRate = Calc.Approach(Engine.TimeRate, 1f, 0.1f);
@@ -55,12 +55,8 @@ public class DashMagnet : Entity {
             InsideMagnet = false;
             Engine.TimeRate = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null) {
-                if(p.Ducking) {
-                    p.Ducking = false;
-                } else if(p.StateMachine.State != 9) {
-                    p.StateMachine.ForceState(0);
-                }
+            if(p != null && p.StateMachine.State == 2 && !p.StartedDashing) {
+                p.StateMachine.State = 0;
             }
         }
         inside = false;
@@ -78,24 +74,26 @@ public class DashMagnet : Entity {
 
     private static void DashBegin(On.Celeste.Player.orig_DashBegin orig, Player p) {
         const float DiagDashSpeed = 169.70562748f;
-        Vector2 s = p.Speed;
-        s.Y = Calc.Max(Math.Abs(s.Y), DiagDashSpeed);
-        s.X = Calc.Max(Math.Abs(s.X), DiagDashSpeed);
+        Vector2 s;
+        s.Y = Calc.Max(Math.Abs(p.Speed.Y), DiagDashSpeed);
+        s.X = Calc.Max(Math.Abs(p.Speed.X), DiagDashSpeed);
         Speed = Calc.Max(s.Length() * 1.2f, 300f);
         orig(p);
     }
 
     private static IEnumerator DashCoroutine(On.Celeste.Player.orig_DashCoroutine orig, Player p) {
+        const float sqrt2 = 1.41421353816986083984f;
         IEnumerator origEnum = orig(p);
-        if(InsideMagnet) {
-            //magnet dash from inside, cancelled by magnet
-            yield return float.MaxValue;
-        }
+
         while(origEnum.MoveNext()) {
             yield return origEnum.Current;
             if(InsideMagnet) {
-                //magnet dash from outside, cancelled by magnet
-                yield return float.MaxValue;
+                while(true) {
+                    if(p.OnGround()) {
+                        p.Speed = Vector2.UnitX * p.Speed.Length() / sqrt2 * (p.Speed.X > 0 ? 1 : -1);
+                    }
+                    yield return null;
+                }
             }
         }
     }
