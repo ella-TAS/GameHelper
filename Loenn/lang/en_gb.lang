@@ -137,6 +137,10 @@ entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the fl
 entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
 
+entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
+entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once
+entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
