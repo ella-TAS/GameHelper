@@ -5,8 +5,6 @@ swing.depth = 8999
 swing.justification = {0.1, 0.12}
 swing.texture = "objects/GameHelper/swing/swing_solid"
 swing.canResize = {false, false}
-swing.minimumSize = {46, 46}
-swing.maximumSize = {46, 46}
 swing.nodeLimits = {1, 1}
 swing.nodeLineRenderType = "line"
 swing.nodeVisibility = "always"
@@ -16,7 +14,12 @@ swing.placements = {
     name = "solid",
     data = {
         width = 46,
-        height = 46
+        height = 46,
+        sprite = "objects/GameHelper/swing/swing_solid",
+        maxAngle = 30.0,
+        swingSpeed = 1.0,
+        accelerationTime = 377.0,
+        startRight = false
     }
 }
 
