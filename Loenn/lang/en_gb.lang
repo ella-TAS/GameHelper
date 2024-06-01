@@ -138,6 +138,8 @@ entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAtt
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
 
 entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
+entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once
+entities.GameHelper/PlayerShadowController.attributes.description.uses=The number of shadows you can spawn.\nSet to -1 for infinite uses.
 
 
 

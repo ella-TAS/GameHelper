@@ -2,12 +2,14 @@ local psc = {}
 
 psc.name = "GameHelper/PlayerShadowController"
 psc.depth = -9999999
-psc.texture = "loenn/GameHelper/super_hot_controller"
+psc.texture = "loenn/GameHelper/player_shadow_controller"
 psc.justification = {0.0, 0.0}
 psc.placements = {
     name = "normal",
     data = {
-        uses = 3
+        uses = 3,
+        oneUse = false,
+        sprite = "objects/GameHelper/player_shadow"
     }
 }
 psc.fieldInformation = {
