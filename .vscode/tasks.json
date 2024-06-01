@@ -3,14 +3,8 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/GameHelper.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
+            "command": "dotnet build src",
+            "type": "shell",
             "problemMatcher": "$msCompile",
             "group": {
                 "kind": "build",

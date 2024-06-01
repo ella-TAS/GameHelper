@@ -31,10 +31,7 @@ public class Trampoline : Entity {
     }
 
     private void onCollide(Player player) {
-        if(frameBlocked) {
-            frameBlocked = false;
-            return;
-        }
+        if(frameBlocked) return;
         if(!wasInside) {
             sprite.Play("hit");
             float speedX = player.Speed.X;
@@ -59,6 +56,7 @@ public class Trampoline : Entity {
 
     public override void Update() {
         base.Update();
+        frameBlocked = false;
         if(inside && !wasInside) {
             wasInside = true;
             //entered
