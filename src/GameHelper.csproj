@@ -5,9 +5,9 @@
         <AssemblyName>GameHelper</AssemblyName>
         <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
         <LangVersion>latest</LangVersion>
-        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\..\..</CelesteGamePath>
-        <!--<PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>-->
-        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == '' And Exists('..\..\..\legacyRef\Celeste.exe')">..\..\..</CelesteGamePath>
+        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">lib</CelesteGamePath>
+        <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
         <OutputPath>..\bin</OutputPath>
@@ -17,8 +17,7 @@
         <NoWarn>IDE0028;IDE0180;IDE0220;IDE0290;IDE0300;IDE1006;RCS1194</NoWarn>
     </PropertyGroup>
 
-    <!--Disable
-    "Copy Local" for all references-->
+    <!--Disable "Copy Local" for all references-->
     <ItemDefinitionGroup>
         <PackageReference PrivateAssets="all" ExcludeAssets="runtime" />
         <Reference Private="false" />
