@@ -32,7 +32,7 @@ jobs:
               version=$(sed -n '2p' "$meta_file")
 
               # Search for the item in the JSON data
-              item_info=$(jq --arg itemid "$item_id" '.modInfo[] | select(.itemid == $itemid)' custom-entity-catalog.json)
+              item_info=$(jq --arg itemid "$item_id" '.modInfo[] | select(.itemid == "$itemid")' custom-entity-catalog.json)
 
               # Check if item was found
               if [[ -z "$item_info" ]]; then
