@@ -9,7 +9,9 @@ psc.placements = {
     data = {
         uses = 3,
         oneUse = false,
-        sprite = "objects/GameHelper/player_shadow"
+        sprite = "objects/GameHelper/player_shadow",
+        freezeFrames = true,
+        clipToTop = true
     }
 }
 psc.fieldInformation = {
