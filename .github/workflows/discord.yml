@@ -1,0 +1,31 @@
+name: Discord
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    tags: [ '*' ]
+
+jobs:
+  build:
+    name: Build and upload to Discord
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: dotnet restore src/GameHelper.csproj
+      - name: Build
+        run: dotnet build src -c Release
+      - name: Remove pdb
+        run: rm bin/GameHelper.pdb
+      - name: Package and upload
+        env:
+          ZIPNAME: GameHelper
+          TAG_NAME: ${{ github.ref_name }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          ZIPNAME=$ZIPNAME-${TAG_NAME}.zip
+          zip -qq -r $ZIPNAME Audio Graphics Loenn bin everest.yaml
+          curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$ZIPNAME" "$DISCORD_WEBHOOK"
