@@ -1,0 +1,57 @@
+name: Validate Dependencies
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-meta:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install jq
+        run: sudo apt-get install jq
+
+      - name: Validate .meta files
+        run: |
+          # Get the JSON data from the URL
+          curl -s https://maddie480.ovh/celeste/custom-entity-catalog.json -o custom-entity-catalog.json
+
+          # Iterate over each file in the lib directory recursively
+          find lib -type f | while read -r file; do
+            meta_file="$file.meta"
+            if [[ -f "$meta_file" ]]; then
+              echo "Processing $meta_file..."
+              
+              # Read the first and second lines of the meta file
+              item_id=$(sed -n '1p' "$meta_file")
+              version=$(sed -n '2p' "$meta_file")
+
+              # Search for the item in the JSON data
+              item_info=$(jq --arg itemid "$item_id" '.modInfo[] | select(.itemid == $itemid)' custom-entity-catalog.json)
+
+              # Check if item was found
+              if [[ -z "$item_info" ]]; then
+                echo "Item ID $item_id not found in the catalog"
+                exit 1
+              fi
+
+              # Extract the latest version from the JSON object
+              latest_version=$(echo "$item_info" | jq -r '.latestVersion')
+
+              # Check if the version matches
+              if [[ "$version" != "$latest_version" ]]; then
+                echo "Version mismatch for $meta_file: expected $latest_version, got $version"
+                exit 1
+              fi
+
+              echo "$meta_file is valid."
+            fi
+          done
+
+      - name: Cleanup
+        run: rm custom-entity-catalog.json
