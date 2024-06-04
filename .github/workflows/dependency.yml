@@ -16,17 +16,17 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
-      - name: Validate .meta files
+      - name: Validate .version files
         run: |
           # Get the JSON data from the URL
           curl -s https://maddie480.ovh/celeste/custom-entity-catalog.json -o custom-entity-catalog.json
 
           # Iterate over each file in the lib directory recursively
           find lib -type f | while read -r file; do
-            meta_file="$file.meta"
+            meta_file="$file.version"
             if [[ -f "$meta_file" ]]; then
               echo "Processing $meta_file..."
-              
+
               # Read the first and second lines of the meta file
               item_id=$(sed -n '1p' "$meta_file")
               version=$(sed -n '2p' "$meta_file")

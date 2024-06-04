@@ -6,7 +6,7 @@
         <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
         <LangVersion>latest</LangVersion>
         <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == '' And Exists('..\..\..\legacyRef\Celeste.exe')">..\..\..</CelesteGamePath>
-        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">lib</CelesteGamePath>
+        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\lib</CelesteGamePath>
         <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
