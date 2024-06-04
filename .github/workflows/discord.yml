@@ -2,8 +2,6 @@ name: Discord
 
 on:
   push:
-    branches:
-      - main
     tags:
       - '*'
 
@@ -15,14 +13,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Check if the commit is tagged
-        id: check_tag
-        run: |
-          if [ -z "$(git tag --contains HEAD)" ]; then
-            echo "This commit is not tagged. Exiting..."
-            exit 0
-          fi
-          echo "This commit is tagged."
       - name: Install dependencies
         run: dotnet restore src/GameHelper.csproj
       - name: Build
