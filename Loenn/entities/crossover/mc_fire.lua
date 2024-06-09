@@ -14,7 +14,7 @@ fire.placements = {
     name = "fire",
     data = {
         spreadingTime = 5.0,
-        direction = "up"
+        direction = "0"
     }
 }
 fire.fieldInformation = {
