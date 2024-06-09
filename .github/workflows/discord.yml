@@ -27,4 +27,5 @@ jobs:
         run: |
           ZIPNAME=$ZIPNAME-${TAG_NAME}.zip
           zip -qq -r $ZIPNAME Audio Graphics Loenn bin everest.yaml
-          curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$ZIPNAME" "$DISCORD_WEBHOOK"
+          COMMITS=$(git log HEAD --oneline -n 1 --format="%h – %s – %b")
+          curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$ZIPNAME" -F "payload_json={\"content\": \"GameHelper $TAG_NAME\n$COMMITS\"}" "$DISCORD_WEBHOOK"
