@@ -33,7 +33,6 @@
         <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\legacyRef\MMHOOK_Celeste.dll" />
         <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\legacyRef\YamlDotNet.dll" />
         <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\Mods\Cache\CollabUtils2.CollabUtils2.dll" />
-        <Reference Include="CrossoverCollab" HintPath="$(CELESTEGAMEPATH)\Mods\Cache\CrossoverCollab.CrossoverCollab.dll" />
     </ItemGroup>
 
     <Choose>

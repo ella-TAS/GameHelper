@@ -137,6 +137,12 @@ entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the fl
 entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
 
+entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
+entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once
+entities.GameHelper/PlayerShadowController.attributes.description.uses=The number of shadows you can spawn.\nSet to -1 for infinite uses.
+entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk
+entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
