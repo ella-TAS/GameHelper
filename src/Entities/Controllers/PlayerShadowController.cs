@@ -2,11 +2,15 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/PlayerShadowController")]
 public class PlayerShadowController : Entity {
+    private static Dictionary<string, ButtonBinding> keyBinds = new();
+    public VirtualButton Binding => keyBinds.TryGetValue(SceneAs<Level>().Session.Area.SID, out ButtonBinding b) ? b.Button : Input.MenuJournal;
+
     private int uses;
     private readonly bool oneUse, freezeFrames, clipToTop;
     private readonly string texture;
@@ -22,14 +26,26 @@ public class PlayerShadowController : Entity {
 
     public override void Update() {
         base.Update();
-        if((uses > 0 || uses < 0) && Input.MenuJournal.Pressed) {
-            Input.MenuJournal.ConsumeBuffer();
+        if(uses != 0 && Binding.Pressed) {
+            Binding.ConsumeBuffer();
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p != null) {
                 SceneAs<Level>().Add(new PlayerShadow(p.TopLeft, texture, oneUse, freezeFrames, clipToTop));
                 uses--;
             }
         }
+    }
+
+    public static void resetBindings() {
+        keyBinds = new();
+    }
+
+    public static void addBinding(string levelSID, ButtonBinding binding) {
+        if(keyBinds.ContainsKey(levelSID)) {
+            Logger.Log(LogLevel.Warn, "GameHelper", "PlayerShadowController keybinds already contain key " + levelSID);
+            return;
+        }
+        keyBinds.Add(levelSID, binding);
     }
 }
 
