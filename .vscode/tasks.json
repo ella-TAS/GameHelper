@@ -25,25 +25,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "debug build",
-            "command": "dotnet",
-            "args": [
-                "build",
-                "${workspaceFolder}\\src\\GameHelper.csproj",
-                "-property:GenerateFullPaths=true",
-                "-consoleloggerparameters:NoSummary"
-            ],
-            "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "zip build",
             "command": "C:/Program Files/7-Zip/7z.exe",
             "args": [
@@ -52,7 +33,6 @@
                 "${workspaceFolder}/Audio",
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
-                "${workspaceFolder}/Maps",
                 "${workspaceFolder}/bin",
                 "${workspaceFolder}/everest.yaml"
             ],
