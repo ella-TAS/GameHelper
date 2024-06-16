@@ -15,7 +15,7 @@ public class GameHelper : EverestModule {
 
     internal static SpriteBank SpriteBank;
     internal static Random Random;
-    internal static bool CollabUtilsLoaded, CrossoverLoaded;
+    internal static bool CollabUtilsLoaded;
 
     public GameHelper() {
         Instance = this;
@@ -38,6 +38,9 @@ public class GameHelper : EverestModule {
         Util.Load();
         EntityModifier.Hook();
         PushBox.Hook();
+
+        PlayerShadowController.resetBindings();
+        FlashlightController.resetBindings();
     }
 
     public override void Unload() {
@@ -53,10 +56,5 @@ public class GameHelper : EverestModule {
 
     public override void LoadContent(bool firstLoad) {
         SpriteBank = new SpriteBank(GFX.Game, "Graphics/GameHelper/CustomSprites.xml");
-
-        CrossoverLoaded = Everest.Loader.DependencyLoaded(new() {
-            Name = "CrossoverCollab",
-            Version = new Version(0, 3, 27)
-        });
     }
 }
