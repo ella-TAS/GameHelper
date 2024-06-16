@@ -4,7 +4,7 @@ using Celeste.Mod.Entities;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Celeste.Mod.GameHelper.Entities;
+namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/PlayerShadowController")]
 public class PlayerShadowController : Entity {
