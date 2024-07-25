@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net452</TargetFrameworks>
+        <TargetFrameworks>net70</TargetFrameworks>
         <AssemblyName>GameHelper</AssemblyName>
         <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
         <LangVersion>latest</LangVersion>
-        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == '' And Exists('..\..\..\legacyRef\Celeste.exe')">..\..\..</CelesteGamePath>
+        <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == '' And Exists('..\..\..\Celeste.dll')">..\..\..</CelesteGamePath>
         <CelesteGamePath Condition="'$(CELESTEGAMEPATH)' == ''">..\lib</CelesteGamePath>
         <PathMap>$(MSBuildProjectDirectory)=X:\GameHelper\</PathMap>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -29,9 +29,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\legacyRef\Celeste.exe" />
-        <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\legacyRef\MMHOOK_Celeste.dll" />
-        <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\legacyRef\YamlDotNet.dll" />
+        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.dll" />
+        <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
+        <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
         <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\Mods\Cache\CollabUtils2.CollabUtils2.dll" />
     </ItemGroup>
 
