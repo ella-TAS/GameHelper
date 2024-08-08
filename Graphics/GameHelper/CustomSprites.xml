@@ -64,4 +64,9 @@
         <Loop id="idle" path="idle" delay="0.1" />
         <Anim id="flash" path="flash" delay="0.1" goto="idle" />
     </dash_magnet>
+
+    <pow_block path="objects/GameHelper/pow_block/" start="idle">
+        <Loop id="idle" path="normal" delay="0.5" />
+        <Loop id="pressed" path="pressed" />
+    </pow_block>
 </Sprites>

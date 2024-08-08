@@ -38,6 +38,7 @@ public class GameHelper : EverestModule {
         Util.Load();
         EntityModifier.Hook();
         PushBox.Hook();
+        PSwitch.Hook();
 
         PlayerShadowController.resetBindings();
         FlashlightController.resetBindings();
@@ -52,6 +53,7 @@ public class GameHelper : EverestModule {
         FlagCollectBerry.Unhook();
         EntityModifier.Unhook();
         PushBox.Unhook();
+        PSwitch.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

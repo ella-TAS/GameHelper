@@ -1,0 +1,16 @@
+local pswitch = {}
+
+pswitch.name = "GameHelper/PSwitch"
+pswitch.depth = 8998
+pswitch.texture = "objects/GameHelper/pow_block/normal00"
+pswitch.justification = {0.5, 1.0}
+pswitch.placements = {
+    name = "normal",
+    data = {
+        showTutorial = false
+        flag = "pswitch"
+        resetFlagOnDeath = true
+    }
+}
+
+return pswitch
