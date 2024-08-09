@@ -144,6 +144,8 @@ entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=W
 entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk
 
 entities.GameHelper/PSwitch.placements.name.normal=P-Switch
+entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
+entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead
 
 
 

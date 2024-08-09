@@ -13,8 +13,9 @@ public class PSwitch : Actor {
     private readonly Holdable Hold;
     private readonly JumpThru platform;
     private readonly Collision CollideH, CollideV;
-    private readonly bool showTutorial, resetFlagOnDeath;
+    private readonly bool showTutorial, stationary;
     private readonly string flag;
+    private readonly float flagDuration;
     private Vector2 Speed, prevLiftSpeed;
     private BirdTutorialGui tutorialGui;
     private float tutorialTimer, hardVerticalHitSoundCooldown, noGravityTimer;
@@ -32,13 +33,20 @@ public class PSwitch : Actor {
             LifeMin = 0.3f,
             LifeMax = 0.8f
         };
+        stationary = data.Bool("stationary");
         showTutorial = data.Bool("showTutorial");
-        resetFlagOnDeath = data.Bool("resetFlagOnDeath");
+        flagDuration = data.Float("flagDuration");
         flag = data.Attr("flag");
         Depth = 100;
-        Collider = new Hitbox(8f, 10f, -4f, -10f);
         Add(sprite = GameHelper.SpriteBank.Create("pow_block"));
         sprite.RenderPosition += new Vector2(-10, -21);
+        platform = new JumpThru(Position + new Vector2(-8, -16), 16, false) {
+            SurfaceSoundIndex = 32
+        };
+        Collider = new Hitbox(8f, 10f, -4f, -10f);
+        Add(new VertexLight(Collider.Center, Color.White, 1f, 32, 64));
+
+        if(stationary) return;
         Add(Hold = new() {
             PickupCollider = new Hitbox(16f, 22f, -8f, -16f),
             SlowFall = false,
@@ -52,21 +60,15 @@ public class PSwitch : Actor {
         CollideH = OnCollideH;
         CollideV = OnCollideV;
         LiftSpeedGraceTime = 0.1f;
-        Add(new VertexLight(Collider.Center, Color.White, 1f, 32, 64));
-        Add(new MirrorReflection());
-        platform = new JumpThru(Position + new Vector2(-8, -16), 16, false) {
-            SurfaceSoundIndex = 32
-        };
     }
 
     public override void Update() {
         base.Update();
         if(dead) return;
         hardVerticalHitSoundCooldown -= Engine.DeltaTime;
-        Depth = 100;
-        if(Hold.IsHeld) {
+        if(Hold?.IsHeld ?? false) {
             prevLiftSpeed = Vector2.Zero;
-        } else {
+        } else if(!stationary) {
             if(OnGround()) {
                 float target = (!OnGround(Position + Vector2.UnitX * 3f)) ? 20f : (OnGround(Position - Vector2.UnitX * 3f) ? 0f : (-20f));
                 Speed.X = Calc.Approach(Speed.X, target, 800f * Engine.DeltaTime);
@@ -104,17 +106,21 @@ public class PSwitch : Actor {
                 Speed.Y = 0f;
             } else if(Top > bounds.Bottom) Die();
         }
-        Hold.CheckAgainstColliders();
-        if(tutorialGui != null) {
+
+        if(pressed) return;
+        Hold?.CheckAgainstColliders();
+        if(!stationary && tutorialGui != null) {
             if(!Hold.IsHeld && OnGround()) tutorialTimer += Engine.DeltaTime;
             else tutorialTimer = 0f;
             tutorialGui.Open = tutorialTimer > 0.25f;
         }
         //platform
-        if(!pressed && platform.HasPlayerRider()) {
+        if(platform.HasPlayerRider()) {
             pressed = true;
-            // Hold.PickupCollider = null;
+            Hold?.RemoveSelf();
+            if(tutorialGui != null) tutorialGui.Open = false;
             Add(new Coroutine(pressRoutine()));
+            if(flagDuration > 0) Add(new Coroutine(unflagRoutine()));
         }
         platform.MoveTo(Position + new Vector2(-8, -16));
     }
@@ -125,8 +131,14 @@ public class PSwitch : Actor {
         SceneAs<Level>().Session.SetFlag(flag);
         Audio.Play("event:/game/05_mirror_temple/button_activate", Position);
         yield return 1f;
-        SceneAs<Level>().Add(new DisperseImage(Position + new Vector2(-10, -21), -Vector2.UnitY, sprite.Origin, Vector2.One, sprite.Texture));
-        RemoveSelf();
+        SceneAs<Level>().Add(new DisperseImage(Position + new Vector2(-10, -21), Vector2.UnitY, sprite.Origin, Vector2.One, sprite.Texture));
+        yield return null;
+        Visible = false;
+    }
+
+    private IEnumerator unflagRoutine() {
+        yield return flagDuration;
+        SceneAs<Level>().Session.SetFlag(flag, false);
     }
 
     public override void Added(Scene scene) {
@@ -141,9 +153,7 @@ public class PSwitch : Actor {
     }
 
     public override void Removed(Scene scene) {
-        if(resetFlagOnDeath) {
-            SceneAs<Level>().Session.SetFlag(flag, false);
-        }
+        SceneAs<Level>().Session.SetFlag(flag, false);
         base.Removed(scene);
     }
 

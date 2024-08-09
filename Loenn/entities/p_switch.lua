@@ -7,9 +7,10 @@ pswitch.justification = {0.5, 1.0}
 pswitch.placements = {
     name = "normal",
     data = {
-        showTutorial = false
-        flag = "pswitch"
-        resetFlagOnDeath = true
+        showTutorial = false,
+        stationary = false,
+        flag = "pswitch",
+        flagDuration = 7
     }
 }
 
