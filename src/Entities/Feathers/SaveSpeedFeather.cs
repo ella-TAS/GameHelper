@@ -24,7 +24,7 @@ public class SaveSpeedFeather : FlyFeather {
             color = colorN;
             flyColor = flyColorN;
         }
-        DynamicData.For(this).Get<Sprite>("sprite").SetColor(color);
+        sprite.Color = color;
         PlayerCollider pc = Get<PlayerCollider>();
         System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = (Player p) => {
