@@ -16,7 +16,7 @@ public class FlagCollectBerry : Strawberry {
     public readonly Vector2 levelOffset;
     public bool keepOnDeath;
     private DynamicData componentData;
-    public float wobble;
+    public new float wobble;
     public bool hadLeader;
 
     public FlagCollectBerry(EntityData data, Vector2 levelOffset, EntityID id) : base(data, levelOffset, id) {
