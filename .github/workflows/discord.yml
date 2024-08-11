@@ -1,0 +1,112 @@
+name: Discord
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build and upload to Discord
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Install required packages
+      run: sudo apt-get update && sudo apt-get install -y wget unzip
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+
+    - name: Download Dependencies
+      run: |
+        #!/bin/bash
+        set -e
+
+        # Directory containing Mod ID files
+        cache_dir="lib/Mods/Cache"
+        mkdir -p "$cache_dir"
+
+        for file_path in "$cache_dir"/*; do
+            if [ -f "$file_path" ] && [[ "$file_path" != *.dll ]]; then
+                mod_id=$(basename "$file_path")
+                mod_zip_url="https://maddie480.ovh/celeste/dl?id=${mod_id}"
+                mirror_zip_url="${mod_zip_url}&mirror=1"
+                zip_filename="${mod_id}.zip"
+
+                # Attempt to download the zip file
+                echo "Attempting to download from primary URL..."
+                if ! wget --tries=10 -O "$zip_filename" "$mod_zip_url"; then
+                    echo "Primary download failed, retrying with mirror URL..."
+                    wget --tries=inf -O "$zip_filename" "$mirror_zip_url"
+                fi
+
+                # Create a temporary extraction directory
+                temp_extract="temp_extract_${mod_id}"
+                mkdir "$temp_extract"
+
+                # Extract the zip file
+                unzip -qq "$zip_filename" -d "$temp_extract"
+
+                # Find and rename the first dll file
+                dll_files=($(find "$temp_extract" -name "*.dll"))
+                original_dll_name=$(basename "${dll_files[0]}")
+                mv "${dll_files[0]}" "${cache_dir}/${mod_id}.${original_dll_name}"
+
+                # Clean up
+                rm "$zip_filename"
+                rm -rf "$temp_extract"
+            fi
+        done
+      shell: bash
+
+    - name: List directory contents
+      run: tree lib/Mods/Cache || find lib/Mods/Cache
+      shell: bash
+
+    - name: Install dependencies
+      run: dotnet restore src/GameHelper.csproj
+
+    - name: Build
+      run: dotnet build src/GameHelper.csproj --configuration Release --no-restore
+
+    - name: Remove pdb
+      run: rm bin/GameHelper.pdb
+
+    - name: upload
+      env:
+        ZIPNAME: Lobby
+        TAG_NAME: ${{ github.ref_name }}
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      run: |
+        json_escape() {
+          local raw_string="$1"
+          echo "$raw_string" | jq -Rs . | sed 's/^"\(.*\)"$/\1/'
+        }
+
+        ZIPNAME="GameHelper-${TAG_NAME}.zip"
+        zip -qq -r $ZIPNAME Audio Graphics Loenn bin everest.yaml LICENSE
+
+        # Output full git log for debugging
+        echo "Full Git Log:"
+        git log --oneline -n 12 --format="%h – %s"
+
+        # Fetch commit messages
+        PREVIOUS_TAG=$(git tag --sort=-creatordate | grep -A 1 "^${TAG_NAME}$" | tail -n1)
+        echo "PREVIOUS_TAG=${PREVIOUS_TAG}"
+        if [ -z "$PREVIOUS_TAG" ]; then
+          echo "No previous tag found, defaulting to the first commit."
+          COMMITS=$(git log --oneline -n 12 --format="%h – %s")
+        else
+          COMMITS=$(git log $PREVIOUS_TAG..$TAG_NAME --oneline -n 12 --format="%h – %s")
+        fi
+
+        TAG_NAME=$(json_escape "$TAG_NAME")
+        COMMITS=$(json_escape "$COMMITS")
+
+        # upload to discord
+        curl -H 'Content-Type: multipart/form-data' -X POST -F "file=@$ZIPNAME" -F "payload_json={\"content\": \"GameHelper $TAG_NAME$COMMITS\"}" "$DISCORD_WEBHOOK"
