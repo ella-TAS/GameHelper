@@ -11,17 +11,17 @@ solid.placements = {
     data = {
         width = 8,
         height = 8,
-        tileset = "3",
+        tiletype = "3",
         blendin = false,
         permanent = false,
         canDash = true
     }
 }
 
-solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tileset")
+solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tiletype")
 
 solid.fieldInformation = function(entity)
-    return fakeTilesHelper.getFieldInformation("tileset")(entity)
+    return fakeTilesHelper.getFieldInformation("tiletype")(entity)
 end
 
 return solid
