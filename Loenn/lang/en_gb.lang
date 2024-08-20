@@ -147,7 +147,7 @@ entities.GameHelper/PSwitch.placements.name.normal=P-Switch
 entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
 entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead
 
-entities.GameHelper/DashBlockNoKnockback.placements.name.normal=Dash Block (No Knockback)
+entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
 
 
 
