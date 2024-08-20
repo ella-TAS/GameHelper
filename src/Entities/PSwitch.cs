@@ -107,7 +107,7 @@ public class PSwitch : Actor {
             } else if(Top > bounds.Bottom) Die();
         }
 
-        if(pressed) return;
+        if(pressed || dead) return;
         Hold?.CheckAgainstColliders();
         if(!stationary && tutorialGui != null) {
             if(!Hold.IsHeld && OnGround()) tutorialTimer += Engine.DeltaTime;
@@ -225,7 +225,7 @@ public class PSwitch : Actor {
         return Speed.Y == 0f && base.IsRiding(solid);
     }
 
-    protected override void OnSquish(CollisionData data) {
+    public override void OnSquish(CollisionData data) {
         if(!TrySquishWiggle(data, 3, 3)) Die();
     }
 

@@ -18,6 +18,7 @@ public class PSwitchBlock : DashBlock {
         flag = data.Attr("flag");
         startBlock = data.Bool("startAsBlock");
         OnDashCollide = delegate (Player p, Vector2 dir) {
+            if(!canDash) return DashCollisionResults.NormalCollision;
             Break(p.Center, dir, true, true);
             return DashCollisionResults.Ignore;
         };
@@ -28,7 +29,7 @@ public class PSwitchBlock : DashBlock {
     public override void Update() {
         base.Update();
         Collidable = isBlock;
-        if(!collected && !isBlock && CollideCheck<Player>()) {
+        if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
             Add(new Coroutine(collectRoutine()));
         }
@@ -55,13 +56,13 @@ public class PSwitchBlock : DashBlock {
         while(coinSprite.CurrentAnimationFrame != 3 && coinSprite.CurrentAnimationFrame != 9) yield return null;
         coinSprite.Play("collect");
         while(coinSprite.Animating) yield return null;
-        RemoveSelf();
+        RemoveAndFlagAsGone();
     }
 
     public override void Render() {
         if(isBlock && !collected) {
             base.Render();
-        } else {
+        } else if(canDash) {
             coinSprite.Render();
         }
     }
