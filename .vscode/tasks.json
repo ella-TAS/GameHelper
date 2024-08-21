@@ -34,7 +34,8 @@
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
                 "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml"
+                "${workspaceFolder}/everest.yaml",
+                "${workspaceFolder}/LICENSE"
             ],
             "type": "process",
             "group": {
@@ -55,7 +56,8 @@
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
                 "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml"
+                "${workspaceFolder}/everest.yaml",
+                "${workspaceFolder}/LICENSE"
             ],
             "type": "process",
             "group": {
@@ -65,30 +67,6 @@
             "presentation": {
                 "reveal": "silent"
             }
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/src/GameHelper.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/src/GameHelper.sln"
-            ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }

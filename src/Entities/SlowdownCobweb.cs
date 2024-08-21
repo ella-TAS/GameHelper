@@ -51,7 +51,7 @@ public class SlowdownCobweb : Entity {
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
                 p.Speed.Y = Calc.Approach(p.Speed.Y, 0, 40);
-                DynamicData.For(p).Set("varJumpTimer", 0f);
+                p.varJumpTimer = 0f;
             }
         }
     }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
 using FMOD.Studio;
+using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -47,7 +48,7 @@ public class Dispenser : Solid {
         if(!Audio.IsPlaying(sound)) {
             sound = Audio.Play("event:/GameHelper/dispenser/dispenser");
         }
-        SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? 3.1415927f : 0);
+        SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? MathF.PI : 0);
     }
 
     public override void Update() {

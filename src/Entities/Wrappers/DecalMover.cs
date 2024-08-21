@@ -64,13 +64,13 @@ public class DecalMover : Wrapper {
                     break;
             }
             if(returnType != 0) {
-                decal.SetScale(flip(decal.Scale));
+                decal.Scale = flip(decal.Scale);
             }
         } else if(movingBack && nextNode == 0) {
             //arrived at the start node
             movingBack = false;
             nextNode = 1;
-            decal.SetScale(flip(decal.Scale));
+            decal.Scale = flip(decal.Scale);
         } else {
             nextNode += movingBack ? -1 : 1;
         }
