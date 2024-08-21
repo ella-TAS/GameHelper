@@ -84,11 +84,6 @@ entities.GameHelper/PlayerShadowController.attributes.description.uses=The numbe
 entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk
 entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk
 
-entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
-entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once
-
-entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
-
 
 
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
