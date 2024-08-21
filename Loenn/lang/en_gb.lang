@@ -148,6 +148,13 @@ entities.GameHelper/McFire.attributes.description.spreadingTime=The time it take
 
 entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
 
+entities.GameHelper/PSwitch.placements.name.normal=P-Switch
+entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
+entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead
+
+entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
+entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
