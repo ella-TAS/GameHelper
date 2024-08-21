@@ -1,0 +1,73 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install required packages
+      run: sudo apt-get update && sudo apt-get install -y wget unzip
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+
+    - name: Cache Dependencies
+      run: |
+        #!/bin/bash
+        set -e
+
+        # Directory containing Mod ID files
+        cache_dir="lib/Mods/Cache"
+        mkdir -p "$cache_dir"
+
+        for file_path in "$cache_dir"/*; do
+            if [ -f "$file_path" ] && [[ "$file_path" != *.dll ]]; then
+                mod_id=$(basename "$file_path")
+                mod_zip_url="https://maddie480.ovh/celeste/dl?id=${mod_id}"
+                mirror_zip_url="${mod_zip_url}&mirror=1"
+                zip_filename="${mod_id}.zip"
+
+                # Attempt to download the zip file
+                echo "Attempting to download from primary URL..."
+                if ! wget --tries=10 -O "$zip_filename" "$mod_zip_url"; then
+                    echo "Primary download failed, retrying with mirror URL..."
+                    wget --tries=inf -O "$zip_filename" "$mirror_zip_url"
+                fi
+
+                # Create a temporary extraction directory
+                temp_extract="temp_extract_${mod_id}"
+                mkdir "$temp_extract"
+
+                # Extract the zip file
+                unzip -qq "$zip_filename" -d "$temp_extract"
+
+                # Find and rename the first dll file
+                dll_files=($(find "$temp_extract" -name "*.dll"))
+                original_dll_name=$(basename "${dll_files[0]}")
+                mv "${dll_files[0]}" "${cache_dir}/${mod_id}.${original_dll_name}"
+
+                # Clean up
+                rm "$zip_filename"
+                rm -rf "$temp_extract"
+            fi
+        done
+      shell: bash
+
+    - name: List directory contents
+      run: tree lib/Mods/Cache || find lib/Mods/Cache
+      shell: bash
+
+    - name: Install dependencies
+      run: dotnet restore src/GameHelper.csproj
+
+    - name: Build
+      run: dotnet build src/GameHelper.csproj --configuration Debug --no-restore

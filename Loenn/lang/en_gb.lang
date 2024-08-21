@@ -139,6 +139,24 @@ entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for 
 
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block
 
+entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
+entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once
+entities.GameHelper/PlayerShadowController.attributes.description.uses=The number of shadows you can spawn.\nSet to -1 for infinite uses.
+entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk
+entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk
+
+entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
+entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once
+
+entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
+
+entities.GameHelper/PSwitch.placements.name.normal=P-Switch
+entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
+entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead
+
+entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
+entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster

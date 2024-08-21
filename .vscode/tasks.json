@@ -25,25 +25,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "debug build",
-            "command": "dotnet",
-            "args": [
-                "build",
-                "${workspaceFolder}\\src\\GameHelper.csproj",
-                "-property:GenerateFullPaths=true",
-                "-consoleloggerparameters:NoSummary"
-            ],
-            "type": "shell",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "zip build",
             "command": "C:/Program Files/7-Zip/7z.exe",
             "args": [
@@ -52,9 +33,9 @@
                 "${workspaceFolder}/Audio",
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
-                "${workspaceFolder}/Maps",
                 "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml"
+                "${workspaceFolder}/everest.yaml",
+                "${workspaceFolder}/LICENSE"
             ],
             "type": "process",
             "group": {
@@ -75,7 +56,8 @@
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
                 "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml"
+                "${workspaceFolder}/everest.yaml",
+                "${workspaceFolder}/LICENSE"
             ],
             "type": "process",
             "group": {
@@ -85,30 +67,6 @@
             "presentation": {
                 "reveal": "silent"
             }
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/src/GameHelper.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "watch",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/src/GameHelper.sln"
-            ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }

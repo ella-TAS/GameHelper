@@ -64,4 +64,18 @@
         <Loop id="idle" path="idle" delay="0.1" />
         <Anim id="flash" path="flash" delay="0.1" goto="idle" />
     </dash_magnet>
+
+    <fire path="objects/GameHelper/mc_fire/" start="idle">
+        <Loop id="idle" path="fire" delay="0.05" />
+    </fire>
+
+    <p_switch path="objects/GameHelper/p_switch/" start="idle">
+        <Loop id="idle" path="normal" delay="0.5" />
+        <Loop id="pressed" path="pressed" />
+    </p_switch>
+
+    <mario_coin path="objects/GameHelper/p_switch/" start="idle">
+        <Loop id="idle" path="coin" delay="0.1" />
+        <Anim id="collect" path="collect" delay="0.1" />
+    </mario_coin>
 </Sprites>

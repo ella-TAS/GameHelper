@@ -1,28 +1,21 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using Celeste.Mod.CrossoverCollab;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
+    private static Dictionary<string, ButtonBinding> keyBinds = new();
+    public VirtualButton Binding => keyBinds.TryGetValue(SceneAs<Level>().Session.Area.SID, out ButtonBinding b) ? b.Button : Input.MenuJournal;
+
     private readonly Sprite sprite;
     private Level level;
     private float baseAlpha;
     private readonly float fadeSpeed;
     private readonly float maxCooldown;
     private float cooldown;
-    public bool Binding {
-        get => GameHelper.CrossoverLoaded ? crossoverBinding() : Input.MenuJournal.Pressed;
-        set {
-            if(GameHelper.CrossoverLoaded) {
-                crossoverBinding(false);
-            } else {
-                Input.MenuJournal.ConsumePress();
-            }
-        }
-    }
 
 #pragma warning disable IDE0060, RCS1163
     public FlashlightController(EntityData data, Vector2 levelOffset) {
@@ -41,8 +34,8 @@ public class FlashlightController : Entity {
     public override void Update() {
         base.Update();
         cooldown -= Engine.DeltaTime;
-        if(Binding && cooldown <= 0) {
-            Binding = true;
+        if(Binding.Pressed && cooldown <= 0) {
+            Binding.ConsumePress();
             level.Lighting.Alpha = 0;
             cooldown = maxCooldown;
             sprite.Visible = true;
@@ -63,11 +56,15 @@ public class FlashlightController : Entity {
         }
     }
 
-    private bool crossoverBinding(bool consume = false) {
-        if(consume) {
-            CrossoverCollabModule.Settings.FlashlightButton?.ConsumePress();
-            return true;
+    public static void resetBindings() {
+        keyBinds = new();
+    }
+
+    public static void addBinding(string levelSID, ButtonBinding binding) {
+        if(keyBinds.ContainsKey(levelSID)) {
+            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController keybinds already contain key " + levelSID);
+            return;
         }
-        return CrossoverCollabModule.Settings.FlashlightButton?.Pressed ?? false;
+        keyBinds.Add(levelSID, binding);
     }
 }

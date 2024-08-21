@@ -15,8 +15,7 @@ public class FlagCollectBerry : Strawberry {
     public readonly EntityData data;
     public readonly Vector2 levelOffset;
     public bool keepOnDeath;
-    private DynamicData componentData;
-    public float wobble;
+    public new float wobble;
     public bool hadLeader;
 
     public FlagCollectBerry(EntityData data, Vector2 levelOffset, EntityID id) : base(data, levelOffset, id) {
@@ -31,7 +30,7 @@ public class FlagCollectBerry : Strawberry {
         //visual / base update
         wobble += Engine.DeltaTime * 4f;
         Get<Sprite>().Y = Get<BloomPoint>().Y = Get<VertexLight>().Y = (float) Math.Sin(wobble) * 2f;
-        componentData.Invoke("Update");
+        Components.Update();
 
         //lose / collect check
         if(Follower.Leader == null) {
@@ -112,7 +111,6 @@ public class FlagCollectBerry : Strawberry {
                 return;
             }
         }
-        componentData = new DynamicData(Components);
     }
 
     private static void OnPlayerAdded(On.Celeste.Player.orig_Added orig, Player p, Scene s) {
