@@ -174,7 +174,7 @@ triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
 triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log
 triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)
 
-triggers.GameHelper/ShieldTrigger.placements.name.shield=Shield (Invincibility)
+triggers.GameHelper/ShieldTrigger.placements.name.shield=Player Shield (Invincibility)
 triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3)
 triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled
 

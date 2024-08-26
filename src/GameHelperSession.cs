@@ -8,5 +8,7 @@ public class GameHelperSession : EverestModuleSession {
     public bool FloatyJumps;
     public bool HeartTriggerActivated;
     [YamlIgnore]
+    public bool PlayerHasShield;
+    [YamlIgnore]
     public List<FlagCollectBerry> StoredBerries;
 }

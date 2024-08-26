@@ -8,8 +8,8 @@ namespace Celeste.Mod.GameHelper.Triggers;
 [CustomEntity("GameHelper/ShieldTrigger")]
 public class ShieldTrigger : Trigger {
     public static Shield Shield;
-    private readonly int flashes;
     private readonly bool enable;
+    private readonly int flashes;
 
     public ShieldTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         enable = data.Bool("enable");
@@ -17,82 +17,68 @@ public class ShieldTrigger : Trigger {
     }
 
     public override void OnEnter(Player p) {
-        Shield.Enable(enable, flashes);
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        scene.Add(Shield = new Shield());
-    }
-
-    public override void Removed(Scene scene) {
-        base.Removed(scene);
         Shield?.RemoveSelf();
-    }
-
-    public override void SceneEnd(Scene scene) {
-        base.SceneEnd(scene);
-        Shield?.RemoveSelf();
+        if(enable) {
+            SceneAs<Level>().Add(Shield = new Shield(flashes));
+        }
     }
 }
 
 public class Shield : Entity {
-    public static bool HasShield, Breaking, Show;
-    public static int FlashAmount;
+    private bool breaking;
+    private int flashAmount;
 
-    public Shield() {
+    public Shield(int flashes) {
         Add(new Image(GFX.Game["objects/GameHelper/shield_bubble"]) {
             RenderPosition = new Vector2(-16, -22)
         });
-        base.Depth = -9999999;
+        Depth = -9999999;
+        flashAmount = flashes;
     }
 
     private static PlayerDeadBody onDeath(On.Celeste.Player.orig_Die orig, Player p, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats) {
-        if(!evenIfInvincible && HasShield) {
-            if(!Breaking) {
-                Breaking = true;
-                //break the current shield
-                ShieldTrigger.Shield.Add(new Coroutine(routineBreak()));
-            }
+        if(!evenIfInvincible && GameHelper.Session.PlayerHasShield) {
+            ShieldTrigger.Shield.Break();
             return null;
         } else {
             return orig(p, direction, evenIfInvincible, registerDeathInStats);
         }
     }
 
-    private static IEnumerator routineBreak() {
-        Audio.Play("event:/GameHelper/shield/shield");
-        for(int i = 0; i < FlashAmount; i++) {
-            Show = false;
-            yield return 0.1f;
-            Show = true;
-            yield return 0.1f;
+    public void Break() {
+        if(!breaking) {
+            breaking = true;
+            Add(new Coroutine(breakRoutine()));
         }
-        Show = false;
-        HasShield = false;
-        Breaking = false;
     }
 
-    public void Enable(bool enable, int flashes) {
-        Get<Coroutine>()?.RemoveSelf();
-        Breaking = false;
-        HasShield = Show = enable;
-        FlashAmount = flashes;
+    private IEnumerator breakRoutine() {
+        Logger.Info("GameHelper", flashAmount.ToString());
+        Audio.Play("event:/GameHelper/shield/shield");
+        for(int i = 0; i < flashAmount; i++) {
+            Visible = false;
+            yield return 0.1f;
+            Visible = true;
+            yield return 0.1f;
+        }
+        RemoveSelf();
     }
 
     public override void Removed(Scene scene) {
         base.Removed(scene);
-        HasShield = Breaking = Show = false;
+        GameHelper.Session.PlayerHasShield = false;
+    }
+
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
+        GameHelper.Session.PlayerHasShield = true;
     }
 
     public override void Render() {
-        if(Show && !SceneAs<Level>().Transitioning) {
-            Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null) {
-                Position = p.Center + (p.Facing == Facings.Right ? -Vector2.UnitX : Vector2.Zero);
-                base.Render();
-            }
-        }
+        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        if(SceneAs<Level>().Transitioning || p == null) return;
+        Position = p.Center + (p.Facing == Facings.Right ? -Vector2.UnitX : Vector2.Zero);
+        base.Render();
     }
 
     public static void Hook() {

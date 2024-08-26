@@ -10,7 +10,6 @@ public class PlayerStateFlag : Entity {
     private readonly int state;
     private readonly bool invert, dashAttack;
 
-#pragma warning disable IDE0060, RCS1163
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
         flag = data.Attr("flag");
         state = data.Int("state");
@@ -18,7 +17,6 @@ public class PlayerStateFlag : Entity {
         dashAttack = data.Bool("dashAttack");
         base.Depth = -1;
     }
-#pragma warning restore
 
     public override void Update() {
         base.Update();

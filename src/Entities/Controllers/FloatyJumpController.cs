@@ -10,12 +10,10 @@ public class FloatyJumpController : Entity {
     private readonly bool enable;
     private readonly string flag;
 
-#pragma warning disable IDE0060, RCS1163
     public FloatyJumpController(EntityData data, Vector2 levelOffset) {
         enable = data.Bool("enable");
         flag = data.Attr("flag");
     }
-#pragma warning restore
 
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);

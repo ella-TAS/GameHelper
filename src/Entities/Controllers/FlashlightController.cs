@@ -17,7 +17,6 @@ public class FlashlightController : Entity {
     private readonly float maxCooldown;
     private float cooldown;
 
-#pragma warning disable IDE0060, RCS1163
     public FlashlightController(EntityData data, Vector2 levelOffset) {
         fadeSpeed = 1 / data.Float("fadeTime");
         maxCooldown = data.Float("cooldown");
@@ -26,10 +25,9 @@ public class FlashlightController : Entity {
         sprite.Play("idle");
         sprite.Visible = false;
         Add(sprite);
-        base.Tag = Tags.HUD;
-        base.Position = new Vector2(1800, 960);
+        Tag = Tags.HUD;
+        Position = new Vector2(1800, 960);
     }
-#pragma warning restore
 
     public override void Update() {
         base.Update();
