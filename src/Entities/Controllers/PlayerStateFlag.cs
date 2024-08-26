@@ -33,7 +33,7 @@ public class PlayerStateFlag : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(flag?.Length == 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "PlayerStateFlag: no flag set");
+            Logger.Warn("GameHelper", "PlayerStateFlag: no flag set");
             RemoveSelf();
         }
     }

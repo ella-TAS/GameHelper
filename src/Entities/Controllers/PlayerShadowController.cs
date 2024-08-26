@@ -42,7 +42,7 @@ public class PlayerShadowController : Entity {
 
     public static void addBinding(string levelSID, ButtonBinding binding) {
         if(keyBinds.ContainsKey(levelSID)) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "PlayerShadowController keybinds already contain key " + levelSID);
+            Logger.Warn("GameHelper", "PlayerShadowController keybinds already contain key " + levelSID);
             return;
         }
         keyBinds.Add(levelSID, binding);

@@ -51,7 +51,7 @@ public class FlashlightController : Entity {
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
         if(maxCooldown <= 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
+            Logger.Warn("GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }
@@ -62,7 +62,7 @@ public class FlashlightController : Entity {
 
     public static void addBinding(string levelSID, ButtonBinding binding) {
         if(keyBinds.ContainsKey(levelSID)) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController keybinds already contain key " + levelSID);
+            Logger.Warn("GameHelper", "FlashlightController keybinds already contain key " + levelSID);
             return;
         }
         keyBinds.Add(levelSID, binding);

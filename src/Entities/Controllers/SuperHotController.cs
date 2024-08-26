@@ -1,5 +1,4 @@
 using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;

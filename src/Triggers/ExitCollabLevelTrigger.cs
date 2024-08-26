@@ -85,7 +85,7 @@ public class ExitCollabLevelTrigger : Trigger {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(!GameHelper.CollabUtilsLoaded) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "ExitCollabLevelTrigger: CollabUtils2 not found");
+            Logger.Warn("GameHelper", "ExitCollabLevelTrigger: CollabUtils2 not found");
             RemoveSelf();
         } else if(addHeartTrigger) {
             SceneAs<Level>().Add(new RegisterHeartTrigger(data, levelOffset));

@@ -60,7 +60,7 @@ public class Wrapper : Entity {
     }
 
     public void ComplainEntityNotFound(string wrapperName) {
-        Logger.Log(LogLevel.Warn, "GameHelper", wrapperName + " found no target in room " + SceneAs<Level>().Session.LevelData.Name);
+        Logger.Warn("GameHelper", wrapperName + " found no target in room " + SceneAs<Level>().Session.LevelData.Name);
         RemoveSelf();
     }
 
@@ -69,9 +69,9 @@ public class Wrapper : Entity {
         if(RoomLogged) {
             return;
         }
-        Logger.Log("GameHelper", "List of all entities in the room:");
+        Logger.Info("GameHelper", "List of all entities in the room:");
         foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            Logger.Log("GameHelper", e.GetType().ToString());
+            Logger.Info("GameHelper", e.GetType().ToString());
         }
         RoomLogged = true;
     }

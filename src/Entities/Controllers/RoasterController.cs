@@ -122,7 +122,7 @@ public class RoasterController : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(maxTimer <= 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
+            Logger.Warn("GameHelper", "RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }
