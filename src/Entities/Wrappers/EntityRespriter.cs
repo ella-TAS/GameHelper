@@ -56,7 +56,7 @@ public class EntityRespriter : Wrapper {
             return;
         }
         if(debug) {
-            Logger.Log("GameHelper", "Respriting entity " + targetEntity.GetType().ToString());
+            Logger.Info("GameHelper", "Respriting entity " + targetEntity.GetType().ToString());
         }
 
         DynamicData targetData = DynamicData.For(targetEntity);

@@ -13,7 +13,7 @@ public class Util {
         if(Easers.ContainsKey(mode)) {
             return Easers[mode](s);
         }
-        Logger.Log(LogLevel.Warn, "GameHelper", "Ease Mode " + mode + " not found");
+        Logger.Warn("GameHelper", "Ease Mode " + mode + " not found");
         return s;
     }
 

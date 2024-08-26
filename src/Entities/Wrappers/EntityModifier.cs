@@ -76,7 +76,7 @@ public class EntityModifier : Wrapper {
 
         foreach(Entity target in targetEntities) {
             if(debug) {
-                Logger.Log("GameHelper", "Modifying entity " + target.GetType().ToString());
+                Logger.Info("GameHelper", "Modifying entity " + target.GetType().ToString());
             }
 
             if(isCommon) {
@@ -140,7 +140,7 @@ public class EntityModifier : Wrapper {
         if(onlyType.Length > 0 && t.GetType().ToString() == onlyType && !targets.Contains(t)) {
             targets.Add(t);
             if(debug) {
-                Logger.Log("GameHelper", "Newly added entity added: " + t.GetType().ToString());
+                Logger.Info("GameHelper", "Newly added entity added: " + t.GetType().ToString());
             }
             if(flag?.Length == 0) {
                 modify(targets);

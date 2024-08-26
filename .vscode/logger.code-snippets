@@ -2,7 +2,7 @@
     "Log with Logger": {
         "scope": "csharp",
         "prefix": "log",
-        "body": "Logger.Log(\"GameHelper\", $0);",
+        "body": "Logger.Info(\"GameHelper\", $0);",
         "description": "Log output to console"
     },
     "Player from Tracker": {
