@@ -8,5 +8,5 @@
 {abcc8c1a-7fe9-4749-988d-241b6ae1cc0c} event:/GameHelper/fist/bullet_collide
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
 {1d797e2d-ebeb-433b-90a6-daaa263570fe} event:/GameHelper/shield/shield
-{a919ccef-5b20-4ed3-8501-e86762edf1db} event:/GameHelper/fire/fire_burn
+{0d6ef3a6-e725-46ac-9c3f-e2c0d27b72cd} event:/GameHelper/fire_burn
 {061df483-0253-4e83-86ed-179319d019f6} bank:/GameHelper
