@@ -3,7 +3,6 @@ using Celeste.Mod.Entities;
 using MonoMod.Utils;
 using Monocle;
 using System;
-using System.Collections.Generic;
 using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;

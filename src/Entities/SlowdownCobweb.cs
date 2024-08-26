@@ -1,7 +1,6 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using MonoMod.Utils;
 using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;

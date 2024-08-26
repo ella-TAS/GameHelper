@@ -1,5 +1,4 @@
 using Monocle;
-using System;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 
