@@ -28,7 +28,7 @@ public class PSwitchBlock : DashBlock {
 
     public override void Update() {
         base.Update();
-        Collidable = isBlock;
+        Collidable = !collected && isBlock;
         if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
             Add(new Coroutine(collectRoutine()));
@@ -56,7 +56,8 @@ public class PSwitchBlock : DashBlock {
         while(coinSprite.CurrentAnimationFrame != 3 && coinSprite.CurrentAnimationFrame != 9) yield return null;
         coinSprite.Play("collect");
         while(coinSprite.Animating) yield return null;
-        RemoveAndFlagAsGone();
+        RemoveSelf();
+        if(permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
     }
 
     public override void Render() {
