@@ -44,6 +44,7 @@ public class PSwitchTimer : Component {
 
     public override void Render() {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        if(p == null) return;
         Util.DrawCircle(p.Center, 15 * timer / duration, Util.ColorInterpolate(EndColor, StartColor, timer / duration));
     }
 }
