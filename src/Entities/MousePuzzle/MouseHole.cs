@@ -17,8 +17,8 @@ public class MouseHole : Solid {
         spawner = data.Bool("spawner");
         flag = data.Attr("flag");
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
-        base.Depth = -1;
-        base.Collider = new Hitbox(16, 16);
+        Depth = -1;
+        Collider = new Hitbox(16, 16);
         Add(sprite = GameHelper.SpriteBank.Create("mouse_hole"));
         if(!spawner) {
             sprite.Play("exit");
@@ -48,7 +48,7 @@ public class MouseHole : Solid {
 
     public bool Complete() {
         if(!spawner && !complete) {
-            SceneAs<Level>().Session.SetFlag(flag, true);
+            SceneAs<Level>().Session.SetFlag(flag);
             sprite.Play("complete");
             complete = true;
         }

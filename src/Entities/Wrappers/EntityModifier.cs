@@ -11,7 +11,7 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 public class EntityModifier : Wrapper {
     private List<Entity> targets;
     private readonly Vector2[] nodes;
-    private Vector2 levelOffset;
+    private readonly Vector2 levelOffset;
     private bool wasFlag;
     private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame, doNewlyAddedEntities;
     private readonly string onlyType, fieldName, flag;
@@ -76,7 +76,7 @@ public class EntityModifier : Wrapper {
 
         foreach(Entity target in targetEntities) {
             if(debug) {
-                Logger.Info("GameHelper", "Modifying entity " + target.GetType().ToString());
+                Logger.Info("GameHelper", "Modifying entity " + target.GetType());
             }
 
             if(isCommon) {
@@ -97,15 +97,15 @@ public class EntityModifier : Wrapper {
         if(mode == "ignore" || (flagDisabled && mode != "set_flag")) {
             return;
         }
-        bool value = false;
+        bool val = false;
         if(mode == "set_true") {
-            value = true;
+            val = true;
         } else if(mode == "set_flag") {
-            value = getFlag();
+            val = getFlag();
         } else if(mode == "invert") {
-            value = !DynamicData.For(target).Get<bool>(name);
+            val = !DynamicData.For(target).Get<bool>(name);
         }
-        DynamicData.For(target).Set(name, value);
+        DynamicData.For(target).Set(name, val);
     }
 
     private bool getFlag() {
@@ -140,7 +140,7 @@ public class EntityModifier : Wrapper {
         if(onlyType.Length > 0 && t.GetType().ToString() == onlyType && !targets.Contains(t)) {
             targets.Add(t);
             if(debug) {
-                Logger.Info("GameHelper", "Newly added entity added: " + t.GetType().ToString());
+                Logger.Info("GameHelper", "Newly added entity added: " + t.GetType());
             }
             if(flag?.Length == 0) {
                 modify(targets);

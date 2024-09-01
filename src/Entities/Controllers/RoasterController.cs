@@ -20,7 +20,7 @@ public class RoasterController : Entity {
         timer = maxTimer = data.Float("timer");
         flag = data.Attr("flag");
         waterOnly = data.Bool("OnlyExtinguishInWater");
-        base.Depth = -9999999;
+        Depth = -9999999;
 
         //particles
         pType = new ParticleType() {
@@ -42,7 +42,7 @@ public class RoasterController : Entity {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(p != null) {
-            SceneAs<Level>().Session.SetFlag(flag, true);
+            SceneAs<Level>().Session.SetFlag(flag);
             bool ground = p.OnGround();
             bool wallL = p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0));
             bool wallR = p.CollideCheck<Solid>(p.Position + new Vector2(3, 0));
@@ -51,12 +51,12 @@ public class RoasterController : Entity {
                 (!p.InControl && p.JustRespawned)) {
                 ResetTimer();
             }
-            if(maxTimer != timer) {
+            if(!maxTimer.Equals(timer)) {
                 createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
             if(timer <= 0) {
                 p.Die(Vector2.Zero);
-                base.Visible = false;
+                Visible = false;
             }
             Position = p.Center + new Vector2(p.Facing == Facings.Right ? -1 : 0, -3);
         }
@@ -68,16 +68,16 @@ public class RoasterController : Entity {
 
     private void createParticles(bool water, bool ground = false, bool wallL = false, bool wallR = false, bool facing_right = false) {
         if(water) {
-            SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(facing_right ? 2 : 1, 5), Vector2.One * 6f, 4.7123890f);
+            SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(facing_right ? 2 : 1, 5), Vector2.One * 6f, 4.7123890f);
         } else {
             if(ground) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(facing_right ? 2 : 1, 10), Vector2.UnitX * 4f, 4.7123890f);
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(facing_right ? 2 : 1, 10), Vector2.UnitX * 4f, 4.7123890f);
             }
             if(wallR) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(6, 3), new Vector2(0, 6), 3.9269908f);
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(6, 3), new Vector2(0, 6), 3.9269908f);
             }
             if(wallL) {
-                SceneAs<Level>().ParticlesFG.Emit(pType, 1, base.Position + new Vector2(-4, 3), new Vector2(0, 6), 5.4977871f);
+                SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(-4, 3), new Vector2(0, 6), 5.4977871f);
             }
         }
     }

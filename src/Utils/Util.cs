@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Celeste.Mod.GameHelper;
+namespace Celeste.Mod.GameHelper.Utils;
 
 public class Util {
     private static Dictionary<string, Ease.Easer> Easers;

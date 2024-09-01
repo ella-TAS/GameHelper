@@ -22,7 +22,7 @@ public class RegisterHeartTrigger : Trigger {
             RemoveSelf();
             return;
         }
-        base.Collidable = false;
+        Collidable = false;
         Level level = SceneAs<Level>();
         if(!SaveData.Instance.Areas_Safe[level.Session.Area.ID].Modes[(int) level.Session.Area.Mode].HeartGem) {
             SaveData.Instance.RegisterHeartGem(level.Session.Area);

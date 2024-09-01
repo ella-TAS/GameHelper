@@ -58,8 +58,8 @@ public class SlowdownCobweb : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(width == 8 && height == 8) {
-            base.Depth = -1;
-            base.Collider = new Hitbox(8, 8);
+            Depth = -1;
+            Collider = new Hitbox(8, 8);
             Add(sprite = GameHelper.SpriteBank.Create("cobweb" + GameHelper.Random.Next(3)));
             return;
         }

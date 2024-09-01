@@ -15,7 +15,7 @@ public class PlayerStateFlag : Entity {
         state = data.Int("state");
         invert = data.Bool("invert");
         dashAttack = data.Bool("dashAttack");
-        base.Depth = -1;
+        Depth = -1;
     }
 
     public override void Update() {
@@ -39,7 +39,7 @@ public class PlayerStateFlag : Entity {
     public override void Removed(Scene scene) {
         base.Removed(scene);
         if(flag?.Length > 0) {
-            (scene as Level).Session.SetFlag(flag, false);
+            SceneAs<Level>().Session.SetFlag(flag, false);
         }
     }
 }

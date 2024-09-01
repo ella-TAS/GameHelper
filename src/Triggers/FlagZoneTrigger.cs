@@ -13,7 +13,7 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnEnter(Player p) {
-        SceneAs<Level>().Session.SetFlag(flag, true);
+        SceneAs<Level>().Session.SetFlag(flag);
     }
 
     public override void OnLeave(Player p) {

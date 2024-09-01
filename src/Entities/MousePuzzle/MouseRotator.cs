@@ -13,8 +13,8 @@ public class MouseRotator : Solid {
     public MouseRotator(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, 16, 16, safe: false) {
         Clockwise = data.Bool("clockwise");
-        base.OnDashCollide = OnDashed;
-        base.Depth = -1;
+        OnDashCollide = OnDashed;
+        Depth = -1;
         Sprite sprite = GameHelper.SpriteBank.Create("mouse_rotator");
         if(Clockwise) {
             sprite.Play("left");

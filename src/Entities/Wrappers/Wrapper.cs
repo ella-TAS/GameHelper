@@ -19,7 +19,7 @@ public class Wrapper : Entity {
 
         if(allEntities) {
             foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-                if((onlyType?.Length == 0 && e.GetType() == targetEntity.GetType()) ||
+                if((onlyType?.Length == 0 && e.GetType() == targetEntity?.GetType()) ||
                 e.GetType().ToString() == onlyType) {
                     entities.Add(e);
                 }
@@ -50,13 +50,13 @@ public class Wrapper : Entity {
     public T FindNearest<T>(Vector2 pos) where T : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
-        foreach(Entity e in SceneAs<Level>().Entities.FindAll<T>()) {
+        foreach(T e in SceneAs<Level>().Entities.FindAll<T>()) {
             if(Vector2.Distance(e.Position, pos) < minDistance) {
                 entity = e;
                 minDistance = Vector2.Distance(e.Position, pos);
             }
         }
-        return entity as T;
+        return (T) entity;
     }
 
     public void ComplainEntityNotFound(string wrapperName) {

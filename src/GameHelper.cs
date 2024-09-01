@@ -4,7 +4,7 @@ using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
-using Celeste.Mod.GameHelper.Triggers;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper;
 

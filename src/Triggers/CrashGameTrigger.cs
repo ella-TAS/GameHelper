@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
 using Monocle;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -34,8 +35,4 @@ public class CrashGameTrigger : Trigger {
         }
         throw new TrollException(message);
     }
-}
-
-public class TrollException : System.Exception {
-    public TrollException(string message) : base(message) { }
 }
