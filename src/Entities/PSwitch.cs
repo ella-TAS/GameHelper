@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -110,7 +111,7 @@ public class PSwitch : Actor {
         if(pressed || dead) return;
         Hold?.CheckAgainstColliders();
         if(!stationary && tutorialGui != null) {
-            if(!Hold?.IsHeld ?? false && OnGround()) tutorialTimer += Engine.DeltaTime;
+            if((!Hold?.IsHeld ?? false) && OnGround()) tutorialTimer += Engine.DeltaTime;
             else tutorialTimer = 0f;
             tutorialGui.Open = tutorialTimer > 0.25f;
         }
@@ -120,7 +121,7 @@ public class PSwitch : Actor {
             Hold?.RemoveSelf();
             if(tutorialGui != null) tutorialGui.Open = false;
             Add(new Coroutine(pressRoutine()));
-            if(flagDuration > 0) Add(new Coroutine(unflagRoutine()));
+            Add(new PSwitchTimer(flag, flagDuration));
         }
         platform.MoveTo(Position + new Vector2(-8, -16));
     }
@@ -128,22 +129,18 @@ public class PSwitch : Actor {
     private IEnumerator pressRoutine() {
         platform.Collidable = false;
         sprite.Play("pressed");
-        SceneAs<Level>().Session.SetFlag(flag);
         Audio.Play("event:/game/05_mirror_temple/button_activate", Position);
+        Depth = -100000;
         yield return 1f;
         SceneAs<Level>().Add(new DisperseImage(Position + new Vector2(-10, -21), Vector2.UnitY, sprite.Origin, Vector2.One, sprite.Texture));
         yield return null;
-        Visible = false;
-    }
-
-    private IEnumerator unflagRoutine() {
-        yield return flagDuration;
-        SceneAs<Level>().Session.SetFlag(flag, false);
+        sprite.Visible = false;
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
         scene.Add(platform);
+        SceneAs<Level>().Session.SetFlag(flag, false);
         if(showTutorial) {
             scene.Add(tutorialGui = new BirdTutorialGui(
                 this, new Vector2(0f, -24f), Dialog.Clean("tutorial_carry"), Dialog.Clean("tutorial_hold"), BirdTutorialGui.ButtonPrompt.Grab) {

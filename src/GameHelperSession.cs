@@ -1,6 +1,7 @@
 using YamlDotNet.Serialization;
 using System.Collections.Generic;
 using Celeste.Mod.GameHelper.Entities;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper;
 
@@ -11,4 +12,6 @@ public class GameHelperSession : EverestModuleSession {
     public bool PlayerHasShield;
     [YamlIgnore]
     public List<FlagCollectBerry> StoredBerries;
+    [YamlIgnore]
+    public Dictionary<string, PSwitchTimer> PSwitchTimers;
 }

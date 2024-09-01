@@ -26,7 +26,7 @@ public class GameHelper : EverestModule {
         Logger.SetLogLevel("GameHelper", 0);
         CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {
             Name = "CollabUtils2",
-            Version = new Version(1, 10, 5)
+            Version = new Version(1, 10, 11)
         });
 
         FloatyJumpController.Hook();

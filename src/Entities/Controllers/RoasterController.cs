@@ -1,7 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -9,12 +9,11 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 [CustomEntity("GameHelper/RoasterController")]
 public class RoasterController : Entity {
     private readonly ParticleType pType;
-    private Color color;
     private readonly string flag;
     private readonly float maxTimer;
-    private float timer;
     private readonly bool waterOnly;
-    private float progress;
+    private Color color;
+    private float timer, progress;
 
     public RoasterController(EntityData data, Vector2 levelOffset) {
         timer = maxTimer = data.Float("timer");
@@ -89,31 +88,7 @@ public class RoasterController : Entity {
 
     public override void Render() {
         if(!SceneAs<Level>().Transitioning) {
-            drawCircle(Position, progress, color);
-        }
-    }
-
-    private static void drawCircle(Vector2 center, float radius, Color color) {
-        float radius2 = (radius * radius) - 0.25f;
-        int y = (int) Math.Round(radius);
-        drawCirclePx(0, y);
-        for(int x = 1; x < y; x++) {
-            //(y-0.5)² = y²-y+0.25
-            if((x * x) + (y * y) - y > radius2) {
-                y--;
-            }
-            drawCirclePx(x, y);
-        }
-
-        void drawCirclePx(int x, int y) {
-            Draw.Point(center + new Vector2(x, y), color);
-            Draw.Point(center + new Vector2(-x, y), color);
-            Draw.Point(center + new Vector2(x, -y), color);
-            Draw.Point(center + new Vector2(-x, -y), color);
-            Draw.Point(center + new Vector2(y, x), color);
-            Draw.Point(center + new Vector2(-y, x), color);
-            Draw.Point(center + new Vector2(y, -x), color);
-            Draw.Point(center + new Vector2(-y, -x), color);
+            Util.DrawCircle(Position, progress, color);
         }
     }
 
