@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections.Generic;
 using Celeste.Mod.GameHelper.Utils;
+using Celeste.Mod.GameHelper.Triggers;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -26,13 +27,11 @@ public class PlayerShadowController : Entity {
 
     public override void Update() {
         base.Update();
-        if(uses != 0 && Binding.Pressed) {
+        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        if(uses != 0 && Binding.Pressed && !(p?.CollideCheck<PlayerShadowBlocker>() ?? true)) {
             Binding.ConsumeBuffer();
-            Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null) {
-                SceneAs<Level>().Add(new PlayerShadow(p.TopLeft, texture, oneUse, freezeFrames, clipToTop));
-                uses--;
-            }
+            SceneAs<Level>().Add(new PlayerShadow(p.TopLeft, texture, oneUse, freezeFrames, clipToTop));
+            uses--;
         }
     }
 

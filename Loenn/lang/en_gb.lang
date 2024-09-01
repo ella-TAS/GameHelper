@@ -179,3 +179,5 @@ triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount 
 triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled
 
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
+
+triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
