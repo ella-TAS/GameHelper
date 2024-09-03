@@ -18,7 +18,7 @@ public class Pigarithm : Solid {
     private readonly string flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
-    : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
+    : base(data.Position + levelOffset, data.Attr("sprite") == "pigarithm_mole" ? 24 : data.Width, data.Attr("sprite") == "pigarithm_mole" ? 28 : data.Height, safe: false) {
         speedX = data.Float("speed");
         movingRight = data.Bool("startRight");
         kill = data.Bool("kill");
@@ -26,11 +26,10 @@ public class Pigarithm : Solid {
         flag = data.Attr("flag");
         hasGravity = data.Bool("gravity");
         mole = size == "pigarithm_mole";
+        if(mole) Position += 4 * Vector2.UnitY;
         Depth = -1;
         sprite = GameHelper.SpriteBank.Create(size);
-        if(!mole) {
-            sprite.RenderPosition = new Vector2(-8, 0);
-        }
+        sprite.RenderPosition = mole ? new Vector2(-4, -4) : new Vector2(-8, 0);
         sprite.FlipY = data.Bool("flipSprite");
         sprite.FlipX = mole && !movingRight;
         Add(sprite);
@@ -58,7 +57,9 @@ public class Pigarithm : Solid {
                     }
                 }
             }
-            if(collided) {
+            if(mole && CollideCheck<Solid>(Position - 10 * Vector2.UnitX) && CollideCheck<Solid>(Position + 10 * Vector2.UnitX)) {
+                sprite.Play("stop");
+            } else if(collided) {
                 movingRight = !movingRight;
                 if(mole) {
                     sprite.FlipX = !sprite.FlipX;

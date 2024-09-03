@@ -4,6 +4,7 @@ entities.GameHelper/Trampoline.attributes.description.speedBoostY=The speed boos
 entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
 
 entities.GameHelper/Pigarithm.placements.name.pigarithm=Pigarithm
+entities.GameHelper/Pigarithm.placements.name.mole=Mole (Pigarithm)
 entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the entity uses\nRecommended sizes:\nBig: 6×4 tiles\nMedium: 4×3 tiles\nSmall: 2×2 tiles
 entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
 entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
