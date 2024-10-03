@@ -42,11 +42,11 @@ public class FlagCollectBerry : Strawberry {
             AddStored();
             hadLeader = true;
         }
-        if(Util.GetFlag(loseFlag, this)) {
+        if(Util.GetFlag(loseFlag, Scene)) {
             RemoveStored();
             hadLeader = false;
             LoseBerry();
-        } else if(Util.GetFlag(collectFlag, this)) {
+        } else if(Util.GetFlag(collectFlag, Scene)) {
             RemoveStored();
             hadLeader = false;
             CollectBerry();
