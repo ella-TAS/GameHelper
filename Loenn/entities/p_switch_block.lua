@@ -4,6 +4,8 @@ local drawableSprite = require("structs.drawable_sprite")
 
 local solid = {}
 
+local coinSpriteOptions = {"normal", "blue"}
+
 solid.name = "GameHelper/PSwitchBlock"
 solid.depth = 8998
 solid.canResize = {true, true}
@@ -18,14 +20,22 @@ solid.placements = {
         permanent = false,
         canDash = true,
         flag = "pswitch",
-        startAsBlock = true
+        startAsBlock = true,
+        coinSprite = "normal"
     }
 }
 
-function solid.sprite(room, entity, viewport)
-    return entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or drawableSprite.fromTexture("objects/GameHelper/p_switch/coin00", entity)
+solid.fieldInformation = function(entity)
+    local orig = fakeTilesHelper.getFieldInformation("tiletype")(entity)
+    orig.coinSprite = {
+        options = coinSpriteOptions,
+        editable = false
+    }
+    return orig
 end
 
-solid.fieldInformation = fakeTilesHelper.getFieldInformation("tiletype")
+function solid.sprite(room, entity, viewport)
+    return entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or drawableSprite.fromTexture("objects/GameHelper/p_switch/" .. (entity.coinSprite or "blue") .. "/coin00", entity)
+end
 
 return solid

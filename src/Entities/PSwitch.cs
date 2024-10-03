@@ -38,7 +38,7 @@ public class PSwitch : Actor {
         flagDuration = data.Float("flagDuration");
         flag = data.Attr("flag");
         Depth = 100;
-        Add(sprite = GameHelper.SpriteBank.Create("p_switch"));
+        Add(sprite = GameHelper.SpriteBank.Create("p_switch_" + data.Attr("sprite", "blue")));
         sprite.RenderPosition += new Vector2(-10, -21);
         platform = new JumpThru(Position + new Vector2(-8, -16), 16, false) {
             SurfaceSoundIndex = 32

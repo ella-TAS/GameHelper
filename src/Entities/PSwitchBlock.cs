@@ -22,7 +22,7 @@ public class PSwitchBlock : DashBlock {
             Break(p.Center, dir, true, true);
             return DashCollisionResults.Ignore;
         };
-        coinSprite = GameHelper.SpriteBank.Create("mario_coin");
+        coinSprite = GameHelper.SpriteBank.Create("mario_coin_" + data.Attr("coinSprite", "blue"));
         Add(coinSprite);
     }
 
