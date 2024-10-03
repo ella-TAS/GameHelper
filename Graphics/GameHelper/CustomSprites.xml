@@ -13,10 +13,10 @@
     </pigarithm_small>
     <pigarithm_medium path="objects/GameHelper/pigarithm/medium/" copy="pigarithm_small" />
     <pigarithm_big path="objects/GameHelper/pigarithm/big/" copy="pigarithm_small" />
-    <pigarithm_mole path="objects/GameHelper/pigarithm/" start="idle">
+    <mario_mole path="objects/GameHelper/pigarithm/" start="idle">
         <Loop id="idle" path="mole" delay="0.1" />
-        <Anim id="stop" path="mole" frames="0" delay="0.05" goto="idle" />
-    </pigarithm_mole>
+        <Anim id="stop" path="mole" frames="0" delay="0.017" goto="idle" />
+    </mario_mole>
 
     <push_box_button path="objects/GameHelper/push_box_button/" start="idle">
         <Loop id="idle" path="idle" />

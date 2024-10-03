@@ -2,6 +2,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -9,29 +10,22 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class Pigarithm : Solid {
     private const float gravity = 7.5f;
     private const float fallCap = 160f;
-    private Level level;
     private readonly Sprite sprite;
     private readonly float speedX;
-    private float speedY;
     private bool movingRight, resting;
-    private readonly bool kill, hasGravity, mole;
+    private readonly bool kill;
     private readonly string flag;
 
     public Pigarithm(EntityData data, Vector2 levelOffset)
-    : base(data.Position + levelOffset, data.Attr("sprite") == "pigarithm_mole" ? 24 : data.Width, data.Attr("sprite") == "pigarithm_mole" ? 28 : data.Height, safe: false) {
+    : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Float("speed");
         movingRight = data.Bool("startRight");
         kill = data.Bool("kill");
-        string size = data.Attr("sprite");
         flag = data.Attr("flag");
-        hasGravity = data.Bool("gravity");
-        mole = size == "pigarithm_mole";
-        if(mole) Position += 4 * Vector2.UnitY;
         Depth = -1;
-        sprite = GameHelper.SpriteBank.Create(size);
-        sprite.RenderPosition = mole ? new Vector2(-4, -4) : new Vector2(-8, 0);
+        sprite = GameHelper.SpriteBank.Create(data.Attr("sprite"));
+        sprite.RenderPosition = new Vector2(-8, 0);
         sprite.FlipY = data.Bool("flipSprite");
-        sprite.FlipX = mole && !movingRight;
         Add(sprite);
     }
 
@@ -47,37 +41,21 @@ public class Pigarithm : Solid {
         }
 
         //x movement
-        if(!resting && (flag?.Length == 0 || SceneAs<Level>().Session.GetFlag(flag))) {
-            bool collided = MoveHCollideSolidsAndBounds(level, (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
+        if(!resting && Util.GetFlag(flag, this)) {
+            bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
             if(!collided) {
                 foreach(SeekerBarrier s in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {
                     if(s.CollideCheck(this)) {
                         collided = true;
+                        MoveH((movingRight ? -1 : 1) * speedX * Engine.DeltaTime);
                         break;
                     }
                 }
             }
-            if(mole && CollideCheck<Solid>(Position - 10 * Vector2.UnitX) && CollideCheck<Solid>(Position + 10 * Vector2.UnitX)) {
-                sprite.Play("stop");
-            } else if(collided) {
+            if(collided) {
                 movingRight = !movingRight;
-                if(mole) {
-                    sprite.FlipX = !sprite.FlipX;
-                } else {
-                    sprite.Play("spin");
-                    Add(new Coroutine(routineRest()));
-                }
-            }
-        }
-
-        //y movement
-        if(hasGravity) {
-            speedY = Calc.Approach(speedY, fallCap, gravity);
-            if(MoveVCollideSolids(speedY * Engine.DeltaTime, thruDashBlocks: true)) {
-                speedY = 0f;
-            }
-            if(Top > SceneAs<Level>().Bounds.Bottom + 8f) {
-                RemoveSelf();
+                sprite.Play("spin");
+                Add(new Coroutine(routineRest()));
             }
         }
     }
@@ -86,10 +64,5 @@ public class Pigarithm : Solid {
         resting = true;
         yield return 34f / 60f;
         resting = false;
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        level = SceneAs<Level>();
     }
 }

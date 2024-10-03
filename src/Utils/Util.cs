@@ -59,4 +59,8 @@ public class Util {
             .Where(f => f.FieldType == typeof(Ease.Easer))
             .ToDictionary(f => f.Name, f => (Ease.Easer) f.GetValue(null), StringComparer.OrdinalIgnoreCase);
     }
+
+    public static bool GetFlag(string flag, Entity e) {
+        return flag?.Length == 0 || e.SceneAs<Level>().Session.GetFlag(flag);
+    }
 }
