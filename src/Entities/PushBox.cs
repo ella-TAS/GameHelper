@@ -29,9 +29,9 @@ public class PushBox : Solid {
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX)) { //moving right
-                MoveHor(speedX);
+                MoveHor(speedX * Engine.DeltaTime);
             } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) { //moving left
-                MoveHor(-speedX);
+                MoveHor(-speedX * Engine.DeltaTime);
             }
         }
 
@@ -45,17 +45,12 @@ public class PushBox : Solid {
         }
     }
 
-    public void MoveHor(float speed) {
-        MoveHCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
+    public void MoveHor(float speedDt) {
+        MoveHCollideSolids(speedDt, thruDashBlocks: true);
     }
 
-    public void MoveVer(float speed) {
-        MoveVCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
-    }
-
-    public void MoveCollideSolids(Vector2 speed) {
-        MoveHor(speed.X);
-        MoveVer(speed.Y);
+    public void MoveVer(float speedDt) {
+        MoveVCollideSolids(speedDt, thruDashBlocks: true);
     }
 
     public override void Render() {
@@ -91,7 +86,7 @@ public class PushBox : Solid {
             if(box.Bottom > self.Position.Y) {
                 continue;
             }
-            box.MoveHor(movedPx * 60f);
+            box.MoveHor(movedPx);
         }
         orig(self, movedPx);
     }
@@ -104,7 +99,7 @@ public class PushBox : Solid {
             if(movedPx > 0) {
                 box.MoveV(movedPx);
             }
-            box.MoveVer(movedPx * 60f);
+            box.MoveVer(movedPx);
         }
         orig(self, movedPx);
     }

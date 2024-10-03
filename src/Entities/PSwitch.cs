@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
 using System.Collections;
-using Celeste.Mod.GameHelper.Utils;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities;
 

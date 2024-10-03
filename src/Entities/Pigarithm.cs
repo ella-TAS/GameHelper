@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections;
 using Celeste.Mod.GameHelper.Utils;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -22,7 +23,7 @@ public class Pigarithm : Solid {
         movingRight = data.Bool("startRight");
         kill = data.Bool("kill");
         flag = data.Attr("flag");
-        Depth = -1;
+        Depth = 1;
         sprite = GameHelper.SpriteBank.Create(data.Attr("sprite"));
         sprite.RenderPosition = new Vector2(-8, 0);
         sprite.FlipY = data.Bool("flipSprite");
@@ -30,17 +31,6 @@ public class Pigarithm : Solid {
     }
 
     public override void Update() {
-        base.Update();
-
-        //player kill check
-        if(kill) {
-            Player p = Scene.Tracker.GetEntity<Player>();
-            if(p != null && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
-                p.Die((p.Center - Center).SafeNormalize());
-            }
-        }
-
-        //x movement
         if(!resting && Util.GetFlag(flag, Scene, true)) {
             bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
             if(!collided) {
@@ -58,11 +48,37 @@ public class Pigarithm : Solid {
                 Add(new Coroutine(routineRest()));
             }
         }
+
+        base.Update();
     }
 
     private IEnumerator routineRest() {
         resting = true;
         yield return 34f / 60f;
         resting = false;
+    }
+
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        if(!kill) return;
+        Spikes s;
+        s = new(
+            TopLeft + new Vector2(2, 0),
+            (int) Height,
+            Spikes.Directions.Left,
+            "default"
+        );
+        s.Visible = false;
+        SceneAs<Level>().Add(s);
+        Add(new EntityMoveComponent(s));
+        s = new(
+            TopRight + new Vector2(-2, 0),
+            (int) Height,
+            Spikes.Directions.Right,
+            "default"
+        );
+        s.Visible = false;
+        SceneAs<Level>().Add(s);
+        Add(new EntityMoveComponent(s));
     }
 }

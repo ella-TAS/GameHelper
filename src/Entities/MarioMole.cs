@@ -3,10 +3,12 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
 using System;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/MarioMole")]
+[Tracked]
 public class MarioMole : Solid {
     private const float gravity = 7.5f;
     private const float fallCap = 160f;
@@ -24,7 +26,7 @@ public class MarioMole : Solid {
         flag = data.Attr("flag");
         hasGravity = data.Bool("gravity");
         Position += 3 * Vector2.UnitY;
-        Depth = -1;
+        Depth = 1;
         sprite = GameHelper.SpriteBank.Create("mario_mole");
         sprite.RenderPosition = new Vector2(-4, -3);
         sprite.FlipY = data.Bool("flipSprite");
@@ -33,20 +35,10 @@ public class MarioMole : Solid {
     }
 
     public override void Update() {
-        base.Update();
-
-        //player kill check
-        if(kill) {
-            Player p = Scene.Tracker.GetEntity<Player>();
-            if(p != null && (p.CollideCheck(this, p.Position + Vector2.UnitX) || p.CollideCheck(this, p.Position - Vector2.UnitX))) {
-                p.Die((p.Center - Center).SafeNormalize());
-            }
-        }
-
         //x movement
         velX = Calc.Approach(velX, speedX * (movingRight ? 1 : -1), Math.Abs(velX) > Math.Abs(speedX) ? 4.333f : 10.833f);
         if(Util.GetFlag(flag, Scene, true)) {
-            bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), velX * Engine.DeltaTime, thruDashBlocks: true);
+            bool collided = MoveHor(velX * Engine.DeltaTime);
             if(!collided) {
                 foreach(SeekerBarrier sb in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {
                     if(sb.CollideCheck(this)) {
@@ -65,6 +57,7 @@ public class MarioMole : Solid {
             }
         } else {
             velX = 0f;
+            sprite.Play("stop");
         }
 
         //y movement
@@ -73,7 +66,7 @@ public class MarioMole : Solid {
             velY = Calc.Approach(velY, fallCap, gravity);
         }
         if(hasGravity || velY < 0f) {
-            if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
+            if(MoveVer(velY * Engine.DeltaTime)) {
                 velY = 0f;
             }
             if(Top > SceneAs<Level>().Bounds.Bottom + 8f) {
@@ -90,25 +83,102 @@ public class MarioMole : Solid {
                 sp.wiggler.Start();
                 switch(sp.Orientation) {
                     case Spring.Orientations.Floor:
-                        velY = -185f;
-                        jumpTimer = 0.2f;
+                        if(velY >= 0f) {
+                            velX *= 0.5f;
+                            velY = -160f;
+                            jumpTimer = 0.15f;
+                        }
                         break;
                     case Spring.Orientations.WallLeft:
-                        velY = -140f;
-                        jumpTimer = 0.2f;
-                        velX = 240f;
-                        movingRight = true;
+                        if(velX <= 0f) {
+                            velX = 220f;
+                            velY = -80f;
+                            jumpTimer = 0.1f;
+                            movingRight = true;
+                        }
                         break;
                     case Spring.Orientations.WallRight:
-                        velY = -140f;
-                        jumpTimer = 0.2f;
-                        velX = -240f;
-                        movingRight = false;
+                        if(velX >= 0f) {
+                            velX = -220f;
+                            velY = -80f;
+                            jumpTimer = 0.1f;
+                            movingRight = false;
+                        }
                         break;
                 }
                 sprite.FlipX = !movingRight;
                 break;
             }
         }
+
+        base.Update();
     }
+
+    public bool MoveHor(float speedDt) {
+        return MoveHCollideSolidsAndBounds(SceneAs<Level>(), speedDt, thruDashBlocks: true);
+    }
+
+    public bool MoveVer(float speedDt) {
+        return MoveVCollideSolids(speedDt, thruDashBlocks: true);
+    }
+
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        if(!kill) return;
+        Spikes s;
+        s = new(
+            TopLeft + new Vector2(2, 4),
+            (int) Height - 4,
+            Spikes.Directions.Left,
+            "default"
+        );
+        s.Visible = false;
+        SceneAs<Level>().Add(s);
+        Add(new EntityMoveComponent(s, removeCascade: true));
+        s = new(
+            TopRight + new Vector2(-2, 4),
+            (int) Height - 4,
+            Spikes.Directions.Right,
+            "default"
+        );
+        s.Visible = false;
+        SceneAs<Level>().Add(s);
+        Add(new EntityMoveComponent(s, removeCascade: true));
+    }
+
+    public static void Hook() {
+        On.Celeste.Solid.MoveHExact += OnSolidMoveHExact;
+        On.Celeste.Solid.MoveVExact += OnSolidMoveVExact;
+    }
+
+    public static void Unhook() {
+        On.Celeste.Solid.MoveHExact -= OnSolidMoveHExact;
+        On.Celeste.Solid.MoveVExact -= OnSolidMoveVExact;
+    }
+
+    //move mole above any platform
+    private static void OnSolidMoveHExact(On.Celeste.Solid.orig_MoveHExact orig, Solid self, int movedPx) {
+        foreach(MarioMole mole in self.CollideAll<MarioMole>(self.Position - 3 * Vector2.UnitY)) {
+            if(mole.Bottom > self.Position.Y) {
+                continue;
+            }
+            mole.MoveHor(movedPx);
+        }
+        orig(self, movedPx);
+    }
+
+    private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
+        foreach(MarioMole mole in self.CollideAll<MarioMole>(self.Position - 3 * Vector2.UnitY)) {
+            if(mole.Bottom > self.Position.Y) {
+                continue;
+            }
+            if(movedPx > 0) {
+                mole.MoveV(movedPx);
+            }
+            mole.MoveVer(movedPx);
+        }
+        orig(self, movedPx);
+    }
+
+
 }

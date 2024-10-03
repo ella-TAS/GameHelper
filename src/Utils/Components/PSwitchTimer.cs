@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using System.Collections.Generic;
 
-namespace Celeste.Mod.GameHelper.Utils;
+namespace Celeste.Mod.GameHelper.Utils.Components;
 
 public class PSwitchTimer : Component {
     private static Color StartColor, EndColor;
