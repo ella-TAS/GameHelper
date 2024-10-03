@@ -54,7 +54,7 @@ public class Dispenser : Solid {
     public override void Update() {
         base.Update();
         shootTimer -= Engine.DeltaTime;
-        if(shootTimer <= 0 && SceneAs<Level>().Session.GetFlag(flag)) {
+        if(shootTimer <= 0 && Utils.Util.GetFlag(flag, this)) {
             shoot();
         }
     }

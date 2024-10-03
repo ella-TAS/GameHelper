@@ -45,7 +45,7 @@ public class MarioMole : Solid {
 
         //x movement
         velX = Calc.Approach(velX, speedX * (movingRight ? 1 : -1), Math.Abs(velX) > Math.Abs(speedX) ? 4.333f : 10.833f);
-        if(Util.GetFlag(flag, this)) {
+        if(Util.GetFlag(flag, Scene, true)) {
             bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), velX * Engine.DeltaTime, thruDashBlocks: true);
             if(!collided) {
                 foreach(SeekerBarrier sb in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {

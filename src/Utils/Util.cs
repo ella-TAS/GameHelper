@@ -60,7 +60,8 @@ public class Util {
             .ToDictionary(f => f.Name, f => (Ease.Easer) f.GetValue(null), StringComparer.OrdinalIgnoreCase);
     }
 
-    public static bool GetFlag(string flag, Entity e) {
-        return flag?.Length == 0 || e.SceneAs<Level>().Session.GetFlag(flag);
+    public static bool GetFlag(string flag, Scene s, bool emptyReaction = false, bool invert = false) {
+        if(flag?.Length == 0) return emptyReaction;
+        return (s as Level).Session.GetFlag(flag) ^ invert;
     }
 }

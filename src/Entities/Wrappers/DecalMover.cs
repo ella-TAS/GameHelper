@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
@@ -32,7 +33,7 @@ public class DecalMover : Wrapper {
 
     public override void Update() {
         base.Update();
-        if(flag.Length != 0 && !SceneAs<Level>().Session.GetFlag(flag)) {
+        if(!Util.GetFlag(flag, Scene, true)) {
             return;
         }
         decal.Position = Position = Calc.Approach(Position, nodes[nextNode], speed * Engine.DeltaTime);

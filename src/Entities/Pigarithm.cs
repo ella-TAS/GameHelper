@@ -41,7 +41,7 @@ public class Pigarithm : Solid {
         }
 
         //x movement
-        if(!resting && Util.GetFlag(flag, this)) {
+        if(!resting && Util.GetFlag(flag, Scene, true)) {
             bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
             if(!collided) {
                 foreach(SeekerBarrier s in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {

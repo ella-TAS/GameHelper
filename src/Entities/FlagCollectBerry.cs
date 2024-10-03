@@ -4,6 +4,7 @@ using MonoMod.Utils;
 using Monocle;
 using System;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -41,11 +42,11 @@ public class FlagCollectBerry : Strawberry {
             AddStored();
             hadLeader = true;
         }
-        if(loseFlag != "" && SceneAs<Level>().Session.GetFlag(loseFlag)) {
+        if(Util.GetFlag(loseFlag, this)) {
             RemoveStored();
             hadLeader = false;
             LoseBerry();
-        } else if(collectFlag != "" && SceneAs<Level>().Session.GetFlag(collectFlag)) {
+        } else if(Util.GetFlag(collectFlag, this)) {
             RemoveStored();
             hadLeader = false;
             CollectBerry();
