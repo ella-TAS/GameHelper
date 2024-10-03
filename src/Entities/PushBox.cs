@@ -9,9 +9,9 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class PushBox : Solid {
     private const float gravity = 7.5f;
     private const float fallCap = 160f;
-    private Color colorBorder = Calc.HexToColor("e58125");
-    private Color colorFill = Calc.HexToColor("fbb954");
-    private Color colorCorner = Calc.HexToColor("8ff8e2");
+    private readonly Color colorBorder = Calc.HexToColor("e58125");
+    private readonly Color colorFill = Calc.HexToColor("fbb954");
+    private readonly Color colorCorner = Calc.HexToColor("8ff8e2");
     private readonly float speedX;
     private float velY;
 
@@ -19,7 +19,7 @@ public class PushBox : Solid {
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Float("speedX");
         Add(GameHelper.SpriteBank.Create("pigarithm_small"));
-        base.Depth = -1;
+        Depth = -1;
     }
 
     public override void Update() {
@@ -40,18 +40,7 @@ public class PushBox : Solid {
         if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
             velY = 0f;
         }
-        if(base.Top > SceneAs<Level>().Bounds.Bottom + 32f) {
-            RemoveSelf();
-        }
-    }
-
-    public void Shrink() {
-        if(Width > Height) {
-            Collider.Width--;
-        } else {
-            Collider.Height--;
-        }
-        if(Width == 0 || Height == 0) {
+        if(Top > SceneAs<Level>().Bounds.Bottom + 32f) {
             RemoveSelf();
         }
     }

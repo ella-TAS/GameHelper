@@ -4,7 +4,7 @@ using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
-using Celeste.Mod.GameHelper.Triggers;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper;
 
@@ -26,7 +26,7 @@ public class GameHelper : EverestModule {
         Logger.SetLogLevel("GameHelper", 0);
         CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {
             Name = "CollabUtils2",
-            Version = new Version(1, 10, 5)
+            Version = new Version(1, 10, 11)
         });
 
         FloatyJumpController.Hook();

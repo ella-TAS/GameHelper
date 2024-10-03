@@ -17,7 +17,6 @@ public class FlashlightController : Entity {
     private readonly float maxCooldown;
     private float cooldown;
 
-#pragma warning disable IDE0060, RCS1163
     public FlashlightController(EntityData data, Vector2 levelOffset) {
         fadeSpeed = 1 / data.Float("fadeTime");
         maxCooldown = data.Float("cooldown");
@@ -26,10 +25,9 @@ public class FlashlightController : Entity {
         sprite.Play("idle");
         sprite.Visible = false;
         Add(sprite);
-        base.Tag = Tags.HUD;
-        base.Position = new Vector2(1800, 960);
+        Tag = Tags.HUD;
+        Position = new Vector2(1800, 960);
     }
-#pragma warning restore
 
     public override void Update() {
         base.Update();
@@ -51,7 +49,7 @@ public class FlashlightController : Entity {
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
         if(maxCooldown <= 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
+            Logger.Warn("GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
     }
@@ -61,10 +59,9 @@ public class FlashlightController : Entity {
     }
 
     public static void addBinding(string levelSID, ButtonBinding binding) {
-        if(keyBinds.ContainsKey(levelSID)) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "FlashlightController keybinds already contain key " + levelSID);
+        if(!keyBinds.TryAdd(levelSID, binding)) {
+            Logger.Warn("GameHelper", "FlashlightController keybinds already contain key " + levelSID);
             return;
         }
-        keyBinds.Add(levelSID, binding);
     }
 }

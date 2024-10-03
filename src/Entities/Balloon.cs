@@ -17,8 +17,8 @@ public class Balloon : Entity {
     public Balloon(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         oneUse = data.Bool("oneUse");
         superBounce = data.Bool("superBounce");
-        base.Collider = new Hitbox(15, 8);
-        base.Depth = -1;
+        Collider = new Hitbox(15, 8);
+        Depth = -1;
         floatyOffset = (int) (-3.15f * GameHelper.Random.NextFloat());
         Add(sprite = GameHelper.SpriteBank.Create("balloon_" + data.Attr("color", "red")));
         sprite.Play("idle", true, true);
@@ -43,7 +43,7 @@ public class Balloon : Entity {
             if(BalloonCount < 7) {
                 BalloonCount++;
             }
-            base.Collidable = false;
+            Collidable = false;
             Add(new Coroutine(RoutineRespawn()));
         }
         sprite.RenderPosition = Position + (1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset)));
@@ -60,7 +60,7 @@ public class Balloon : Entity {
             RemoveSelf();
             yield break;
         }
-        base.Collidable = true;
+        Collidable = true;
         sprite.Play("spawn");
     }
 

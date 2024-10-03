@@ -25,8 +25,8 @@ public class Trampoline : Entity {
             sprite.RenderPosition = new Vector2(6f, 0f);
         }
         Add(sprite);
-        base.Collider = new Hitbox(16f, 16f);
-        base.Depth = -1;
+        Collider = new Hitbox(16f, 16f);
+        Depth = -1;
         Add(new PlayerCollider(onCollide));
     }
 
@@ -48,7 +48,7 @@ public class Trampoline : Entity {
             frameBlocked = false;
         }
         if(oneUse) {
-            base.Collidable = false;
+            Collidable = false;
             sprite.Play("broken");
         }
         inside = true;

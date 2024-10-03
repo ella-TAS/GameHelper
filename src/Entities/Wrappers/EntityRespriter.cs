@@ -9,13 +9,13 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 [CustomEntity("GameHelper/EntityRespriter")]
 public class EntityRespriter : Wrapper {
     private readonly Vector2[] nodes;
-    private Vector2 levelOffset, spriteOffset;
+    private readonly Vector2 levelOffset, spriteOffset;
     private readonly string fieldName, spriteFolder, spriteName, xmlPath, spriteID, onlyType;
     private readonly float delay;
     private readonly bool flipX, flipY, allEntities, debug, removeAllComponents;
 
     public EntityRespriter(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
-        base.Depth = int.MinValue;
+        Depth = int.MinValue;
         nodes = data.Nodes;
         this.levelOffset = levelOffset;
         debug = data.Bool("debug");
@@ -56,7 +56,7 @@ public class EntityRespriter : Wrapper {
             return;
         }
         if(debug) {
-            Logger.Log("GameHelper", "Respriting entity " + targetEntity.GetType().ToString());
+            Logger.Info("GameHelper", "Respriting entity " + targetEntity.GetType());
         }
 
         DynamicData targetData = DynamicData.For(targetEntity);
@@ -69,8 +69,8 @@ public class EntityRespriter : Wrapper {
             targetEntity.Get<Sprite>()?.RemoveSelf();
         } else {
             foreach(Sprite s in targetEntity.Components.GetAll<Sprite>()) {
-                if((object) s == targetData.Get(fieldName)) {
-                    s.RemoveSelf();
+                if(s == targetData.Get(fieldName)) {
+                    s?.RemoveSelf();
                     break;
                 }
             }

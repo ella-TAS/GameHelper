@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -37,9 +38,7 @@ public class MovingSolid : Solid {
         if(currentTime >= moveTime) {
             currentTime = 0;
             stopTime = pauseDuration;
-            Vector2 swap = targetPos;
-            targetPos = homePos;
-            homePos = swap;
+            (targetPos, homePos) = (homePos, targetPos);
         }
 
         float withEase = Util.EaseMode(currentTime / moveTime, easeMode);

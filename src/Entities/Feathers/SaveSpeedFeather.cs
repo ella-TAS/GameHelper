@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.Entities;
-using MonoMod.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
@@ -9,15 +8,15 @@ namespace Celeste.Mod.GameHelper.Entities.Feathers;
 public class SaveSpeedFeather : FlyFeather {
     private static float StoredSpeed;
     private static bool Redirect, hasLead;
-    private Color color, flyColor;
-    private Color colorN = Color.Aqua;
-    private Color flyColorN = Color.SeaGreen;
-    private Color colorR = Color.DarkRed;
+    private readonly Color color, flyColor;
+    private readonly Color colorN = Color.Aqua;
+    private readonly Color flyColorN = Color.SeaGreen;
+    private readonly Color colorR = Color.DarkRed;
     private bool isLead;
 
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
-        base.Depth = -1;
+        Depth = -1;
         if(data.Bool("redirectSpeed")) {
             color = flyColor = colorR;
         } else {
@@ -27,7 +26,7 @@ public class SaveSpeedFeather : FlyFeather {
         sprite.Color = color;
         PlayerCollider pc = Get<PlayerCollider>();
         System.Action<Player> orig = pc.OnCollide;
-        pc.OnCollide = (Player p) => {
+        pc.OnCollide = p => {
             if(StoredSpeed == 0) {
                 Redirect = data.Bool("redirectSpeed");
                 StoredSpeed = 1.2f * (Redirect ? p.Speed.Length() : p.Speed.X);
@@ -40,11 +39,7 @@ public class SaveSpeedFeather : FlyFeather {
     public override void Update() {
         base.Update();
         if(isLead && StoredSpeed != 0) {
-            if(Redirect) {
-                SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(colorR);
-            } else {
-                SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(flyColorN);
-            }
+            SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor((isLead && StoredSpeed != 0) ? colorR : flyColorN);
         }
     }
 

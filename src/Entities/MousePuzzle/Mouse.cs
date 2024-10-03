@@ -12,8 +12,8 @@ public class Mouse : Actor {
     private bool deathRoutine;
 
     public Mouse(Vector2 Position) : base(Position) {
-        base.Collider = new Hitbox(16, 16);
-        base.Depth = -2;
+        Collider = new Hitbox(16, 16);
+        Depth = -2;
         dir = Direction.Down;
         sprite = GameHelper.SpriteBank.Create("mouse");
         sprite.CenterOrigin();

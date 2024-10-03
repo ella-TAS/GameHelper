@@ -13,8 +13,8 @@ public class FireTrap : Entity {
 
     public FireTrap(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         delay = data.Float("delay");
-        base.Collider = new Hitbox(8, 64, 0, -56);
-        base.Depth = -1;
+        Collider = new Hitbox(8, 64, 0, -56);
+        Depth = -1;
         Add(new PlayerCollider(onPlayer));
         Add(new Image(GFX.Game[data.Attr("sprite", "objects/GameHelper/fire_trap")]) {
             RenderPosition = new Vector2(-4, -8)
