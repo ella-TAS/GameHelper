@@ -22,7 +22,7 @@ public class PSwitchBlock : DashBlock {
             Break(p.Center, dir, true, true);
             return DashCollisionResults.Ignore;
         };
-        coinSprite = GameHelper.SpriteBank.Create("mario_coin");
+        coinSprite = GameHelper.SpriteBank.Create("mario_coin_" + data.Attr("coinSprite", "blue"));
         Add(coinSprite);
     }
 
@@ -31,6 +31,7 @@ public class PSwitchBlock : DashBlock {
         Collidable = !collected && isBlock;
         if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
+            Audio.Play("event:/GameHelper/p_switch/p_switch");
             Add(new Coroutine(collectRoutine()));
         }
     }
