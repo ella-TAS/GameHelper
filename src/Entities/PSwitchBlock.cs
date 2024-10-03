@@ -31,6 +31,7 @@ public class PSwitchBlock : DashBlock {
         Collidable = !collected && isBlock;
         if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
+            Audio.Play("event:/GameHelper/p_switch/p_switch");
             Add(new Coroutine(collectRoutine()));
         }
     }
