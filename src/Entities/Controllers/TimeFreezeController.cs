@@ -1,5 +1,4 @@
 using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
@@ -7,7 +6,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 [CustomEntity("GameHelper/TimeFreezeController")]
 public class TimeFreezeController : Entity {
     public TimeFreezeController() {
-        base.Depth = -1;
+        Depth = -1;
     }
 
     public override void Update() {

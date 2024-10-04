@@ -18,7 +18,7 @@ public class DashMagnet : Entity {
     private readonly bool bulletTime;
 
     public DashMagnet(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
-        base.Collider = new Circle(30, 8, 8);
+        Collider = new Circle(30, 8, 8);
         bulletTime = data.Bool("bulletTime");
         Add(sprite = GameHelper.SpriteBank.Create("dash_magnet"));
         Add(new PlayerCollider(onCollide));

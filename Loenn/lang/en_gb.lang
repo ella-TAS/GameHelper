@@ -93,3 +93,5 @@ triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message 
 triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)
 
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
+
+triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker

@@ -10,15 +10,13 @@ public class PlayerStateFlag : Entity {
     private readonly int state;
     private readonly bool invert, dashAttack;
 
-#pragma warning disable IDE0060, RCS1163
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
         flag = data.Attr("flag");
         state = data.Int("state");
         invert = data.Bool("invert");
         dashAttack = data.Bool("dashAttack");
-        base.Depth = -1;
+        Depth = -1;
     }
-#pragma warning restore
 
     public override void Update() {
         base.Update();
@@ -33,7 +31,7 @@ public class PlayerStateFlag : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(flag?.Length == 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "PlayerStateFlag: no flag set");
+            Logger.Warn("GameHelper", "PlayerStateFlag: no flag set");
             RemoveSelf();
         }
     }
@@ -41,7 +39,7 @@ public class PlayerStateFlag : Entity {
     public override void Removed(Scene scene) {
         base.Removed(scene);
         if(flag?.Length > 0) {
-            (scene as Level).Session.SetFlag(flag, false);
+            SceneAs<Level>().Session.SetFlag(flag, false);
         }
     }
 }

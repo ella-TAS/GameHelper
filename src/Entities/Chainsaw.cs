@@ -14,15 +14,16 @@ public class Chainsaw : Entity {
     private EventInstance sfx;
     private bool charging, stunned;
     private float speed;
-    private Vector2 homePos, targetPos, collidePos1, collidePos2;
+    private readonly Vector2 collidePos1, collidePos2;
+    private Vector2 homePos, targetPos;
 
     public Chainsaw(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         targetPos = data.Nodes[0] + levelOffset;
         homePos = data.Position + levelOffset;
         collidePos1 = homePos + (5.5f * (homePos - targetPos).SafeNormalize());
         collidePos2 = targetPos + (5.5f * (targetPos - homePos).SafeNormalize());
-        base.Depth = -1;
-        base.Collider = new Circle(6f);
+        Depth = -1;
+        Collider = new Circle(6f);
         sprite = GameHelper.SpriteBank.Create("chainsaw");
         sprite.Rotation = (targetPos - homePos).Angle();
         sprite.FlipY = data.Bool("flipSprite");
@@ -34,7 +35,7 @@ public class Chainsaw : Entity {
         base.Update();
 
         //tracking
-        if(!charging && !stunned && base.Scene.CollideFirst<Player>(collidePos1, collidePos2) != null) {
+        if(!charging && !stunned && Scene.CollideFirst<Player>(collidePos1, collidePos2) != null) {
             charging = true;
             sprite.Play("chasing");
             sfx = Audio.Play("event:/GameHelper/chainsaw/chainsaw_attack");

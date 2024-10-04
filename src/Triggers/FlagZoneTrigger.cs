@@ -13,7 +13,7 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnEnter(Player p) {
-        SceneAs<Level>().Session.SetFlag(flag, true);
+        SceneAs<Level>().Session.SetFlag(flag);
     }
 
     public override void OnLeave(Player p) {
@@ -28,7 +28,7 @@ public class FlagZoneTrigger : Trigger {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(flag?.Length == 0) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "FlagZoneTrigger: no flag set");
+            Logger.Warn("GameHelper", "FlagZoneTrigger: no flag set");
             RemoveSelf();
         }
     }

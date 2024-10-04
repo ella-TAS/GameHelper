@@ -9,9 +9,9 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class PushBox : Solid {
     private const float gravity = 7.5f;
     private const float fallCap = 160f;
-    private Color colorBorder = Calc.HexToColor("e58125");
-    private Color colorFill = Calc.HexToColor("fbb954");
-    private Color colorCorner = Calc.HexToColor("8ff8e2");
+    private readonly Color colorBorder = Calc.HexToColor("e58125");
+    private readonly Color colorFill = Calc.HexToColor("fbb954");
+    private readonly Color colorCorner = Calc.HexToColor("8ff8e2");
     private readonly float speedX;
     private float velY;
 
@@ -19,7 +19,7 @@ public class PushBox : Solid {
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Float("speedX");
         Add(GameHelper.SpriteBank.Create("pigarithm_small"));
-        base.Depth = -1;
+        Depth = -1;
     }
 
     public override void Update() {
@@ -29,9 +29,9 @@ public class PushBox : Solid {
         Player p = Scene.Tracker.GetEntity<Player>();
         if(p != null && !HasPlayerClimbing()) {
             if(p.CollideCheck(this, p.Position + Vector2.UnitX)) { //moving right
-                MoveHor(speedX);
+                MoveHor(speedX * Engine.DeltaTime);
             } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) { //moving left
-                MoveHor(-speedX);
+                MoveHor(-speedX * Engine.DeltaTime);
             }
         }
 
@@ -40,33 +40,17 @@ public class PushBox : Solid {
         if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
             velY = 0f;
         }
-        if(base.Top > SceneAs<Level>().Bounds.Bottom + 32f) {
+        if(Top > SceneAs<Level>().Bounds.Bottom + 32f) {
             RemoveSelf();
         }
     }
 
-    public void Shrink() {
-        if(Width > Height) {
-            Collider.Width--;
-        } else {
-            Collider.Height--;
-        }
-        if(Width == 0 || Height == 0) {
-            RemoveSelf();
-        }
+    public void MoveHor(float speedDt) {
+        MoveHCollideSolids(speedDt, thruDashBlocks: true);
     }
 
-    public void MoveHor(float speed) {
-        MoveHCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
-    }
-
-    public void MoveVer(float speed) {
-        MoveVCollideSolids(speed * Engine.DeltaTime, thruDashBlocks: true);
-    }
-
-    public void MoveCollideSolids(Vector2 speed) {
-        MoveHor(speed.X);
-        MoveVer(speed.Y);
+    public void MoveVer(float speedDt) {
+        MoveVCollideSolids(speedDt, thruDashBlocks: true);
     }
 
     public override void Render() {
@@ -102,7 +86,7 @@ public class PushBox : Solid {
             if(box.Bottom > self.Position.Y) {
                 continue;
             }
-            box.MoveHor(movedPx * 60f);
+            box.MoveHor(movedPx);
         }
         orig(self, movedPx);
     }
@@ -115,7 +99,7 @@ public class PushBox : Solid {
             if(movedPx > 0) {
                 box.MoveV(movedPx);
             }
-            box.MoveVer(movedPx * 60f);
+            box.MoveVer(movedPx);
         }
         orig(self, movedPx);
     }

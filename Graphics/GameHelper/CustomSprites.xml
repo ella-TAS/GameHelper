@@ -13,9 +13,11 @@
     </pigarithm_small>
     <pigarithm_medium path="objects/GameHelper/pigarithm/medium/" copy="pigarithm_small" />
     <pigarithm_big path="objects/GameHelper/pigarithm/big/" copy="pigarithm_small" />
-    <pigarithm_mole path="objects/GameHelper/pigarithm/" start="idle">
+
+    <mario_mole path="objects/GameHelper/mario_mole/" start="idle">
         <Loop id="idle" path="mole" delay="0.1" />
-    </pigarithm_mole>
+        <Anim id="stop" path="mole" frames="0" delay="0.017" goto="idle" />
+    </mario_mole>
 
     <push_box_button path="objects/GameHelper/push_box_button/" start="idle">
         <Loop id="idle" path="idle" />
@@ -69,13 +71,14 @@
         <Loop id="idle" path="fire" delay="0.05" />
     </fire>
 
-    <p_switch path="objects/GameHelper/p_switch/" start="idle">
+    <p_switch_normal path="objects/GameHelper/p_switch/normal/" start="idle">
         <Loop id="idle" path="normal" delay="0.5" />
         <Loop id="pressed" path="pressed" />
-    </p_switch>
-
-    <mario_coin path="objects/GameHelper/p_switch/" start="idle">
+    </p_switch_normal>
+    <mario_coin_normal path="objects/GameHelper/p_switch/normal/" start="idle">
         <Loop id="idle" path="coin" delay="0.1" />
         <Anim id="collect" path="collect" delay="0.1" />
-    </mario_coin>
+    </mario_coin_normal>
+    <p_switch_blue path="objects/GameHelper/p_switch/blue/" copy="p_switch_normal" />
+    <mario_coin_blue path="objects/GameHelper/p_switch/blue/" copy="mario_coin_normal" />
 </Sprites>

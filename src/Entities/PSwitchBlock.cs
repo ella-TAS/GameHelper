@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Monocle;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -10,7 +11,7 @@ public class PSwitchBlock : DashBlock {
     private readonly Sprite coinSprite;
     private readonly string flag;
     private readonly bool startBlock;
-    private bool isBlock => startBlock ^ SceneAs<Level>().Session.GetFlag(flag);
+    private bool isBlock => startBlock ^ Util.GetFlag(flag, Scene);
     private bool collected;
 
     public PSwitchBlock(EntityData data, Vector2 levelOffset, EntityID id)
@@ -22,15 +23,16 @@ public class PSwitchBlock : DashBlock {
             Break(p.Center, dir, true, true);
             return DashCollisionResults.Ignore;
         };
-        coinSprite = GameHelper.SpriteBank.Create("mario_coin");
+        coinSprite = GameHelper.SpriteBank.Create("mario_coin_" + data.Attr("coinSprite", "blue"));
         Add(coinSprite);
     }
 
     public override void Update() {
         base.Update();
-        Collidable = isBlock;
+        Collidable = !collected && isBlock;
         if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
+            Audio.Play("event:/GameHelper/p_switch/p_switch");
             Add(new Coroutine(collectRoutine()));
         }
     }
@@ -56,7 +58,8 @@ public class PSwitchBlock : DashBlock {
         while(coinSprite.CurrentAnimationFrame != 3 && coinSprite.CurrentAnimationFrame != 9) yield return null;
         coinSprite.Play("collect");
         while(coinSprite.Animating) yield return null;
-        RemoveAndFlagAsGone();
+        RemoveSelf();
+        if(permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
     }
 
     public override void Render() {

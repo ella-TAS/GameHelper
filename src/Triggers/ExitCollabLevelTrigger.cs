@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Celeste.Mod.CollabUtils2;
 using Celeste.Mod.CollabUtils2.UI;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/ExitCollabLevelTrigger")]
 public class ExitCollabLevelTrigger : Trigger {
     private readonly EntityData data;
-    private Vector2 levelOffset;
+    private readonly Vector2 levelOffset;
     private readonly float delay, timeRateWait;
     private readonly bool addHeartTrigger;
     private readonly string flag;
@@ -28,10 +29,10 @@ public class ExitCollabLevelTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
+        if(!Util.GetFlag(flag, Scene, true)) {
             return;
         }
-        base.Collidable = false;
+        Collidable = false;
         Add(new Coroutine(routineExit(player)));
     }
 
@@ -45,14 +46,14 @@ public class ExitCollabLevelTrigger : Trigger {
         if(p.Dead) {
             yield return float.MaxValue;
         }
-        base.Tag = Tags.FrozenUpdate;
+        Tag = Tags.FrozenUpdate;
         level.Frozen = true;
         level.PauseLock = true;
         SceneAs<Level>().RegisterAreaComplete();
 
         //collab utils endscreen
         if(CollabModule.Instance.Settings.DisplayEndScreenForAllMaps) {
-            base.Scene.Add(new AreaCompleteInfoInLevel());
+            Scene.Add(new AreaCompleteInfoInLevel());
             yield return 0.5f;
             while(!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed) {
                 yield return null;
@@ -73,8 +74,8 @@ public class ExitCollabLevelTrigger : Trigger {
         List<IStrawberry> berries = new();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
         foreach(Follower follower in p.Leader.Followers) {
-            if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry) {
-                berries.Add(follower.Entity as IStrawberry);
+            if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry s) {
+                berries.Add(s);
             }
         }
         foreach(IStrawberry berry in berries) {
@@ -85,7 +86,7 @@ public class ExitCollabLevelTrigger : Trigger {
     public override void Added(Scene scene) {
         base.Added(scene);
         if(!GameHelper.CollabUtilsLoaded) {
-            Logger.Log(LogLevel.Warn, "GameHelper", "ExitCollabLevelTrigger: CollabUtils2 not found");
+            Logger.Warn("GameHelper", "ExitCollabLevelTrigger: CollabUtils2 not found");
             RemoveSelf();
         } else if(addHeartTrigger) {
             SceneAs<Level>().Add(new RegisterHeartTrigger(data, levelOffset));

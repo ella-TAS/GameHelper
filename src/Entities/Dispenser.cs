@@ -1,9 +1,9 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System.Collections;
 using FMOD.Studio;
 using System;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -24,7 +24,7 @@ public class Dispenser : Solid {
         Add(new Image(GFX.Game[data.Attr("sprite", "objects/GameHelper/dispenser")]) {
             FlipX = facingLeft
         });
-        base.Depth = -1;
+        Depth = -1;
 
         //particles
         pType = new ParticleType() {
@@ -54,44 +54,8 @@ public class Dispenser : Solid {
     public override void Update() {
         base.Update();
         shootTimer -= Engine.DeltaTime;
-        if(shootTimer <= 0 && SceneAs<Level>().Session.GetFlag(flag)) {
+        if(shootTimer <= 0 && Utils.Util.GetFlag(flag, Scene)) {
             shoot();
         }
-    }
-}
-
-public class Arrow : Actor {
-    private readonly bool facingLeft;
-
-    public Arrow(Vector2 position, bool facingLeft, string sprite_path) : base(position) {
-        this.facingLeft = facingLeft;
-        base.Collider = new Hitbox(16, 4);
-        base.Depth = -1;
-        Add(new Image(GFX.Game[sprite_path]) {
-            FlipX = facingLeft
-        });
-        Add(new PlayerCollider(onCollide));
-    }
-
-    public override void Update() {
-        base.Update();
-        if(!Collidable) {
-            return;
-        }
-        bool collided = MoveH((facingLeft ? -240 : 240) * Engine.DeltaTime);
-        if(collided) {
-            Collidable = false;
-            Position.X += (facingLeft ? -2 : 2);
-            Add(new Coroutine(routineDespawn()));
-        }
-    }
-
-    private void onCollide(Player p) {
-        p.Die(Vector2.UnitX * (facingLeft ? -1 : 1));
-    }
-
-    private IEnumerator routineDespawn() {
-        yield return 10f;
-        RemoveSelf();
     }
 }

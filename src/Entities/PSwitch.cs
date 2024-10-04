@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -38,7 +39,7 @@ public class PSwitch : Actor {
         flagDuration = data.Float("flagDuration");
         flag = data.Attr("flag");
         Depth = 100;
-        Add(sprite = GameHelper.SpriteBank.Create("p_switch"));
+        Add(sprite = GameHelper.SpriteBank.Create("p_switch_" + data.Attr("sprite", "blue")));
         sprite.RenderPosition += new Vector2(-10, -21);
         platform = new JumpThru(Position + new Vector2(-8, -16), 16, false) {
             SurfaceSoundIndex = 32
@@ -83,7 +84,7 @@ public class PSwitch : Actor {
                     prevLiftSpeed = liftSpeed;
                     if(liftSpeed.Y < 0f && Speed.Y < 0f) Speed.Y = 0f;
                 }
-            } else if(Hold.ShouldHaveGravity) {
+            } else if(Hold?.ShouldHaveGravity ?? false) {
                 float accelY = 800f;
                 if(Math.Abs(Speed.Y) <= 30f) accelY *= 0.5f;
                 float accelX = 350f;
@@ -110,7 +111,7 @@ public class PSwitch : Actor {
         if(pressed || dead) return;
         Hold?.CheckAgainstColliders();
         if(!stationary && tutorialGui != null) {
-            if(!Hold.IsHeld && OnGround()) tutorialTimer += Engine.DeltaTime;
+            if((!Hold?.IsHeld ?? false) && OnGround()) tutorialTimer += Engine.DeltaTime;
             else tutorialTimer = 0f;
             tutorialGui.Open = tutorialTimer > 0.25f;
         }
@@ -120,7 +121,7 @@ public class PSwitch : Actor {
             Hold?.RemoveSelf();
             if(tutorialGui != null) tutorialGui.Open = false;
             Add(new Coroutine(pressRoutine()));
-            if(flagDuration > 0) Add(new Coroutine(unflagRoutine()));
+            Add(new PSwitchTimer(flag, flagDuration));
         }
         platform.MoveTo(Position + new Vector2(-8, -16));
     }
@@ -128,22 +129,18 @@ public class PSwitch : Actor {
     private IEnumerator pressRoutine() {
         platform.Collidable = false;
         sprite.Play("pressed");
-        SceneAs<Level>().Session.SetFlag(flag);
         Audio.Play("event:/game/05_mirror_temple/button_activate", Position);
+        Depth = -100000;
         yield return 1f;
         SceneAs<Level>().Add(new DisperseImage(Position + new Vector2(-10, -21), Vector2.UnitY, sprite.Origin, Vector2.One, sprite.Texture));
         yield return null;
-        Visible = false;
-    }
-
-    private IEnumerator unflagRoutine() {
-        yield return flagDuration;
-        SceneAs<Level>().Session.SetFlag(flag, false);
+        sprite.Visible = false;
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
         scene.Add(platform);
+        SceneAs<Level>().Session.SetFlag(flag, false);
         if(showTutorial) {
             scene.Add(tutorialGui = new BirdTutorialGui(
                 this, new Vector2(0f, -24f), Dialog.Clean("tutorial_carry"), Dialog.Clean("tutorial_hold"), BirdTutorialGui.ButtonPrompt.Grab) {
@@ -178,14 +175,14 @@ public class PSwitch : Actor {
     }
 
     private void OnCollideH(CollisionData data) {
-        if(data.Hit is DashSwitch) (data.Hit as DashSwitch).OnDashCollide(null, Vector2.UnitX * Math.Sign(Speed.X));
+        if(data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitX * Math.Sign(Speed.X));
         Audio.Play("event:/game/05_mirror_temple/crystaltheo_hit_side", Position);
         if(Math.Abs(Speed.X) > 100f) ImpactParticles(data.Direction);
         Speed.X *= -0.4f;
     }
 
     private void OnCollideV(CollisionData data) {
-        if(data.Hit is DashSwitch) (data.Hit as DashSwitch).OnDashCollide(null, Vector2.UnitY * Math.Sign(Speed.Y));
+        if(data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitY * Math.Sign(Speed.Y));
         if(Speed.Y > 0f) {
             if(hardVerticalHitSoundCooldown <= 0f) {
                 Audio.Play("event:/game/05_mirror_temple/crystaltheo_hit_ground", Position, "crystal_velocity", Calc.ClampedMap(Speed.Y, 0f, 200f));
@@ -226,7 +223,7 @@ public class PSwitch : Actor {
     }
 
     public override void OnSquish(CollisionData data) {
-        if(!TrySquishWiggle(data, 3, 3)) Die();
+        if(!TrySquishWiggle(data)) Die();
     }
 
     private void OnPickup() {
@@ -247,14 +244,13 @@ public class PSwitch : Actor {
         Audio.Play("event:/char/madeline/death", Position);
         Add(new DeathEffect(new Color(86, 107, 226), Center - Position));
         Hold.RemoveSelf();
-        Collidable = sprite.Visible = AllowPushing = false;
+        Collidable = sprite.Visible = platform.Collidable = AllowPushing = false;
         Depth = -1000000;
     }
 
     private static void OnPlayerTransition(On.Celeste.Player.orig_OnTransition orig, Player p) {
         orig(p);
-        if(p.Holding?.Entity is PSwitch) {
-            PSwitch ps = p.Holding.Entity as PSwitch;
+        if(p.Holding?.Entity is PSwitch ps) {
             p.SceneAs<Level>().Add(new DisperseImage(ps.Position + new Vector2(-10, -21), -Vector2.UnitY, ps.sprite.Origin, Vector2.One, ps.sprite.Texture));
             ps.RemoveSelf();
         }
