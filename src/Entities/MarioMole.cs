@@ -10,8 +10,7 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/MarioMole")]
 [Tracked]
 public class MarioMole : Solid {
-    private const float gravity = 7.5f;
-    private const float fallCap = 160f;
+    private const float fallCap = 200f;
     private readonly Sprite sprite;
     private readonly float speedX;
     private float velX, velY, jumpTimer;
@@ -63,7 +62,7 @@ public class MarioMole : Solid {
         //y movement
         jumpTimer -= Engine.DeltaTime;
         if(jumpTimer <= 0) {
-            velY = Calc.Approach(velY, fallCap, gravity);
+            velY = Calc.Approach(velY, fallCap, (Math.Abs(velY) <= 30f ? 0.5f : 1f) * 800f * Engine.DeltaTime);
         }
         if(hasGravity || velY < 0f) {
             if(MoveVer(velY * Engine.DeltaTime)) {
