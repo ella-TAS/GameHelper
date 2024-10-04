@@ -84,7 +84,7 @@ public class MarioMole : Solid {
                     case Spring.Orientations.Floor:
                         if(velY >= 0f) {
                             velX *= 0.5f;
-                            velY = -160f;
+                            velY = -185f;
                             jumpTimer = 0.15f;
                         }
                         break;
