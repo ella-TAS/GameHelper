@@ -9,7 +9,6 @@ local coinSpriteOptions = {"normal", "blue"}
 solid.name = "GameHelper/PSwitchBlock"
 solid.depth = 8998
 solid.canResize = {true, true}
-solid.justification = {0.0, 0.0}
 solid.placements = {
     name = "normal",
     data = {
@@ -35,7 +34,11 @@ solid.fieldInformation = function(entity)
 end
 
 function solid.sprite(room, entity, viewport)
-    return entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or drawableSprite.fromTexture("objects/GameHelper/p_switch/" .. (entity.coinSprite or "blue") .. "/coin00", entity)
+    sprite = entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or drawableSprite.fromTexture("objects/GameHelper/p_switch/" .. (entity.coinSprite or "blue") .. "/coin00", entity)
+    if not entity.startAsBlock then
+        sprite:setJustification(0.0, 0.0)
+    end
+    return sprite
 end
 
 return solid
