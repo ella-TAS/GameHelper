@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Monocle;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -15,7 +16,7 @@ public class RegisterHeartTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
+        if(!Util.GetFlag(flag, Scene, true)) {
             return;
         }
         if(GameHelper.Session.HeartTriggerActivated) {

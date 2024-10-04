@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Monocle;
 using System.Collections;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -10,7 +11,7 @@ public class PSwitchBlock : DashBlock {
     private readonly Sprite coinSprite;
     private readonly string flag;
     private readonly bool startBlock;
-    private bool isBlock => startBlock ^ SceneAs<Level>().Session.GetFlag(flag);
+    private bool isBlock => startBlock ^ Util.GetFlag(flag, Scene);
     private bool collected;
 
     public PSwitchBlock(EntityData data, Vector2 levelOffset, EntityID id)

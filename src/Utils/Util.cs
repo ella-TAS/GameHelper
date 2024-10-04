@@ -59,4 +59,9 @@ public class Util {
             .Where(f => f.FieldType == typeof(Ease.Easer))
             .ToDictionary(f => f.Name, f => (Ease.Easer) f.GetValue(null), StringComparer.OrdinalIgnoreCase);
     }
+
+    public static bool GetFlag(string flag, Scene s, bool emptyReaction = false, bool invert = false) {
+        if(flag?.Length == 0) return emptyReaction;
+        return (s as Level).Session.GetFlag(flag) ^ invert;
+    }
 }

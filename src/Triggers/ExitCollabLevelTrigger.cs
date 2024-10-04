@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Celeste.Mod.CollabUtils2;
 using Celeste.Mod.CollabUtils2.UI;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -28,7 +29,7 @@ public class ExitCollabLevelTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        if(flag != "" && !SceneAs<Level>().Session.GetFlag(flag)) {
+        if(!Util.GetFlag(flag, Scene, true)) {
             return;
         }
         Collidable = false;

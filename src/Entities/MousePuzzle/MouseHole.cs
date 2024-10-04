@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
@@ -29,7 +30,7 @@ public class MouseHole : Solid {
         base.Update();
         if(spawner) {
             spawnTimer += Engine.DeltaTime;
-            bool isFlag = SceneAs<Level>().Session.GetFlag(flag);
+            bool isFlag = Util.GetFlag(flag, Scene, true);
             if(isFlag && !wasFlag) {
                 sprite.Play("opening");
                 wasFlag = true;
@@ -57,7 +58,7 @@ public class MouseHole : Solid {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(!spawner && SceneAs<Level>().Session.GetFlag(flag)) {
+        if(!spawner && Util.GetFlag(flag, Scene, true)) {
             complete = true;
             sprite.Play("complete");
         }

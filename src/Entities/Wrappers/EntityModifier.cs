@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System.Collections.Generic;
 using MonoMod.Utils;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
@@ -109,7 +110,7 @@ public class EntityModifier : Wrapper {
     }
 
     private bool getFlag() {
-        return flag == "" || (invertFlag ^ SceneAs<Level>().Session.GetFlag(flag));
+        return Util.GetFlag(flag, Scene, true, invertFlag);
     }
 
     public override void Awake(Scene scene) {

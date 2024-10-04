@@ -1,6 +1,7 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -31,7 +32,7 @@ public class FloatyJumpController : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(flag == "" || SceneAs<Level>().Session.GetFlag(flag)) {
+        if(Util.GetFlag(flag, Scene, true)) {
             GameHelper.Session.FloatyJumps = enable;
         }
     }
