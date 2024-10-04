@@ -62,7 +62,7 @@ public class MarioMole : Solid {
         //y movement
         jumpTimer -= Engine.DeltaTime;
         if(jumpTimer <= 0) {
-            velY = Calc.Approach(velY, fallCap, (Math.Abs(velY) <= 30f ? 0.5f : 1f) * 800f * Engine.DeltaTime);
+            velY = Calc.Approach(velY, fallCap, Math.Abs(velY) <= 40f ? 7.5f : 15f);
         }
         if(hasGravity || velY < 0f) {
             if(MoveVer(velY * Engine.DeltaTime)) {
