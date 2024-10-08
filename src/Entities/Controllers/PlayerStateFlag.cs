@@ -37,9 +37,9 @@ public class PlayerStateFlag : Entity {
     }
 
     public override void Removed(Scene scene) {
-        base.Removed(scene);
         if(flag?.Length > 0) {
             SceneAs<Level>().Session.SetFlag(flag, false);
         }
+        base.Removed(scene);
     }
 }
