@@ -188,3 +188,10 @@ triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shie
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
 
 triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
+
+triggers.GameHelper/CameraEntityTargetTrigger.placements.name.normal=Camera Entity Target
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.lerp=How strongly the trigger pulls the camera towards the target
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.Mod.GameHelper.Entities.Pigarithm)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetX=Offset right in pixels
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetY=Offset down in pixels

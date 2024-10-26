@@ -37,11 +37,15 @@ public class Wrapper : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
         foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            if(e is not Wrapper && e is not Player &&
-            (type?.Length == 0 || e.GetType().ToString() == type) &&
-            Vector2.Distance(e.Position, pos) < minDistance) {
+            bool typeCorrect = e.GetType().ToString() == type;
+            if(
+                e is not Wrapper &&
+                (e is not Player || typeCorrect) &&
+                (type?.Length == 0 || typeCorrect) &&
+                Vector2.Distance(e.Center, pos) < minDistance
+            ) {
                 entity = e;
-                minDistance = Vector2.Distance(e.Position, pos);
+                minDistance = Vector2.Distance(e.Center, pos);
             }
         }
         return entity;
@@ -51,9 +55,9 @@ public class Wrapper : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
         foreach(T e in SceneAs<Level>().Entities.FindAll<T>()) {
-            if(Vector2.Distance(e.Position, pos) < minDistance) {
+            if(Vector2.Distance(e.Center, pos) < minDistance) {
                 entity = e;
-                minDistance = Vector2.Distance(e.Position, pos);
+                minDistance = Vector2.Distance(e.Center, pos);
             }
         }
         return (T) entity;
