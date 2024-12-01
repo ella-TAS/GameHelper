@@ -40,6 +40,7 @@ public class Wrapper : Entity {
             bool typeCorrect = e.GetType().ToString() == type;
             if(
                 e is not Wrapper &&
+                e is not TrailManager &&
                 (e is not Player || typeCorrect) &&
                 (type?.Length == 0 || typeCorrect) &&
                 Vector2.Distance(e.Center, pos) < minDistance

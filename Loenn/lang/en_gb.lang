@@ -34,12 +34,18 @@ entities.GameHelper/Balloon.placements.name.balloon=Balloon
 entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
 entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)
 
-entities.GameHelper/DecalMover.placements.name.mover=Decal Mover
+entities.GameHelper/DecalMover.placements.name.decal=Entity Mover (Decal)
 entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60)
 entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
 entities.GameHelper/DecalMover.attributes.description.return_type=What the decal should do when it reaches the end node
 entities.GameHelper/DecalMover.attributes.description.flipX=Whether the decal should flip when it reaches the end node
 entities.GameHelper/DecalMover.attributes.description.flipY=Whether the decal should flip when it reaches the end node
+
+entities.GameHelper/EntityMover.placements.name.generic=Entity Mover (*Generic)
+entities.GameHelper/EntityMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
+
+entities.GameHelper/EntityMoverFollow.placements.name.follow=Entity Mover (Follow entity)
+entities.GameHelper/EntityMoverFollow.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
 
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
@@ -97,7 +103,7 @@ entities.GameHelper/EntityRespriter.attributes.description.removeAllComponents=R
 entities.GameHelper/EntityModifier.placements.name.number=Entity Modifier (Number)
 entities.GameHelper/EntityModifier.placements.name.string=Entity Modifier (String)
 entities.GameHelper/EntityModifier.placements.name.bool=Entity Modifier (Bool)
-entities.GameHelper/EntityModifier.placements.name.common=Entity Modifier (Active/Collidable/Visible – Common Bools)
+entities.GameHelper/EntityModifier.placements.name.common=Entity Modifier (*Active/Collidable/Visible – Common Bools)
 entities.GameHelper/EntityModifier.attributes.name.valueNumber=Value (Number)
 entities.GameHelper/EntityModifier.attributes.name.valueString=Value (String)
 entities.GameHelper/EntityModifier.attributes.name.valueBool=Value (Bool)
