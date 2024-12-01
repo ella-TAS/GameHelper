@@ -2,7 +2,6 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
-using IL.Celeste.Mod.Registry.DecalRegistryHandlers;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -10,57 +9,38 @@ namespace Celeste.Mod.GameHelper.Entities;
 public class SwingSolid : Solid {
     private const float PI = 3.1415927f;
     private readonly Vector2 anchor, rope;
-    private readonly float maxAngle2, swingSpeed, accelTime;
-    private readonly int reverse;
-    private float wiggleTimer, strength;
+    private readonly bool stickOnDash;
+    private readonly float radius;
+    private readonly float constSwingAngle = 0; // (float) (Math.PI / 8f);
 
-    private bool move, stickOnDash;
-    private bool landed = false;
-    private Vector2 origPosition;
+    private bool left = false;
     private float phase = 0f;
-    private float rate, maxAngle, decayRate;
-    private float dashScale = 1;
-    private bool pause = false;
-
     private float maxAng = 0f;
-    private float radius;
-    private float constSwingAngle = 0; // (float) (Math.PI / 8f);
     public SwingSolid(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
-
         anchor = data.Nodes[0] + levelOffset + Vector2.One * 24;
         rope = (Center - anchor).Length() * Vector2.UnitY;
         Add(new Image(GFX.Game[data.Attr("sprite", "objects/GameHelper/swing/swing_solid")]) {
             RenderPosition = Vector2.One * -5
         });
 
-
-        move = false;
         OnDashCollide = OnDash;
-        origPosition = rope;
-        this.rate = 4; // Math.Abs(rate);
-        this.stickOnDash = false; //stickOnDash;
-        this.maxAngle = 1; // Math.Min(Math.Abs(maxAngle / 90), 2);
-        this.decayRate = 30; // Math.Abs(decayRate / 100);
-        //base.isPendulum = true;
+        stickOnDash = false; //stickOnDash;
         OnDashCollide = OnDash;
         radius = rope.Length();
     }
 
-    private bool left = false;
-    //Jackal - new method, placeholder to set impulse
+
     private DashCollisionResults OnDash(Player player, Vector2 direction) {
         if(maxAng <= 0f && direction.X != 0f && constSwingAngle == 0f) {
             left = direction.X < 0f;
             maxAng = (float) (Math.PI / 3);
             phase = 0;
-
             if(!stickOnDash) return DashCollisionResults.Rebound;
         }
         return DashCollisionResults.NormalCollision;
     }
 
     public override void Update() {
-
         base.Update();
 
         if(maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.value.X) != 0) {
@@ -74,14 +54,13 @@ public class SwingSolid : Solid {
             MoveToX(anchor.X - Width / 2 + moveToX);
             MoveToY(anchor.Y - Height / 2 + moveToY);
 
-            bool keepMomentum = (HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) == Math.Sign(moveToX));
+            bool keepMomentum = HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) == Math.Sign(moveToX);
             if(maxAng > 0f && !keepMomentum)
                 maxAng -= Engine.DeltaTime / 6f;
             else if(maxAng < Math.PI / 3f && keepMomentum) {
                 maxAng += Engine.DeltaTime / 6f;
             }
         }
-
     }
 
     public override void Added(Scene scene) {

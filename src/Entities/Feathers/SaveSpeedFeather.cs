@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.Entities;
-using MonoMod.Utils;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
