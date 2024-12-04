@@ -39,7 +39,7 @@ public class SaveSpeedFeather : FlyFeather {
     public override void Update() {
         base.Update();
         if(isLead && StoredSpeed != 0) {
-            SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor((isLead && StoredSpeed != 0 && Redirect) ? colorR : flyColorN);
+            SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(Redirect ? colorR : flyColorN);
         }
     }
 
