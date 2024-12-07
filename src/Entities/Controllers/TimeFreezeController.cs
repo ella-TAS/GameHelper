@@ -17,12 +17,12 @@ public class TimeFreezeController : Entity {
             && !Input.Jump && !Input.Dash && !Input.CrouchDash && !Input.Grab) {
                 if(Engine.TimeRate > 0) {
                     Engine.TimeRate = 0;
-                    SceneAs<Level>().Session.SetFlag("GameHelper/TimeFrozen", true);
+                    SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", true);
                 }
             } else if(Engine.TimeRate == 0) {
                 Engine.TimeRate = 1;
                 p.JustRespawned = false;
-                SceneAs<Level>().Session.SetFlag("GameHelper/TimeFrozen", false);
+                SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", false);
             }
         }
     }
