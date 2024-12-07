@@ -1,7 +1,8 @@
 ## Credits
 ### Code
 EllaTAS  
-Swing Solid – Jackal
+Swing Solid – Jackal  
+Fixes – Kosei
 
 ### Code help
 microlith57  
