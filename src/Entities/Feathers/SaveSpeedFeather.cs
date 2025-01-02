@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.Entities;
+using System.Collections;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
@@ -15,7 +17,7 @@ public class SaveSpeedFeather : FlyFeather {
     private bool isLead;
 
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
-    : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
+    : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("singleUse")) {
         Depth = -1;
         if(data.Bool("redirectSpeed")) {
             color = flyColor = colorR;
@@ -33,6 +35,9 @@ public class SaveSpeedFeather : FlyFeather {
             }
             orig(p);
             p.Sprite.SetColor(flyColor);
+            p.starFlyTimer = data.Float("flightDuration");
+            p.Components.RemoveAll<FeatherDurationSetter>();
+            p.Add(new FeatherDurationSetter(data.Float("flightDuration"), flyColor));
         };
     }
 
@@ -43,8 +48,24 @@ public class SaveSpeedFeather : FlyFeather {
         }
     }
 
+    private static IEnumerator OnStarFlyCoroutine(On.Celeste.Player.orig_StarFlyCoroutine orig, Player p) {
+        IEnumerator origEnum = orig(p);
+        while(origEnum.MoveNext()) {
+            if(p.starFlyTimer == 2f) {
+                FeatherDurationSetter comp = p.Get<FeatherDurationSetter>();
+                if(comp != null) {
+                    p.starFlyTimer = comp.getDuration();
+                    p.Sprite.SetColor(comp.getColor());
+                }
+            }
+
+            yield return origEnum.Current;
+        }
+    }
+
     private static void OnStarFlyEnd(On.Celeste.Player.orig_StarFlyEnd orig, Player p) {
         orig(p);
+        p.Components.RemoveAll<FeatherDurationSetter>();
         if(StoredSpeed != 0) {
             if(Redirect) {
                 p.Speed *= StoredSpeed / p.Speed.Length();
@@ -57,10 +78,12 @@ public class SaveSpeedFeather : FlyFeather {
 
     public static void Hook() {
         On.Celeste.Player.StarFlyEnd += OnStarFlyEnd;
+        On.Celeste.Player.StarFlyCoroutine += OnStarFlyCoroutine;
     }
 
     public static void Unhook() {
         On.Celeste.Player.StarFlyEnd -= OnStarFlyEnd;
+        On.Celeste.Player.StarFlyCoroutine -= OnStarFlyCoroutine;
     }
 
     public override void Added(Scene scene) {

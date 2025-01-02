@@ -8,7 +8,7 @@ public class ImmediateFeather : FlyFeather {
     private readonly Color color = Color.OrangeRed;
 
     public ImmediateFeather(EntityData data, Vector2 levelOffset)
-    : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("oneUse")) {
+    : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("singleUse")) {
         Depth = -1;
         sprite.Color = color;
         PlayerCollider pc = Get<PlayerCollider>();
