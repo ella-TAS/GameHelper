@@ -143,6 +143,8 @@ entities.GameHelper/PlayerStateFlag.attributes.description.state=The player stat
 entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the flag should be set to false when the state is met instead
 entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
+entities.GameHelper/PlayerStateFlag.attributes.description.useStateName=Check for a state named like the one in the State field instead\nThis is particularly useful for custom modded states, since their numbers are inconsistent and depend on all of the loaded mods\nUseless if DashAttack is enabled
+entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state number and name to log.txt every frame\nState numbers are not persistent for custom modded states!\nPlease turn this off if you don't need it to avoid spam in the console
 
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block
 

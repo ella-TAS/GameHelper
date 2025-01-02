@@ -6,15 +6,22 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/PlayerStateFlag")]
 public class PlayerStateFlag : Entity {
-    private readonly string flag;
+    private readonly string flag, stateName;
     private readonly int state;
-    private readonly bool invert, dashAttack;
+    private readonly bool invert, dashAttack, useStateName, debug;
 
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
+        useStateName = data.Bool("useStateName");
+        if(useStateName) {
+            stateName = data.Attr("state");
+        } else {
+            state = data.Int("state");
+        }
+
         flag = data.Attr("flag");
-        state = data.Int("state");
         invert = data.Bool("invert");
         dashAttack = data.Bool("dashAttack");
+        debug = data.Bool("debug");
         Depth = -1;
     }
 
@@ -22,8 +29,13 @@ public class PlayerStateFlag : Entity {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(p != null) {
-
-            bool isState = (!dashAttack && state == p.StateMachine.State) || (dashAttack && p.DashAttacking);
+            if(debug) {
+                Logger.Info("GameHelper", p.StateMachine.State.ToString() + " - \"" + p.StateMachine.GetStateName(p.StateMachine.State) + "\"");
+            }
+            bool isState =
+                (!dashAttack && !useStateName && state == p.StateMachine.State) ||
+                (!dashAttack && useStateName && stateName.Equals(p.StateMachine.GetStateName(p.StateMachine.State))) ||
+                (dashAttack && p.DashAttacking);
             SceneAs<Level>().Session.SetFlag(flag, isState ^ invert);
         }
     }
@@ -37,9 +49,7 @@ public class PlayerStateFlag : Entity {
     }
 
     public override void Removed(Scene scene) {
-        if(flag?.Length > 0) {
-            SceneAs<Level>().Session.SetFlag(flag, false);
-        }
+        SceneAs<Level>().Session.SetFlag(flag, false);
         base.Removed(scene);
     }
 }
