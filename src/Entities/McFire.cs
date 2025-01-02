@@ -37,8 +37,9 @@ public class McFire : Entity {
 
     public override void Update() {
         base.Update();
+        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         delayTimer -= Engine.DeltaTime;
-        if(delayTimer <= 0) {
+        if(delayTimer <= 0 && (p == null || !p.JustRespawned)) {
             fireTick();
         }
     }

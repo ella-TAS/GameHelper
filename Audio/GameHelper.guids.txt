@@ -9,5 +9,5 @@
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
 {bb95a604-87e5-4c90-83bb-575c7a981af0} event:/GameHelper/p_switch/p_switch
 {1d797e2d-ebeb-433b-90a6-daaa263570fe} event:/GameHelper/shield/shield
-{a919ccef-5b20-4ed3-8501-e86762edf1db} event:/GameHelper/fire/fire_burn
+{e90216f7-c2c3-40fd-92f4-0fe67e7d55a2} event:/GameHelper/fire/fire_burn
 {061df483-0253-4e83-86ed-179319d019f6} bank:/GameHelper
