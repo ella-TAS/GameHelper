@@ -54,11 +54,11 @@ public class FlashlightController : Entity {
         }
     }
 
-    public static void resetBindings() {
+    internal static void resetBindings() {
         keyBinds = new();
     }
 
-    public static void addBinding(string levelSID, ButtonBinding binding) {
+    internal static void addBinding(string levelSID, ButtonBinding binding) {
         if(!keyBinds.TryAdd(levelSID, binding)) {
             Logger.Warn("GameHelper", "FlashlightController keybinds already contain key " + levelSID);
             return;

@@ -70,7 +70,7 @@ public class ExitCollabLevelTrigger : Trigger {
         });
     }
 
-    private void collectBerries(Player p) {
+    private static void collectBerries(Player p) {
         List<IStrawberry> berries = new();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
         foreach(Follower follower in p.Leader.Followers) {

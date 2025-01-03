@@ -6,7 +6,6 @@ namespace Celeste.Mod.GameHelper.Triggers;
 
 [CustomEntity("GameHelper/ShieldTrigger")]
 public class ShieldTrigger : Trigger {
-    public static Shield Shield;
     private readonly bool enable;
     private readonly int flashes;
 
@@ -16,9 +15,9 @@ public class ShieldTrigger : Trigger {
     }
 
     public override void OnEnter(Player p) {
-        Shield?.RemoveSelf();
+        p.Scene.Entities.FindAll<Shield>().ForEach(s => s.RemoveSelf());
         if(enable) {
-            SceneAs<Level>().Add(Shield = new Shield(flashes));
+            SceneAs<Level>().Add(new Shield(flashes));
         }
     }
 }

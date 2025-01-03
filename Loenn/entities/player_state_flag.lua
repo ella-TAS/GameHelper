@@ -9,13 +9,10 @@ psf.placements = {
     data = {
         flag = "playerstate",
         state = "0",
+        useStateName = false,
         invert = false,
         dashAttack = false,
-    }
-}
-psf.fieldInformation = {
-    state = {
-        fieldType = "integer"
+        debug = false,
     }
 }
 

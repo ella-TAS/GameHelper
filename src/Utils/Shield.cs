@@ -1,7 +1,6 @@
 using Monocle;
 using Microsoft.Xna.Framework;
 using System.Collections;
-using Celeste.Mod.GameHelper.Triggers;
 
 namespace Celeste.Mod.GameHelper.Utils;
 
@@ -17,9 +16,9 @@ public class Shield : Entity {
         flashAmount = flashes;
     }
 
-    private static PlayerDeadBody onDeath(On.Celeste.Player.orig_Die orig, Player p, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats) {
+    private static PlayerDeadBody OnDeath(On.Celeste.Player.orig_Die orig, Player p, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats) {
         if(!evenIfInvincible && GameHelper.Session.PlayerHasShield) {
-            ShieldTrigger.Shield.Break();
+            p.Scene.Entities.FindAll<Shield>().ForEach(s => s.Break());
             return null;
         } else {
             return orig(p, direction, evenIfInvincible, registerDeathInStats);
@@ -34,7 +33,6 @@ public class Shield : Entity {
     }
 
     private IEnumerator breakRoutine() {
-        Logger.Info("GameHelper", flashAmount.ToString());
         Audio.Play("event:/GameHelper/shield/shield");
         for(int i = 0; i < flashAmount; i++) {
             Visible = false;
@@ -55,6 +53,11 @@ public class Shield : Entity {
         GameHelper.Session.PlayerHasShield = true;
     }
 
+    public override void SceneEnd(Scene scene) {
+        base.SceneEnd(scene);
+        GameHelper.Session.PlayerHasShield = false;
+    }
+
     public override void Render() {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         if(SceneAs<Level>().Transitioning || p == null) return;
@@ -63,10 +66,10 @@ public class Shield : Entity {
     }
 
     public static void Hook() {
-        On.Celeste.Player.Die += onDeath;
+        On.Celeste.Player.Die += OnDeath;
     }
 
     public static void Unhook() {
-        On.Celeste.Player.Die -= onDeath;
+        On.Celeste.Player.Die -= OnDeath;
     }
 }
