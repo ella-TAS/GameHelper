@@ -52,9 +52,6 @@ entities.GameHelper/EntityMover.attributes.description.onlyType=Only look for en
 entities.GameHelper/EntityMover.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it to avoid spamming the console.
 entities.GameHelper/EntityMover.attributes.description.naiveMovement=Whether the position should be force set instead of using ground and player collision behavior.\nThis option only has an effect for Actor (TheoCrystal, Seeker, Player) and Solid/Platform (MoveBlock, Kevin) entities.
 
-entities.GameHelper/EntityMoverFollow.placements.name.follow=Entity Mover (Follow entity)
-entities.GameHelper/EntityMoverFollow.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
-
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
 
