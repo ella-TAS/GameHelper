@@ -213,3 +213,6 @@ triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.onlyType=On
 triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it
 triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetX=Offset right in pixels
 triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetY=Offset down in pixels
+
+triggers.GameHelper/TemporaryFlagTrigger.placements.name.normal=Temporary Flag (Reset Flag on Death/Transition)
+triggers.GameHelper/TemporaryFlagTrigger.attributes.description.invert=If checked the trigger will instead set the flag to false and back to true on death/transition.
