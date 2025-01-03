@@ -1,6 +1,6 @@
 local utils = require("utils")
 local fakeTilesHelper = require("helpers.fake_tiles")
-local easingOptions = require("mods").requireFromPlugin("GHoptions")
+local easingOptions = require("mods").requireFromPlugin("easing_options")
 
 local solid = {}
 
