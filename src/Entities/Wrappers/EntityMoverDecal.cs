@@ -9,15 +9,14 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 public class EntityMoverDecal : EntityMover {
     private int nextNode;
     private bool movingBack;
-    private readonly string flag;
+    private readonly string flag, returnType; // Remove = 0, Teleport = 1, Move_Start = 2, Move_Path = 3, Stop = 4
     private readonly float speed;
-    private readonly byte returnType; // Remove = 0, Teleport = 1, Move_Start = 2, Move_Path = 3, Stop = 4
     private readonly bool flipX, flipY;
 
     public EntityMoverDecal(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         speed = data.Float("speed");
         flag = data.Attr("flag");
-        returnType = (byte) data.Int("returnType", data.Bool("loop", true) ? 1 : 0); //loop for legacy placements
+        returnType = data.Attr("returnType", data.Bool("loop", true) ? "1" : "0"); //loop for legacy placements
         flipX = data.Bool("flipX");
         flipY = data.Bool("flipY");
         nextNode = 1;
@@ -36,27 +35,32 @@ public class EntityMoverDecal : EntityMover {
         if(!movingBack && nextNode == lastNode) {
             //arrived at the end node
             switch(returnType) {
-                case 0:
+                case "0":
+                case "Remove":
                     target.RemoveSelf();
                     RemoveSelf();
                     break;
-                case 1:
+                case "1":
+                case "Teleport":
                     Position = nodes[0];
                     nextNode = 1;
                     break;
-                case 2:
+                case "2":
+                case "Move_Start":
                     nextNode = 0;
                     movingBack = true;
                     break;
-                case 3:
+                case "3":
+                case "Move_Path":
                     nextNode--;
                     movingBack = true;
                     break;
-                case 4:
+                case "4":
+                case "Stop":
                     RemoveSelf();
                     break;
             }
-            if(returnType != 0) {
+            if(returnType != "0" && returnType != "Remove") {
                 Decal decal = target as Decal;
                 decal.Scale = flip(decal.Scale);
             }
@@ -87,6 +91,7 @@ public class EntityMoverDecal : EntityMover {
             ComplainEntityNotFound("Decal Entity Mover");
             return;
         }
+        nodes[0] = Position = target.Position;
         base.Awake(scene);
     }
 }

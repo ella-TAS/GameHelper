@@ -35,17 +35,25 @@ entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
 entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)
 
 entities.GameHelper/DecalMover.placements.name.decal=Entity Mover (Decal)
-entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60)
-entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
-entities.GameHelper/DecalMover.attributes.description.return_type=What the decal should do when it reaches the end node
-entities.GameHelper/DecalMover.attributes.description.flipX=Whether the decal should flip when it reaches the end node
-entities.GameHelper/DecalMover.attributes.description.flipY=Whether the decal should flip when it reaches the end node
+entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60).
+entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
+entities.GameHelper/DecalMover.attributes.description.returnType=What the decal should do when it reaches the end node.
+entities.GameHelper/DecalMover.attributes.description.flipX=Whether the decal should flip when it reaches the end node.
+entities.GameHelper/DecalMover.attributes.description.flipY=Whether the decal should flip when it reaches the end node.
 
 entities.GameHelper/EntityMover.placements.name.generic=Entity Mover (*Generic)
-entities.GameHelper/EntityMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
+entities.GameHelper/EntityMover.attributes.description.moveTime=The amount of seconds the entity takes between each pair of nodes.
+entities.GameHelper/EntityMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
+entities.GameHelper/EntityMover.attributes.description.setFlagOnEnd=The flag that should be set when the entity reaches the end node\nOR in case of Move_Start and Move_Path when it reaches the start node.\nFlag will be reset on death.
+entities.GameHelper/EntityMover.attributes.description.returnType=What the entity should do after reaching the final node.
+entities.GameHelper/EntityMover.attributes.description.additiveMovement=Whether the movement should be added to the current position of the entity rather than force setting the original position as seen in Lönn.
+entities.GameHelper/EntityMover.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed and ExpoInOut has the nicest transition.
+entities.GameHelper/EntityMover.attributes.description.onlyType=Only look for entities of a single type (example: Celeste.MoveBlock)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity.
+entities.GameHelper/EntityMover.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it to avoid spamming the console.
+entities.GameHelper/EntityMover.attributes.description.naiveMovement=Whether the position should be force set instead of using ground and player collision behavior.\nThis option only has an effect for Actor (TheoCrystal, Seeker, Player) and Solid/Platform (MoveBlock, Kevin) entities.
 
 entities.GameHelper/EntityMoverFollow.placements.name.follow=Entity Mover (Follow entity)
-entities.GameHelper/EntityMoverFollow.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement
+entities.GameHelper/EntityMoverFollow.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
 
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise

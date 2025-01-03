@@ -1,5 +1,4 @@
 local easingOptions = require("mods").requireFromPlugin("easing_options")
-
 local mover = {}
 local returnTypes = {
     Remove = 0,
@@ -12,16 +11,14 @@ local returnTypes = {
 mover.name = "GameHelper/EntityMoverFollow"
 mover.depth = -9999999
 mover.texture = "loenn/GameHelper/entity_mover_follow"
-mover.justification = {0.0, 0.0}
+mover.justification = {0, 0}
 mover.nodeLimits = {1, -1}
 mover.nodeLineRenderType = "line"
 mover.placements = {
     name = "follow",
     data = {
         speed = 60.0,
-        moveTime = 5.0,
         flag = "",
-        returnType = 1,
         onlyX = false,
         onlyY = false,
         easeMode = "Linear",
