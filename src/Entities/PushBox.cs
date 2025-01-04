@@ -92,15 +92,12 @@ public class PushBox : Solid {
     }
 
     private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
-        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - 3 * Vector2.UnitY)) {
+        orig(self, movedPx);
+        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
             if(box.Bottom > self.Position.Y) {
                 continue;
             }
-            if(movedPx > 0) {
-                box.MoveV(movedPx);
-            }
             box.MoveVer(movedPx);
         }
-        orig(self, movedPx);
     }
 }
