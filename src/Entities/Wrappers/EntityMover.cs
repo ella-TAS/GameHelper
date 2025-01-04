@@ -21,7 +21,7 @@ public class EntityMover : Wrapper {
             nodes[i + 1] = data.Nodes[i] + levelOffset;
         }
         nodes[0] = Position;
-        Depth = 999999999;
+        Depth = -999999999;
     }
 
     public override void Awake(Scene scene) {
