@@ -46,7 +46,7 @@ public class PushBox : Solid {
     }
 
     public void MoveHor(float speedDt) {
-        MoveHCollideSolids(speedDt, thruDashBlocks: true);
+        MoveHCollideSolidsAndBounds(SceneAs<Level>(), speedDt, thruDashBlocks: true);
     }
 
     public void MoveVer(float speedDt) {
