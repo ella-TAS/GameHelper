@@ -44,7 +44,7 @@ public class EntityMoverFollow : EntityMover {
             (maxDistance > 0 && dist > maxDistance) ||
             dist <= minDistance ||
             !Utils.Util.GetFlag(flag, Scene, true) ||
-            (p != null && awaitPlayerMovement && p.JustRespawned)
+            (p != null && awaitPlayerMovement && (p.JustRespawned || p.IsIntroState))
         ) {
             soundPlayed = false;
             if(holdPositionOnWait) {
