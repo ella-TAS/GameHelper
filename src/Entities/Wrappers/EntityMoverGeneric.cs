@@ -1,11 +1,8 @@
 using Celeste.Mod.Entities;
-using Celeste.Mod.GameHelper.Utils;
 using Celeste.Mod.GameHelper.Utils.Components;
 using FMOD.Studio;
 using Microsoft.Xna.Framework;
 using Monocle;
-using System;
-using System.Formats.Tar;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
