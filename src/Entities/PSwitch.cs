@@ -154,6 +154,11 @@ public class PSwitch : Actor {
         base.Removed(scene);
     }
 
+    public override void SceneEnd(Scene scene) {
+        SceneAs<Level>().Session.SetFlag(flag, false);
+        base.SceneEnd(scene);
+    }
+
     private bool HitSpring(Spring spring) {
         if(Hold.IsHeld) return false;
         if(spring.Orientation == Spring.Orientations.Floor && Speed.Y >= 0f) {

@@ -23,6 +23,11 @@ public class TemporaryFlagTrigger : Trigger {
         base.Removed(scene);
     }
 
+    public override void SceneEnd(Scene scene) {
+        SceneAs<Level>().Session.SetFlag(flag, invert);
+        base.SceneEnd(scene);
+    }
+
     public override void Added(Scene scene) {
         base.Added(scene);
         if(flag.Length == 0) {

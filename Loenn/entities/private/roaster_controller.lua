@@ -1,7 +1,7 @@
 local rc = {}
 
 rc.name = "GameHelper/RoasterController"
-rc.depth = -9999999
+rc.depth = -999999999
 rc.texture = "loenn/GameHelper/roaster_controller"
 rc.justification = {0.0, 0.0}
 rc.placements = {

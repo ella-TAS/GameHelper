@@ -50,4 +50,11 @@ public class PushBoxButton : Entity {
         }
         base.Removed(scene);
     }
+
+    public override void SceneEnd(Scene scene) {
+        if(resetFlagOnDeath) {
+            SceneAs<Level>().Session.SetFlag(flag, false);
+        }
+        base.SceneEnd(scene);
+    }
 }

@@ -69,6 +69,4 @@ public class PSwitchBlock : DashBlock {
             coinSprite.Render();
         }
     }
-
-    public override void Removed(Scene scene) { }
 }

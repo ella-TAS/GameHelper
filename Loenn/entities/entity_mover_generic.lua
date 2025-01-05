@@ -9,7 +9,7 @@ local returnTypes = {
 }
 
 mover.name = "GameHelper/EntityMover"
-mover.depth = -9999999
+mover.depth = -999999999
 mover.texture = "loenn/GameHelper/entity_mover_generic"
 mover.justification = {0, 0}
 mover.nodeLimits = {1, -1}

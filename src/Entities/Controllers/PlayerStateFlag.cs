@@ -52,4 +52,9 @@ public class PlayerStateFlag : Entity {
         SceneAs<Level>().Session.SetFlag(flag, false);
         base.Removed(scene);
     }
+
+    public override void SceneEnd(Scene scene) {
+        SceneAs<Level>().Session.SetFlag(flag, false);
+        base.SceneEnd(scene);
+    }
 }
