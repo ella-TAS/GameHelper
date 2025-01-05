@@ -1,5 +1,6 @@
 using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
+using Celeste.Mod.GameHelper.Utils.Components;
 using FMOD.Studio;
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -126,6 +127,7 @@ public class EntityMoverGeneric : EntityMover {
         if(debug) {
             Logger.Info("GameHelper", "Generic Entity Mover found " + target.GetType().ToString());
         }
+        target.Add(new RemoveEntityOnRemoval(this));
         offset = target.Position - Position;
         waitPosition = target.Position;
         base.Awake(scene);

@@ -77,7 +77,7 @@ entities.GameHelper/EntityMoverFollow.attributes.description.holdPositionOnWait=
 entities.GameHelper/EntityMoverFollow.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it to avoid spamming the console!
 entities.GameHelper/EntityMoverFollow.attributes.description.awaitPlayerMovement=Start following only after the player has respawned and started moving.
 entities.GameHelper/EntityMoverFollow.attributes.description.minDistance=The minimal distance up to which the entity should follow.
-entities.GameHelper/EntityMoverFollow.attributes.description.maxDistance=The maximum distance starting from which the entity should follow.
+entities.GameHelper/EntityMoverFollow.attributes.description.maxDistance=The maximum distance starting from which the entity should follow.\nSet to 0 for no limit.
 
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise

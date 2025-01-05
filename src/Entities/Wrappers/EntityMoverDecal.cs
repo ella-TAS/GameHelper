@@ -2,6 +2,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.GameHelper.Utils;
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
@@ -91,6 +92,7 @@ public class EntityMoverDecal : EntityMover {
             ComplainEntityNotFound("Decal Entity Mover");
             return;
         }
+        target.Add(new RemoveEntityOnRemoval(this));
         nodes[0] = Position = target.Position;
         base.Awake(scene);
     }

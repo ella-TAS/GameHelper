@@ -4,10 +4,8 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 
-public class Wrapper : Entity {
+public class Wrapper(Vector2 position) : Entity(position) {
     private static bool RoomLogged;
-
-    public Wrapper(Vector2 position) : base(position) { }
 
     public List<Entity> FindTargets(Vector2 node, Vector2[] nodes, Vector2 nodeOffset, bool allEntities, string onlyType) {
         List<Entity> entities = new();

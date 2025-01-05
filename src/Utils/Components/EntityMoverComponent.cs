@@ -3,16 +3,10 @@ using Monocle;
 
 namespace Celeste.Mod.GameHelper.Utils.Components;
 
-public class EntityMoveComponent : Component {
-    public Entity moveEntity;
-    public Vector2? offset;
-    public bool removeCascade;
-
-    public EntityMoveComponent(Entity moveEntity, Vector2? offset = null, bool removeCascade = false) : base(true, true) {
-        this.moveEntity = moveEntity;
-        this.offset = offset;
-        this.removeCascade = removeCascade;
-    }
+public class EntityMoveComponent(Entity moveEntity, Vector2? offset = null, bool removeCascade = false) : Component(true, true) {
+    public Entity moveEntity = moveEntity;
+    public Vector2? offset = offset;
+    public bool removeCascade = removeCascade;
 
     public override void Update() {
         base.Update();

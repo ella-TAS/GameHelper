@@ -1,4 +1,5 @@
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils.Components;
 using FMOD.Studio;
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -121,6 +122,8 @@ public class EntityMoverFollow : EntityMover {
         if(debug) {
             Logger.Info("GameHelper", "Follow Entity Mover found entity " + target.GetType().ToString() + " and target " + moveTarget.GetType().ToString());
         }
+        target.Add(new RemoveEntityOnRemoval(this));
+        moveTarget.Add(new RemoveEntityOnRemoval(this));
         waitPosition = target.Position;
         base.Awake(scene);
     }

@@ -25,7 +25,7 @@ public class Shield : Entity {
         }
     }
 
-    public void Break() {
+    private void Break() {
         if(!breaking) {
             breaking = true;
             Add(new Coroutine(breakRoutine()));
