@@ -2,20 +2,21 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/SwingSolid")]
 public class SwingSolid : Solid {
-    private const float PI = 3.1415927f;
     private readonly Vector2 anchor, rope;
     private readonly bool stickOnDash;
     private readonly float radius;
     private readonly float constSwingAngle = 0; // (float) (Math.PI / 8f);
-
+    private readonly List<Image> images;
     private bool left = false;
     private float phase = 0f;
     private float maxAng = 0f;
+
     public SwingSolid(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         anchor = data.Nodes[0] + levelOffset + Vector2.One * 24;
         rope = (Center - anchor).Length() * Vector2.UnitY;
@@ -23,10 +24,16 @@ public class SwingSolid : Solid {
             RenderPosition = Vector2.One * -5
         });
 
+        images ??= new();
+        for(int i = 0; i < (int) ((anchor - Center).Length() / 4); i++) {
+            images.Add(new Image(GFX.Game[data.Attr("chainSpritePrefix", "objects/GameHelper/swing/chain0") + GameHelper.Random.Range(1, 5)]));
+        }
+
         OnDashCollide = OnDash;
-        stickOnDash = false; //stickOnDash;
+        stickOnDash = false;
         OnDashCollide = OnDash;
         radius = rope.Length();
+        Depth = 1;
     }
 
 
@@ -69,7 +76,17 @@ public class SwingSolid : Solid {
     }
 
     public override void Render() {
+        Vector2 unit = 8f * Vector2.UnitY;
+        float rotation = (anchor - Center + unit).Angle() + (float) (Math.PI / 2);
+        IEnumerator<Image> im = images.GetEnumerator();
+        for(Vector2 pos = anchor; pos != Center + unit; pos = Calc.Approach(pos, Center + unit, 8f)) {
+            im.MoveNext();
+            if(im.Current == null) break;
+            im.Current.SetOrigin(8f, 0f);
+            im.Current.Position = pos - unit;
+            im.Current.Rotation = rotation;
+            im.Current.Render();
+        }
         base.Render();
-        Draw.Line(anchor, Center, Color.White, 3f);
     }
 }

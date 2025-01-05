@@ -188,6 +188,8 @@ entities.GameHelper/PlayerStateFlag.attributes.description.useStateName=Check fo
 entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state number and name to log.txt every frame\nState numbers are not persistent for custom modded states!\nPlease turn this off if you don't need it to avoid spam in the console!
 
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block
+entities.GameHelper/SwingSolid.attributes.description.sprite=The path of the block sprite, starting at Graphics/Atlases/Gameplay.
+entities.GameHelper/SwingSolid.attributes.description.chainSpritePrefix=The path of the chain sprites, starting at Graphics/Atlases/Gameplay.\nThe last character should be omitted and will be randomly chosen between 1 and 4.
 
 entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
 entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once
