@@ -1,7 +1,7 @@
 local psf = {}
 
 psf.name = "GameHelper/PlayerStateFlag"
-psf.depth = -9999999
+psf.depth = -999999999
 psf.texture = "loenn/GameHelper/flag_controller"
 psf.justification = {0.0, 0.0}
 psf.placements = {

@@ -9,7 +9,7 @@ local booleanOptions = {
 }
 
 modifier.name = "GameHelper/EntityModifier"
-modifier.depth = -9999999
+modifier.depth = -999999999
 modifier.justification = {0, 0}
 modifier.nodeLimits = {0, -1}
 modifier.nodeLineRenderType = "fan"

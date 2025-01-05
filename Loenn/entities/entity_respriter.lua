@@ -1,7 +1,7 @@
 local respriter = {}
 
 respriter.name = "GameHelper/EntityRespriter"
-respriter.depth = -9999999
+respriter.depth = -999999999
 respriter.texture = "loenn/GameHelper/entity_respriter"
 respriter.justification = {0, 0}
 respriter.nodeLimits = {0, -1}

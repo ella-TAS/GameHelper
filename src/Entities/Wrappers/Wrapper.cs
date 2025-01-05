@@ -18,9 +18,8 @@ public class Wrapper : Entity {
         }
 
         if(allEntities) {
-            foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-                if((onlyType?.Length == 0 && e.GetType() == targetEntity?.GetType()) ||
-                e.GetType().ToString() == onlyType) {
+            foreach(Entity e in SceneAs<Level>().Entities) {
+                if((onlyType?.Length == 0 && e.GetType() == targetEntity?.GetType()) || e.GetType().FullName == onlyType || e.GetType().Name == onlyType) {
                     entities.Add(e);
                 }
             }
@@ -33,15 +32,16 @@ public class Wrapper : Entity {
         return entities;
     }
 
-    public Entity FindNearest(Vector2 pos, string type) {
+    public Entity FindNearest(Vector2 pos, string type, Entity notEntity = null) {
         Entity entity = null;
         float minDistance = float.MaxValue;
-        foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
-            bool typeCorrect = e.GetType().ToString() == type;
+        foreach(Entity e in SceneAs<Level>().Entities) {
+            bool typeCorrect = e.GetType().FullName == type || e.GetType().Name == type;
             if(
+                e != notEntity &&
                 e is not Wrapper &&
                 e is not TrailManager &&
-                (e is not Player || typeCorrect) &&
+                (typeCorrect || e is not Player || e is not Trigger) &&
                 (type?.Length == 0 || typeCorrect) &&
                 Vector2.Distance(e.Center, pos) < minDistance
             ) {
@@ -75,7 +75,7 @@ public class Wrapper : Entity {
             return;
         }
         Logger.Info("GameHelper", "List of all entities in the room:");
-        foreach(Entity e in SceneAs<Level>().Entities.FindAll<Entity>()) {
+        foreach(Entity e in SceneAs<Level>().Entities) {
             Logger.Info("GameHelper", e.GetType().ToString());
         }
         RoomLogged = true;

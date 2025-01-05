@@ -48,14 +48,14 @@ public class Shield : Entity {
         GameHelper.Session.PlayerHasShield = false;
     }
 
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        GameHelper.Session.PlayerHasShield = true;
-    }
-
     public override void SceneEnd(Scene scene) {
         base.SceneEnd(scene);
         GameHelper.Session.PlayerHasShield = false;
+    }
+
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
+        GameHelper.Session.PlayerHasShield = true;
     }
 
     public override void Render() {
