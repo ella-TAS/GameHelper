@@ -1,34 +1,56 @@
-local easingOptions = require("mods").requireFromPlugin("easing_options")
 local mover = {}
-local returnTypes = {
-    Remove = 0,
-    Teleport = 1,
-    Move_Start = 2,
-    Move_Path = 3,
-    Stop = 4
+
+local approachModi = {
+    a_Exponential = "Exponential",
+    b_Cubic = "Cubic",
+    c_Quadratic = "Quadratic",
+    d_Linear = "Linear",
+    e_Constant = "Constant",
+    f_Hyperbolic = "Hyperbolic",
+    g_Inverse_Quadratic = "Inverse Quadratic",
+    h_Inverse_Cubic = "Inverse Cubic",
+    i_Inverse_Exponential = "Inverse Exponential"
 }
 
 mover.name = "GameHelper/EntityMoverFollow"
-mover.depth = -9999999
+mover.depth = -999999999
 mover.texture = "loenn/GameHelper/entity_mover_follow"
 mover.justification = {0, 0}
-mover.nodeLimits = {1, -1}
+mover.nodeLimits = {1, 1}
 mover.nodeLineRenderType = "line"
 mover.placements = {
     name = "follow",
     data = {
-        speed = 60.0,
+        approachMode = "Constant",
+        speedFactor = 1,
         flag = "",
         onlyX = false,
         onlyY = false,
-        easeMode = "Linear",
+        naiveMovement = false,
         onlyType = "",
-        debug = false
+        targetOnlyType = "",
+        approachSound = "",
+        playSoundAtDistance = 100.0,
+        stopSoundOnLeave = false,
+        holdPositionOnWait = false,
+        debug = false,
+        awaitPlayerMovement = true,
+        minDistance = 0.0,
+        maxDistance = 0.0,
+        offsetX = 0.0,
+        offsetY = 0.0
     }
 }
+mover.fieldOrder = {
+    "x", "y",
+    "approachMode", "speedFactor",  "onlyType", "targetOnlyType", "minDistance", "maxDistance",
+    "offsetX", "offsetY", "approachSound", "playSoundAtDistance", "flag",
+    "onlyX", "onlyY", "naiveMovement", "holdPositionOnWait","awaitPlayerMovement", "stopSoundOnLeave", "debug"
+}
 mover.fieldInformation = {
-    returnType = {
-        options = returnTypes
+    approachMode = {
+        options = approachModi,
+        editable = false
     }
 }
 

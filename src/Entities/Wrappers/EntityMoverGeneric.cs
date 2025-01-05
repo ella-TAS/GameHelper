@@ -12,7 +12,7 @@ namespace Celeste.Mod.GameHelper.Entities.Wrappers;
 public class EntityMoverGeneric : EntityMover {
     private readonly float moveTime, nodeWaitTime;
     private readonly string flag, setFlagOnEnd, returnType, moveSound, nodeSound;
-    private readonly bool additiveMovement, naiveMovement, holdPositionOnWait, stopMoveSoundOnStop;
+    private readonly bool additiveMovement, holdPositionOnWait, stopMoveSoundOnStop;
     private float move, previous, waitTimer;
     private int prevNode = 0, nextNode = 1;
     private bool movingBack, playMoveSound = true;
@@ -25,7 +25,6 @@ public class EntityMoverGeneric : EntityMover {
         setFlagOnEnd = data.Attr("setFlagOnEnd");
         returnType = data.Attr("returnType");
         additiveMovement = data.Bool("additiveMovement");
-        naiveMovement = data.Bool("naiveMovement");
         nodeSound = data.Attr("nodeSound");
         holdPositionOnWait = data.Bool("holdPositionOnWait");
 
@@ -36,9 +35,8 @@ public class EntityMoverGeneric : EntityMover {
 
     public override void Update() {
         base.Update();
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
 
-        if(!Utils.Util.GetFlag(flag, Scene, true) || p == null || waitTimer > 0f) {
+        if(!Utils.Util.GetFlag(flag, Scene, true) || waitTimer > 0f) {
             if(holdPositionOnWait) {
                 moveTo(waitPosition);
             }
@@ -119,26 +117,14 @@ public class EntityMoverGeneric : EntityMover {
         move = previous = 0;
     }
 
-    private void moveTo(Vector2 pos) {
-        if(!naiveMovement && target is Actor) {
-            Actor a = target as Actor;
-            a.MoveToX(pos.X);
-            a.MoveToY(pos.Y);
-        } else if(!naiveMovement && target is Platform) {
-            Platform s = target as Platform;
-            s.MoveTo(pos);
-        } else {
-            target.Position = pos;
-        }
-    }
-
     public override void Awake(Scene scene) {
         target = FindNearest(Position, onlyType);
         if(target == null) {
             ComplainEntityNotFound("Generic Entity Mover");
             return;
-        } else if(debug) {
-            Logger.Info("GameHelper", "Generic EntityMover found " + target.GetType().ToString());
+        }
+        if(debug) {
+            Logger.Info("GameHelper", "Generic Entity Mover found " + target.GetType().ToString());
         }
         offset = target.Position - Position;
         waitPosition = target.Position;
