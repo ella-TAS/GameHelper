@@ -60,6 +60,9 @@ entities.GameHelper/EntityMover.attributes.description.nodeSound=The sound event
 entities.GameHelper/EntityMover.attributes.description.holdPositionOnWait=Whether the entity should be forced to stay in the same place while it is waiting at a node or while the flag is false.
 entities.GameHelper/EntityMover.attributes.description.stopMoveSoundOnStop=Whether the moveSound should be stopped when the entity is waiting at a node or due to the flag being false.
 
+entities.GameHelper/EntityMoverFollow.placements.name.follow=Entity Mover (Follow entity)
+entities.GameHelper/EntityMoverFollow.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
+
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
 
