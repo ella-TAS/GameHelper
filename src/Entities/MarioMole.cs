@@ -167,16 +167,13 @@ public class MarioMole : Solid {
     }
 
     private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
-        foreach(MarioMole mole in self.CollideAll<MarioMole>(self.Position - 3 * Vector2.UnitY)) {
+        orig(self, movedPx);
+        foreach(MarioMole mole in self.CollideAll<MarioMole>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
             if(mole.Bottom > self.Position.Y) {
                 continue;
             }
-            if(movedPx > 0) {
-                mole.MoveV(movedPx);
-            }
             mole.MoveVer(movedPx);
         }
-        orig(self, movedPx);
     }
 
 
