@@ -1,3 +1,4 @@
+using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
 

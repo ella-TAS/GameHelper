@@ -2,9 +2,9 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Celeste.Mod.GameHelper.Entities.Wrappers;
+namespace Celeste.Mod.GameHelper.Utils;
 
-public class Wrapper(Vector2 position) : Entity(position) {
+public abstract class Wrapper(Vector2 position) : Entity(position) {
     private static bool RoomLogged;
 
     public List<Entity> FindTargets(Vector2 node, Vector2[] nodes, Vector2 nodeOffset, bool allEntities, string onlyType) {
