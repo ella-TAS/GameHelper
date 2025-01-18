@@ -144,7 +144,7 @@ public class EntityModifier : Wrapper {
                 Logger.Info("GameHelper", "Newly added entity added: " + t.GetType());
             }
             if(flag?.Length == 0) {
-                modify(targets);
+                modify([t]);
             }
         }
     }

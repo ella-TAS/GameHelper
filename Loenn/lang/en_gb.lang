@@ -1,38 +1,38 @@
 entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline
-entities.GameHelper/Trampoline.attributes.description.speedBoostX=The speed boost added on the X axis (default 60)
-entities.GameHelper/Trampoline.attributes.description.speedBoostY=The speed boost added on the Y axis (default 60)
-entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing
+entities.GameHelper/Trampoline.attributes.description.speedBoostX=The speed boost added on the X axis (default 60).
+entities.GameHelper/Trampoline.attributes.description.speedBoostY=The speed boost added on the Y axis (default 60).
+entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing.
 
 entities.GameHelper/Pigarithm.placements.name.pigarithm=Pigarithm
-entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the entity uses\nRecommended sizes:\nBig: 6×4 tiles\nMedium: 4×3 tiles\nSmall: 2×2 tiles
+entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the entity uses.\nRecommended sizes:\nBig: 6×4 tiles\nMedium: 4×3 tiles\nSmall: 2×2 tiles
 entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
-entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
-entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player
+entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in.
+entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player.
 entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's movement. Leave empty for no condition.
-entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down
+entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
 
 entities.GameHelper/MarioMole.placements.name.mole=Mario Mole
 entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
-entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in
-entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player
+entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in.
+entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player.
 entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's horizontal movement. Leave empty for no condition.
-entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down
-entities.GameHelper/Pigarithm.attributes.description.gravity=Whether the entity should be affected by gravity
+entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
+entities.GameHelper/Pigarithm.attributes.description.gravity=Whether the entity should be affected by gravity.
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box
-entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30)
+entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30).
 
 entities.GameHelper/PushBoxButton.placements.name.pushboxbutton=Push Box Button
-entities.GameHelper/PushBoxButton.attributes.description.flag=The flag the button activates
-entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether the player can activate the button
-entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
+entities.GameHelper/PushBoxButton.attributes.description.flag=The flag that is set by the button.
+entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether the player can activate the button.
+entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room.
 
 entities.GameHelper/Chainsaw.placements.name.chainsaw=Chainsaw
-entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis
+entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis.
 
 entities.GameHelper/Balloon.placements.name.balloon=Balloon
-entities.GameHelper/Balloon.attributes.description.color=The color of the sprite
-entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140)
+entities.GameHelper/Balloon.attributes.description.color=The color of the sprite.
+entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140).
 
 entities.GameHelper/DecalMover.placements.name.decal=Entity Mover (Decal)
 entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60).
@@ -52,8 +52,8 @@ entities.GameHelper/EntityMover.attributes.description.setFlagOnEnd=The flag tha
 entities.GameHelper/EntityMover.attributes.description.returnType=What the entity should do after reaching the final node.
 entities.GameHelper/EntityMover.attributes.description.additiveMovement=Whether the movement should be added to the current position of the entity rather than force setting the original position as seen in Lönn.
 entities.GameHelper/EntityMover.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed and ExpoInOut has the nicest transition.
-entities.GameHelper/EntityMover.attributes.description.onlyType=Only look for entities of a single type (example: MoveBlock OR Celeste.MoveBlock, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
-entities.GameHelper/EntityMover.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it to avoid spamming the console!
+entities.GameHelper/EntityMover.attributes.description.onlyType=Only look for entities of a single type (example: MoveBlock OR Celeste.MoveBlock, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
+entities.GameHelper/EntityMover.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it to avoid spamming the console!
 entities.GameHelper/EntityMover.attributes.description.naiveMovement=Whether the position should be force set instead of using ground and player collision behavior.\nThis option only has an effect for Actor (TheoCrystal, Seeker, Player) and Solid/Platform (MoveBlock, Kevin) entities.
 entities.GameHelper/EntityMover.attributes.description.moveSound=The sound event played while the entity is moving.
 entities.GameHelper/EntityMover.attributes.description.nodeSound=The sound event played when the entity arrives at a node.
@@ -68,69 +68,74 @@ entities.GameHelper/EntityMoverFollow.attributes.description.speedFactor=The fac
 entities.GameHelper/EntityMoverFollow.attributes.description.onlyX=Only Move the entity on the X axis.
 entities.GameHelper/EntityMoverFollow.attributes.description.onlyY=Only Move the entity on the Y axis.
 entities.GameHelper/EntityMoverFollow.attributes.description.naiveMovement=Whether the position should be force set instead of using ground and player collision behavior.\nThis option only has an effect for Actor (TheoCrystal, Seeker, Player) and Solid/Platform (MoveBlock, Kevin) entities.
-entities.GameHelper/EntityMoverFollow.attributes.description.onlyType=The type of the moved entity.\nOnly look for entities of a single type (example: Player OR Celeste.Player, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
-entities.GameHelper/EntityMoverFollow.attributes.description.targetOnlyType=The type of the target entity.\nOnly look for entities of a single type (example: Player OR Celeste.Player, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
+entities.GameHelper/EntityMoverFollow.attributes.description.onlyType=The type of the moved entity.\nOnly look for entities of a single type (example: Player OR Celeste.Player, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
+entities.GameHelper/EntityMoverFollow.attributes.description.targetOnlyType=The type of the target entity.\nOnly look for entities of a single type (example: Player OR Celeste.Player, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
 entities.GameHelper/EntityMoverFollow.attributes.description.approachSound=The sound event played when the entity comes closer than the set distance.
 entities.GameHelper/EntityMoverFollow.attributes.description.playSoundAtDistance=The distance at which the approach sound should start.
 entities.GameHelper/EntityMoverFollow.attributes.description.stopSoundOnLeave=Whether the sound should be stopped when the following area is left or the flag is turned off.
 entities.GameHelper/EntityMoverFollow.attributes.description.holdPositionOnWait=Whether the entity should be forced to stay in the same place while it is waiting outside of the chasing radius or while the flag is false.
-entities.GameHelper/EntityMoverFollow.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it to avoid spamming the console!
+entities.GameHelper/EntityMoverFollow.attributes.description.debug=Print a list of all entities in the room and the chosen entity to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it to avoid spamming the console!
 entities.GameHelper/EntityMoverFollow.attributes.description.awaitPlayerMovement=Start following only after the player has respawned and started moving.
 entities.GameHelper/EntityMoverFollow.attributes.description.minDistance=The minimal distance up to which the entity should follow.
 entities.GameHelper/EntityMoverFollow.attributes.description.maxDistance=The maximum distance starting from which the entity should follow.\nSet to 0 for no limit.
 
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator
-entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise
+entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise.
 
 entities.GameHelper/MouseHole.placements.name.hole_spawner=Mouse Hole (Spawner)
 entities.GameHelper/MouseHole.placements.name.hole_exit=Mouse Hole (Exit)
-entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole
-entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true\nExit: Sets flag when a mouse enters
-entities.GameHelper/MouseHole.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room
+entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole.
+entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true.\nExit: Sets flag when a mouse enters.
+entities.GameHelper/MouseHole.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room.
 
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller
-entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1)
-entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3)
+entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1).
+entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3).
 
 entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller
-entities.GameHelper/RoasterController.attributes.description.timer=The number of seconds you you can stay on ground or walls before being killed (default 1.5)
-entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently
-entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers
+entities.GameHelper/RoasterController.attributes.description.timer=The number of seconds you you can stay on ground or walls before being killed (default 1.5).
+entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently.
+entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers.
 
 entities.GameHelper/TimeFreezeController.placements.name.tfc=Time Freeze Controller
 
 entities.GameHelper/FloatyJumpController.placements.name.fjc=Floaty Jump Controller
-entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled
-entities.GameHelper/FloatyJumpController.attributes.description.flag=Flag needed for the floaty jump controller to change the value. Leave empty for no flag required
+entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled.
+entities.GameHelper/FloatyJumpController.attributes.description.flag=Flag needed for the floaty jump controller to change the value. Leave empty for no flag required.
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist
 
 entities.GameHelper/ImmediateFeather.placements.name.normal=Immediate Feather
 entities.GameHelper/ImmediateFeather.placements.name.boost=Immediate Feather (Start Boost)
-entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0 for normal, 1.0 for boosted)
-entities.GameHelper/ImmediateFeather.attributes.description.startBoost=Whether the flight should start with 600 speed
+entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0 for normal, 1.0 for boosted).
+entities.GameHelper/ImmediateFeather.attributes.description.startBoost=Whether the flight should start with 600 speed.
 
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
 
 entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
-entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0)
-entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whether the speed should be given in the flight direction
+entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0).
+entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whether the speed should be given in the flight direction.
 
 entities.GameHelper/EntityRespriter.placements.name.direct=Entity Respriter (Direct)
 entities.GameHelper/EntityRespriter.placements.name.xml=Entity Respriter (XML)
-entities.GameHelper/EntityRespriter.attributes.description.spriteFolder=The folder path the sprites are in, starting from Graphics/Atlases/Gameplay/\nAdd another / after the last folder\nYou should have your (campaign) name somewhere in the path to make it unique
-entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without file extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put the spritename here\nThe direct method without XML only works if the entity's sprite has a single animation.\nIf your game crashes with KeyNotFoundException, you probably need to use the XML method.
+entities.GameHelper/EntityRespriter.placements.description.direct=Use the XML version instead for entities which change the animation of their sprite (like bumpers when they get hit).\nThe entity respriter is a powerful tool that allows you to change entity sprites during gameplay.\nIt's also the only good way to resprite modded entities since they are not defined in the vanilla Sprites.xml file.\nRequests and ideas to @ellatas
+entities.GameHelper/EntityRespriter.placements.description.xml=Use this version for entities which change the animation of their sprite (like bumpers when they get hit).\nThe entity respriter is a powerful tool that allows you to change entity sprites during gameplay.\nIt's also the only good way to resprite modded entities since they are not defined in the vanilla Sprites.xml file.\nRequests and ideas to @ellatas
+entities.GameHelper/EntityRespriter.attributes.description.spriteFolder=The folder path the sprites are in, starting from Graphics/Atlases/Gameplay/\nAdd another "/" after the last folder.\nYou should have your (campaign) name somewhere in the path to make it unique.
+entities.GameHelper/EntityRespriter.attributes.description.spriteName=Name of the png file (without file extension)\nAnimated sprites: Name your files spritename00, spritename01, …, then put "spritename" here.\nThe direct method without XML only works if the entity's sprite has a single animation.\nIf your game crashes with KeyNotFoundException, you probably need to use the XML method.
 entities.GameHelper/EntityRespriter.attributes.name.delay=Animation Delay
-entities.GameHelper/EntityRespriter.attributes.description.offsetX=The offset of the sprite in the X direction (+ is right)
-entities.GameHelper/EntityRespriter.attributes.description.offsetY=The offset of the sprite in the Y direction (+ is down)
-entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites
-entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with file extension)\nThe file should only contain the replaced sprites\nYou should have your (campaign) name somewhere in the path to make it unique
-entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file
-entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing)\nIf your game crashes with a NullPointerException, a this might be the issue
-entities.GameHelper/EntityRespriter.attributes.description.onlyType=Only look for entities of a single type (example: Balloon OR Celeste.Mod.GameHelper.Entities.Balloon, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
-entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in this room
-entities.GameHelper/EntityRespriter.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it!
-entities.GameHelper/EntityRespriter.attributes.description.removeAllComponents=Remove all sprite components, not just the one associated with the field
+entities.GameHelper/EntityRespriter.attributes.description.offsetX=The offset of the sprite in the X direction (+ is right).
+entities.GameHelper/EntityRespriter.attributes.description.offsetY=The offset of the sprite in the Y direction (+ is down).
+entities.GameHelper/EntityRespriter.attributes.description.delay=Delay between the animation frames for animated sprites.
+entities.GameHelper/EntityRespriter.attributes.description.xmlPath=The path of the XML file, starting from your mod's base folder (with file extension).\nThe file should only contain the replaced sprites.\nYou should have your (campaign) name somewhere in the path to make it unique.
+entities.GameHelper/EntityRespriter.attributes.description.spriteID=The ID of the sprite tag in the XML file.
+entities.GameHelper/EntityRespriter.attributes.description.fieldName=The name of the sprite field in the code (most likely "sprite" or nothing).\nIf the previous sprite doesn't get replaced (without "Remove all Components"), this might be the issue.
+entities.GameHelper/EntityRespriter.attributes.description.onlyType=Only look for entities of a single type (example: Balloon OR Celeste.Mod.GameHelper.Entities.Balloon, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.
+entities.GameHelper/EntityRespriter.attributes.description.allEntities=Whether to resprite all entities of the found/given type in this room.
+entities.GameHelper/EntityRespriter.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
+entities.GameHelper/EntityRespriter.attributes.description.removeAllComponents=Remove all image/sprite components, not just the one associated with the field.
+entities.GameHelper/EntityRespriter.attributes.description.activationFlag=If a flag is set, the respriter will wait until it's true.\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag.
+entities.GameHelper/EntityRespriter.attributes.description.invertFlag=Activate the modification when the flag is false instead.
+entities.GameHelper/EntityRespriter.attributes.description.doNewlyAddedEntities=Whether entities which were newly added to the scene after the screen transition should be considered.\nThe addition of an entity to the list will trigger a resprite if no flag is set or the flag is true.\nIn order to resprite entities that have been added when the flag is activated, you need to enable "All Entities".\nOnly works with "Only Type" set.\nNot needed in the most cases! Please turn it off if you don't need it! Try it without this option first!
 
 entities.GameHelper/EntityModifier.placements.name.number=Entity Modifier (Number)
 entities.GameHelper/EntityModifier.placements.name.string=Entity Modifier (String)
@@ -144,67 +149,67 @@ entities.GameHelper/EntityModifier.attributes.name.valueNumber=Value (Number)
 entities.GameHelper/EntityModifier.attributes.name.valueString=Value (String)
 entities.GameHelper/EntityModifier.attributes.name.valueBool=Value (Bool)
 entities.GameHelper/EntityModifier.attributes.description.valueNumber=The float/integer value the field should be set to (see Integer checkbox).
-entities.GameHelper/EntityModifier.attributes.description.integer=Whether the value should be an integer or a float\nUsing the wrong type will cause an ArgumentException\nMany Celeste things use floats, although Depth is an integer.
+entities.GameHelper/EntityModifier.attributes.description.integer=Whether the value should be an integer or a float.\nUsing the wrong type might cause an ArgumentException.\nMany Celeste things use floats, although Depth is an integer.
 entities.GameHelper/EntityModifier.attributes.description.valueString=The string the field should be set to.
-entities.GameHelper/EntityModifier.attributes.description.fieldName=The name of the field in the code\nTo get a list of fields in log.txt (in your Celeste folder), install CelesteTAS, double tap Ctrl to open the info HUD and Ctrl+Click on the entity\nYou can also ask a coder for help.
-entities.GameHelper/EntityModifier.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
-entities.GameHelper/EntityModifier.attributes.description.activationFlag=If a flag is set, the modifier will wait until it's true\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag.
+entities.GameHelper/EntityModifier.attributes.description.fieldName=The name of the field in the code.\nTo get a list of fields in log.txt (in your Celeste folder), install CelesteTAS, double tap Ctrl to open the info HUD and Ctrl+Click on the entity.\nYou can also ask a coder for help.
+entities.GameHelper/EntityModifier.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.\nTriggers and Players will only be chosen if specified here.
+entities.GameHelper/EntityModifier.attributes.description.activationFlag=If a flag is set, the modifier will wait until it's true.\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag.
 entities.GameHelper/EntityModifier.attributes.description.invertFlag=Activate the modification when the flag is false instead.
 entities.GameHelper/EntityModifier.attributes.description.allEntities=Whether to modify all entities of the found/given type in this room.
 entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the modification should only happen once.
-entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame\nPlease turn this off if not neccessary, it can impact performance!
-entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it!
+entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame.\nPlease turn this off if not neccessary, it can impact performance!
+entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
 entities.GameHelper/EntityModifier.attributes.description.changeActive=How the Active field should change.\nActive controls whether the entity is updated every frame, usually controlling all behavior (e. g. movement).\nIf an activation flag is set, everything but SetToFlag will only activate based on that.
 entities.GameHelper/EntityModifier.attributes.description.changeCollidable=How the Collidable field should change.\nCollidable controls whether the player or theo crystals can collide with the entity and call Collider actions. Works with solids entities too. Collision checks in the Update method are not accounted for by this.\nIf an activation flag is set, everything but SetToFlag will only activate based on that.
 entities.GameHelper/EntityModifier.attributes.description.changeVisible=How the Visible field should be changed.\nVisible controls whether an entity is rendered and shown on the screen every frame.\nIf an activation flag is set, everything but SetToFlag will only activate based on that.
-entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=Whether entities which were newly added to the scene after the screen transition should be considered. The addition of an entity to the list will trigger a modification if no flag is set. Only works with onlyType set. Not needed in the most cases!\nPlease turn it off if you don't need it! Try it without this option first!
+entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=Whether entities which were newly added to the scene after the screen transition should be considered. The addition of an entity to the list will trigger a modification if no flag is set. Only works with "Only Type" set. Not needed in the most cases!\nPlease turn it off if you don't need it! Try it without this option first!
 
 entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid
-entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds
-entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed
-entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds the block should wait before starting to move initially
-entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many seconds the platform should pause until it starts to move again
+entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds.
+entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed.
+entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds the block should wait before starting to move initially.
+entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many seconds the platform should pause until it starts to move again.
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 
 entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
-entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again
+entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again.
 
 entities.GameHelper/DashMagnet.placements.name.magnet=Dash Magnet
-entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the time rate should be slowed down when the player enters the magnet's radius with a dash
+entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the time rate should be slowed down when the player enters the magnet's radius with a dash.
 
 entities.GameHelper/FlagCollectBerry.placements.name.normal=Flag Collect Strawberry
 
 entities.GameHelper/FireTrap.placements.name.trap=Fire Trap
-entities.GameHelper/FireTrap.attributes.description.delay=The delay until the fire becomes collidable after starting\n(default 0.067, lets you not pass with a walking speed jump)
+entities.GameHelper/FireTrap.attributes.description.delay=The delay until the fire becomes collidable after starting\n(default 0.067, lets you not pass with a walking speed jump).
 
 entities.GameHelper/PlayerStateFlag.placements.name.psf=Player State Flag
-entities.GameHelper/PlayerStateFlag.attributes.description.flag=The flag that should be set when the player is in the right state
-entities.GameHelper/PlayerStateFlag.attributes.description.state=The player state the flag controller should check for\n0 - Normal  1 - Climb\n2 - Dash  3 - Swim\n4 - Boost  5 - RedDash\n6 - HitSquash  7 - Launch\n8 - Pickup  9 - DreamDash\n10 - SummitLaunch  11 - Dummy\n12 - IntroWalk  13 - IntroJump\n14 - IntroRespawn  15 - IntroWakeUp\n16 - BirdDashTutorial  17 - Frozen\n18 - ReflectionFall  19 - StarFly\n20 - TempleFall  21 - CassetteFly\n22 - Attract  23 - IntroMoonJump\n24 - FlingBird  25 - IntroThinkForABit
-entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the flag should be set to false when the state is met instead
-entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead
+entities.GameHelper/PlayerStateFlag.attributes.description.flag=The flag that should be set when the player is in the right state.
+entities.GameHelper/PlayerStateFlag.attributes.description.state=The player state the flag controller should check for.\n0 - Normal  1 - Climb\n2 - Dash  3 - Swim\n4 - Boost  5 - RedDash\n6 - HitSquash  7 - Launch\n8 - Pickup  9 - DreamDash\n10 - SummitLaunch  11 - Dummy\n12 - IntroWalk  13 - IntroJump\n14 - IntroRespawn  15 - IntroWakeUp\n16 - BirdDashTutorial  17 - Frozen\n18 - ReflectionFall  19 - StarFly\n20 - TempleFall  21 - CassetteFly\n22 - Attract  23 - IntroMoonJump\n24 - FlingBird  25 - IntroThinkForABit
+entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the flag should be set to false when the state is met instead.
+entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead.
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
-entities.GameHelper/PlayerStateFlag.attributes.description.useStateName=Check for a state named like the one in the State field instead\nThis is particularly useful for custom modded states, since their numbers are inconsistent and depend on all of the loaded mods\nUseless if DashAttack is enabled
-entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state number and name to log.txt every frame\nState numbers are not persistent for custom modded states!\nPlease turn this off if you don't need it to avoid spam in the console!
+entities.GameHelper/PlayerStateFlag.attributes.description.useStateName=Check for a state named like the one in the State field instead.\nThis is particularly useful for custom modded states, since their numbers are inconsistent and depend on all of the loaded mods.\nUseless if DashAttack is enabled.
+entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state number and name to log.txt every frame.\nState numbers are not persistent for custom modded states!\nPlease turn this off if you don't need it to avoid spam in the console!
 
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block
 entities.GameHelper/SwingSolid.attributes.description.sprite=The path of the block sprite, starting at Graphics/Atlases/Gameplay.
 entities.GameHelper/SwingSolid.attributes.description.chainSpritePrefix=The path of the chain sprites, starting at Graphics/Atlases/Gameplay.\nThe last character should be omitted and will be randomly chosen between 1 and 4.
 
 entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
-entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once
+entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once.
 entities.GameHelper/PlayerShadowController.attributes.description.uses=The number of shadows you can spawn.\nSet to -1 for infinite uses.
-entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk
-entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk
+entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk.
+entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk.
 
 entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
-entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once
+entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once.
 
 entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
 
 entities.GameHelper/PSwitch.placements.name.normal=P-Switch
 entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
-entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead
+entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead.
 
 entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
 entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
@@ -214,32 +219,32 @@ entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the play
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
 triggers.GameHelper/RegisterHeartTrigger.placements.name.rht=Register Level Heart
-triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty for no requirement
+triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty for no requirement.
 
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withTrigger=Exit Collab Level + Register Heart
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withoutTrigger=Exit Collab Level
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5)
-triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen.
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5).
+triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement.
 
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
 
 triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
-triggers.GameHelper/CrashGameTrigger.attributes.description.message=The message displayed in the error log
-triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress will be lost)
+triggers.GameHelper/CrashGameTrigger.attributes.description.message=The error message displayed in the error log.
+triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress might be lost on old Everest versions).
 
 triggers.GameHelper/ShieldTrigger.placements.name.shield=Player Shield (Invincibility)
-triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3)
-triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled
+triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3).
+triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled.
 
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
 
 triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
 
 triggers.GameHelper/CameraEntityTargetTrigger.placements.name.normal=Camera Entity Target
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.lerp=How strongly the trigger pulls the camera towards the target
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous)\nFind the correct type with the debug option\nLeave the field empty to take the nearest entity
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder)\nPlease turn it off if you don't need it!
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.lerp=How strongly the trigger pulls the camera towards the target.
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.
+triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
 triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetX=Offset right in pixels
 triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetY=Offset down in pixels
 
