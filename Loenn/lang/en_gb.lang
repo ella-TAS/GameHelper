@@ -12,12 +12,12 @@ entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the
 entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
 
 entities.GameHelper/MarioMole.placements.name.mole=Mario Mole
-entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
-entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in.
-entities.GameHelper/Pigarithm.attributes.description.kill=Whether touching the sides should kill the player.
-entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the entity's horizontal movement. Leave empty for no condition.
-entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
-entities.GameHelper/Pigarithm.attributes.description.gravity=Whether the entity should be affected by gravity.
+entities.GameHelper/MarioMole.attributes.description.speed=Horizontal speed (default 60)
+entities.GameHelper/MarioMole.attributes.description.startRight=Which direction the entity should start moving in.
+entities.GameHelper/MarioMole.attributes.description.kill=Whether touching the sides should kill the player.
+entities.GameHelper/MarioMole.attributes.description.flag=Condition flag for the entity's horizontal movement. Leave empty for no condition.
+entities.GameHelper/MarioMole.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
+entities.GameHelper/MarioMole.attributes.description.gravity=Whether the entity should be affected by gravity.
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box
 entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30).
