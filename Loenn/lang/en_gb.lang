@@ -214,6 +214,13 @@ entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch
 entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
 entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
 
+entities.GameHelper/CameraEntityTargetController.placements.name.normal=Camera Entity Target
+entities.GameHelper/CameraEntityTargetController.attributes.description.lerp=How strongly the trigger pulls the camera towards the target.
+entities.GameHelper/CameraEntityTargetController.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.
+entities.GameHelper/CameraEntityTargetController.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
+entities.GameHelper/CameraEntityTargetController.attributes.description.offsetX=Offset right in pixels
+entities.GameHelper/CameraEntityTargetController.attributes.description.offsetY=Offset down in pixels
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
@@ -240,13 +247,6 @@ triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shie
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
 
 triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
-
-triggers.GameHelper/CameraEntityTargetTrigger.placements.name.normal=Camera Entity Target
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.lerp=How strongly the trigger pulls the camera towards the target.
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetX=Offset right in pixels
-triggers.GameHelper/CameraEntityTargetTrigger.attributes.description.offsetY=Offset down in pixels
 
 triggers.GameHelper/TemporaryFlagTrigger.placements.name.normal=Temporary Flag (Reset Flag on Death/Transition)
 triggers.GameHelper/TemporaryFlagTrigger.attributes.description.invert=If checked the trigger will instead set the flag to false and back to true on death/transition.
