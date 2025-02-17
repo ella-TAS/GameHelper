@@ -220,6 +220,7 @@ entities.GameHelper/CameraEntityTargetController.attributes.description.onlyType
 entities.GameHelper/CameraEntityTargetController.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
 entities.GameHelper/CameraEntityTargetController.attributes.description.offsetX=Offset right in pixels
 entities.GameHelper/CameraEntityTargetController.attributes.description.offsetY=Offset down in pixels
+entities.GameHelper/CameraEntityTargetController.attributes.description.resetOnFalse=Reset the camera offset when the flag is set to false.
 
 
 

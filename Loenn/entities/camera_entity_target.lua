@@ -11,6 +11,7 @@ st.placements = {
         lerp = 1.0,
         offsetX = 0.0,
         offsetY = 0.0,
+        resetOnFalse = false,
         debug = false
     }
 }
