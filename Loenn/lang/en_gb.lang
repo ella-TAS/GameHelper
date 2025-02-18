@@ -172,7 +172,7 @@ entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many second
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb
 
-entities.GameHelper/Dispenser.placements.name.dispenser=Arrow Dispenser
+entities.GameHelper/Dispenser.placements.name.dispenser=Dispenser (Minecraft)
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again.
 
 entities.GameHelper/DashMagnet.placements.name.magnet=Dash Magnet
@@ -205,7 +205,7 @@ entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whet
 entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
 entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once.
 
-entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Solid (Minecraft)
+entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Block (Minecraft)
 
 entities.GameHelper/PSwitch.placements.name.normal=P-Switch
 entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
@@ -214,7 +214,8 @@ entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch
 entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block
 entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
 
-entities.GameHelper/CameraEntityTargetController.placements.name.normal=Camera Entity Target
+entities.GameHelper/CameraEntityTargetController.placements.name.normal=Camera Entity Target Controller
+entities.GameHelper/CameraEntityTargetController.placements.description.normal=The Camera Entity Target Controller will pick the closest entity with the given type and make the camera lock in on it by setting the camera offset every frame.
 entities.GameHelper/CameraEntityTargetController.attributes.description.lerp=How strongly the trigger pulls the camera towards the target.
 entities.GameHelper/CameraEntityTargetController.attributes.description.onlyType=Only look for entities of a single type (example: Pigarithm OR Celeste.Mod.GameHelper.Entities.Pigarithm, the former might be ambiguous).\nFind the correct type with the debug option.\nLeave the field empty to take the nearest entity.
 entities.GameHelper/CameraEntityTargetController.attributes.description.debug=Print a list of all entities in the room and the resprited entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
