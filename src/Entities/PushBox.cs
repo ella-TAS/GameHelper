@@ -1,6 +1,6 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Microsoft.Xna.Framework;
+using Monocle;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -92,12 +92,12 @@ public class PushBox : Solid {
     }
 
     private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
-        orig(self, movedPx);
         foreach(PushBox box in self.CollideAll<PushBox>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
             if(box.Bottom > self.Position.Y) {
                 continue;
             }
             box.MoveVer(movedPx);
         }
+        orig(self, movedPx);
     }
 }

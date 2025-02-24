@@ -1,9 +1,9 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
-using System;
 using Celeste.Mod.GameHelper.Utils.Components;
+using Microsoft.Xna.Framework;
+using Monocle;
+using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -167,14 +167,12 @@ public class MarioMole : Solid {
     }
 
     private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
-        orig(self, movedPx);
         foreach(MarioMole mole in self.CollideAll<MarioMole>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
             if(mole.Bottom > self.Position.Y) {
                 continue;
             }
             mole.MoveVer(movedPx);
         }
+        orig(self, movedPx);
     }
-
-
 }
