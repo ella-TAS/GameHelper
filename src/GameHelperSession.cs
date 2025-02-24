@@ -1,7 +1,7 @@
-using YamlDotNet.Serialization;
-using System.Collections.Generic;
 using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Utils.Components;
+using System.Collections.Generic;
+using YamlDotNet.Serialization;
 
 namespace Celeste.Mod.GameHelper;
 

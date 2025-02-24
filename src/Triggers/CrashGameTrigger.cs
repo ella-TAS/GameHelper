@@ -1,8 +1,8 @@
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System.Collections;
-using Monocle;
 using Celeste.Mod.GameHelper.Utils;
+using Microsoft.Xna.Framework;
+using Monocle;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 

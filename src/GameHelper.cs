@@ -1,11 +1,11 @@
-﻿using Monocle;
-using System;
-using Celeste.Mod.GameHelper.Entities;
+﻿using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Celeste.Mod.GameHelper.Utils;
+using Monocle;
 using MonoMod.ModInterop;
+using System;
 
 namespace Celeste.Mod.GameHelper;
 
