@@ -1,8 +1,8 @@
+using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils.Components;
 using Microsoft.Xna.Framework;
 using Monocle;
-using Celeste.Mod.Entities;
 using System.Collections;
-using Celeste.Mod.GameHelper.Utils.Components;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 

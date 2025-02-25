@@ -1,10 +1,10 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System.Linq;
-using System.Collections.Generic;
-using System;
 using FMOD.Studio;
+using Microsoft.Xna.Framework;
+using Monocle;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Celeste.Mod.GameHelper.Entities;
 

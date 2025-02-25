@@ -1,9 +1,9 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System.Collections.Generic;
-using Celeste.Mod.GameHelper.Utils;
 using Celeste.Mod.GameHelper.Triggers;
+using Celeste.Mod.GameHelper.Utils;
+using Microsoft.Xna.Framework;
+using Monocle;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 

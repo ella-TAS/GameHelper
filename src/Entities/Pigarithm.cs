@@ -1,9 +1,9 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
-using System.Collections;
 using Celeste.Mod.GameHelper.Utils;
 using Celeste.Mod.GameHelper.Utils.Components;
+using Microsoft.Xna.Framework;
+using Monocle;
+using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;
 

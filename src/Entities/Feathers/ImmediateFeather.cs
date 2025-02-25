@@ -1,5 +1,5 @@
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
+using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 

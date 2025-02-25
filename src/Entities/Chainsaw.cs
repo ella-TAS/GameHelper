@@ -1,7 +1,7 @@
-using Monocle;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.Entities;
 using FMOD.Studio;
+using Microsoft.Xna.Framework;
+using Monocle;
 using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities;

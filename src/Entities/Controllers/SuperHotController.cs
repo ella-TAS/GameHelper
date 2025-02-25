@@ -1,5 +1,5 @@
-using Monocle;
 using Celeste.Mod.Entities;
+using Monocle;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
