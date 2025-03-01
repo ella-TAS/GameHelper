@@ -225,6 +225,8 @@ entities.GameHelper/CameraEntityTargetController.attributes.description.resetOnF
 
 entities.GameHelper/HangingBridge.placements.name.normal=Deco Hanging Bridge
 
+entities.GameHelper/JumpRope.placements.name.normal=Jump Rope (Mario)
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
