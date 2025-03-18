@@ -1,6 +1,8 @@
-{dfcaf223-6023-4770-a446-ee1e4eb9943c} event:/GameHelper/annoyingmice/hit
-{f754c85a-69b9-45b3-833f-eb49fcceb30f} event:/GameHelper/annoyingmice/rotate
-{2aa42fc5-6dfc-49d7-8a89-423e7ad76501} event:/GameHelper/annoyingmice/stop
+{9c3301d1-c975-4fcd-941a-9b1d9400cef6} event:/GameHelper/annoyingmice/hit
+{87c2c1cc-66b9-4c33-9f70-3ff1fdf8ff5e} event:/GameHelper/annoyingmice/rotate
+{e7d0e09b-dd7e-481f-86e5-f6c0a7431ace} event:/GameHelper/annoyingmice/spawn
+{5775afee-30b4-47e6-b4bb-40118670c96a} event:/GameHelper/annoyingmice/stop
+{f8f1801c-48de-4e96-931e-42e1c1167faf} event:/GameHelper/annoyingmice/win
 {058a5b8d-3e72-451f-9e72-c4221bc5bdd1} event:/GameHelper/balloon/Balloon_pop
 {99159f2d-866a-499c-8672-e1b507fdcbfe} event:/GameHelper/chainsaw/chainsaw_attack
 {b27d5d6a-db14-4a85-be91-cbed0a6370d1} event:/GameHelper/dispenser/dispenser

@@ -29,7 +29,7 @@ public class MouseRotator : Solid {
             bool collideY = MoveVCollideSolidsAndBounds(SceneAs<Level>(), Movement.Y * 120 * Engine.DeltaTime, false, null);
             if(collideX || collideY) {
                 Movement = Vector2.Zero;
-                Audio.Play("event:/GameHelper/annoyingmice/stop");
+                Audio.Play("event:/GameHelper/annoyingmice/stop", Center);
             }
         }
     }

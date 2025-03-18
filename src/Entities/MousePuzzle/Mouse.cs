@@ -28,7 +28,7 @@ public class Mouse : Actor {
             bool surviveFrame = false;
             foreach(MouseRotator m in CollideAll<MouseRotator>()) {
                 rotate(m.Clockwise);
-                Audio.Play("event:/GameHelper/annoyingmice/rotate");
+                Audio.Play("event:/GameHelper/annoyingmice/rotate", Center);
                 surviveFrame = true;
             }
             foreach(MouseHole n in CollideAll<MouseHole>()) {
