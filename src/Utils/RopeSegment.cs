@@ -44,7 +44,7 @@ public class RopeSegment : JumpThru {
     private static void PlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
 
-        if((p.StateMachine.State == PlayerStates.StDash && p.DashDir.Y < 0) || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
+        if((p.StateMachine.State == PlayerState.StDash && p.DashDir.Y < 0) || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
             // dashing up or too far below
             return;
         }
@@ -54,7 +54,7 @@ public class RopeSegment : JumpThru {
             float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;
             p.MoveVExact((int) (niveau - p.Y));
             p.Speed.Y = 0;
-        } else if(p.StateMachine.State == PlayerStates.StNormal && p.Speed.Y >= 0) {
+        } else if(p.StateMachine.State == PlayerState.StNormal && p.Speed.Y >= 0) {
             bridgeInside = p.CollideAll<RopeSegment>(p.Position + new Vector2(0, CORRECTION_ABOVE));
             if(bridgeInside.Count > 0) {
                 float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;

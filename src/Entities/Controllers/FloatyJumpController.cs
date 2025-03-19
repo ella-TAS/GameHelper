@@ -19,7 +19,7 @@ public class FloatyJumpController : Entity {
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
         if(GameHelper.Session.FloatyJumps) {
-            if(!p.OnGround() && p.Speed.Y > -40f && Input.Jump.Check && p.StateMachine.State == PlayerStates.StNormal && p.InControl) {
+            if(!p.OnGround() && p.Speed.Y > -40f && Input.Jump.Check && p.StateMachine.State == PlayerState.StNormal && p.InControl) {
                 if(actualYSpeed.Equals(float.MaxValue)) {
                     actualYSpeed = p.Speed.Y;
                 }

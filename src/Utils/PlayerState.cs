@@ -1,6 +1,6 @@
 namespace Celeste.Mod.GameHelper.Utils;
 
-public class PlayerStates {
+public class PlayerState {
     public const int StNormal = 0;
     public const int StClimb = 1;
     public const int StDash = 2;
