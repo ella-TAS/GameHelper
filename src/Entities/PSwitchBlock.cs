@@ -11,7 +11,7 @@ public class PSwitchBlock : DashBlock {
     private readonly Sprite coinSprite;
     private readonly string flag;
     private readonly bool startBlock;
-    private bool isBlock => startBlock ^ Util.GetFlag(flag, Scene);
+    private bool isBlock => startBlock ^ Util.GetFlag(flag, Scene) && !collected;
     private bool collected;
 
     public PSwitchBlock(EntityData data, Vector2 levelOffset, EntityID id)
@@ -29,11 +29,12 @@ public class PSwitchBlock : DashBlock {
 
     public override void Update() {
         base.Update();
-        Collidable = !collected && isBlock;
+        Collidable = isBlock;
         if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
             Audio.Play("event:/GameHelper/p_switch/p_switch");
             Add(new Coroutine(collectRoutine()));
+            if(permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
         }
     }
 
@@ -55,15 +56,14 @@ public class PSwitchBlock : DashBlock {
             coinSprite.RenderPosition += 2 * Vector2.UnitY;
             yield return null;
         }
-        while(coinSprite.CurrentAnimationFrame != 3 && coinSprite.CurrentAnimationFrame != 9) yield return null;
+        while(coinSprite.CurrentAnimationFrame is not (3 or 9)) yield return null;
         coinSprite.Play("collect");
         while(coinSprite.Animating) yield return null;
-        RemoveSelf();
-        if(permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
+        Visible = false;
     }
 
     public override void Render() {
-        if(isBlock && !collected) {
+        if(isBlock) {
             base.Render();
         } else if(canDash) {
             coinSprite.Render();
