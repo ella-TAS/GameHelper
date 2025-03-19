@@ -16,5 +16,11 @@
         "prefix": "scene",
         "body": "SceneAs<Level>()",
         "description": "get Scene"
+    },
+    "Entity Template": {
+        "scope": "csharp",
+        "prefix": "namespace",
+        "body": "using Celeste.Mod.Entities;\nusing Microsoft.Xna.Framework;\nusing Monocle;\n\nnamespace Celeste.Mod.GameHelper.Entities;\n\n[CustomEntity(\"GameHelper/$0\")]\n\npublic class $0 : Entity {\n    public $0(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) { }\n}",
+        "description": "Entity template"
     }
 }

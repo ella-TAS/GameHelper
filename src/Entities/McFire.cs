@@ -12,19 +12,16 @@ namespace Celeste.Mod.GameHelper.Entities;
 [CustomEntity("GameHelper/McFire")]
 public class McFire : Entity {
     private static EventInstance sound;
-    private readonly Sprite sprite;
     private readonly EntityData data;
     private readonly List<McFlammable> fuels;
     private readonly int preferredRotation;
+    private Sprite sprite;
     private int rotation;
     private float delayTimer;
     public EntityID id;
 
     public McFire(EntityData data, Vector2 levelOffset, EntityID id) : base(data.Position + levelOffset) {
         delayTimer = data.Float("spreadingTime");
-        sprite = GameHelper.SpriteBank.Create("fire");
-        sprite.RenderPosition = new Vector2(-8, -8);
-        Add(sprite);
         Collider = new Hitbox(16, 16, -8, -8);
         preferredRotation = data.Int("direction");
         fuels = new List<McFlammable>();
@@ -38,8 +35,12 @@ public class McFire : Entity {
     public override void Update() {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        if(p == null || p.JustRespawned) {
+            return;
+        }
+
         delayTimer -= Engine.DeltaTime;
-        if(delayTimer <= 0 && (p == null || !p.JustRespawned)) {
+        if(delayTimer <= 0) {
             fireTick();
         }
     }
@@ -77,14 +78,18 @@ public class McFire : Entity {
             return;
         }
         rotation = determineRotation();
-        sprite.Rotation = (float) (rotation * 0.5f * Math.PI);
-        sprite.RenderPosition += new Vector2((rotation is > 0 and < 3) ? 16 : 0, 1 < rotation ? 16 : 0);
-        Collider = new Hitbox(
-            rotation % 2 == 0 ? 16 : 8,
-            rotation % 2 == 0 ? 8 : 16,
-            rotation == 3 ? 0 : -8,
-            rotation == 0 ? 0 : -8
-        );
+        if(rotation >= 0) {
+            sprite = GameHelper.SpriteBank.Create("fire");
+            sprite.Rotation = (float) (rotation * 0.5f * Math.PI);
+            sprite.RenderPosition = new Vector2((rotation is > 0 and < 3) ? 8 : -8, rotation > 1 ? 8 : -8);
+            Add(sprite);
+            Collider = new Hitbox(
+                rotation % 2 == 0 ? 16 : 8,
+                rotation % 2 == 0 ? 8 : 16,
+                rotation == 3 ? 0 : -8,
+                rotation == 0 ? 0 : -8
+            );
+        }
     }
 
     private int determineRotation() {
@@ -108,6 +113,6 @@ public class McFire : Entity {
             }
         }
         RemoveSelf();
-        return 0;
+        return -1;
     }
 }

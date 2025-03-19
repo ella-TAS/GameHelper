@@ -42,6 +42,7 @@ public class MouseHole : Solid {
             }
             if(isFlag && spawnTimer >= 0.25f) {
                 SceneAs<Level>().Add(new Mouse(Position));
+                Audio.Play("event:/GameHelper/annoyingmice/spawn");
                 spawnTimer = 0;
             }
         }
@@ -51,6 +52,7 @@ public class MouseHole : Solid {
         if(!spawner && !complete) {
             SceneAs<Level>().Session.SetFlag(flag);
             sprite.Play("complete");
+            Audio.Play("event:/GameHelper/annoyingmice/win");
             complete = true;
         }
         return !spawner;
