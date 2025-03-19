@@ -1,4 +1,5 @@
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
@@ -26,7 +27,7 @@ public class DashMagnet : Entity {
     }
 
     private void onCollide(Player p) {
-        if(p.StateMachine.State == 2) {
+        if(p.StateMachine.State == PlayerStates.StDash) {
             if(!used) {
                 sprite.Play("flash");
                 Direction = (Center - p.Center).SafeNormalize();
@@ -55,8 +56,8 @@ public class DashMagnet : Entity {
             InsideMagnet = false;
             Engine.TimeRate = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null && p.StateMachine.State == 2 && !p.StartedDashing) {
-                p.StateMachine.State = 0;
+            if(p != null && p.StateMachine.State == PlayerStates.StDash && !p.StartedDashing) {
+                p.StateMachine.State = PlayerStates.StNormal;
             }
         }
         inside = false;
