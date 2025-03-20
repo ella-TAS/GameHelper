@@ -223,6 +223,12 @@ entities.GameHelper/CameraEntityTargetController.attributes.description.offsetX=
 entities.GameHelper/CameraEntityTargetController.attributes.description.offsetY=Offset down in pixels
 entities.GameHelper/CameraEntityTargetController.attributes.description.resetOnFalse=Reset the camera offset when the flag is set to false.
 
+entities.GameHelper/CameraPeekController.placements.name.normal=Camera Peek Controller
+entities.GameHelper/CameraPeekController.placements.description.normal=Allows the player to hold Up or Down for a short while and the camera will pan in that direction, making observing your surroundings easier.
+entities.GameHelper/CameraPeekController.attributes.description.magnitudeUp=How much the camera should peek up (unit is the same as in camera offset triggers).\nSet to 0 to deactivate peeking Up.
+entities.GameHelper/CameraPeekController.attributes.description.magnitudeDown=How much the camera should peek down (unit is the same as in camera offset triggers).\nSet to 0 to deactivate peeking Down.
+entities.GameHelper/CameraPeekController.attributes.description.pressDuration=The amount of seconds you need to press Up/Down to activate the peek.
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
