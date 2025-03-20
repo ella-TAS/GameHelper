@@ -121,7 +121,7 @@ public class EntityRespriter : Wrapper {
 
     private static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
         orig(s, t);
-        if(s is Level) {
+        if(s is Level && s.Tracker.IsEntityTracked<EntityRespriter>()) {
             foreach(EntityRespriter r in s.Tracker.GetEntities<EntityRespriter>()) {
                 if(r.doNewlyAddedEntities) {
                     r.handleSceneAdd(t);

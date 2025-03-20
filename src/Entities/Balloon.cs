@@ -31,10 +31,10 @@ public class Balloon : Entity {
             Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(superBounce) {
                 float speedX = player.Speed.X;
-                player.SuperBounce(Position.Y);
+                player.SuperBounce(Y);
                 player.Speed.X = speedX;
             } else {
-                player.Bounce(Position.Y);
+                player.Bounce(Y);
             }
             player.AutoJumpTimer = 0f;
             player.Speed.X *= 1.2f;

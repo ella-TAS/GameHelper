@@ -151,7 +151,7 @@ public class EntityModifier : Wrapper {
 
     private static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
         orig(s, t);
-        if(s is Level) {
+        if(s is Level && s.Tracker.IsEntityTracked<EntityModifier>()) {
             foreach(EntityModifier m in s.Tracker.GetEntities<EntityModifier>()) {
                 if(m.doNewlyAddedEntities) {
                     m.handleSceneAdd(t);

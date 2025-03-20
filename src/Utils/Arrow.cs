@@ -25,7 +25,7 @@ public class Arrow : Actor {
         bool collided = MoveH((facingLeft ? -240 : 240) * Engine.DeltaTime);
         if(collided) {
             Collidable = false;
-            Position.X += (facingLeft ? -2 : 2);
+            X += facingLeft ? -2 : 2;
             Add(new Coroutine(routineDespawn()));
         }
     }
