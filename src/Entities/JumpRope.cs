@@ -56,8 +56,11 @@ public class JumpRope : Entity {
         float end = Position.X + endVector.X;
 
         // create a segment for every pixel until the end position
+        int counter = 0;
         for(Vector2 current = Position; current.X <= end; current += direction) {
-            RopeSegment newSegment = new(current, X, end);
+            counter++;
+            Image sprite = new(GFX.Game["objects/GameHelper/rope/jump_rope_" + (counter % 3 + 1)]);
+            RopeSegment newSegment = new(current, sprite, X, end);
             SceneAs<Level>().Add(newSegment);
             segments.Add(newSegment);
         }

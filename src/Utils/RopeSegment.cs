@@ -1,3 +1,4 @@
+using AsmResolver;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
@@ -12,12 +13,16 @@ public class RopeSegment : JumpThru {
     private const int CORRECTION_BELOW = 5;
     private const int MAX_PLAYER_BEND = 10;
 
-    private readonly float anchor, startX, endX;
+    private readonly float anchorY, startX, endX;
 
-    public RopeSegment(Vector2 position, float startX = 0f, float endX = 0f) : base(position.Round(), width: 1, safe: false) {
-        Depth = 1;
+    public RopeSegment(Vector2 position, Image sprite = null, float startX = 0f, float endX = 0f) : base(position.Round(), width: 1, safe: false) {
+        Depth = -1;
         BlockWaterfalls = false;
-        anchor = position.Y;
+        anchorY = position.Y;
+        if(sprite != null) {
+            sprite.RenderPosition -= Vector2.UnitY;
+            Add(sprite);
+        }
         this.startX = startX;
         this.endX = endX;
     }
@@ -25,7 +30,7 @@ public class RopeSegment : JumpThru {
     public void BendByPlayer(float factor, float playerX) {
         float endPoint = X < playerX ? startX : endX;
         float linearFactor = (X - endPoint) / (playerX - endPoint);
-        MoveToY((float) Math.Round(anchor + factor * linearFactor * MAX_PLAYER_BEND));
+        MoveToY((float) Math.Round(anchorY + factor * linearFactor * MAX_PLAYER_BEND));
     }
 
     public override void DebugRender(Camera camera) {
