@@ -10,7 +10,7 @@ namespace Celeste.Mod.GameHelper.Utils;
 [Tracked]
 public class RopeSegment : JumpThru {
     private const int CORRECTION_ABOVE = 3;
-    private const int CORRECTION_BELOW = 5;
+    private const int CORRECTION_BELOW = 6;
     private const int MAX_PLAYER_BEND = 10;
 
     private readonly float anchorY, startX, endX;
@@ -20,7 +20,7 @@ public class RopeSegment : JumpThru {
         BlockWaterfalls = false;
         anchorY = position.Y;
         if(sprite != null) {
-            sprite.RenderPosition -= Vector2.UnitY;
+            sprite.RenderPosition = -Vector2.UnitY;
             Add(sprite);
         }
         this.startX = startX;
@@ -49,6 +49,16 @@ public class RopeSegment : JumpThru {
     private static void PlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
 
+        // reset V subpixels on the rope
+        if(p.CollideCheck<RopeSegment>(p.Position + Vector2.UnitY)) {
+            p.movementCounter.Y = 0f;
+        }
+
+        // avoid down-dash corner correction
+        if(p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0 && p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, 6))) {
+            p.dashStartedOnGround = true;
+        }
+
         if((p.StateMachine.State == PlayerState.StDash && p.DashDir.Y < 0) || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
             // dashing up or too far below
             return;
@@ -58,7 +68,9 @@ public class RopeSegment : JumpThru {
         if(bridgeInside.Count > 0) {
             float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;
             p.MoveVExact((int) (niveau - p.Y));
-            p.Speed.Y = 0;
+            p.Speed.Y = Calc.Max(p.Speed.Y, -30f);
+            p.varJumpTimer = 0f;
+            p.movementCounter.Y = 0f;
         } else if(p.StateMachine.State == PlayerState.StNormal && p.Speed.Y >= 0) {
             bridgeInside = p.CollideAll<RopeSegment>(p.Position + new Vector2(0, CORRECTION_ABOVE));
             if(bridgeInside.Count > 0) {
