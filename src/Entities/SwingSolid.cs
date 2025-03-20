@@ -12,7 +12,7 @@ public class SwingSolid : Solid {
     private readonly bool stickOnDash;
     private readonly float radius;
     private readonly float constSwingAngle = 0; // (float) (Math.PI / 8f);
-    private readonly List<Image> images;
+    private readonly List<Image> images = new();
     private bool left = false;
     private float phase = 0f;
     private float maxAng = 0f;
@@ -24,7 +24,6 @@ public class SwingSolid : Solid {
             RenderPosition = Vector2.One * -5
         });
 
-        images ??= new();
         for(int i = 0; i < (int) ((anchor - Center).Length() / 4); i++) {
             images.Add(new Image(GFX.Game[data.Attr("chainSpritePrefix", "objects/GameHelper/swing/chain0") + GameHelper.Random.Range(1, 5)]));
         }

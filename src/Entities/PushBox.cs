@@ -57,17 +57,17 @@ public class PushBox : Solid {
         Vector2 w = Vector2.UnitX * (Width - 4);
         Vector2 h = Vector2.UnitY * (Height - 4);
         Vector2 p = Position + (Vector2.One * 2);
-        Draw.Rect(Position.X, Position.Y, Width, Height, Color.Black);
-        Draw.Rect(Position.X + 1, Position.Y + 1, Width - 2, Height - 2, colorFill);
+        Draw.Rect(X, Y, Width, Height, Color.Black);
+        Draw.Rect(X + 1, Y + 1, Width - 2, Height - 2, colorFill);
         Draw.Line(p, p + w, colorBorder, 2);
         Draw.Line(p + h, p + h + w, colorBorder, 2);
         Draw.Line(p, p + h, colorBorder, 2);
         Draw.Line(p + w, p + h + w, colorBorder, 2);
         Draw.Line(p, p + h + w, colorBorder, 2);
-        Draw.Rect(Position.X + 1, Position.Y + 1, 2, 2, colorCorner);
-        Draw.Rect(Position.X + Width - 3, Position.Y + 1, 2, 2, colorCorner);
-        Draw.Rect(Position.X + 1, Position.Y + Height - 3, 2, 2, colorCorner);
-        Draw.Rect(Position.X + Width - 3, Position.Y + Height - 3, 2, 2, colorCorner);
+        Draw.Rect(X + 1, Y + 1, 2, 2, colorCorner);
+        Draw.Rect(X + Width - 3, Y + 1, 2, 2, colorCorner);
+        Draw.Rect(X + 1, Y + Height - 3, 2, 2, colorCorner);
+        Draw.Rect(X + Width - 3, Y + Height - 3, 2, 2, colorCorner);
     }
 
     public static void Hook() {

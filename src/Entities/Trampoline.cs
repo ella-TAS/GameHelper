@@ -1,4 +1,5 @@
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
@@ -61,7 +62,7 @@ public class Trampoline : Entity {
             wasInside = true;
             //entered
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            p.StateMachine.State = 0;
+            p.StateMachine.State = PlayerState.StNormal;
             p.AutoJump = true;
             if(!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();
