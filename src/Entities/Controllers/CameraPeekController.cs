@@ -21,13 +21,16 @@ public class CameraPeekController : Entity {
     public override void Update() {
         base.Update();
 
-        if(magnitudeUp > 0f && Input.Aim.Value.Y < -0.5f) {
+        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
+        bool peekAllowed = p != null && p.OnGround() && p.Speed.X == 0f;
+
+        if(peekAllowed && magnitudeUp > 0f && Input.Aim.Value.Y < -0.5f) {
             // up
             if(!pressingUp) pressTimer = 0f;
             pressTimer += Engine.DeltaTime;
 
             pressingUp = true;
-        } else if(magnitudeDown > 0f && Input.Aim.Value.Y > 0.5f) {
+        } else if(peekAllowed && magnitudeDown > 0f && Input.Aim.Value.Y > 0.5f) {
             // down
             if(pressingUp) pressTimer = 0f;
             pressTimer += Engine.DeltaTime;
