@@ -1,9 +1,9 @@
 - DLL: bin/GameHelper.dll
   Name: GameHelper
-  Version: 1.6.6.1
+  Version: 1.6.7.1
   Dependencies:
     - Name: Everest
-      Version: 1.5184.0
+      Version: 1.5416.0
   OptionalDependencies:
     - Name: CollabUtils2
       Version: 1.10.14

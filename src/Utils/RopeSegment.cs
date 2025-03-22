@@ -38,6 +38,24 @@ public class RopeSegment : JumpThru {
         Draw.Point(Position + Height * Vector2.UnitY, Color.Cyan);
     }
 
+    public override void MoveVExact(int move) {
+        // don't affect player liftboost
+        Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
+        Vector2 liftBoost = default;
+        float liftGrace = 0f;
+        if(player != null) {
+            liftBoost = player.LiftSpeed;
+            liftGrace = player.LiftSpeedGraceTime;
+        }
+
+        base.MoveVExact(move);
+
+        if(player != null) {
+            player.LiftSpeed = liftBoost;
+            player.LiftSpeedGraceTime = liftGrace;
+        }
+    }
+
     public static void Hook() {
         On.Celeste.Player.Update += PlayerUpdate;
     }
@@ -59,8 +77,8 @@ public class RopeSegment : JumpThru {
             p.dashStartedOnGround = true;
         }
 
-        if((p.StateMachine.State == PlayerState.StDash && p.DashDir.Y < 0) || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
-            // dashing up or too far below
+        if(p.Speed.Y <= -166f || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
+            // dashing/boosting up or too far below
             return;
         }
 

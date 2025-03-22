@@ -232,6 +232,8 @@ entities.GameHelper/CameraPeekController.attributes.description.pressDuration=Th
 entities.GameHelper/HangingBridge.placements.name.normal=Deco Hanging Bridge
 
 entities.GameHelper/JumpRope.placements.name.normal=Jump Rope (Mario)
+entities.GameHelper/JumpRope.attributes.description.renderLeftEnd=Whether a rounded end should be rendered on the left end of the rope.
+entities.GameHelper/JumpRope.attributes.description.renderRightEnd=Whether a rounded end should be rendered on the right end of the rope.
 
 
 

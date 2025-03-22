@@ -14,6 +14,7 @@ public class JumpRope : Entity {
 
     private readonly List<RopeSegment> segments = new();
     private readonly Vector2 endVector;
+    private readonly bool renderLeftEnd, renderRightEnd;
     private float moveTimer, lastPlayerX;
     private bool wasPlayer, dashed;
 
@@ -25,6 +26,8 @@ public class JumpRope : Entity {
             Position = endVector;
             endVector *= -1f;
         }
+        renderLeftEnd = data.Bool("renderLeftEnd");
+        renderRightEnd = data.Bool("renderRightEnd");
     }
 
     public override void Update() {
@@ -87,17 +90,19 @@ public class JumpRope : Entity {
         // create a segment for every pixel until the end position
         int counter = 0;
         for(Vector2 current = Position; current.X <= end; current += direction) {
-            Image sprite = new(GFX.Game["objects/GameHelper/rope/jump_rope_" + (counter < 2 ? "end_" : "") + (counter % 3)]);
+            Image sprite = new(GFX.Game["objects/GameHelper/rope/jump_rope_" + (renderLeftEnd && counter < 2 ? "end_" : "") + (counter % 3)]);
             RopeSegment newSegment = new(current, sprite, X, end);
             SceneAs<Level>().Add(newSegment);
             segments.Add(newSegment);
             counter++;
         }
-        counter = 1;
-        foreach(RopeSegment endSegment in segments.TakeLast(2)) {
-            endSegment.Get<Image>().RemoveSelf();
-            endSegment.Add(new Image(GFX.Game["objects/GameHelper/rope/jump_rope_end_" + counter]) { RenderPosition = -Vector2.UnitY });
-            counter--;
+        if(renderRightEnd) {
+            counter = 1;
+            foreach(RopeSegment endSegment in segments.TakeLast(2)) {
+                endSegment.Get<Image>().RemoveSelf();
+                endSegment.Add(new Image(GFX.Game["objects/GameHelper/rope/jump_rope_end_" + counter]) { RenderPosition = -Vector2.UnitY });
+                counter--;
+            }
         }
     }
 }

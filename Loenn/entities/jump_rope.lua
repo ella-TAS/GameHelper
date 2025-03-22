@@ -7,7 +7,10 @@ bridge.nodeLineRenderType = "line"
 bridge.nodeVisibility = "always"
 bridge.placements = {
     name = "normal",
-    data = {}
+    data = {
+        renderLeftEnd = false,
+        renderRightEnd = false
+    }
 }
 
 return bridge
