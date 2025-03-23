@@ -75,7 +75,7 @@ jobs:
       run: dotnet build src/GameHelper.csproj --configuration Release --no-restore
 
     - name: Remove build files
-      run: rm bin/*.pdb; rm bin/*.json
+      run: rm bin/*.json
 
     - name: upload
       env:
