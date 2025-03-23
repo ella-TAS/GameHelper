@@ -33,6 +33,7 @@ public class CameraEntityTargetController : Wrapper {
         }
         if(Util.GetFlag(flag, Scene, true)) {
             findTarget();
+            if(target == null) return;
             p.CameraAnchor = target.Center - new Vector2(160, 90) + offset;
             p.CameraAnchorLerp = Vector2.One * lerp;
         } else if(resetOnFalse) {
