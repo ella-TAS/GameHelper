@@ -2,6 +2,7 @@ using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -45,8 +46,9 @@ public class JumpRope : Entity {
             if(p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0.7f) {
                 dashed = true;
                 p.LiftSpeedGraceTime = 0.2f;
-                p.LiftSpeed = new Vector2(0, -130);
-                if(Input.Jump.Pressed) {
+                p.LiftSpeed = new Vector2(0f, -130f);
+                // roost is only allowed if the rope is already properly bent
+                if(moveTimer / MOVE_TIME > 0.75f && Input.Jump.Pressed) {
                     p.StateMachine.State = PlayerState.StNormal;
                     p.RefillDash();
                     // uncrouch 1f later
@@ -57,9 +59,10 @@ public class JumpRope : Entity {
             }
 
             // only give small liftboost if no bigger one exists
-            if(p.LiftSpeed.Y >= -60f) {
+            float boost = Math.Min(2f * moveTimer / MOVE_TIME + 0.2f, 1f);
+            if(p.LiftSpeed.Y >= -60f * boost) {
                 p.LiftSpeedGraceTime = 0.05f;
-                p.LiftSpeed = new Vector2(0, -60);
+                p.LiftSpeed = new Vector2(0f, -60f * boost);
             }
 
             wasPlayer = true;
