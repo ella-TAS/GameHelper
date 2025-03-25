@@ -3,19 +3,19 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks.Sources;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
 [CustomEntity("GameHelper/SwingSolid")]
 public class SwingSolid : Solid {
     private readonly Vector2 anchor, rope;
-    private readonly bool stickOnDash;
     private readonly float radius;
-    private readonly float constSwingAngle = 0; // (float) (Math.PI / 8f);
     private readonly List<Image> images = new();
     private bool left = false;
     private float phase = 0f;
     private float maxAng = 0f;
+    private float previousX;
 
     public SwingSolid(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         anchor = data.Nodes[0] + levelOffset + Vector2.One * 24;
@@ -29,19 +29,26 @@ public class SwingSolid : Solid {
         }
 
         OnDashCollide = OnDash;
-        stickOnDash = false;
-        OnDashCollide = OnDash;
         radius = rope.Length();
+        previousX = X;
         Depth = 1;
     }
 
 
     private DashCollisionResults OnDash(Player player, Vector2 direction) {
-        if(maxAng <= 0f && direction.X != 0f && constSwingAngle == 0f) {
+        if(direction.X != 0f) {
             left = direction.X < 0f;
             maxAng = (float) (Math.PI / 3);
-            phase = 0;
-            if(!stickOnDash) return DashCollisionResults.Rebound;
+            // brute force valid phase value
+            float bestDist = float.MaxValue;
+            for(float i = (float) Math.PI / -2f; i < Math.PI / 2f; i += 0.01f) {
+                float localDist = Math.Abs(X - getToX(left, maxAng, i));
+                if(localDist < bestDist) {
+                    phase = i;
+                    bestDist = localDist;
+                }
+            }
+            return DashCollisionResults.Rebound;
         }
         return DashCollisionResults.NormalCollision;
     }
@@ -49,24 +56,36 @@ public class SwingSolid : Solid {
     public override void Update() {
         base.Update();
 
-        if(maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.value.X) != 0) {
-            left = Input.Aim.value.X < 0f;
-            maxAng += Engine.DeltaTime / 6f;
+        if(maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) != 0) {
+            left = Input.Aim.Value.X < 0f;
+            maxAng += Engine.DeltaTime / 3f;
         }
-        if(maxAng > 0f || constSwingAngle != 0f) {
+        if(maxAng > 0f) {
             phase += 2 * Engine.DeltaTime;
-            float moveToX = (left ? -1 : 1) * (float) (radius * Math.Cos((maxAng + constSwingAngle) * Math.Sin(phase) - Math.PI / 2));
-            float moveToY = (float) (-radius * Math.Sin((maxAng + constSwingAngle) * Math.Sin(phase) - Math.PI / 2));
-            MoveToX(anchor.X - Width / 2 + moveToX);
-            MoveToY(anchor.Y - Height / 2 + moveToY);
+            float moveX = getToX(left, maxAng, phase);
+            MoveToX(moveX);
+            MoveToY(getToY(maxAng, phase));
 
-            bool keepMomentum = HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) == Math.Sign(moveToX);
-            if(maxAng > 0f && !keepMomentum)
+            bool accelerate = HasPlayerClimbing() && (Math.Abs(moveX - previousX) < 0.3 || Math.Sign(Input.Aim.Value.X) == Math.Sign(moveX - previousX));
+            if(maxAng > 0f && !accelerate)
                 maxAng -= Engine.DeltaTime / 6f;
-            else if(maxAng < Math.PI / 3f && keepMomentum) {
+            else if(maxAng < Math.PI / 3f && accelerate) {
                 maxAng += Engine.DeltaTime / 6f;
             }
+            previousX = moveX;
+        } else {
+            previousX = X;
         }
+    }
+
+    private float getToX(bool left, float maxAng, float phase) {
+        float move = (left ? -1 : 1) * (float) (radius * Math.Cos(maxAng * Math.Sin(phase) - Math.PI / 2));
+        return anchor.X - Width / 2 + move;
+    }
+
+    private float getToY(float maxAng, float phase) {
+        float move = (float) (-radius * Math.Sin(maxAng * Math.Sin(phase) - Math.PI / 2));
+        return anchor.Y - Height / 2 + move;
     }
 
     public override void Added(Scene scene) {

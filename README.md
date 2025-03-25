@@ -1,7 +1,7 @@
 ## Credits
 ### Code
-EllaTAS  
-Swing Solid – Jackal  
+EllaTAS (literally everything)  
+original Swing Solid – Jackal  
 Fixes – Kosei
 
 ### Code help
