@@ -15,7 +15,7 @@ public class SwingSolid : Solid {
     private bool left = false;
     private float phase = 0f;
     private float maxAng = 0f;
-    private float previousX;
+    private float previousX, inputNeutralTime;
 
     public SwingSolid(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         anchor = data.Nodes[0] + levelOffset + Vector2.One * 24;
@@ -56,9 +56,16 @@ public class SwingSolid : Solid {
     public override void Update() {
         base.Update();
 
+        if(Input.Aim.Value.X == 0f) {
+            inputNeutralTime += Engine.DeltaTime;
+        } else {
+            inputNeutralTime = 0f;
+        }
+
         if(maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) != 0) {
             left = Input.Aim.Value.X < 0f;
             maxAng += Engine.DeltaTime / 3f;
+            phase = 0;
         }
         if(maxAng > 0f) {
             phase += 2 * Engine.DeltaTime;
@@ -66,7 +73,7 @@ public class SwingSolid : Solid {
             MoveToX(moveX);
             MoveToY(getToY(maxAng, phase));
 
-            bool accelerate = HasPlayerClimbing() && (Math.Abs(moveX - previousX) < 0.3 || Math.Sign(Input.Aim.Value.X) == Math.Sign(moveX - previousX));
+            bool accelerate = HasPlayerClimbing() && ((inputNeutralTime < 0.5f && Math.Abs(moveX - previousX) < 0.3) || Math.Sign(Input.Aim.Value.X) == Math.Sign(moveX - previousX));
             if(maxAng > 0f && !accelerate)
                 maxAng -= Engine.DeltaTime / 6f;
             else if(maxAng < Math.PI / 3f && accelerate) {
