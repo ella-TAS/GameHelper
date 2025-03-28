@@ -15,7 +15,7 @@ public class JumpRope : Entity {
 
     private readonly List<RopeSegment> segments = new();
     private readonly Vector2 endVector;
-    private readonly bool renderLeftEnd, renderRightEnd;
+    private readonly bool renderLeftEnd, renderRightEnd, canBend;
     private float moveTimer, lastPlayerX;
     private bool wasPlayer, dashed;
 
@@ -29,6 +29,7 @@ public class JumpRope : Entity {
         }
         renderLeftEnd = data.Bool("renderLeftEnd");
         renderRightEnd = data.Bool("renderRightEnd");
+        canBend = endVector.X >= 32f;
     }
 
     public override void Update() {
@@ -36,7 +37,7 @@ public class JumpRope : Entity {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         float endX = X + endVector.X;
 
-        if(p != null && segments.Any(s => s.HasPlayerRider())) {
+        if(p != null && segments.Any(s => s.HasPlayerRider()) && canBend) {
             // bending
             lastPlayerX = Calc.Clamp(p.X, X + 16f, endX - 16f);
             moveTimer = Calc.Approach(moveTimer, MOVE_TIME, Engine.DeltaTime * (dashed ? 4 : 1));
