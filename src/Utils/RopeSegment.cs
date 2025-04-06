@@ -1,4 +1,3 @@
-using AsmResolver;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;

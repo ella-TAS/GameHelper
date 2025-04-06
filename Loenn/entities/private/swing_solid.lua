@@ -17,10 +17,10 @@ swing.placements = {
         height = 48,
         sprite = "objects/GameHelper/swing/swing_solid",
         chainSpritePrefix = "objects/GameHelper/swing/chain0",
-        maxAngle = 30.0,
+        maximumAngle = 60.0,
         swingSpeed = 1.0,
-        accelerationTime = 377.0,
-        startRight = false
+        acceleration = 1.0,
+        coyoteJump = false
     }
 }
 

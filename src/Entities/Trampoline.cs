@@ -35,6 +35,7 @@ public class Trampoline : Entity {
         if(frameBlocked) return;
         if(!wasInside) {
             sprite.Play("hit");
+            Audio.Play("event:/GameHelper/trampoline/hit");
             float speedX = player.Speed.X;
             if(facingUpLeft) {
                 player.Speed.X = Math.Min(Math.Min(-player.Speed.Y - speedBoostX, -130), player.Speed.X - speedBoostX);

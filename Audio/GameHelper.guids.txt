@@ -6,10 +6,13 @@
 {058a5b8d-3e72-451f-9e72-c4221bc5bdd1} event:/GameHelper/balloon/Balloon_pop
 {99159f2d-866a-499c-8672-e1b507fdcbfe} event:/GameHelper/chainsaw/chainsaw_attack
 {b27d5d6a-db14-4a85-be91-cbed0a6370d1} event:/GameHelper/dispenser/dispenser
+{e90216f7-c2c3-40fd-92f4-0fe67e7d55a2} event:/GameHelper/fire/fire_burn
 {7e5806c8-0b74-4e87-9e63-c2233cdd0340} event:/GameHelper/firetrap/firetrap
 {abcc8c1a-7fe9-4749-988d-241b6ae1cc0c} event:/GameHelper/fist/bullet_collide
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
+{82c744cb-8f4c-4671-8463-f6802ac50f32} event:/GameHelper/floatyjump/floating
 {bb95a604-87e5-4c90-83bb-575c7a981af0} event:/GameHelper/p_switch/p_switch
 {1d797e2d-ebeb-433b-90a6-daaa263570fe} event:/GameHelper/shield/shield
-{e90216f7-c2c3-40fd-92f4-0fe67e7d55a2} event:/GameHelper/fire/fire_burn
+{4a053239-5163-4f60-a45d-a65bf40ed707} event:/GameHelper/swingblock/hit
+{bb72e9fd-f797-4e4f-9f0e-a95581798f72} event:/GameHelper/trampoline/hit
 {061df483-0253-4e83-86ed-179319d019f6} bank:/GameHelper

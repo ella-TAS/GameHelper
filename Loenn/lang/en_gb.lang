@@ -195,6 +195,9 @@ entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block (Earthblade)
 entities.GameHelper/SwingSolid.attributes.description.sprite=The path of the block sprite, starting at Graphics/Atlases/Gameplay.
 entities.GameHelper/SwingSolid.attributes.description.chainSpritePrefix=The path of the chain sprites, starting at Graphics/Atlases/Gameplay.\nThe last character should be omitted and will be randomly chosen between 1 and 4.
+entities.GameHelper/SwingSolid.attributes.description.maximumAngle=The maximum angle the block can reach in degrees (default 60).
+entities.GameHelper/SwingSolid.attributes.description.swingSpeed=The speed of the swinging (default 1).
+entities.GameHelper/SwingSolid.attributes.description.acceleration=How quickly the block will gain speed when swung by grabbing (default 1).
 
 entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
 entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once.
