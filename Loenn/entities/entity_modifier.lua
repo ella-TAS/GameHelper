@@ -8,6 +8,12 @@ local booleanOptions = {
     Ignore = "ignore"
 }
 
+local vectorOptions = {
+    Set = "set",
+    Add = "add",
+    Multiply = "multiply"
+}
+
 modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -999999999
 modifier.justification = {0, 0}
@@ -79,12 +85,32 @@ modifier.placements = {
             everyFrame = false,
             debug = false
         }
+    },
+    {
+        name = "vector",
+        data = {
+            valueType = "vector",
+            vectorMode = "set",
+            valueX = 0.0,
+            valueY = 0.0,
+            onlyX = false,
+            onlyY = false,
+            fieldName = "Speed",
+            onlyType = "",
+            activationFlag = "",
+            invertFlag = false,
+            allEntities = false,
+            doNewlyAddedEntities = false,
+            onlyOnce = true,
+            everyFrame = false,
+            debug = false
+        }
     }
 }
 modifier.fieldOrder = {
     "x", "y",
-    "fieldName", "valueNumber", "valueString", "valueBool", "changeActive", "changeCollidable", "changeVisible",
-    "onlyType", "allEntities", "doNewlyAddedEntities", "activationFlag", "invertFlag", "onlyOnce", "everyFrame", "integer", "debug"
+    "fieldName", "valueNumber", "valueString", "valueBool", "vectorMode", "valueX", "valueY", "changeActive", "changeCollidable", "changeVisible",
+    "onlyType", "allEntities", "doNewlyAddedEntities", "activationFlag", "invertFlag", "onlyOnce", "everyFrame", "integer", "debug", "onlyX", "onlyY"
 }
 modifier.fieldInformation = {
     changeActive = {
@@ -97,6 +123,10 @@ modifier.fieldInformation = {
     },
     changeVisible = {
         options = booleanOptions,
+        editable = false
+    },
+    vectorMode = {
+        options = vectorOptions,
         editable = false
     }
 }

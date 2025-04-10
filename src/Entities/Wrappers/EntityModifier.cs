@@ -3,6 +3,7 @@ using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Entities.Wrappers;
@@ -15,10 +16,10 @@ public class EntityModifier : Wrapper {
     private readonly Vector2 levelOffset;
     private bool wasFlag;
     private readonly bool debug, allEntities, invertFlag, onlyOnce, everyFrame, doNewlyAddedEntities;
-    private readonly string onlyType, fieldName, flag;
+    private readonly string onlyType, fieldName, flag, doActive, doCollidable, doVisible, vectorMode;
+    private readonly bool isCommon, isVector, onlyX, onlyY;
+    private readonly float vectorX, vectorY;
     private readonly object value;
-    private readonly bool isCommon;
-    private readonly string doActive, doCollidable, doVisible;
 
     public EntityModifier(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         Depth = int.MinValue + 77;
@@ -52,6 +53,14 @@ public class EntityModifier : Wrapper {
                 doCollidable = data.Attr("changeCollidable");
                 doVisible = data.Attr("changeVisible");
                 break;
+            case "vector":
+                isVector = true;
+                vectorX = data.Float("valueX");
+                vectorY = data.Float("valueY");
+                vectorMode = data.Attr("vectorMode");
+                onlyX = data.Bool("onlyX");
+                onlyY = data.Bool("onlyY");
+                break;
         }
     }
 
@@ -59,52 +68,98 @@ public class EntityModifier : Wrapper {
         base.Update();
         bool isFlag = getFlag();
         if(isFlag && !wasFlag) {
-            modify(targets);
             wasFlag = true;
+            modify(targets);
         } else if(isFlag && everyFrame) {
             modify(targets);
         } else if(!isFlag && wasFlag) {
             wasFlag = false;
-            modify(targets, true);
+            modify(targets);
         }
     }
 
-    private void modify(List<Entity> targetEntities, bool flagDisabled = false) {
-        targetEntities.RemoveAll(gone => gone == null);
+    private void modify(List<Entity> targetEntities) {
+        bool isFlag = getFlag();
+
+        targetEntities.RemoveAll(e => e?.Scene == null);
         if(targetEntities.Count == 0 && !doNewlyAddedEntities) {
-            ComplainEntityNotFound("Entity Modifier");
-        }
-
-        foreach(Entity target in targetEntities) {
             if(debug) {
-                Logger.Info("GameHelper", "Modifying entity " + target.GetType());
+                Logger.Info("GameHelper", "All entities were removed from the scene, killing modifier");
             }
+            RemoveSelf();
+            return;
+        }
 
-            if(isCommon) {
-                modCommonBool(target, "Active", doActive, flagDisabled);
-                modCommonBool(target, "Collidable", doCollidable, flagDisabled);
-                modCommonBool(target, "Visible", doVisible, flagDisabled);
-            } else if(!flagDisabled) {
-                DynamicData.For(target).Set(fieldName, value);
+        if(isCommon || isFlag) {
+            foreach(Entity target in targetEntities) {
+                if(debug) {
+                    Logger.Info("GameHelper", "Modifying entity " + target.GetType());
+                }
+
+                if(isCommon) {
+                    modCommonBool(target, "Active", doActive, isFlag);
+                    modCommonBool(target, "Collidable", doCollidable, isFlag);
+                    modCommonBool(target, "Visible", doVisible, isFlag);
+                } else if(isVector) {
+                    modVector(target, fieldName, new Vector2(vectorX, vectorY), vectorMode, onlyX, onlyY);
+                } else {
+                    DynamicData.For(target).Set(fieldName, value);
+                }
             }
         }
 
-        if(onlyOnce) {
+        if(onlyOnce && isFlag) {
             RemoveSelf();
         }
     }
 
-    private void modCommonBool(Entity target, string name, string mode, bool flagDisabled) {
-        if(mode == "ignore" || (flagDisabled && mode != "set_flag")) {
+    private static void modCommonBool(Entity target, string name, string mode, bool flag) {
+        if(mode == "ignore" || (!flag && mode != "set_flag")) {
             return;
         }
         bool val = false;
-        if(mode == "set_true") {
-            val = true;
-        } else if(mode == "set_flag") {
-            val = getFlag();
-        } else if(mode == "invert") {
-            val = !DynamicData.For(target).Get<bool>(name);
+        switch(mode) {
+            case "set_true":
+                val = true;
+                break;
+            case "set_flag":
+                val = flag;
+                break;
+            case "invert":
+                val = !DynamicData.For(target).Get<bool>(name);
+                break;
+        }
+        DynamicData.For(target).Set(name, val);
+    }
+
+    private static void modVector(Entity target, string name, Vector2 val, string mode, bool onlyX, bool onlyY) {
+        Vector2 previous = DynamicData.For(target).Get<Vector2>(name);
+        switch(mode) {
+            case "set":
+                if(onlyX) {
+                    val.Y = previous.Y;
+                }
+                if(onlyY) {
+                    val.X = previous.X;
+                }
+                break;
+            case "add":
+                if(!onlyX) {
+                    val.Y += previous.Y;
+                }
+                if(!onlyY) {
+                    val.X += previous.X;
+                }
+                break;
+            case "multiply":
+                if(!onlyX) {
+                    previous.Y *= val.Y;
+                }
+                if(!onlyY) {
+                    previous.X *= val.X;
+                }
+                val = previous;
+                break;
         }
         DynamicData.For(target).Set(name, val);
     }
@@ -122,18 +177,17 @@ public class EntityModifier : Wrapper {
         targets = FindTargets(Position, nodes, levelOffset, allEntities, onlyType);
         if(targets.Count == 0 && !doNewlyAddedEntities) {
             ComplainEntityNotFound("Entity Modifier");
-        }
-
-        if(!getFlag()) {
-            modify(targets, true);
             return;
         }
 
         modify(targets);
-        wasFlag = true;
 
-        if(flag?.Length == 0 && !everyFrame && !doNewlyAddedEntities) {
-            RemoveSelf();
+        if(getFlag()) {
+            wasFlag = true;
+
+            if(flag?.Length == 0 && !everyFrame && !doNewlyAddedEntities) {
+                RemoveSelf();
+            }
         }
     }
 
@@ -143,9 +197,7 @@ public class EntityModifier : Wrapper {
             if(debug) {
                 Logger.Info("GameHelper", "Newly added entity added: " + t.GetType());
             }
-            if(flag?.Length == 0) {
-                modify([t]);
-            }
+            modify([t]);
         }
     }
 
