@@ -25,14 +25,14 @@ public class FlashlightController : Entity {
         sprite.Play("idle");
         sprite.Visible = false;
         Add(sprite);
-        Tag = Tags.HUD;
+        Tag = Tags.HUD | Tags.PauseUpdate;
         Position = new Vector2(1800, 960);
     }
 
     public override void Update() {
         base.Update();
         cooldown -= Engine.DeltaTime;
-        if(Binding.Pressed && cooldown <= 0) {
+        if(Binding.Pressed && !SceneAs<Level>().Paused && cooldown <= 0) {
             Binding.ConsumePress();
             level.Lighting.Alpha = 0;
             cooldown = maxCooldown;
