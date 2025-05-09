@@ -18,6 +18,13 @@ public class FloatyJumpController : Entity {
         flag = data.Attr("flag");
     }
 
+    public override void Update() {
+        base.Update();
+        if(SceneAs<Level>().Tracker.GetEntity<Player>() == null) {
+            Audio.Stop(floatySound);
+        }
+    }
+
     public override void Added(Scene scene) {
         base.Added(scene);
         if(Utils.Util.GetFlag(flag, Scene, true)) {
