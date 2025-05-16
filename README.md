@@ -5,6 +5,7 @@ original Swing Solid – Jackal
 Fixes – Kosei
 
 ### Code help
+Snip – always helpful and kind  
 microlith57  
 Popax21  
 Viv  
