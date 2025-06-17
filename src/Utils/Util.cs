@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.GameHelper.Utils;
 
-public class Util {
+public static class Util {
     private static Dictionary<string, Ease.Easer> Easers;
 
     public static void DrawCircle(Vector2 center, float radius, Color color) {
@@ -47,8 +47,8 @@ public class Util {
     }
 
     public static float EaseMode(float s, string mode) {
-        if(Easers.ContainsKey(mode)) {
-            return Easers[mode](s);
+        if(Easers.TryGetValue(mode, out Ease.Easer value)) {
+            return value(s);
         }
         Logger.Warn("GameHelper", "Ease Mode " + mode + " not found");
         return s;

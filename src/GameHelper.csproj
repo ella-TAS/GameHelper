@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net70</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <AssemblyName>GameHelper</AssemblyName>
         <RootNamespace>Celeste.Mod.GameHelper</RootNamespace>
         <LangVersion>latest</LangVersion>

@@ -45,6 +45,8 @@ public class GameHelper : EverestModule {
         MarioMole.Hook();
         EntityRespriter.Hook();
         RopeSegment.Hook();
+        EntityIdApplier.Hook();
+        MiscHooks.Hook();
 
         PlayerShadowController.resetBindings();
         FlashlightController.resetBindings();
@@ -63,6 +65,8 @@ public class GameHelper : EverestModule {
         MarioMole.Unhook();
         EntityRespriter.Unhook();
         RopeSegment.Unhook();
+        EntityIdApplier.Unhook();
+        MiscHooks.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
