@@ -64,4 +64,9 @@ public static class Util {
         if(flag?.Length == 0) return emptyReaction;
         return (s as Level).Session.GetFlag(flag) ^ invert;
     }
+
+    public static string GetCelesteSaveName(int slot) {
+        string s = SaveData.GetFilename(slot);
+        return UserIO.Exists(s) ? UserIO.Load<SaveData>(s).Name : "";
+    }
 }

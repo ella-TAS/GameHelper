@@ -3,9 +3,15 @@ using System;
 namespace Celeste.Mod.GameHelper.Utils;
 
 public static partial class MiscHooks {
+    private static bool? isParrot = null;
+
     private static string DialogClean(On.Celeste.Dialog.orig_Clean orig, string name, Language language) {
-        // 21. June
-        if(DateTime.Now.Month == 6 && DateTime.Now.Day == 21) {
+        isParrot ??= Util.GetCelesteSaveName(0).Equals("Chat") &&
+            Util.GetCelesteSaveName(1).Equals("Birbuh") &&
+            Util.GetCelesteSaveName(2).Equals("hi chat");
+
+        // 21. June, on Parrot's install
+        if(isParrot == true && DateTime.Now.Month == 6 && DateTime.Now.Day is >= 21 and <= 23) {
             switch(name.ToUpper()) {
                 case "MENU_BEGIN":
                     return "PARROT";
