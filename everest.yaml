@@ -1,6 +1,6 @@
 - DLL: bin/GameHelper.dll
   Name: GameHelper
-  Version: 1.7.5.1
+  Version: 1.7.6.1
   Dependencies:
     - Name: Everest
       Version: 1.5577.0
