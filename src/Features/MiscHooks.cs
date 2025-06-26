@@ -1,6 +1,7 @@
+using Celeste.Mod.GameHelper.Utils;
 using System;
 
-namespace Celeste.Mod.GameHelper.Utils;
+namespace Celeste.Mod.GameHelper.Features;
 
 public static partial class MiscHooks {
     private static bool? isParrot = null;

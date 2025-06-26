@@ -1,15 +1,18 @@
 ## Credits
 ### Code
 EllaTAS (literally everything)  
-original Swing Solid – Jackal  
-Fixes – Kosei
+Everest Team – basis of EntitySearchUI  
+Jackal – original SwingSolid  
+Kosei – Fixes
 
 ### Code help
 Snip – always helpful and kind  
 microlith57  
 Popax21  
+psygamer  
+Wartori  
+maddie480  
 Viv  
-Maddie480  
 JaThePlayer – easing reflection
 
 ### Custom sprites

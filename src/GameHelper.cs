@@ -2,6 +2,7 @@
 using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
+using Celeste.Mod.GameHelper.Features;
 using Celeste.Mod.GameHelper.Utils;
 using Monocle;
 using MonoMod.ModInterop;
@@ -47,6 +48,7 @@ public class GameHelper : EverestModule {
         RopeSegment.Hook();
         EntityIdApplier.Hook();
         MiscHooks.Hook();
+        EntitySearch.Hook();
 
         PlayerShadowController.resetBindings();
         FlashlightController.resetBindings();
@@ -67,6 +69,7 @@ public class GameHelper : EverestModule {
         RopeSegment.Unhook();
         EntityIdApplier.Unhook();
         MiscHooks.Unhook();
+        EntitySearch.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
