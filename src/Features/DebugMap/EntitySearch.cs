@@ -12,7 +12,7 @@ using System.Reflection;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public static class EntitySearch {
-    private static SortedDictionary<string, List<Vector2>> Index => GameHelper.Session.EntitySearchIndex;
+    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntitySearchIndex;
 
     private static void IndexLevel(Session session) {
         GameHelper.Session.EntitySearchIndex = new(StringComparer.CurrentCultureIgnoreCase);
@@ -21,11 +21,17 @@ public static class EntitySearch {
         foreach(LevelData level in mapData.Levels) {
             Vector2 bounds = new(level.Bounds.X, level.Bounds.Y);
             foreach(EntityData entity in level.Entities) {
-                if(!Index.TryGetValue(entity.Name, out List<Vector2> list)) {
-                    list = new();
+                if(!Index.TryGetValue(entity.Name, out List<int[]> list)) {
+                    list = new List<int[]>();
                     Index.Add(entity.Name, list);
                 }
-                list.Add((entity.Position + new Vector2(entity.Width, entity.Height) / 2f + bounds) / 8f);
+                list.Add([
+                    (int) ((entity.Position.X + level.Bounds.X) / 8f),
+                    (int) ((entity.Position.Y + level.Bounds.Y) / 8f),
+                    (int) (entity.Width / 8f),
+                    (int) (entity.Height / 8f),
+                    entity.ID
+                ]);
             }
         }
     }
@@ -77,7 +83,9 @@ public static class EntitySearch {
     }
 
     private static string EmitManualText(string previous) {
-        return "F8:           Entity Search (Game Helper)\n\n" + previous;
+        return "F8:           Entity Search (Game Helper)\n"
+            + "F7:           Entity Search: Show IDs\n\n"
+            + previous;
     }
 
     public static void Hook() {

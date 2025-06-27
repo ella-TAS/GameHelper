@@ -7,3 +7,5 @@
   OptionalDependencies:
     - Name: CollabUtils2
       Version: 1.10.14
+    - Name: SpeedrunTool
+      Version: 3.25.6

@@ -16,5 +16,6 @@ public class GameHelperSession : EverestModuleSession {
     [YamlIgnore]
     public Dictionary<string, PSwitchTimer> PSwitchTimers;
     [YamlIgnore]
-    public SortedDictionary<string, List<Vector2>> EntitySearchIndex;
+    // [X, Y, Width, Height, ID]
+    public SortedDictionary<string, List<int[]>> EntitySearchIndex;
 }

@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
-    private static SortedDictionary<string, List<Vector2>> SearchIndex => GameHelper.Session.EntitySearchIndex;
+    private static SortedDictionary<string, List<int[]>> SearchIndex => GameHelper.Session.EntitySearchIndex;
     public List<OuiChapterSelectIcon> OuiIcons;
     private SearchMenu menu;
     private const float onScreenX = 960f;
