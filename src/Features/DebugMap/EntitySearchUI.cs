@@ -10,7 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Celeste.Mod.GameHelper.Features;
+namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
     private static SortedDictionary<string, List<Vector2>> SearchIndex => GameHelper.Session.EntitySearchIndex;

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
 
-namespace Celeste.Mod.GameHelper.Utils;
+namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class SearchMenu : Entity {
     public bool leftFocused {
