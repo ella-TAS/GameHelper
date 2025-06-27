@@ -3,6 +3,7 @@ using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Celeste.Mod.GameHelper.Features;
+using Celeste.Mod.GameHelper.Features.DebugMap;
 using Celeste.Mod.GameHelper.Utils;
 using Monocle;
 using MonoMod.ModInterop;

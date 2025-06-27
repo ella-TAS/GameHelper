@@ -19,12 +19,13 @@ public static class EntitySearch {
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
+            Vector2 bounds = new(level.Bounds.X, level.Bounds.Y);
             foreach(EntityData entity in level.Entities) {
                 if(!Index.TryGetValue(entity.Name, out List<Vector2> list)) {
                     list = new();
                     Index.Add(entity.Name, list);
                 }
-                list.Add(entity.Position + level.Position);
+                list.Add((entity.Position + new Vector2(entity.Width, entity.Height) / 2f + bounds) / 8f);
             }
         }
     }
@@ -47,6 +48,7 @@ public static class EntitySearch {
 
     private static void OnMapEditorRender(On.Celeste.Editor.MapEditor.orig_Render orig, MapEditor self) {
         orig(self);
+        self.Entities.FindFirst<EntitySearchRenderer>()?.Render();
         self.Entities.FindFirst<EntitySearchUI>()?.Render();
     }
 

@@ -311,6 +311,7 @@ public class EntitySearchUI : Entity {
 
     private void Inspect(string key) {
         Audio.Play(SFX.ui_main_button_select);
+        Scene.Add(new EntitySearchRenderer(key));
         RemoveSelf();
     }
 }
