@@ -12,14 +12,24 @@ using System.Reflection;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public static class EntitySearch {
-    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntitySearchIndex;
+    private class EntityTagComparer : IComparer<string> {
+        public int Compare(string x, string y) {
+            bool xMod = x.Contains('/');
+            bool yMod = y.Contains('/');
+            if(xMod == yMod) {
+                return StringComparer.CurrentCultureIgnoreCase.Compare(x, y);
+            }
+            return xMod ? 1 : -1;
+        }
+    }
+
+    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntityIndex;
 
     private static void IndexLevel(Session session) {
-        GameHelper.Session.EntitySearchIndex = new(StringComparer.CurrentCultureIgnoreCase);
+        GameHelper.Session.EntityIndex = new(new EntityTagComparer());
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
-            Vector2 bounds = new(level.Bounds.X, level.Bounds.Y);
             foreach(EntityData entity in level.Entities) {
                 if(!Index.TryGetValue(entity.Name, out List<int[]> list)) {
                     list = new List<int[]>();
@@ -33,6 +43,20 @@ public static class EntitySearch {
                     entity.ID
                 ]);
             }
+
+            foreach(Vector2 spawn in level.Spawns) {
+                if(!Index.TryGetValue("spawnpoint", out List<int[]> list)) {
+                    list = new List<int[]>();
+                    Index.Add("spawnpoint", list);
+                }
+                list.Add([
+                    (int) ((spawn.X) / 8f),
+                    (int) ((spawn.Y) / 8f),
+                    0,
+                    0,
+                    0
+                ]);
+            }
         }
     }
 
@@ -44,7 +68,7 @@ public static class EntitySearch {
         }
 
         orig(self);
-        if(MInput.Keyboard.Pressed(Keys.F8)) {
+        if(MInput.Keyboard.Pressed(Keys.F7)) {
             if(Index == null) {
                 IndexLevel(DynamicData.For(self).Get<Session>("CurrentSession"));
             }
@@ -83,8 +107,8 @@ public static class EntitySearch {
     }
 
     private static string EmitManualText(string previous) {
-        return "F8:           Entity Search (Game Helper)\n"
-            + "F7:           Entity Search: Show IDs\n\n"
+        return "F7:           Entity Search (Game Helper)\n"
+            + "F8:           Entity Search: Show IDs\n\n"
             + previous;
     }
 

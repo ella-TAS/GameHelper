@@ -1,7 +1,6 @@
 // code borrowed from https://github.com/EverestAPI/Everest/blob/dev/Celeste.Mod.mm/Mod/UI/OuiMapSearch.cs
 // The MIT License (MIT), Copyright (c) 2018 Everest Team
 
-using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,14 +12,14 @@ using System.Collections.Generic;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
-    private static SortedDictionary<string, List<int[]>> SearchIndex => GameHelper.Session.EntitySearchIndex;
+    private static SortedDictionary<string, List<int[]>> SearchIndex => GameHelper.Session.EntityIndex;
     public List<OuiChapterSelectIcon> OuiIcons;
     private SearchMenu menu;
     private const float onScreenX = 960f;
     private const float offScreenX = 2880f;
     private float alpha = 0f;
     private Color searchBarColor;
-    private List<TextMenu.Item> items = new();
+    private readonly List<TextMenu.Item> items = new();
     private bool searching;
     private string search = "";
     private string searchPrev = "";
@@ -124,13 +123,13 @@ public class EntitySearchUI : Entity {
         items.ForEach(i => menu.rightMenu.Remove(i));
         items.Clear();
 
-        foreach(string key in SearchIndex.Keys) {
-            if(key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
+        foreach(KeyValuePair<string, List<int[]>> keyValue in SearchIndex) {
+            if(keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
                 itemCount++;
-                TextMenu.Button button = new(key);
+                TextMenu.Button button = new(keyValue.Key + " (" + keyValue.Value.Count + ")");
                 menu.rightMenu.Add(button.Pressed(() => {
                     search = "";
-                    Inspect(key);
+                    Inspect(keyValue.Key);
                 }));
                 items.Add(button);
             }
@@ -285,7 +284,7 @@ public class EntitySearchUI : Entity {
     public override void Render() {
         if(menu == null) return;
 
-        Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Engine.ScreenMatrix);
+        Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Engine.ScreenMatrix);
         if(alpha > 0f) {
             Draw.Rect(-10f, -10f, 1940f, 1100f, Color.Black * alpha * 0.8f);
         }

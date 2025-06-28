@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchRenderer(string key) : Entity {
-    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntitySearchIndex;
+    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntityIndex;
     private readonly string key = key;
 
     public override void Render() {
@@ -36,13 +36,13 @@ public class EntitySearchRenderer(string key) : Entity {
         // info headline
         Draw.Rect(0f, 0f, 1920f, 72f, Color.Black);
         ActiveFont.Draw("Showing " + Index[key].Count + " " + key, new Vector2(16f, 4f), Color.Cyan);
-        ActiveFont.Draw("F7 to highlight", new Vector2(1904f, 4f), Vector2.UnitX, Vector2.One, Color.Cyan);
+        ActiveFont.Draw("F8 to highlight", new Vector2(1904f, 4f), Vector2.UnitX, Vector2.One, Color.Cyan);
 
-        if(MInput.Keyboard.Check(Keys.F7)) {
+        if(MInput.Keyboard.Check(Keys.F8)) {
             foreach(int[] data in Index[key]) {
                 // entity ID
                 ActiveFont.DrawOutline(
-                    data[4].ToString(),
+                    key == "spawnpoint" ? "X" : data[4].ToString(),
                     (new Vector2(data[0], data[1]) - MapEditor.Camera.Position + Vector2.UnitX) * MapEditor.Camera.Zoom + new Vector2(960f, 540f),
                     new Vector2(0.5f, 0.5f),
                     Vector2.One * 0.5f,

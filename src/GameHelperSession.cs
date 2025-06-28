@@ -1,6 +1,5 @@
 using Celeste.Mod.GameHelper.Entities;
 using Celeste.Mod.GameHelper.Utils.Components;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
@@ -15,7 +14,10 @@ public class GameHelperSession : EverestModuleSession {
     public List<FlagCollectBerry> StoredBerries;
     [YamlIgnore]
     public Dictionary<string, PSwitchTimer> PSwitchTimers;
-    [YamlIgnore]
+
     // [X, Y, Width, Height, ID]
-    public SortedDictionary<string, List<int[]>> EntitySearchIndex;
+    [YamlIgnore]
+    public SortedDictionary<string, List<int[]>> EntityIndex;
+    [YamlIgnore]
+    public SortedDictionary<string, List<int[]>> TriggerIndex;
 }
