@@ -23,17 +23,25 @@ public static class EntitySearch {
         }
     }
 
-    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntityIndex;
+    private static SortedDictionary<string, List<int[]>> EntityIndex => GameHelper.Session.EntityIndex;
+    private static SortedDictionary<string, List<int[]>> TriggerIndex => GameHelper.Session.TriggerIndex;
 
     private static void IndexLevel(Session session) {
         GameHelper.Session.EntityIndex = new(new EntityTagComparer());
+        GameHelper.Session.TriggerIndex = new(new EntityTagComparer());
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
+            // respect ITJ hidden rooms
+            if(level.Name.EndsWith("_HideInMap")) {
+                continue;
+            }
+
+            // entities
             foreach(EntityData entity in level.Entities) {
-                if(!Index.TryGetValue(entity.Name, out List<int[]> list)) {
+                if(!EntityIndex.TryGetValue(entity.Name, out List<int[]> list)) {
                     list = new List<int[]>();
-                    Index.Add(entity.Name, list);
+                    EntityIndex.Add(entity.Name, list);
                 }
                 list.Add([
                     (int) ((entity.Position.X + level.Bounds.X) / 8f),
@@ -44,17 +52,27 @@ public static class EntitySearch {
                 ]);
             }
 
+            // spawnpoints
             foreach(Vector2 spawn in level.Spawns) {
-                if(!Index.TryGetValue("spawnpoint", out List<int[]> list)) {
+                if(!EntityIndex.TryGetValue("spawnpoint", out List<int[]> list)) {
                     list = new List<int[]>();
-                    Index.Add("spawnpoint", list);
+                    EntityIndex.Add("spawnpoint", list);
+                }
+                list.Add([(int) (spawn.X / 8f), (int) (spawn.Y / 8f), 0, 0, 0]);
+            }
+
+            // triggers
+            foreach(EntityData trigger in level.Triggers) {
+                if(!TriggerIndex.TryGetValue(trigger.Name, out List<int[]> list)) {
+                    list = new List<int[]>();
+                    TriggerIndex.Add(trigger.Name, list);
                 }
                 list.Add([
-                    (int) ((spawn.X) / 8f),
-                    (int) ((spawn.Y) / 8f),
-                    0,
-                    0,
-                    0
+                    (int) ((trigger.Position.X + level.Bounds.X) / 8f),
+                    (int) ((trigger.Position.Y + level.Bounds.Y) / 8f),
+                    (int) (trigger.Width / 8f),
+                    (int) (trigger.Height / 8f),
+                    trigger.ID
                 ]);
             }
         }
@@ -69,7 +87,7 @@ public static class EntitySearch {
 
         orig(self);
         if(MInput.Keyboard.Pressed(Keys.F7)) {
-            if(Index == null) {
+            if(EntityIndex == null) {
                 IndexLevel(DynamicData.For(self).Get<Session>("CurrentSession"));
             }
             self.Add(new EntitySearchUI());

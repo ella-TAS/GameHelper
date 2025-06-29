@@ -1,6 +1,7 @@
 // code borrowed from https://github.com/EverestAPI/Everest/blob/dev/Celeste.Mod.mm/Mod/UI/OuiMapSearch.cs
 // The MIT License (MIT), Copyright (c) 2018 Everest Team
 
+using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,25 +9,31 @@ using Monocle;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
-    private static SortedDictionary<string, List<int[]>> SearchIndex => GameHelper.Session.EntityIndex;
+    private SortedDictionary<string, List<int[]>> SearchIndex => entityMode ? GameHelper.Session.EntityIndex : GameHelper.Session.TriggerIndex;
     public List<OuiChapterSelectIcon> OuiIcons;
-    private SearchMenu menu;
+    private EntitySearchMenu menu;
     private const float onScreenX = 960f;
     private const float offScreenX = 2880f;
     private float alpha = 0f;
-    private Color searchBarColor;
+    private float cursorStart;
     private readonly List<TextMenu.Item> items = new();
     private bool searching;
     private string search = "";
     private string searchPrev = "";
     private TextMenu.Item searchTitle;
-    private TextMenu.SubHeader resultHeader;
     private bool searchConsumedButton;
     private int itemCount;
+    private bool entityMode = true;
+    private bool sortCount = false;
+    private TextMenu.SubHeader resultHeader;
+    private TextMenu.Button buttonMode;
+    private TextMenu.Button buttonSort;
 
     public bool Searching {
         get => searching;
@@ -34,6 +41,7 @@ public class EntitySearchUI : Entity {
             if(value != searching) { // Prevent multiple subscriptions
                 if(value) {
                     TextInput.OnInput += OnTextInput;
+                    cursorStart = Scene.TimeActive;
                 } else {
                     TextInput.OnInput -= OnTextInput;
                 }
@@ -115,6 +123,46 @@ public class EntitySearchUI : Entity {
         return;
     }
 
+    private void ReloadMenu() {
+        Vector2 position = Vector2.Zero;
+
+        int selected = -1;
+        if(menu != null) {
+            position = menu.Position;
+            selected = menu.Selection;
+        }
+
+        menu = new EntitySearchMenu();
+        menu.leftMenu.Add(searchTitle = new TextMenu.Header(Dialog.Clean("maplist_search")) {
+            Selectable = true
+        });
+        menu.leftMenu.Add(new TextMenu.Button("") { Disabled = true });
+        menu.leftMenu.Add(new TextMenu.Button("") { Disabled = true });
+        menu.leftMenu.Add(new TextMenu.SubHeader("Click to switch"));
+        menu.leftMenu.Add(buttonMode = new TextMenu.Button("Entities") {
+            OnPressed = () => {
+                entityMode = !entityMode;
+                buttonMode.Label = entityMode ? "Entities" : "Triggers";
+                ReloadItems();
+            }
+        });
+        menu.leftMenu.Add(new TextMenu.SubHeader("Sort by"));
+        menu.leftMenu.Add(buttonSort = new TextMenu.Button("Name") {
+            OnPressed = () => {
+                sortCount = !sortCount;
+                buttonSort.Label = sortCount ? "Amount" : "Name";
+                ReloadItems();
+            }
+        });
+        menu.rightMenu.Add(resultHeader = new TextMenu.SubHeader(""));
+        ReloadItems();
+
+        if(selected >= 0) {
+            menu.Selection = selected;
+            menu.Position = position;
+        }
+    }
+
     private void ReloadItems() {
         itemCount = 0;
 
@@ -123,14 +171,22 @@ public class EntitySearchUI : Entity {
         items.ForEach(i => menu.rightMenu.Remove(i));
         items.Clear();
 
-        foreach(KeyValuePair<string, List<int[]>> keyValue in SearchIndex) {
-            if(keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
+        // find alias matches
+        IEnumerable<string> aliases = EntitySearchData.Aliases
+            .Where(pair => pair.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase))
+            .Select(pair => pair.Value);
+
+        IEnumerable<KeyValuePair<string, List<int[]>>> orderedIndex = sortCount ? SearchIndex.OrderBy(pair => -pair.Value.Count) : SearchIndex;
+        foreach(KeyValuePair<string, List<int[]>> keyValue in orderedIndex) {
+            if(keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key))) {
                 itemCount++;
-                TextMenu.Button button = new(keyValue.Key + " (" + keyValue.Value.Count + ")");
-                menu.rightMenu.Add(button.Pressed(() => {
-                    search = "";
-                    Inspect(keyValue.Key);
-                }));
+                TextMenu.Button button = new(keyValue.Key + " (" + keyValue.Value.Count + ")") {
+                    OnPressed = () => {
+                        search = "";
+                        Inspect(keyValue.Key);
+                    },
+                };
+                menu.rightMenu.Add(button);
                 items.Add(button);
             }
         }
@@ -144,34 +200,10 @@ public class EntitySearchUI : Entity {
         }
 
         // Don't allow pressing any buttons while searching
-        foreach(TextMenu.Item item in items)
-            item.Disabled = Searching;
-    }
-
-    private void ReloadMenu() {
-        Vector2 position = Vector2.Zero;
-
-        int selected = -1;
-        if(menu != null) {
-            position = menu.Position;
-            selected = menu.Selection;
-        }
-
-        menu = new SearchMenu();
-        menu.leftMenu.Add(searchTitle = new TextMenu.Header(Dialog.Clean("maplist_search")));
-        menu.rightMenu.Add(resultHeader = new TextMenu.SubHeader(""));
-        ReloadItems();
-
-        if(selected >= 0) {
-            menu.Selection = selected;
-            menu.Position = position;
-        }
+        items.ForEach(i => i.Disabled = menu.leftFocused || !menu.Focused);
     }
 
     public IEnumerator Enter() {
-        searchBarColor = Color.DarkSlateGray;
-        searchBarColor.A = 80;
-
         Searching = true;
 
         ReloadMenu();
@@ -206,19 +238,15 @@ public class EntitySearchUI : Entity {
 
         menu.Visible = Visible = false;
         Searching = false;
-        menu.RemoveSelf();
-        menu = null;
         RemoveSelf();
     }
 
     private bool switchMenu() {
         bool nextIsLeft = !menu.leftFocused;
-        if(nextIsLeft || items.Count > 0) {
+        if(menu.Focused && (nextIsLeft || items.Count > 0)) {
             menu.leftFocused = nextIsLeft;
-            Searching = nextIsLeft;
             MInput.Disabled = nextIsLeft;
-            int resultIndex = 1;
-            menu.currentMenu.Selection = nextIsLeft ? -1 : resultIndex;
+            menu.currentMenu.Selection = nextIsLeft ? 0 : 1;
             if(nextIsLeft) {
                 Audio.Play(SFX.ui_main_button_toggle_off);
             } else {
@@ -230,6 +258,8 @@ public class EntitySearchUI : Entity {
     }
 
     public override void Update() {
+        Searching = menu != null && menu.leftFocused && menu.leftMenu.Selection == 0;
+
         if(Searching) {
             if(MInput.Keyboard.Pressed(Keys.Delete)) {
                 if(search.Length > 0) {
@@ -277,7 +307,7 @@ public class EntitySearchUI : Entity {
         base.Update();
 
         // Don't allow pressing any buttons while searching
-        menu?.rightMenu.Items.ForEach(i => i.Disabled = Searching);
+        menu?.rightMenu.Items.ForEach(i => i.Disabled = menu.leftFocused || !menu.Focused);
         menu?.Update();
     }
 
@@ -288,29 +318,34 @@ public class EntitySearchUI : Entity {
         if(alpha > 0f) {
             Draw.Rect(-10f, -10f, 1940f, 1100f, Color.Black * alpha * 0.8f);
         }
-
         TextMenu leftMenu = menu.leftMenu;
-        // Draw the search
-        if(searchTitle != null) {
-            Vector2 value = leftMenu.Position + leftMenu.Justify * new Vector2(leftMenu.Width, leftMenu.Height);
-            Vector2 pos = new(value.X - 200f, value.Y + leftMenu.GetYOffsetOf(searchTitle) + 1f);
-            Draw.Rect(pos + new Vector2(-8f, 32f), 416, (int) (ActiveFont.HeightOf("l" + search) + 8) * -1, searchBarColor);
-            ActiveFont.DrawOutline(search + (Searching ? "_" : ""), pos, new Vector2(0f, 0.5f), Vector2.One * 0.75f, Color.White * leftMenu.Alpha, 2f, Color.Black * (leftMenu.Alpha * leftMenu.Alpha * leftMenu.Alpha));
-        }
+        // search window
+        Color searchBarColor = Color.DarkSlateGray;
+        searchBarColor.A = 128;
+        bool cursor = Searching && menu.Focused && (Scene.TimeActive - cursorStart) * 2 % 2 < 1;
+        Vector2 pos = leftMenu.Position + new Vector2(-200f, leftMenu.GetYOffsetOf(searchTitle) - 180f);
+        Draw.Rect(pos + new Vector2(-8f, 32f), 416, (int) (ActiveFont.HeightOf("l" + search) + 8) * -1, searchBarColor);
+        ActiveFont.DrawOutline(search + (cursor ? "_" : ""), pos, new Vector2(0f, 0.5f), Vector2.One * 0.75f, Color.White * leftMenu.Alpha, 2f, Color.Black * (leftMenu.Alpha * leftMenu.Alpha * leftMenu.Alpha));
         Draw.SpriteBatch.End();
 
         menu.Render();
         base.Render();
     }
 
+    public override void Removed(Scene scene) {
+        base.Removed(scene);
+        Searching = false;
+        MInput.Disabled = false;
+    }
+
     public override void SceneEnd(Scene scene) {
-        Searching = false; // Stop text input
+        Searching = false;
         MInput.Disabled = false;
     }
 
     private void Inspect(string key) {
         Audio.Play(SFX.ui_main_button_select);
-        Scene.Add(new EntitySearchRenderer(key));
+        Scene.Add(new EntitySearchRenderer(key, entityMode));
         RemoveSelf();
     }
 }

@@ -7,7 +7,7 @@ using Monocle;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
-public class SearchMenu : Entity {
+public class EntitySearchMenu : Entity {
     public bool leftFocused {
         get => leftMenu.Focused;
         set {
@@ -38,14 +38,15 @@ public class SearchMenu : Entity {
         }
     }
 
-    public SearchMenu() {
+    public EntitySearchMenu() {
         Position = Vector2.Zero;
         leftMenu = new();
-        rightMenu = new();
-        rightMenu.InnerContent = TextMenu.InnerContentMode.TwoColumn;
+        rightMenu = new() {
+            InnerContent = TextMenu.InnerContentMode.TwoColumn,
+            Focused = false
+        };
         leftMenu.Position.X = Engine.Width / 5f;
         rightMenu.Position.X = 0.65f * Engine.Width;
-        rightMenu.Focused = false;
     }
 
     public override void Update() {

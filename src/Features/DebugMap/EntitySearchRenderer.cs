@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
-public class EntitySearchRenderer(string key) : Entity {
-    private static SortedDictionary<string, List<int[]>> Index => GameHelper.Session.EntityIndex;
+public class EntitySearchRenderer(string key, bool entityMode) : Entity {
+    private SortedDictionary<string, List<int[]>> Index => entityMode ? GameHelper.Session.EntityIndex : GameHelper.Session.TriggerIndex;
     private readonly string key = key;
+    private readonly bool entityMode = entityMode;
 
     public override void Render() {
         base.Render();
