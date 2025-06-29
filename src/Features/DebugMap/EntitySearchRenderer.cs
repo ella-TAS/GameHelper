@@ -8,10 +8,16 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
-public class EntitySearchRenderer(string key, bool entityMode) : Entity {
-    private SortedDictionary<string, List<int[]>> Index => entityMode ? GameHelper.Session.EntityIndex : GameHelper.Session.TriggerIndex;
+public class EntitySearchRenderer(string key, EntitySearch.Mode mode) : Entity {
+    private IDictionary<string, List<int[]>> Index => mode switch {
+        EntitySearch.Mode.Entities => GameHelper.Session.EntityIndex,
+        EntitySearch.Mode.Triggers => GameHelper.Session.TriggerIndex,
+        EntitySearch.Mode.Groups => GameHelper.Session.GroupIndex,
+        _ => null,
+    };
+
     private readonly string key = key;
-    private readonly bool entityMode = entityMode;
+    private readonly EntitySearch.Mode mode = mode;
 
     public override void Render() {
         base.Render();
@@ -23,9 +29,9 @@ public class EntitySearchRenderer(string key, bool entityMode) : Entity {
 
         Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, MapEditor.Camera.Matrix * Engine.ScreenMatrix);
         foreach(int[] data in Index[key]) {
-            if(data[2] > 0 || data[3] > 0) {
+            if(data[2] > 0 || data[3] > 0 || mode == EntitySearch.Mode.Groups) {
                 // sized entity
-                Draw.HollowRect(data[0], data[1], Calc.Max(data[2], 1), Calc.Max(data[3], 1), Color.Cyan);
+                Draw.HollowRect(data[0], data[1] - (data[3] == 0 ? 1 : 0), Calc.Max(data[2], 1), Calc.Max(data[3], 1), Color.Cyan);
             } else {
                 // sizeless entity
                 Draw.HollowRect(data[0] - 1f, data[1] - 2f, 3f, 3f, Color.Cyan);

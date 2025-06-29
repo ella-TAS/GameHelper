@@ -1,7 +1,6 @@
 // code borrowed from https://github.com/EverestAPI/Everest/blob/dev/Celeste.Mod.mm/Mod/UI/OuiMapSearch.cs
 // The MIT License (MIT), Copyright (c) 2018 Everest Team
 
-using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,12 +9,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
-    private SortedDictionary<string, List<int[]>> SearchIndex => entityMode ? GameHelper.Session.EntityIndex : GameHelper.Session.TriggerIndex;
+    private IDictionary<string, List<int[]>> SearchIndex => mode switch {
+        EntitySearch.Mode.Entities => GameHelper.Session.EntityIndex,
+        EntitySearch.Mode.Triggers => GameHelper.Session.TriggerIndex,
+        EntitySearch.Mode.Groups => GameHelper.Session.GroupIndex,
+        _ => null,
+    };
+    private List<string> RecentSearch => GameHelper.Session.RecentSearch;
+
     public List<OuiChapterSelectIcon> OuiIcons;
     private EntitySearchMenu menu;
     private const float onScreenX = 960f;
@@ -29,9 +34,11 @@ public class EntitySearchUI : Entity {
     private TextMenu.Item searchTitle;
     private bool searchConsumedButton;
     private int itemCount;
-    private bool entityMode = true;
+    private EntitySearch.Mode mode = EntitySearch.Mode.Entities;
     private bool sortCount = false;
+    private bool previousSort = false;
     private TextMenu.SubHeader resultHeader;
+    private TextMenu.SubHeader otherHeader;
     private TextMenu.Button buttonMode;
     private TextMenu.Button buttonSort;
 
@@ -141,15 +148,25 @@ public class EntitySearchUI : Entity {
         menu.leftMenu.Add(new TextMenu.SubHeader("Click to switch"));
         menu.leftMenu.Add(buttonMode = new TextMenu.Button("Entities") {
             OnPressed = () => {
-                entityMode = !entityMode;
-                buttonMode.Label = entityMode ? "Entities" : "Triggers";
+                mode = (EntitySearch.Mode) (((int) mode + 1) % 3);
+                buttonMode.Label = mode.ToString();
+                if(mode == EntitySearch.Mode.Groups) {
+                    previousSort = sortCount;
+                    sortCount = true;
+                    buttonSort.Label = "Amount";
+                    buttonSort.Disabled = true;
+                } else {
+                    sortCount = previousSort;
+                    buttonSort.Label = sortCount ? "Amount" : "Name";
+                    buttonSort.Disabled = false;
+                }
                 ReloadItems();
             }
         });
         menu.leftMenu.Add(new TextMenu.SubHeader("Sort by"));
         menu.leftMenu.Add(buttonSort = new TextMenu.Button("Name") {
             OnPressed = () => {
-                sortCount = !sortCount;
+                previousSort = sortCount = !sortCount;
                 buttonSort.Label = sortCount ? "Amount" : "Name";
                 ReloadItems();
             }
@@ -170,15 +187,39 @@ public class EntitySearchUI : Entity {
 
         items.ForEach(i => menu.rightMenu.Remove(i));
         items.Clear();
+        if(otherHeader != null) {
+            menu.rightMenu.Remove(otherHeader);
+            otherHeader = null;
+        }
 
         // find alias matches
         IEnumerable<string> aliases = EntitySearchData.Aliases
             .Where(pair => pair.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase))
             .Select(pair => pair.Value);
 
+        bool recent = false;
+        foreach(string key in RecentSearch.Reverse<string>()) {
+            if(SearchIndex.TryGetValue(key, out List<int[]> list) && key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
+                recent = true;
+                itemCount++;
+                TextMenu.Button button = new(key + " (" + list.Count + ")") {
+                    OnPressed = () => {
+                        search = "";
+                        Inspect(key);
+                    },
+                };
+                menu.rightMenu.Add(button);
+                items.Add(button);
+            }
+        }
+
+        if(recent) {
+            menu.rightMenu.Add(otherHeader = new TextMenu.SubHeader(""));
+        }
+
         IEnumerable<KeyValuePair<string, List<int[]>>> orderedIndex = sortCount ? SearchIndex.OrderBy(pair => -pair.Value.Count) : SearchIndex;
         foreach(KeyValuePair<string, List<int[]>> keyValue in orderedIndex) {
-            if(keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key))) {
+            if(!RecentSearch.Contains(keyValue.Key) && (keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key)))) {
                 itemCount++;
                 TextMenu.Button button = new(keyValue.Key + " (" + keyValue.Value.Count + ")") {
                     OnPressed = () => {
@@ -193,7 +234,15 @@ public class EntitySearchUI : Entity {
 
         menu.rightMenu.BatchMode = false;
         menu.rightMenu.Selection = itemCount > 0 ? 1 : 0;
-        resultHeader.Title = string.Format(itemCount == 1 ? Dialog.Get("maplist_results_singular") : Dialog.Get("maplist_results_plural"), itemCount);
+
+        string info = string.Format(itemCount == 1 ? Dialog.Get("maplist_results_singular") : Dialog.Get("maplist_results_plural"), itemCount)
+            + (itemCount > 0 && mode == EntitySearch.Mode.Groups ? ", Groups with [n] are a predefined list of Vanilla entities" : "");
+        if(recent) {
+            resultHeader.Title = "Recent searches";
+            otherHeader.Title = info;
+        } else {
+            resultHeader.Title = info;
+        }
 
         if(menu.rightMenu.Height > menu.rightMenu.ScrollableMinSize) {
             menu.rightMenu.Position.Y = menu.rightMenu.ScrollTargetY;
@@ -344,8 +393,15 @@ public class EntitySearchUI : Entity {
     }
 
     private void Inspect(string key) {
+        if(!RecentSearch.Contains(key)) {
+            RecentSearch.Add(key);
+            if(RecentSearch.Count > 5) {
+                RecentSearch.RemoveAt(0);
+            }
+        }
+
         Audio.Play(SFX.ui_main_button_select);
-        Scene.Add(new EntitySearchRenderer(key, entityMode));
+        Scene.Add(new EntitySearchRenderer(key, mode));
         RemoveSelf();
     }
 }

@@ -7,6 +7,7 @@ using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
@@ -25,10 +26,15 @@ public static class EntitySearch {
 
     private static SortedDictionary<string, List<int[]>> EntityIndex => GameHelper.Session.EntityIndex;
     private static SortedDictionary<string, List<int[]>> TriggerIndex => GameHelper.Session.TriggerIndex;
+    private static Dictionary<string, List<int[]>> GroupIndex => GameHelper.Session.GroupIndex;
+
+    public enum Mode { Entities, Triggers, Groups }
 
     private static void IndexLevel(Session session) {
         GameHelper.Session.EntityIndex = new(new EntityTagComparer());
         GameHelper.Session.TriggerIndex = new(new EntityTagComparer());
+        GameHelper.Session.GroupIndex = new();
+        GameHelper.Session.RecentSearch = new();
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
@@ -39,17 +45,37 @@ public static class EntitySearch {
 
             // entities
             foreach(EntityData entity in level.Entities) {
+                if(!EntitySearchData.SpecificOffset.TryGetValue(entity.Name, out int[] offset)) {
+                    offset = [0, 0];
+                }
+
+                int[] data = [
+                    (int) ((entity.Position.X + level.Bounds.X) / 8f) + offset[0],
+                    (int) ((entity.Position.Y + level.Bounds.Y) / 8f) + offset[1],
+                    (int) (entity.Width / 8f),
+                    (int) (entity.Height / 8f),
+                    entity.ID
+                ];
                 if(!EntityIndex.TryGetValue(entity.Name, out List<int[]> list)) {
                     list = new List<int[]>();
                     EntityIndex.Add(entity.Name, list);
                 }
-                list.Add([
-                    (int) ((entity.Position.X + level.Bounds.X) / 8f),
-                    (int) ((entity.Position.Y + level.Bounds.Y) / 8f),
-                    (int) (entity.Width / 8f),
-                    (int) (entity.Height / 8f),
-                    entity.ID
-                ]);
+                list.Add(data);
+
+                // groups
+                foreach(KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
+                    if(group.Value.Contains(entity.Name)
+                        || group.Key.Equals("AllEntities")
+                        || (group.Key.Equals("VanillaEntities") && !entity.Name.Contains('/'))
+                        || (group.Key.Equals("ModdedEntities") && entity.Name.Contains('/'))
+                    ) {
+                        if(!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
+                            list2 = new List<int[]>();
+                            GroupIndex.Add(group.Key, list2);
+                        }
+                        list2.Add(data);
+                    }
+                }
             }
 
             // spawnpoints
@@ -67,14 +93,31 @@ public static class EntitySearch {
                     list = new List<int[]>();
                     TriggerIndex.Add(trigger.Name, list);
                 }
-                list.Add([
+                int[] data = [
                     (int) ((trigger.Position.X + level.Bounds.X) / 8f),
                     (int) ((trigger.Position.Y + level.Bounds.Y) / 8f),
                     (int) (trigger.Width / 8f),
                     (int) (trigger.Height / 8f),
                     trigger.ID
-                ]);
+                ];
+                list.Add(data);
+
+                // groups
+                foreach(KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
+                    if(group.Value.Contains(trigger.Name) || group.Key.Equals("AllTriggers")) {
+                        if(!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
+                            list2 = new List<int[]>();
+                            GroupIndex.Add(group.Key, list2);
+                        }
+                        list2.Add(data);
+                    }
+                }
             }
+        }
+
+        if(!GroupIndex.ContainsKey("ModdedEntities")) {
+            // AllEntities and VanillaEntities are the same
+            GroupIndex.Remove("VanillaEntities");
         }
     }
 

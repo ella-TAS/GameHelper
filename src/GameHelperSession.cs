@@ -20,4 +20,8 @@ public class GameHelperSession : EverestModuleSession {
     public SortedDictionary<string, List<int[]>> EntityIndex;
     [YamlIgnore]
     public SortedDictionary<string, List<int[]>> TriggerIndex;
+    [YamlIgnore]
+    public Dictionary<string, List<int[]>> GroupIndex;
+    [YamlIgnore]
+    public List<string> RecentSearch;
 }
