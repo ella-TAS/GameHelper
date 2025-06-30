@@ -3,7 +3,7 @@
 EllaTAS (literally everything)  
 Everest Team – basis of EntitySearchUI  
 Jackal – original SwingSolid  
-Kosei – Fixes
+Kosei – Fixes, FMOD
 
 ### Code help
 Snip – always helpful and kind  
@@ -32,6 +32,5 @@ It Steals
 Pixabay
 
 ### Others
-Kosei – FMOD help  
-Lua – file size reduction  
+Kataiser – Entity Search testing  
 moving_solid.lua function needs to be removed after a Lönn patch for the node rectangle bug

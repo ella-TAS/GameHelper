@@ -13,13 +13,24 @@ using System.Linq;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public class EntitySearchUI : Entity {
+    private const int NAME_MAX_LENGTH = 35;
+
     private IDictionary<string, List<int[]>> SearchIndex => mode switch {
         EntitySearch.Mode.Entities => GameHelper.Session.EntityIndex,
         EntitySearch.Mode.Triggers => GameHelper.Session.TriggerIndex,
         EntitySearch.Mode.Groups => GameHelper.Session.GroupIndex,
         _ => null,
     };
-    private List<string> RecentSearch => GameHelper.Session.RecentSearch;
+    private static List<string> RecentSearch => GameHelper.Session.RecentSearch;
+
+    private static bool sortCount {
+        get => GameHelper.Session.SearchSortCount;
+        set => GameHelper.Session.SearchSortCount = value;
+    }
+    private static EntitySearch.Mode mode {
+        get => GameHelper.Session.SearchMode;
+        set => GameHelper.Session.SearchMode = value;
+    }
 
     public List<OuiChapterSelectIcon> OuiIcons;
     private EntitySearchMenu menu;
@@ -34,9 +45,6 @@ public class EntitySearchUI : Entity {
     private TextMenu.Item searchTitle;
     private bool searchConsumedButton;
     private int itemCount;
-    private EntitySearch.Mode mode = EntitySearch.Mode.Entities;
-    private bool sortCount = false;
-    private bool previousSort = false;
     private TextMenu.SubHeader resultHeader;
     private TextMenu.SubHeader otherHeader;
     private TextMenu.Button buttonMode;
@@ -146,27 +154,17 @@ public class EntitySearchUI : Entity {
         menu.leftMenu.Add(new TextMenu.Button("") { Disabled = true });
         menu.leftMenu.Add(new TextMenu.Button("") { Disabled = true });
         menu.leftMenu.Add(new TextMenu.SubHeader("Click to switch"));
-        menu.leftMenu.Add(buttonMode = new TextMenu.Button("Entities") {
+        menu.leftMenu.Add(buttonMode = new TextMenu.Button(mode.ToString()) {
             OnPressed = () => {
                 mode = (EntitySearch.Mode) (((int) mode + 1) % 3);
                 buttonMode.Label = mode.ToString();
-                if(mode == EntitySearch.Mode.Groups) {
-                    previousSort = sortCount;
-                    sortCount = true;
-                    buttonSort.Label = "Amount";
-                    buttonSort.Disabled = true;
-                } else {
-                    sortCount = previousSort;
-                    buttonSort.Label = sortCount ? "Amount" : "Name";
-                    buttonSort.Disabled = false;
-                }
                 ReloadItems();
             }
         });
         menu.leftMenu.Add(new TextMenu.SubHeader("Sort by"));
-        menu.leftMenu.Add(buttonSort = new TextMenu.Button("Name") {
+        menu.leftMenu.Add(buttonSort = new TextMenu.Button(sortCount ? "Amount" : "Name") {
             OnPressed = () => {
-                previousSort = sortCount = !sortCount;
+                sortCount = !sortCount;
                 buttonSort.Label = sortCount ? "Amount" : "Name";
                 ReloadItems();
             }
@@ -202,7 +200,8 @@ public class EntitySearchUI : Entity {
             if(SearchIndex.TryGetValue(key, out List<int[]> list) && key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
                 recent = true;
                 itemCount++;
-                TextMenu.Button button = new(key + " (" + list.Count + ")") {
+                string displayName = key.Length < NAME_MAX_LENGTH ? key : key[..(NAME_MAX_LENGTH - 1)] + "…";
+                TextMenu.Button button = new("(" + list.Count + ") " + displayName) {
                     OnPressed = () => {
                         search = "";
                         Inspect(key);
@@ -221,7 +220,8 @@ public class EntitySearchUI : Entity {
         foreach(KeyValuePair<string, List<int[]>> keyValue in orderedIndex) {
             if(!RecentSearch.Contains(keyValue.Key) && (keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key)))) {
                 itemCount++;
-                TextMenu.Button button = new(keyValue.Key + " (" + keyValue.Value.Count + ")") {
+                string displayName = keyValue.Key.Length < NAME_MAX_LENGTH ? keyValue.Key : keyValue.Key[..(NAME_MAX_LENGTH - 1)] + "…";
+                TextMenu.Button button = new("(" + keyValue.Value.Count + ") " + displayName) {
                     OnPressed = () => {
                         search = "";
                         Inspect(keyValue.Key);

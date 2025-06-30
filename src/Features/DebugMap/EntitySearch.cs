@@ -26,15 +26,17 @@ public static class EntitySearch {
 
     private static SortedDictionary<string, List<int[]>> EntityIndex => GameHelper.Session.EntityIndex;
     private static SortedDictionary<string, List<int[]>> TriggerIndex => GameHelper.Session.TriggerIndex;
-    private static Dictionary<string, List<int[]>> GroupIndex => GameHelper.Session.GroupIndex;
+    private static SortedDictionary<string, List<int[]>> GroupIndex => GameHelper.Session.GroupIndex;
 
     public enum Mode { Entities, Triggers, Groups }
 
     private static void IndexLevel(Session session) {
         GameHelper.Session.EntityIndex = new(new EntityTagComparer());
         GameHelper.Session.TriggerIndex = new(new EntityTagComparer());
-        GameHelper.Session.GroupIndex = new();
+        GameHelper.Session.GroupIndex = new(StringComparer.CurrentCultureIgnoreCase);
         GameHelper.Session.RecentSearch = new();
+        GameHelper.Session.SearchSortCount = true;
+        GameHelper.Session.SearchMode = Mode.Entities;
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
