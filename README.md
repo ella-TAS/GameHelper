@@ -1,15 +1,18 @@
 ## Credits
 ### Code
 EllaTAS (literally everything)  
-original Swing Solid – Jackal  
-Fixes – Kosei
+Everest Team – basis of EntitySearchUI  
+Jackal – original SwingSolid  
+Kosei – Fixes, FMOD
 
 ### Code help
 Snip – always helpful and kind  
 microlith57  
 Popax21  
+psygamer  
+Wartori  
+maddie480  
 Viv  
-Maddie480  
 JaThePlayer – easing reflection
 
 ### Custom sprites
@@ -29,6 +32,5 @@ It Steals
 Pixabay
 
 ### Others
-Kosei – FMOD help  
-Lua – file size reduction  
+Kataiser – Entity Search testing  
 moving_solid.lua function needs to be removed after a Lönn patch for the node rectangle bug

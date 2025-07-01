@@ -1,5 +1,5 @@
 using Celeste.Mod.Entities;
-using Celeste.Mod.GameHelper.Utils;
+using Celeste.Mod.GameHelper.Utils.Exceptions;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System.Collections;
