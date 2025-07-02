@@ -67,6 +67,6 @@ public static class Util {
 
     public static string GetCelesteSaveName(int slot) {
         string s = SaveData.GetFilename(slot);
-        return (UserIO.Exists(s) ? UserIO.Load<SaveData>(s).Name : "") ?? "";
+        return (UserIO.Exists(s) ? UserIO.Load<SaveData>(s)?.Name : "") ?? "";
     }
 }
