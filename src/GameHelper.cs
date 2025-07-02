@@ -47,7 +47,6 @@ public class GameHelper : EverestModule {
         MarioMole.Hook();
         EntityRespriter.Hook();
         RopeSegment.Hook();
-        EntityIdApplier.Hook();
         MiscHooks.Hook();
         EntitySearch.Hook();
 
@@ -68,7 +67,6 @@ public class GameHelper : EverestModule {
         MarioMole.Unhook();
         EntityRespriter.Unhook();
         RopeSegment.Unhook();
-        EntityIdApplier.Unhook();
         MiscHooks.Unhook();
         EntitySearch.Unhook();
     }
