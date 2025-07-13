@@ -35,7 +35,13 @@ public class Chainsaw : Entity {
         base.Update();
 
         //tracking
-        if(!charging && !stunned && Scene.CollideFirst<Player>(collidePos1, collidePos2) != null) {
+        if(
+            !charging &&
+            !stunned &&
+            SceneAs<Level>().Tracker.GetEntity<Player>() is { } player &&
+            !player.JustRespawned &&
+            Scene.CollideFirst<Player>(collidePos1, collidePos2) != null
+        ) {
             charging = true;
             sprite.Play("chasing");
             sfx = Audio.Play("event:/GameHelper/chainsaw/chainsaw_attack");

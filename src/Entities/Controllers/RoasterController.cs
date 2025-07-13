@@ -39,15 +39,16 @@ public class RoasterController : Entity {
 
     public override void Update() {
         base.Update();
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p != null) {
+        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
             SceneAs<Level>().Session.SetFlag(flag);
             bool ground = p.OnGround();
             bool wallL = p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0));
             bool wallR = p.CollideCheck<Solid>(p.Position + new Vector2(3, 0));
-            if((!waterOnly && !ground && !wallL && !wallR) ||
+            if(
+                (!waterOnly && !ground && !wallL && !wallR) ||
                 (waterOnly && p.CollideCheck<Water>()) ||
-                (!p.InControl && p.JustRespawned)) {
+                p.JustRespawned
+            ) {
                 ResetTimer();
             }
             if(!maxTimer.Equals(timer)) {

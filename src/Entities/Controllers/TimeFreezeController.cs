@@ -1,4 +1,5 @@
 using Celeste.Mod.Entities;
+using Celeste.Mod.GameHelper.Utils;
 using Monocle;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
@@ -11,16 +12,17 @@ public class TimeFreezeController : Entity {
 
     public override void Update() {
         base.Update();
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p != null) {
-            if(p.JustRespawned && p.InControl && Input.Aim.Value.Length() < 0.3f
-            && !Input.Jump && !Input.Dash && !Input.CrouchDash && !Input.Grab) {
-                if(Engine.TimeRate > 0) {
-                    Engine.TimeRate = 0;
+        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+            if(
+                p.JustRespawned && p.InControl
+                && Input.Aim.Value.Length() < 0.3f && !Input.Jump.Pressed && !Input.Dash.Pressed && !Input.CrouchDash.Pressed
+            ) {
+                if(Engine.TimeRate > 0f) {
+                    Engine.TimeRate = Calc.Approach(Engine.TimeRate, 0f, 0.1f);
                     SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", true);
                 }
-            } else if(Engine.TimeRate == 0) {
-                Engine.TimeRate = 1;
+            } else if(Engine.TimeRate < 1f) {
+                Engine.TimeRate = 1f;
                 p.JustRespawned = false;
                 SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", false);
             }
