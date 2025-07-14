@@ -267,9 +267,11 @@ triggers.GameHelper/ShieldTrigger.placements.name.shield=Player Shield (Invincib
 triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3).
 triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled.
 
-triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save Trigger
+triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save
 
 triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
 
 triggers.GameHelper/TemporaryFlagTrigger.placements.name.normal=Temporary Flag (Reset Flag on Death/Transition)
 triggers.GameHelper/TemporaryFlagTrigger.attributes.description.invert=If checked the trigger will instead set the flag to false and back to true on death/transition.
+
+triggers.GameHelper/GuideArrowTrigger.placements.name.normal=Guide Arrow
