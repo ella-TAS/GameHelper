@@ -162,7 +162,7 @@ entities.GameHelper/EntityModifier.attributes.description.onlyType=Only look for
 entities.GameHelper/EntityModifier.attributes.description.activationFlag=If a flag is set, the modifier will wait until it's true.\nMaking the flag false will not reset the value, but you can add a second modifier with invertFlag.
 entities.GameHelper/EntityModifier.attributes.description.invertFlag=Activate the modification when the flag is false instead.
 entities.GameHelper/EntityModifier.attributes.description.allEntities=Whether to modify all entities of the found/given type in this room.
-entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the modification should only happen once.
+entities.GameHelper/EntityModifier.attributes.description.onlyOnce=Whether the modification should only happen once per respawn.
 entities.GameHelper/EntityModifier.attributes.description.everyFrame=Whether the modification should be spammed every frame.\nPlease turn this off if not neccessary, it can impact performance!
 entities.GameHelper/EntityModifier.attributes.description.debug=Print a list of all entities in the room and the modified entities to log.txt (in your Celeste folder).\nPlease turn it off if you don't need it!
 entities.GameHelper/EntityModifier.attributes.description.changeActive=How the Active field should change.\nActive controls whether the entity is updated every frame, usually controlling all behavior (e. g. movement).\nIf an activation flag is set, everything but SetToFlag will only activate based on that.
@@ -275,3 +275,8 @@ triggers.GameHelper/TemporaryFlagTrigger.placements.name.normal=Temporary Flag (
 triggers.GameHelper/TemporaryFlagTrigger.attributes.description.invert=If checked the trigger will instead set the flag to false and back to true on death/transition.
 
 triggers.GameHelper/GuideArrowTrigger.placements.name.normal=Guide Arrow
+triggers.GameHelper/GuideArrowTrigger.attributes.description.duration=The amount of seconds the arrow should last.\nSet 0 for infinite duration (you can remove them later with a nodeless trigger).
+
+triggers.GameHelper/NotifyChangeRespawnTrigger.placements.name.normal=Notify Change Respawn
+triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.invertFlag=Whether the trigger should only work if the flag is false instead.
+triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.sfxPath=The audio event to play, leave empty for the default sound.

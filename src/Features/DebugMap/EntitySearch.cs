@@ -40,11 +40,6 @@ public static class EntitySearch {
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
-            // respect ITJ hidden rooms
-            if(level.Name.EndsWith("_HideInMap")) {
-                continue;
-            }
-
             // entities
             foreach(EntityData entity in level.Entities) {
                 if(!EntitySearchData.SpecificOffset.TryGetValue(entity.Name, out int[] offset)) {

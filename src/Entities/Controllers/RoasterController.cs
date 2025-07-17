@@ -22,7 +22,7 @@ public class RoasterController : Entity {
         Depth = -9999999;
 
         //particles
-        pType = new ParticleType() {
+        pType = new() {
             Color = Color.Orange,
             Color2 = Color.OrangeRed,
             ColorMode = ParticleType.ColorModes.Choose,

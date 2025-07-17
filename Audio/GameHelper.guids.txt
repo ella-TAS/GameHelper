@@ -12,6 +12,7 @@
 {2e3d9c75-3d45-47b4-9bb5-0339f028bcbd} event:/GameHelper/Flashlight
 {82c744cb-8f4c-4671-8463-f6802ac50f32} event:/GameHelper/floatyjump/floating
 {33d731fb-9bcb-4270-9af5-85954abedde6} event:/GameHelper/p_switch/p_switch
+{b365aeae-ac41-4b3e-a687-4b2485d03953} event:/GameHelper/respawn/Respawn
 {1d797e2d-ebeb-433b-90a6-daaa263570fe} event:/GameHelper/shield/shield
 {4a053239-5163-4f60-a45d-a65bf40ed707} event:/GameHelper/swingblock/hit
 {bb72e9fd-f797-4e4f-9f0e-a95581798f72} event:/GameHelper/trampoline/hit
