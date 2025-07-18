@@ -3,7 +3,7 @@
 EllaTAS (literally everything)  
 Everest Team – basis of EntitySearchUI  
 Jackal – original SwingSolid  
-Kosei – Fixes, FMOD
+Kosei – Fixes, FMOD, ColorfulDebug inspiration
 
 ### Code help
 Snip – always helpful and kind  

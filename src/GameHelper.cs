@@ -49,6 +49,7 @@ public class GameHelper : EverestModule {
         RopeSegment.Hook();
         MiscHooks.Hook();
         EntitySearch.Hook();
+        ColorfulDebug.Hook();
 
         PlayerShadowController.resetBindings();
         FlashlightController.resetBindings();
@@ -69,6 +70,7 @@ public class GameHelper : EverestModule {
         RopeSegment.Unhook();
         MiscHooks.Unhook();
         EntitySearch.Unhook();
+        ColorfulDebug.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
