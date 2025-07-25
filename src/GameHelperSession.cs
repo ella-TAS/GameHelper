@@ -33,5 +33,7 @@ public class GameHelperSession : EverestModuleSession {
     [YamlIgnore]
     public EntitySearch.Mode SearchMode;
 
+    // Colorful Debug
     public Dictionary<string, Color[]> DebugColors;
+    public Dictionary<string, List<DebugDecalData>> DebugDecals;
 }

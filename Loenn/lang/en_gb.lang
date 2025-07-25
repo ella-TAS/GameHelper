@@ -247,6 +247,11 @@ entities.GameHelper/JumpRope.attributes.description.renderRightEnd=Whether a rou
 entities.GameHelper/ColorfulDebugController.placements.name.normal=Colorful Debug Controller
 entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=The (case sensitive) prefix of all rooms this should apply to.\nLeave empty to affect the room it is placed in.\n Put * to affect all rooms.
 
+entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal Controller (Image)
+entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal Controller (Rectangle)
+entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal Controller (Line)
+entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal Controller (Text)
+
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
