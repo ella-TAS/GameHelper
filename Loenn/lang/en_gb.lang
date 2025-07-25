@@ -248,10 +248,21 @@ entities.GameHelper/ColorfulDebugController.placements.name.normal=Colorful Debu
 entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=The (case sensitive) prefix of all rooms this should apply to.\nLeave empty to affect the room it is placed in.\n Put * to affect all rooms.
 
 entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal Controller (Image)
+entities.GameHelper/DebugDecalController.placements.description.image=Displays an image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal Controller (Rectangle)
+entities.GameHelper/DebugDecalController.placements.description.rectangle=Displays an rectangle (tile) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal Controller (Line)
+entities.GameHelper/DebugDecalController.placements.description.line=Displays a line in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal Controller (Text)
-
+entities.GameHelper/DebugDecalController.placements.description.text=Displays an message pulled from your English.txt in the Debug Map.
+entities.GameHelper/DebugDecalController.attributes.description.sprite=The path of the image that should be displayed, relative to Atlases/Gameplay/.
+entities.GameHelper/DebugDecalController.attributes.description.scaleX=The horizontal scale of the image.
+entities.GameHelper/DebugDecalController.attributes.description.scaleY=The vertical scale of the image.
+entities.GameHelper/DebugDecalController.attributes.description.color=The color on the debug map.
+entities.GameHelper/DebugDecalController.attributes.description.hollow=Whether the rectangle should be hollow or filled.
+entities.GameHelper/DebugDecalController.attributes.description.thickness=The thickness of the line.
+entities.GameHelper/DebugDecalController.attributes.description.dialog=The dialog id of the text, from your English.txt.
+entities.GameHelper/DebugDecalController.attributes.description.scale=The size of the text. The resolution is automatically adjusted.
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
