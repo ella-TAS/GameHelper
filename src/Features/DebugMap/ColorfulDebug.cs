@@ -115,7 +115,7 @@ public static class ColorfulDebug {
     }
 
     private static void OnMapEditorRender(On.Celeste.Editor.MapEditor.orig_Render orig, MapEditor self) {
-        if(GameHelper.Session.DebugColors == null) {
+        if(ColorIndex == null || DecalIndex == null) {
             IndexLevel(DynamicData.For(self).Get<Session>("CurrentSession"));
         }
         orig(self);
