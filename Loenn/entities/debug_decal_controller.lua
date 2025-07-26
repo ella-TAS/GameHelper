@@ -130,7 +130,7 @@ function ddc.draw(room, entity, viewport)
             end
         end
         if debugImage ~= nil then
-            debugImage.rotation = entity.rotation * math.pi / 180.0
+            debugImage.rotation = (entity.rotation or 0) * math.pi / 180.0
             debugImage:draw()
         else
             debugImage = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
