@@ -108,11 +108,6 @@ local function hexToRGB(hex)
     return r, g, b
 end
 
-local function getTextColor(entity)
-    local success, r, g, b = utils.parseHexColor(entity.color or "FFFFFF")
-    return success and {r, g, b} or {1, 1, 1}
-end
-
 function ddc.draw(room, entity, viewport)
     local r, g, b = hexToRGB(entity.color)
     love.graphics.setColor(r, g, b, 0.5)
@@ -159,8 +154,11 @@ function ddc.draw(room, entity, viewport)
             default:setScale(1, 1)
             default:draw()
         end
+    elseif entity.type == "Line" and (entity.thickness == 0.0 or (entity.x == entity.nodes[1].x and entity.y == entity.nodes[1].y)) then
+        -- rest of Line is handled below in node
+        debugImage = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
+        debugImage:draw()
     end
-    -- line is rendered in node
     love.graphics.setColor(1, 1, 1)
 end
 
@@ -169,7 +167,7 @@ function ddc.nodeDraw(room, entity, node, nodeIndex, viewport)
     love.graphics.setColor(r, g, b, 0.5)
     local width = love.graphics.getLineWidth()
     love.graphics.setLineWidth(entity.thickness * 8.0)
-    love.graphics.line(entity.x + 2, entity.y + 2, node.x + 2, node.y + 2)
+    love.graphics.line(entity.x, entity.y, node.x, node.y)
     love.graphics.setLineWidth(width)
     love.graphics.setColor(1, 1, 1)
 end
@@ -178,7 +176,9 @@ function ddc.selection(room, entity)
     if entity.type == "Rectangle" then
         return utils.rectangle(entity.x, entity.y, entity.width, entity.height)
 	elseif entity.type == "Line" then
-		return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16)
+        local node = entity.nodes[1]
+        local nodeRectangle = utils.rectangle(node.x - 8, node.y - 8, 16, 16)
+		return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16), {nodeRectangle}
     elseif entity.type == "Text" then
         return utils.rectangle(entity.x - 16, entity.y - 16, 32, 32)
 	else
@@ -186,10 +186,7 @@ function ddc.selection(room, entity)
     end
 end
 
-function ddc.nodeRectangle(room, entity, node, nodeIndex, viewport)
-    return utils.rectangle(node.x - 8, node.y - 8, 16, 16)
-end
-
 ddc.nodeVisibility = "always"
+ddc.nodeLineRenderType = "none"
 
 return ddc
