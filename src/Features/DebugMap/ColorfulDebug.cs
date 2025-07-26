@@ -128,7 +128,7 @@ public static class ColorfulDebug {
                             scaleX = entity.Float("scaleX"),
                             scaleY = entity.Float("scaleY"),
                             color = entity.HexColor("color"),
-                            animationSpeed = entity.Float("animationSpeed"),
+                            animationSpeed = Calc.Max(entity.Float("animationSpeed"), 0.001f),
                             textures = textures,
                             useGui = useGui,
                             rotation = entity.Float("rotation")
