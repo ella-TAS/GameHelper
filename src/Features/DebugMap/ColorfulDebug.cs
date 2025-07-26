@@ -220,7 +220,7 @@ public static class ColorfulDebug {
                             ) {
                                 Color = d.color,
                                 Scale = new(d.scaleX / 8f, d.scaleY / 8f),
-                                Rotation = d.rotation / 180f * (float) Math.PI + Engine.Scene.TimeActive / 2f
+                                Rotation = d.rotation / 180f * (float) Math.PI
                             };
                             image.Position = new Vector2(d.position.X + self.X, d.position.Y + self.Y);
                             image.CenterOrigin();
