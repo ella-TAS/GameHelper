@@ -249,6 +249,8 @@ entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=Th
 
 entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal Controller (Image)
 entities.GameHelper/DebugDecalController.placements.description.image=Displays an image (like a decal) in the Debug Map.
+entities.GameHelper/DebugDecalController.placements.name.animation=Debug Decal Controller (Animated Image)
+entities.GameHelper/DebugDecalController.placements.description.animation=Displays an animated image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal Controller (Rectangle)
 entities.GameHelper/DebugDecalController.placements.description.rectangle=Displays an rectangle (tile) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal Controller (Line)
@@ -256,6 +258,7 @@ entities.GameHelper/DebugDecalController.placements.description.line=Displays a 
 entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal Controller (Text)
 entities.GameHelper/DebugDecalController.placements.description.text=Displays an message pulled from your English.txt in the Debug Map.
 entities.GameHelper/DebugDecalController.attributes.description.sprite=The path of the image that should be displayed, relative to Atlases/Gameplay/.
+entities.GameHelper/DebugDecalController.attributes.description.spriteName=The path of the image group that should be displayed, relative to Atlases/Gameplay/ or Atlases/Gui/.\nIt will cycle through all images with that name+numbers in order.
 entities.GameHelper/DebugDecalController.attributes.description.scaleX=The horizontal scale of the image.
 entities.GameHelper/DebugDecalController.attributes.description.scaleY=The vertical scale of the image.
 entities.GameHelper/DebugDecalController.attributes.description.color=The color on the debug map.
@@ -263,6 +266,9 @@ entities.GameHelper/DebugDecalController.attributes.description.hollow=Whether t
 entities.GameHelper/DebugDecalController.attributes.description.thickness=The thickness of the line.
 entities.GameHelper/DebugDecalController.attributes.description.dialog=The dialog id of the text, from your English.txt.
 entities.GameHelper/DebugDecalController.attributes.description.scale=The size of the text. The resolution is automatically adjusted.
+entities.GameHelper/DebugDecalController.attributes.description.useGui=Use Atlases/Gui/ instead of Atlases/Gameplay/.
+entities.GameHelper/DebugDecalController.attributes.name.rotation=Rotation °
+entities.GameHelper/DebugDecalController.attributes.description.rotation=The rotation of the image in °.
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster

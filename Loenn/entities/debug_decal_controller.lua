@@ -15,7 +15,22 @@ ddc.placements = {
             sprite = "",
             scaleX = 1.0,
             scaleY = 1.0,
-            color = "FFFFFF"
+            color = "FFFFFF",
+            useGui = false,
+            rotation = 0.0
+        }
+    },
+    {
+        name = "animation",
+        data = {
+            type = "Animation",
+            spriteName = "",
+            scaleX = 1.0,
+            scaleY = 1.0,
+            color = "FFFFFF",
+            animationSpeed = 0.1,
+            useGui = false,
+            rotation = 0.0
         }
     },
     {

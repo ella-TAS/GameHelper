@@ -1,12 +1,14 @@
 // heavily inspired by KoseiHelper
 
 using Celeste.Editor;
-using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
@@ -21,6 +23,10 @@ public struct DebugDecalData {
     public float scaleX;
     public float scaleY;
     public Color color;
+    public List<string> textures;
+    public float animationSpeed;
+    public bool useGui;
+    public float rotation;
 }
 
 public static class ColorfulDebug {
@@ -28,6 +34,7 @@ public static class ColorfulDebug {
     private const string CONTROLLER_DECAL = "GameHelper/DebugDecalController";
 
     public const string TYPE_IMAGE = "Image";
+    public const string TYPE_ANIMATION = "Animation";
     public const string TYPE_RECTANGLE = "Rectangle";
     public const string TYPE_LINE = "Line";
     public const string TYPE_TEXT = "Text";
@@ -46,8 +53,8 @@ public static class ColorfulDebug {
     private static Dictionary<string, List<DebugDecalData>> DecalIndex => GameHelper.Session.DebugDecals;
 
     private static void IndexLevel(Session session) {
-        GameHelper.Session.DebugColors = new();
-        GameHelper.Session.DebugDecals = new();
+        GameHelper.Session.DebugColors ??= new();
+        GameHelper.Session.DebugDecals ??= new();
 
         bool success;
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
@@ -96,17 +103,35 @@ public static class ColorfulDebug {
                             width = (int) node.X;
                             height = (int) node.Y;
                         }
+                        string type = entity.Attr("type");
+                        string data = entity.Attr("dialog", entity.Attr("sprite"));
+                        bool useGui = entity.Bool("useGui");
+                        List<string> textures = null;
+                        if(type.Equals(TYPE_ANIMATION)) {
+                            string basePath = entity.Attr("spriteName");
+                            Regex regex = new("^" + basePath.Replace("/", @"\/") + @"\d+$");
+                            Atlas atlas = useGui ? GFX.Gui : GFX.Game;
+                            textures = [.. atlas.Textures.Keys.Where(k => regex.IsMatch(k))];
+                            if(textures.Count == 0) {
+                                Logger.Warn("GameHelper", $"Animated Debug Decal Controller in room {level.Name} found no matching images");
+                                break;
+                            }
+                        }
                         list.Add(new() {
-                            type = entity.Attr("type"),
+                            type = type,
                             position = entity.Position / 8f,
                             width = width / 8,
                             height = height / 8,
                             hollow = entity.Bool("hollow"),
                             thickness = entity.Float("thickness", entity.Float("scale")),
-                            data = entity.Attr("dialog", entity.Attr("sprite")),
+                            data = data,
                             scaleX = entity.Float("scaleX"),
                             scaleY = entity.Float("scaleY"),
-                            color = entity.HexColor("color")
+                            color = entity.HexColor("color"),
+                            animationSpeed = entity.Float("animationSpeed"),
+                            textures = textures,
+                            useGui = useGui,
+                            rotation = entity.Float("rotation")
                         });
                         break;
                 }
@@ -173,11 +198,32 @@ public static class ColorfulDebug {
                     Vector2 offset = new(self.X, self.Y);
                     switch(d.type) {
                         case TYPE_IMAGE:
-                            Image image = new(GFX.Game[d.data]) {
+                            Atlas atlas = d.useGui ? GFX.Gui : GFX.Game;
+                            Image image = new(atlas[d.data]) {
                                 Color = d.color,
-                                Scale = new(d.scaleX / 8f, d.scaleY / 8f)
+                                Scale = new(d.scaleX / 8f, d.scaleY / 8f),
+                                Rotation = d.rotation / 180f * (float) Math.PI
                             };
-                            image.Position = new(d.position.X + self.X - (image.Width * d.scaleX / 16f), d.position.Y + self.Y - (image.Height * d.scaleY / 16f));
+                            image.Position = new Vector2(d.position.X + self.X, d.position.Y + self.Y);
+                            image.CenterOrigin();
+                            image.Render();
+                            break;
+
+                        case TYPE_ANIMATION:
+                            atlas = d.useGui ? GFX.Gui : GFX.Game;
+                            image = new(
+                                atlas[
+                                    d.textures[
+                                        (int) (Engine.Scene.TimeActive / d.animationSpeed % d.textures.Count)
+                                    ]
+                                ]
+                            ) {
+                                Color = d.color,
+                                Scale = new(d.scaleX / 8f, d.scaleY / 8f),
+                                Rotation = d.rotation / 180f * (float) Math.PI + Engine.Scene.TimeActive / 2f
+                            };
+                            image.Position = new Vector2(d.position.X + self.X, d.position.Y + self.Y);
+                            image.CenterOrigin();
                             image.Render();
                             break;
 
