@@ -16,11 +16,11 @@ ddc.placements = {
             scaleX = 8.0,
             scaleY = 8.0,
             color = "FFFFFF",
-			useGui = false,
-			rotation = 0.0
+            useGui = false,
+            rotation = 0.0
         }
     },
-	{
+    {
         name = "animation",
         data = {
             type = "Animation",
@@ -39,8 +39,8 @@ ddc.placements = {
             type = "Rectangle",
             hollow = false,
             color = "FFFFFF",
-			width = 16,
-			height = 16
+            width = 16,
+            height = 16
         }
     },
     {
@@ -175,13 +175,13 @@ end
 function ddc.selection(room, entity)
     if entity.type == "Rectangle" then
         return utils.rectangle(entity.x, entity.y, entity.width, entity.height)
-	elseif entity.type == "Line" then
+    elseif entity.type == "Line" then
         local node = entity.nodes[1]
         local nodeRectangle = utils.rectangle(node.x - 8, node.y - 8, 16, 16)
-		return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16), {nodeRectangle}
+        return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16), {nodeRectangle}
     elseif entity.type == "Text" then
         return utils.rectangle(entity.x - 16, entity.y - 16, 32, 32)
-	else
+    else
         return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16)
     end
 end
