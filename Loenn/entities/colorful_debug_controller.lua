@@ -21,13 +21,13 @@ cdc.placements = {
 }
 
 cdc.fieldInformation = {
-    spawnColor =  { fieldType = "color" },
+    spawnColor = { fieldType = "color" },
     bgTileColor = { fieldType = "color" },
     fgTileColor = { fieldType = "color" },
     roomBgColor = { fieldType = "color" },
-    jumpthruColor =  { fieldType = "color" },
-    berryColor =  { fieldType = "color" },
-    checkpointColor =  { fieldType = "color" }
+    jumpthruColor = { fieldType = "color" },
+    berryColor = { fieldType = "color" },
+    checkpointColor = { fieldType = "color" }
 }
 
 return cdc

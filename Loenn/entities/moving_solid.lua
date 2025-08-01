@@ -25,7 +25,7 @@ solid.placements = {
 
 solid.sprite = fakeTilesHelper.getEntitySpriteFunction("tileset")
 
-solid.fieldInformation = function(entity)
+function solid.fieldInformation(entity)
     local orig = fakeTilesHelper.getFieldInformation("tileset")(entity)
     orig.easeMode = {
         options = easingOptions,

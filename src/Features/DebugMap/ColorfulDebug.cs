@@ -29,9 +29,10 @@ public struct DebugDecalData {
     public float rotation;
 }
 
-public static class ColorfulDebug {
+public static partial class ColorfulDebug {
     private const string CONTROLLER_COLOR = "GameHelper/ColorfulDebugController";
     private const string CONTROLLER_DECAL = "GameHelper/DebugDecalController";
+    private const string CONTROLLER_TILES = "GameHelper/TileDebugDecalConverter";
 
     public const string TYPE_IMAGE = "Image";
     public const string TYPE_ANIMATION = "Animation";
@@ -61,7 +62,6 @@ public static class ColorfulDebug {
         foreach(LevelData level in mapData.Levels) {
             foreach(EntityData entity in level.Entities) {
                 switch(entity.Name) {
-
                     case CONTROLLER_COLOR:
                         string prefix = entity.Attr("roomPrefix");
                         Color[] colorData = [
@@ -133,6 +133,31 @@ public static class ColorfulDebug {
                             useGui = useGui,
                             rotation = entity.Float("rotation")
                         });
+                        break;
+
+                    case CONTROLLER_TILES:
+                        if(!DecalIndex.TryGetValue(level.Name, out list)) {
+                            list = new();
+                            DecalIndex.Add(level.Name, list);
+                        }
+                        char match = entity.Char("tileset");
+                        Color color = entity.HexColor("color");
+                        Regex tileRegex = TileRegex();
+                        string[] tileRows = tileRegex.Split(entity.Bool("fg") ? level.Solids : level.Bg);
+                        for(int i = 0; i < tileRows.Length; i++) {
+                            for(int j = 0; j < tileRows[i].Length; j++) {
+                                if(tileRows[i][j] == match) {
+                                    list.Add(new() {
+                                        type = TYPE_RECTANGLE,
+                                        position = new Vector2(j, i),
+                                        width = 1,
+                                        height = 1,
+                                        hollow = false,
+                                        color = color,
+                                    });
+                                }
+                            }
+                        }
                         break;
                 }
             }
@@ -260,4 +285,7 @@ public static class ColorfulDebug {
         On.Celeste.Editor.MapEditor.Render -= OnMapEditorRender;
         On.Celeste.Editor.LevelTemplate.RenderContents -= OnRenderLevel;
     }
+
+    [GeneratedRegex("\\r\\n|\\n\\r|\\n|\\r")]
+    private static partial Regex TileRegex();
 }

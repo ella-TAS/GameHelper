@@ -270,6 +270,11 @@ entities.GameHelper/DebugDecalController.attributes.description.useGui=Use Atlas
 entities.GameHelper/DebugDecalController.attributes.name.rotation=Rotation °
 entities.GameHelper/DebugDecalController.attributes.description.rotation=The rotation of the image in °.
 
+entities.GameHelper/TileDebugDecalConverter.placements.name.fg=Tile Debug Decal Converter (Foreground)
+entities.GameHelper/TileDebugDecalConverter.placements.name.bg=Tile Debug Decal Converter (Background)
+entities.GameHelper/TileDebugDecalConverter.placements.description.fg=Place Debug Decal tiles on all foreground tiles of the specified type in this room.
+entities.GameHelper/TileDebugDecalConverter.placements.description.bg=Place Debug Decal tiles on all background tiles of the specified type in this room.
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 
