@@ -36,16 +36,12 @@ public class SlowdownCobweb : Entity {
 
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
-        SlowdownCobweb nearestWeb = null;
-        float minDistance = float.MaxValue;
+        bool inWeb = false;
         foreach(SlowdownCobweb c in p.CollideAll<SlowdownCobweb>()) {
-            if(Vector2.Distance(p.Center, c.Center) < minDistance) {
-                nearestWeb = c;
-                minDistance = Vector2.Distance(p.Center, c.Center);
-            }
+            c.Decay();
+            inWeb = true;
         }
-        nearestWeb?.Decay();
-        if(nearestWeb != null && !p.DashAttacking) {
+        if(inWeb && !p.DashAttacking) {
             p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 40);
             if(!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
