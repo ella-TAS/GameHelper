@@ -1,4 +1,4 @@
-// heavily inspired by KoseiHelper
+// inspired by KoseiHelper
 
 using Celeste.Editor;
 using Celeste.Mod.Helpers;
@@ -11,23 +11,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
-
-public struct DebugDecalData {
-    public string type;
-    public Vector2 position;
-    public int width;
-    public int height;
-    public bool hollow;
-    public float thickness;
-    public string data;
-    public float scaleX;
-    public float scaleY;
-    public Color color;
-    public List<string> textures;
-    public float animationSpeed;
-    public bool useGui;
-    public float rotation;
-}
 
 public static partial class ColorfulDebug {
     private const string CONTROLLER_COLOR = "GameHelper/ColorfulDebugController";

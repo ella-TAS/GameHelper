@@ -6,11 +6,11 @@ Jackal – original SwingSolid
 Kosei – Fixes, FMOD, Debug Deco inspiration
 
 ### Code help
-Snip – always helpful and kind  
+Snip – helpful and kind  
 microlith57  
 Popax21  
 psygamer  
-Wartori  
+Wartori – 500000% lag reduction  
 maddie480  
 Viv  
 JaThePlayer – easing reflection
