@@ -59,7 +59,7 @@ public class PSwitchBlock : DashBlock {
         while(coinSprite.CurrentAnimationFrame is not (3 or 9)) yield return null;
         coinSprite.Play("collect");
         while(coinSprite.Animating) yield return null;
-        Visible = false;
+        RemoveSelf();
     }
 
     public override void Render() {
@@ -68,5 +68,15 @@ public class PSwitchBlock : DashBlock {
         } else if(canDash) {
             coinSprite.Render();
         }
+    }
+
+    public override void Removed(Scene scene) {
+        // no freeze frames
+        if(Components != null) {
+            foreach(Component component in Components) {
+                component.EntityRemoved(scene);
+            }
+        }
+        Scene = null;
     }
 }

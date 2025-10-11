@@ -105,7 +105,7 @@ public class PSwitch : Actor {
             } else if(Top < bounds.Top - 4) {
                 Top = bounds.Top + 4;
                 Speed.Y = 0f;
-            } else if(Top > bounds.Bottom) Die();
+            } else if(Top > bounds.Bottom + 12) Die();
         }
 
         if(pressed || dead) return;
@@ -246,8 +246,6 @@ public class PSwitch : Actor {
     public void Die() {
         if(dead) return;
         dead = true;
-        Audio.Play("event:/char/madeline/death", Position);
-        Add(new DeathEffect(new Color(86, 107, 226), Center - Position));
         Hold.RemoveSelf();
         Collidable = sprite.Visible = platform.Collidable = AllowPushing = false;
         Depth = -1000000;
