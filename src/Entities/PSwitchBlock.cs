@@ -63,6 +63,7 @@ public class PSwitchBlock : DashBlock {
     }
 
     public override void Render() {
+        Get<LightOcclude>().Visible = isBlock;
         if(isBlock) {
             base.Render();
         } else if(canDash) {

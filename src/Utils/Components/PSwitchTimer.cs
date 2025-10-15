@@ -9,6 +9,7 @@ public class PSwitchTimer : Component {
     private readonly string flag;
     private readonly float duration;
     private float timer;
+    private bool soundPlayed;
 
     public PSwitchTimer(string flag, float duration) : base(true, true) {
         StartColor = new Color(105, 152, 255);
@@ -20,6 +21,10 @@ public class PSwitchTimer : Component {
 
     public override void Update() {
         timer -= Engine.DeltaTime;
+        if(timer <= 1f && !soundPlayed) {
+            Audio.Play("event:/GameHelper/p_switch/p_switch_timer");
+            soundPlayed = true;
+        }
         if(timer <= 0f) {
             GameHelper.Session.PSwitchTimers.Remove(flag);
             RemoveSelf();

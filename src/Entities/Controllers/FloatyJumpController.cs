@@ -55,13 +55,19 @@ public class FloatyJumpController : Entity {
         return orig(p, target, direction);
     }
 
+    private static void OnDeath(Player self) {
+        Audio.Stop(floatySound);
+    }
+
     public static void Hook() {
         On.Celeste.Player.Update += OnPlayerUpdate;
         On.Celeste.Player.TransitionTo += OnTransitionTo;
+        Everest.Events.Player.OnDie += OnDeath;
     }
 
     public static void Unhook() {
         On.Celeste.Player.Update -= OnPlayerUpdate;
         On.Celeste.Player.TransitionTo -= OnTransitionTo;
+        Everest.Events.Player.OnDie -= OnDeath;
     }
 }
