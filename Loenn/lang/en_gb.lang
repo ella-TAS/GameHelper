@@ -275,6 +275,9 @@ entities.GameHelper/TileDebugDecalConverter.placements.name.bg=Tile Debug Decal 
 entities.GameHelper/TileDebugDecalConverter.placements.description.fg=Place Debug Decal tiles on all foreground tiles of the specified type in this room.
 entities.GameHelper/TileDebugDecalConverter.placements.description.bg=Place Debug Decal tiles on all background tiles of the specified type in this room.
 
+entities.GameHelper/AutoSaveIntervalController.placements.name.normal=Auto Save Interval Controller
+entities.GameHelper/AutoSaveIntervalController.attributes.name.interval=Interval (Minutes)
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 

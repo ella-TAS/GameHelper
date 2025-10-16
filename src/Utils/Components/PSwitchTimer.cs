@@ -12,8 +12,8 @@ public class PSwitchTimer : Component {
     private bool soundPlayed;
 
     public PSwitchTimer(string flag, float duration) : base(true, true) {
-        StartColor = new Color(105, 152, 255);
-        EndColor = new Color(56, 6, 207);
+        StartColor = new Color(97, 255, 85);
+        EndColor = new Color(208, 28, 23);
 
         this.flag = flag;
         this.duration = timer = duration;
@@ -48,8 +48,11 @@ public class PSwitchTimer : Component {
     }
 
     public override void Render() {
-        Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p == null) return;
-        Util.DrawCircle(p.Center, 15 * timer / duration, Util.ColorInterpolate(EndColor, StartColor, timer / duration));
+        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+            Vector2 bar = p.Position - new Vector2(6f, 20f);
+            Draw.Rect(bar - Vector2.UnitY, 12, 4, Color.Black);
+            Draw.Rect(bar - Vector2.UnitX, 14, 2, Color.Black);
+            Draw.Rect(bar, (int) (12f * timer / duration + 0.99999f), 2, Util.ColorInterpolate(EndColor, StartColor, timer / duration));
+        }
     }
 }
