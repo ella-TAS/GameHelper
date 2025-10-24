@@ -34,6 +34,7 @@ public static class EntitySearchData {
         { "lavaBlock", "fireBarrier" },
         { "lookout", "towerviewer" },
         { "oshiroBoss", "friendlyGhost" },
+        { "player", "spawnpoint" },
         { "powerBox", "lightningBlock" },
         { "pufferfish", "eyebomb" },
         { "spaceJam", "dreamBlock" },
