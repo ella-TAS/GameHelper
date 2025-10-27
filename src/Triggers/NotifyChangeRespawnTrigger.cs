@@ -9,11 +9,13 @@ namespace Celeste.Mod.GameHelper.Triggers;
 [CustomEntity("GameHelper/NotifyChangeRespawnTrigger")]
 
 public class NotifyChangeRespawnTrigger : ChangeRespawnTrigger {
+    private const string TERRARIA_SID = "CrossoverCollab/1-Submissions/Terraria";
     private const string DEFAULT_SFX = "event:/GameHelper/respawn/Respawn";
 
     private readonly ParticleType pType;
     private readonly string flag, sfxPath;
-    private readonly bool invertFlag, notifySound, notifyVisual, atTrigger;
+    private readonly bool invertFlag, notifySound, notifyVisual;
+    private bool atTrigger;
 
     public NotifyChangeRespawnTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         flag = data.Attr("flag");
@@ -58,5 +60,12 @@ public class NotifyChangeRespawnTrigger : ChangeRespawnTrigger {
         }
 
         base.OnEnter(player);
+    }
+
+    public override void Awake(Scene scene) {
+        base.Awake(scene);
+        if(SceneAs<Level>().Session.Area.SID.Equals(TERRARIA_SID)) {
+            atTrigger = true;
+        }
     }
 }
