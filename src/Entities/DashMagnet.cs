@@ -17,6 +17,7 @@ public class DashMagnet : Entity {
     private readonly Sprite sprite;
     private bool inside, wasInside, used;
     private readonly bool bulletTime;
+    private TimeRateModifier timeRateModifier;
 
     public DashMagnet(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         Collider = new Circle(30, 8, 8);
@@ -24,6 +25,7 @@ public class DashMagnet : Entity {
         Add(sprite = GameHelper.SpriteBank.Create("dash_magnet"));
         Add(new PlayerCollider(onCollide));
         Depth = 1;
+        Add(timeRateModifier = new TimeRateModifier(1f));
     }
 
     private void onCollide(Player p) {
@@ -38,9 +40,9 @@ public class DashMagnet : Entity {
             }
             p.DashDir = Direction;
             p.Speed = Speed * Direction;
-            Engine.TimeRate = Calc.Approach(Engine.TimeRate, 1f, 0.1f);
+            timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, 1f, 0.1f);
         } else if(bulletTime && p.Dashes > 0) {
-            Engine.TimeRate = Calc.Approach(Engine.TimeRate, 0.2f, 0.1f);
+            timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, 0.2f, 0.1f);
         }
         inside = true;
     }
@@ -54,7 +56,7 @@ public class DashMagnet : Entity {
         if(!inside && wasInside) {
             wasInside = used = false;
             InsideMagnet = false;
-            Engine.TimeRate = 1f;
+            timeRateModifier.Multiplier = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             if(p != null && p.StateMachine.State == PlayerState.StDash && !p.StartedDashing) {
                 p.StateMachine.State = PlayerState.StNormal;

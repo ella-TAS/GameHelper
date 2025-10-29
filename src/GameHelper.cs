@@ -50,6 +50,7 @@ public class GameHelper : EverestModule {
         MiscHooks.Hook();
         EntitySearch.Hook();
         ColorfulDebug.Hook();
+        SuperHotController.Hook();
 
         PlayerShadowController.resetBindings();
         FlashlightController.resetBindings();
@@ -71,6 +72,7 @@ public class GameHelper : EverestModule {
         MiscHooks.Unhook();
         EntitySearch.Unhook();
         ColorfulDebug.Unhook();
+        SuperHotController.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

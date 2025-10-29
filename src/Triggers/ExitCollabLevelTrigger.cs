@@ -18,6 +18,7 @@ public class ExitCollabLevelTrigger : Trigger {
     private readonly float delay, timeRateWait;
     private readonly bool addHeartTrigger;
     private readonly string flag;
+    private TimeRateModifier timeRateModifier;
 
     public ExitCollabLevelTrigger(EntityData data, Vector2 levelOffset) : base(data, levelOffset) {
         delay = data.Float("delay");
@@ -26,6 +27,7 @@ public class ExitCollabLevelTrigger : Trigger {
         flag = data.Attr("flag");
         this.data = data;
         this.levelOffset = levelOffset;
+        Add(timeRateModifier = new TimeRateModifier(1f));
     }
 
     public override void OnStay(Player player) {
@@ -39,10 +41,10 @@ public class ExitCollabLevelTrigger : Trigger {
     private IEnumerator routineExit(Player p) {
         Level level = SceneAs<Level>();
         level.CanRetry = false;
-        Engine.TimeRate = timeRateWait;
+        timeRateModifier.Multiplier = timeRateWait;
         collectBerries(p);
         yield return delay;
-        Engine.TimeRate = 1f;
+        timeRateModifier.Multiplier = 1f;
         if(p.Dead) {
             yield return float.MaxValue;
         }
