@@ -49,7 +49,7 @@ public class SaveSpeedFeather : FlyFeather {
     }
 
     private static IEnumerator OnStarFlyCoroutine(On.Celeste.Player.orig_StarFlyCoroutine orig, Player p) {
-        IEnumerator origEnum = orig(p);
+        IEnumerator origEnum = orig(p).SafeEnumerate();
         while(origEnum.MoveNext()) {
             if(p.starFlyTimer == 2f) {
                 FeatherDurationSetter comp = p.Get<FeatherDurationSetter>();

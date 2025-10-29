@@ -84,7 +84,7 @@ public class DashMagnet : Entity {
 
     private static IEnumerator DashCoroutine(On.Celeste.Player.orig_DashCoroutine orig, Player p) {
         const float sqrt2 = 1.41421353816986083984f;
-        IEnumerator origEnum = orig(p);
+        IEnumerator origEnum = orig(p).SafeEnumerate();
 
         while(origEnum.MoveNext()) {
             yield return origEnum.Current;
