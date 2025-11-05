@@ -2,6 +2,7 @@ using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System.Linq;
 
 namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
@@ -44,10 +45,13 @@ public class RoasterController : Entity {
             bool ground = p.OnGround();
             bool wallL = p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0));
             bool wallR = p.CollideCheck<Solid>(p.Position + new Vector2(3, 0));
+            bool bino = SceneAs<Level>().Tracker.GetEntities<Lookout>().Any(e => (e as Lookout).interacting);
             if(
                 (!waterOnly && !ground && !wallL && !wallR) ||
                 (waterOnly && p.CollideCheck<Water>()) ||
-                p.JustRespawned
+                p.JustRespawned ||
+                bino
+
             ) {
                 ResetTimer();
             }

@@ -188,18 +188,6 @@ public static partial class ColorfulDebug {
             foreach(Rectangle solid in self.solids) {
                 Draw.Rect(self.X + solid.X, self.Y + solid.Y, solid.Width, solid.Height, vanillaDummy ? Color.LightGray : colors[1]);
             }
-            foreach(Vector2 spawn in self.Spawns) {
-                Draw.Rect(self.X + spawn.X, self.Y + spawn.Y - 1f, 1f, 1f, colors[0]);
-            }
-            foreach(Vector2 strawberry in self.Strawberries) {
-                Draw.HollowRect(self.X + strawberry.X - 1f, self.Y + strawberry.Y - 2f, 3f, 3f, colors[4]);
-            }
-            foreach(Vector2 checkpoint in self.Checkpoints) {
-                Draw.HollowRect(self.X + checkpoint.X - 1f, self.Y + checkpoint.Y - 2f, 3f, 3f, colors[5]);
-            }
-            foreach(Rectangle jumpthru in self.Jumpthrus) {
-                Draw.Rect(self.X + jumpthru.X, self.Y + jumpthru.Y, jumpthru.Width, 1f, colors[6]);
-            }
 
             if(DecalIndex.TryGetValue(self.Name, out List<DebugDecalData> decals)) {
                 foreach(DebugDecalData d in decals) {
@@ -252,6 +240,19 @@ public static partial class ColorfulDebug {
                             break;
                     }
                 }
+            }
+
+            foreach(Vector2 spawn in self.Spawns) {
+                Draw.Rect(self.X + spawn.X, self.Y + spawn.Y - 1f, 1f, 1f, colors[0]);
+            }
+            foreach(Vector2 strawberry in self.Strawberries) {
+                Draw.HollowRect(self.X + strawberry.X - 1f, self.Y + strawberry.Y - 2f, 3f, 3f, colors[4]);
+            }
+            foreach(Vector2 checkpoint in self.Checkpoints) {
+                Draw.HollowRect(self.X + checkpoint.X - 1f, self.Y + checkpoint.Y - 2f, 3f, 3f, colors[5]);
+            }
+            foreach(Rectangle jumpthru in self.Jumpthrus) {
+                Draw.Rect(self.X + jumpthru.X, self.Y + jumpthru.Y, jumpthru.Width, 1f, colors[6]);
             }
         } else {
             Draw.Rect(self.X, self.Y, self.Width, self.Height, Color.LightGray);
