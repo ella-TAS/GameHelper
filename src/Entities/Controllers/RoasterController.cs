@@ -51,7 +51,6 @@ public class RoasterController : Entity {
                 (waterOnly && p.CollideCheck<Water>()) ||
                 p.JustRespawned ||
                 bino
-
             ) {
                 ResetTimer();
             }
