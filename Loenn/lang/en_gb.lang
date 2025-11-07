@@ -21,6 +21,7 @@ entities.GameHelper/MarioMole.attributes.description.gravity=Whether the entity 
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box (Dadish)
 entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30).
+entities.GameHelper/PushBox.attributes.description.canPull=Whether the box can be pulled towards the player by grabbing it. 
 
 entities.GameHelper/PushBoxButton.placements.name.pushboxbutton=Push Box Button (Dadish)
 entities.GameHelper/PushBoxButton.attributes.description.flag=The flag that is set by the button.

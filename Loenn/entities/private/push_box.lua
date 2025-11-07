@@ -12,7 +12,8 @@ pushbox.placements = {
     data = {
         width = 16,
         height = 16,
-        speedX = 30.0
+        speedX = 30.0,
+        canPull = false
     }
 }
 

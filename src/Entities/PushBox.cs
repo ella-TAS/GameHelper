@@ -13,12 +13,13 @@ public class PushBox : Solid {
     private readonly Color colorFill = Calc.HexToColor("fbb954");
     private readonly Color colorCorner = Calc.HexToColor("8ff8e2");
     private readonly float speedX;
+    private readonly bool canPull;
     private float velY;
 
     public PushBox(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Float("speedX");
-        Add(GameHelper.SpriteBank.Create("pigarithm_small"));
+        canPull = data.Bool("canPull", false);
         Depth = -1;
     }
 
@@ -26,12 +27,20 @@ public class PushBox : Solid {
         base.Update();
 
         //player check, move X
-        Player p = Scene.Tracker.GetEntity<Player>();
-        if(p != null && !HasPlayerClimbing()) {
-            if(p.CollideCheck(this, p.Position + Vector2.UnitX)) { //moving right
-                MoveHor(speedX * Engine.DeltaTime);
-            } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) { //moving left
-                MoveHor(-speedX * Engine.DeltaTime);
+        if(Scene.Tracker.GetEntity<Player>() is Player p) {
+            int playerSide = 0;
+            if (p.CollideCheck(this, p.Position + Vector2.UnitX)) {
+                playerSide = -1;
+            } else if (p.CollideCheck(this, p.Position - Vector2.UnitX)) {
+                playerSide = 1;
+            }
+
+            if(HasPlayerClimbing()) {
+                if(canPull && Input.Aim.X != 0) {
+                    MoveHor(Math.Ceil(Input.Aim.X) * speedX * Engine.DeltaTime);
+                }
+            } else if(playerSide != 0) {
+                MoveHor(-playerSide * speedX * Engine.DeltaTime);
             }
         }
 
