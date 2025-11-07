@@ -1,6 +1,7 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System;
 
 namespace Celeste.Mod.GameHelper.Entities;
 
@@ -19,7 +20,7 @@ public class PushBox : Solid {
     public PushBox(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Width, data.Height, safe: false) {
         speedX = data.Float("speedX");
-        canPull = data.Bool("canPull", false);
+        canPull = data.Bool("canPull", true);
         Depth = -1;
     }
 
@@ -29,15 +30,15 @@ public class PushBox : Solid {
         //player check, move X
         if(Scene.Tracker.GetEntity<Player>() is Player p) {
             int playerSide = 0;
-            if (p.CollideCheck(this, p.Position + Vector2.UnitX)) {
+            if(p.CollideCheck(this, p.Position + Vector2.UnitX)) {
                 playerSide = -1;
-            } else if (p.CollideCheck(this, p.Position - Vector2.UnitX)) {
+            } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) {
                 playerSide = 1;
             }
 
             if(HasPlayerClimbing()) {
-                if(canPull && Input.Aim.X != 0) {
-                    MoveHor(Math.Ceil(Input.Aim.X) * speedX * Engine.DeltaTime);
+                if(canPull && Input.Aim.Value.X != 0) {
+                    MoveHor((float) Math.Ceiling(Input.Aim.Value.X) * speedX * Engine.DeltaTime);
                 }
             } else if(playerSide != 0) {
                 MoveHor(-playerSide * speedX * Engine.DeltaTime);

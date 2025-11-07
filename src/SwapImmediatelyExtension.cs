@@ -1,16 +1,13 @@
 ﻿using Monocle;
 using System;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Celeste.Mod {
     public static class SwapImmediatelyExtension {
         /// <summary>
         ///   Flattens all <see cref="SwapImmediately"/> returned by the source IEnumerator.
-        ///   When writing hooks on Coroutine-style methods, 
+        ///   When writing hooks on Coroutine-style methods,
         ///   this method is needed if you want to access values returned from the orig Coroutine,
         ///   for instance, if it were to return the following sequence `{1, 2, SwapImmediately({1, 2}), 3}`
         ///   a simple enumeration of it would not pass properly the values inside the <see cref="SwapImmediately" />.
@@ -50,13 +47,13 @@ namespace Celeste.Mod {
             }
 
             public bool MoveNext() {
-                while (enums.Count > 0) {
+                while(enums.Count > 0) {
                     IEnumerator cur = enums.Peek();
 
-                    if (cur.MoveNext()) {
+                    if(cur.MoveNext()) {
                         object obj = cur.Current;
 
-                        if (obj is SwapImmediately swap) {
+                        if(obj is SwapImmediately swap) {
                             enums.Push(swap.Inner);
                         } else {
                             current = obj;

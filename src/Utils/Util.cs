@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
@@ -68,5 +69,18 @@ public static class Util {
     public static string GetCelesteSaveName(int slot) {
         string s = SaveData.GetFilename(slot);
         return (UserIO.Exists(s) ? UserIO.Load<SaveData>(s)?.Name : "") ?? "";
+    }
+
+    public static void CollectBerries(Player p) {
+        List<IStrawberry> berries = new();
+        ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
+        foreach(Follower follower in p.Leader.Followers) {
+            if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry s) {
+                berries.Add(s);
+            }
+        }
+        foreach(IStrawberry berry in berries) {
+            berry.OnCollect();
+        }
     }
 }

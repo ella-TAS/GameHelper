@@ -4,10 +4,7 @@ using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
@@ -42,7 +39,7 @@ public class ExitCollabLevelTrigger : Trigger {
         Level level = SceneAs<Level>();
         level.CanRetry = false;
         timeRateModifier.Multiplier = timeRateWait;
-        collectBerries(p);
+        Util.CollectBerries(p);
         yield return delay;
         timeRateModifier.Multiplier = 1f;
         if(p.Dead) {
@@ -70,19 +67,6 @@ public class ExitCollabLevelTrigger : Trigger {
         level.DoScreenWipe(wipeIn: false, delegate {
             Engine.Scene = new LevelExitToLobby(LevelExit.Mode.Completed, level.Session);
         });
-    }
-
-    private static void collectBerries(Player p) {
-        List<IStrawberry> berries = new();
-        ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
-        foreach(Follower follower in p.Leader.Followers) {
-            if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry s) {
-                berries.Add(s);
-            }
-        }
-        foreach(IStrawberry berry in berries) {
-            berry.OnCollect();
-        }
     }
 
     public override void Added(Scene scene) {
