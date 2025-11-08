@@ -37,7 +37,7 @@ public class PushBox : Solid {
             }
 
             if(HasPlayerClimbing()) {
-                if(canPull && Input.Aim.Value.X != 0) {
+                if(canPull && p.OnGround() && Input.Aim.Value.X != 0) {
                     MoveHor((float) Math.Ceiling(Input.Aim.Value.X) * speedX * Engine.DeltaTime);
                 }
             } else if(playerSide != 0) {

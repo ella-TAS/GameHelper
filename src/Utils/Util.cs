@@ -72,6 +72,10 @@ public static class Util {
     }
 
     public static void CollectBerries(Player p) {
+        if(p == null) {
+            return;
+        }
+
         List<IStrawberry> berries = new();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
         foreach(Follower follower in p.Leader.Followers) {
