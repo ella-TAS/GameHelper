@@ -13,15 +13,6 @@ feather.placements = {
             singleUse = true,
             flightDuration = 2.0
         }
-    },
-    {
-        name = "boost",
-        data = {
-            startBoost = true,
-            shielded = false,
-            singleUse = false,
-            flightDuration = 1.0
-        }
     }
 }
 

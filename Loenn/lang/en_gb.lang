@@ -1,9 +1,11 @@
 entities.GameHelper/Trampoline.placements.name.trampoline=Trampoline (Mario)
+entities.GameHelper/Trampoline.placements.description.trampoline=A Super Mario World spring which converts X and Y speed when hit.
 entities.GameHelper/Trampoline.attributes.description.speedBoostX=The speed boost added on the X axis (default 60).
 entities.GameHelper/Trampoline.attributes.description.speedBoostY=The speed boost added on the Y axis (default 60).
 entities.GameHelper/Trampoline.attributes.description.facingUpLeft=Which direction the trampoline is facing.
 
 entities.GameHelper/Pigarithm.placements.name.pigarithm=Pigarithm (Mario)
+entities.GameHelper/Pigarithm.placements.description.pigarithm=A pig entity from Super Paper Mario that moves from left to right and back.
 entities.GameHelper/Pigarithm.attributes.description.sprite=Which sprite the entity uses.\nRecommended sizes:\nBig: 6×4 tiles\nMedium: 4×3 tiles\nSmall: 2×2 tiles
 entities.GameHelper/Pigarithm.attributes.description.speed=Horizontal speed (default 60)
 entities.GameHelper/Pigarithm.attributes.description.startRight=Which direction the entity should start moving in.
@@ -12,6 +14,7 @@ entities.GameHelper/Pigarithm.attributes.description.flag=Condition flag for the
 entities.GameHelper/Pigarithm.attributes.description.flipSprite=Whether the sprite should be flipped upside-down.
 
 entities.GameHelper/MarioMole.placements.name.mole=Mario Mole
+entities.GameHelper/MarioMole.placements.description.mole=A solid entity that moves from left to right and back.
 entities.GameHelper/MarioMole.attributes.description.speed=Horizontal speed (default 60)
 entities.GameHelper/MarioMole.attributes.description.startRight=Which direction the entity should start moving in.
 entities.GameHelper/MarioMole.attributes.description.kill=Whether touching the sides should kill the player.
@@ -20,22 +23,27 @@ entities.GameHelper/MarioMole.attributes.description.flipSprite=Whether the spri
 entities.GameHelper/MarioMole.attributes.description.gravity=Whether the entity should be affected by gravity.
 
 entities.GameHelper/PushBox.placements.name.pushbox=Push Box (Dadish)
+entities.GameHelper/PushBox.placements.description.pushbox=A box that can be pushed around by walking into it, and pulled by grabbing it. Can interact with Push Box Buttons.
 entities.GameHelper/PushBox.attributes.description.speed=The speed you move at when pushing the block (default 30).
-entities.GameHelper/PushBox.attributes.description.canPull=Whether the box can be pulled towards the player by grabbing it. 
+entities.GameHelper/PushBox.attributes.description.canPull=Whether the box can be pulled towards the player by grabbing it.
 
 entities.GameHelper/PushBoxButton.placements.name.pushboxbutton=Push Box Button (Dadish)
+entities.GameHelper/PushBoxButton.placements.description.pushboxbutton=A flag button that can be pressed by Push Boxes and optionally the player.
 entities.GameHelper/PushBoxButton.attributes.description.flag=The flag that is set by the button.
 entities.GameHelper/PushBoxButton.attributes.description.playerActivates=Whether the player can activate the button.
 entities.GameHelper/PushBoxButton.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room.
 
 entities.GameHelper/Chainsaw.placements.name.chainsaw=Chainsaw (King of Thieves)
+entities.GameHelper/Chainsaw.placements.description.chainsaw=A chainsaw entity that chases towards you along its wall when you enter its sight.
 entities.GameHelper/Chainsaw.attributes.description.flipSprite=Whether the sprite is flipped along the charging axis.
 
 entities.GameHelper/Balloon.placements.name.balloon=Balloon (A Hat in Time)
+entities.GameHelper/Balloon.placements.description.balloon=A bouncy balloon that gives an ultra speed boost when touched.
 entities.GameHelper/Balloon.attributes.description.color=The color of the sprite.
 entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140).
 
 entities.GameHelper/DecalMover.placements.name.decal=Entity Mover (Decal)
+entities.GameHelper/DecalMover.placements.description.decal=This Entity Mover can move decals between nodes. For non-decal entities, please use the other Entity Mover versions.
 entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60).
 entities.GameHelper/DecalMover.attributes.description.flag=The flag that needs to be true for the decal to move. Leave empty for no requirement.
 entities.GameHelper/DecalMover.attributes.description.returnType=What the decal should do when it reaches the end node.
@@ -81,39 +89,49 @@ entities.GameHelper/EntityMoverFollow.attributes.description.minDistance=The min
 entities.GameHelper/EntityMoverFollow.attributes.description.maxDistance=The maximum distance starting from which the entity should follow.\nSet to 0 for no limit.
 
 entities.GameHelper/MouseRotator.placements.name.rotator=Mouse Rotator (Deltarune)
+entities.GameHelper/MouseRotator.placements.description.rotator=This block is used in the annoying mice puzzles to rotate the mice. It can be moved by dashing to solve the puzzle.
 entities.GameHelper/MouseRotator.attributes.description.clockwise=Whether the mice are rotated clockwise.
 
 entities.GameHelper/MouseHole.placements.name.hole_spawner=Mouse Hole (Spawner)
 entities.GameHelper/MouseHole.placements.name.hole_exit=Mouse Hole (Exit)
+entities.GameHelper/MouseHole.placements.description.hole_spawner=This block is used in the annoying mice puzzles to spawn mice when the button flag is set.
+entities.GameHelper/MouseHole.placements.description.hole_exit=This block is used in the annoying mice puzzles to catch the mice and set a flag for puzzle completion.
 entities.GameHelper/MouseHole.attributes.description.spawner=Whether the hole is an "in" or "out" hole.
 entities.GameHelper/MouseHole.attributes.description.flag=Spawner: Spawns mice when flag is true.\nExit: Sets flag when a mouse enters.
 entities.GameHelper/MouseHole.attributes.description.resetFlagOnDeath=Whether the flag should be reset with the room.
 
 entities.GameHelper/FlashlightController.placements.name.flc=Flashlight Controller (It Steals)
+entities.GameHelper/FlashlightController.placements.description.flc=Lights up a dark room by pressing the flashlight button.\nThe button is Journal by default, but can be adjusted for your map with with a code mod import.
 entities.GameHelper/FlashlightController.attributes.description.fadeTime=The number of seconds the light alpha takes to fade back to darkness (default 1).
 entities.GameHelper/FlashlightController.attributes.description.cooldown=The number of seconds after which the flashlight can be used again (default 3).
 
 entities.GameHelper/RoasterController.placements.name.rc=Roaster Controller (King of Thieves)
+entities.GameHelper/RoasterController.placements.description.rc=Get roasted while you are on the ground or walls.
 entities.GameHelper/RoasterController.attributes.description.timer=The number of seconds you you can stay on ground or walls before being killed (default 1.5).
 entities.GameHelper/RoasterController.attributes.description.flag=The flag that mirrors if the player is getting roasted currently.
 entities.GameHelper/RoasterController.attributes.description.OnlyExtinguishInWater=If the player should burn everywhere except in water and extinguish triggers.
 
 entities.GameHelper/TimeFreezeController.placements.name.tfc=Time Freeze Controller
+entities.GameHelper/TimeFreezeController.placements.description.tfc=Freeze time if nothing is pressed at the start of a room to make cycles more consistent.
 
 entities.GameHelper/FloatyJumpController.placements.name.fjc=Floaty Jump Controller
+entities.GameHelper/FloatyJumpController.placements.description.fjc=Allows you to hold jump to float in mid air.
 entities.GameHelper/FloatyJumpController.attributes.description.enable=Whether the mechanic should be enabled.
 entities.GameHelper/FloatyJumpController.attributes.description.flag=Flag needed for the floaty jump controller to change the value. Leave empty for no flag required.
 
 entities.GameHelper/RicochetFist.placements.name.fist=Ricochet Fist (King of Thieves)
+entities.GameHelper/RicochetFist.placements.description.fist=A hazard fist, bouncing off walls according to the best laws of physics.
 
 entities.GameHelper/ImmediateFeather.placements.name.normal=Immediate Feather
-entities.GameHelper/ImmediateFeather.placements.name.boost=Immediate Feather (Start Boost)
+entities.GameHelper/ImmediateFeather.placements.description.normal=A feather that lets you take flight immediately, converting all your speed into feather physics.
 entities.GameHelper/ImmediateFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0 for normal, 1.0 for boosted).
 entities.GameHelper/ImmediateFeather.attributes.description.startBoost=Whether the flight should start with 600 speed.
 
 entities.GameHelper/SuperHotController.placements.name.shc=Super Hot Controller
+entities.GameHelper/SuperHotController.placements.description.shc=Slows down the flow of time when not holding anything.
 
 entities.GameHelper/SaveSpeedFeather.placements.name.ssf=Save Speed Feather
+entities.GameHelper/SaveSpeedFeather.placements.description.ssf=A feather that conserves your entering speed and releases it when the flight ends.
 entities.GameHelper/SaveSpeedFeather.attributes.description.flightDuration=How long the flight lasts in seconds (default 2.0).
 entities.GameHelper/SaveSpeedFeather.attributes.description.redirectSpeed=Whether the speed should be given in the flight direction.
 
@@ -172,34 +190,42 @@ entities.GameHelper/EntityModifier.attributes.description.changeVisible=How the 
 entities.GameHelper/EntityModifier.attributes.description.doNewlyAddedEntities=Whether entities which were newly added to the scene after the screen transition should be considered. The addition of an entity to the list will trigger a modification if no flag is set. Only works with "Only Type" set. Not needed in the most cases!\nPlease turn it off if you don't need it! Try it without this option first!
 
 entities.GameHelper/MovingSolid.placements.name.normal=Moving Solid
+entities.GameHelper/MovingSolid.placements.description.normal=A generic solid that moves between two nodes with a set easing.
 entities.GameHelper/MovingSolid.attributes.description.moveTime=The time the solid takes to move from one end to the other in seconds.
 entities.GameHelper/MovingSolid.attributes.description.easeMode=The way the block moves from end to end. Linear means moving at constant speed.
 entities.GameHelper/MovingSolid.attributes.description.startOffset=How many seconds the block should wait before starting to move initially.
 entities.GameHelper/MovingSolid.attributes.description.pauseTime=How many seconds the platform should pause until it starts to move again.
 
 entities.GameHelper/SlowdownCobweb.placements.name.web=Slowdown Cobweb (Terraria)
+entities.GameHelper/SlowdownCobweb.placements.description.web=A one-tile cobweb that slows you down and slowly fades after you enter.
 
 entities.GameHelper/Dispenser.placements.name.dispenser=Dispenser (Minecraft)
+entities.GameHelper/Dispenser.placements.description.dispenser=An entity that shoots arrows at the player when in line of sight.
 entities.GameHelper/Dispenser.attributes.description.cooldown=How long the dispenser takes to shoot again.
 
 entities.GameHelper/DashMagnet.placements.name.magnet=Dash Magnet
+entities.GameHelper/DashMagnet.placements.description.magnet=A scuffed entity that attracts your dash and throws you out at the other side.\nNot recommended to use.
 entities.GameHelper/DashMagnet.attributes.description.bulletTime=Whether the time rate should be slowed down when the player enters the magnet's radius with a dash.
 
 entities.GameHelper/FlagCollectBerry.placements.name.normal=Flag Collect Strawberry
+entities.GameHelper/FlagCollectBerry.placements.description.normal=A strawberry entity that can be collected and lost using flags.
 
 entities.GameHelper/FireTrap.placements.name.trap=Fire Trap (Terraria)
+entities.GameHelper/FireTrap.placements.description.trap=A small volcano that spits fire when you move over it.
 entities.GameHelper/FireTrap.attributes.description.delay=The delay until the fire becomes collidable after starting\n(default 0.067, lets you not pass with a walking speed jump).
 
 entities.GameHelper/PlayerStateFlag.placements.name.psf=Player State Flag
+entities.GameHelper/PlayerStateFlag.placements.description.psf=A controller that can set a flag based on the player's state.
 entities.GameHelper/PlayerStateFlag.attributes.description.flag=The flag that should be set when the player is in the right state.
 entities.GameHelper/PlayerStateFlag.attributes.description.state=The player state the flag controller should check for.\n0 - Normal  1 - Climb\n2 - Dash  3 - Swim\n4 - Boost  5 - RedDash\n6 - HitSquash  7 - Launch\n8 - Pickup  9 - DreamDash\n10 - SummitLaunch  11 - Dummy\n12 - IntroWalk  13 - IntroJump\n14 - IntroRespawn  15 - IntroWakeUp\n16 - BirdDashTutorial  17 - Frozen\n18 - ReflectionFall  19 - StarFly\n20 - TempleFall  21 - CassetteFly\n22 - Attract  23 - IntroMoonJump\n24 - FlingBird  25 - IntroThinkForABit
 entities.GameHelper/PlayerStateFlag.attributes.description.invert=Whether the flag should be set to false when the state is met instead.
-entities.GameHelper/PlayerStateFlag.attributes.name.dashAttack=Check for DashAttack instead.
+entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check DashAttack instead
 entities.GameHelper/PlayerStateFlag.attributes.description.dashAttack=Check for the Player's DashAttack property instead.\nIn difference to StDash, DashAttack lasts 5 frames longer and is cancelled when you hit a wall during a diagonal dash.\nIt's used for things like dream block entry or breaking dash blocks in vanilla.
 entities.GameHelper/PlayerStateFlag.attributes.description.useStateName=Check for a state named like the one in the State field instead.\nThis is particularly useful for custom modded states, since their numbers are inconsistent and depend on all of the loaded mods.\nUseless if DashAttack is enabled.
 entities.GameHelper/PlayerStateFlag.attributes.description.debug=Print the state number and name to log.txt every frame.\nState numbers are not persistent for custom modded states!\nPlease turn this off if you don't need it to avoid spam in the console!
 
 entities.GameHelper/SwingSolid.placements.name.solid=Swing Block (Earthblade)
+entities.GameHelper/SwingSolid.placements.description.solid=A swing block that can be accelerated by grabbing and holding a direction, or by dashing into it.
 entities.GameHelper/SwingSolid.attributes.description.sprite=The path of the block sprite, starting at Graphics/Atlases/Gameplay.
 entities.GameHelper/SwingSolid.attributes.description.chainSpritePrefix=The path of the chain sprites, starting at Graphics/Atlases/Gameplay.\nThe last character should be omitted and will be randomly chosen between 1 and 4.
 entities.GameHelper/SwingSolid.attributes.description.maximumAngle=The maximum angle the block can reach in degrees (default 60).
@@ -207,21 +233,26 @@ entities.GameHelper/SwingSolid.attributes.description.swingSpeed=The speed of th
 entities.GameHelper/SwingSolid.attributes.description.acceleration=How quickly the block will gain speed when swung by grabbing (default 1).
 
 entities.GameHelper/PlayerShadowController.placements.name.normal=Player Shadow Controller
+entities.GameHelper/PlayerShadowController.placements.description.normal=A controller that lets you place a small snowball to jump on using the keybind.\nThe button is Journal by default, but can be adjusted for your map with with a code mod import.
 entities.GameHelper/PlayerShadowController.attributes.description.oneUse=Whether the shadow should fade away after being bonked once.
 entities.GameHelper/PlayerShadowController.attributes.description.uses=The number of shadows you can spawn.\nSet to -1 for infinite uses.
 entities.GameHelper/PlayerShadowController.attributes.description.freezeFrames=Whether freeze frames should be inserted on bonk.
 entities.GameHelper/PlayerShadowController.attributes.description.clipToTop=Whether the player should be clipped to the top of the entity's hitbox on bonk.
 
 entities.GameHelper/McFire.placements.name.fire=Fire (Minecraft)
+entities.GameHelper/McFire.placements.description.fire=A fire entity that can spread on and burn the Fire Flammable Blocks.
 entities.GameHelper/McFire.attributes.description.spreadingTime=The time it takes for the fire to spread once.
 
 entities.GameHelper/McFlammable.placements.name.normal=Fire Flammable Block (Minecraft)
+entities.GameHelper/McFlammable.placements.description.normal=A block that can be burnt by the Fire entity.
 
 entities.GameHelper/PSwitch.placements.name.normal=P-Switch (Mario)
+entities.GameHelper/PSwitch.placements.description.normal=A holdable P-Switch entity that sets a flag for a set amount of time when pressed.
 entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
 entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead.
 
 entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block (Mario)
+entities.GameHelper/PSwitchBlock.placements.description.normal=A block or a coin, based on a flag. Goes with the P-Switch entity.
 entities.GameHelper/PSwitchBlock.attributes.description.canDash=Whether the player can break the block by dashing and whether the coin appears.
 
 entities.GameHelper/CameraEntityTargetController.placements.name.normal=Camera Entity Target Controller
@@ -234,29 +265,32 @@ entities.GameHelper/CameraEntityTargetController.attributes.description.offsetY=
 entities.GameHelper/CameraEntityTargetController.attributes.description.resetOnFalse=Reset the camera offset when the flag is set to false.
 
 entities.GameHelper/CameraPeekController.placements.name.normal=Camera Peek Controller
-entities.GameHelper/CameraPeekController.placements.description.normal=Allows the player to hold Up or Down for a short while and the camera will pan in that direction, making observing your surroundings easier.
+entities.GameHelper/CameraPeekController.placements.description.normal=Allows the player to hold up or down for a short while and the camera will pan in that direction, making observing your surroundings easier.
 entities.GameHelper/CameraPeekController.attributes.description.magnitudeUp=How much the camera should peek up (unit is the same as in camera offset triggers).\nSet to 0 to deactivate peeking Up.
 entities.GameHelper/CameraPeekController.attributes.description.magnitudeDown=How much the camera should peek down (unit is the same as in camera offset triggers).\nSet to 0 to deactivate peeking Down.
 entities.GameHelper/CameraPeekController.attributes.description.pressDuration=The amount of seconds you need to press Up/Down to activate the peek.
 
 entities.GameHelper/HangingBridge.placements.name.normal=Deco Hanging Bridge
+entities.GameHelper/HangingBridge.placements.description.normal=A parabola shaped bridge.
 
 entities.GameHelper/JumpRope.placements.name.normal=Jump Rope (Mario)
+entities.GameHelper/JumpRope.placements.description.normal=A parabola shaped rope that can be jumped on for a vertical boost.
 entities.GameHelper/JumpRope.attributes.description.renderLeftEnd=Whether a rounded end should be rendered on the left end of the rope.
 entities.GameHelper/JumpRope.attributes.description.renderRightEnd=Whether a rounded end should be rendered on the right end of the rope.
 
 entities.GameHelper/ColorfulDebugController.placements.name.normal=Colorful Debug Controller
+entities.GameHelper/ColorfulDebugController.placements.description.normal=A controller that can recolor various parts of your debug map.\nCan be applied per room, room prefix or for the whole map.
 entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=The (case sensitive) prefix of all rooms this should apply to.\nLeave empty to affect the room it is placed in.\n Put * to affect all rooms.
 
 entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal Controller (Image)
-entities.GameHelper/DebugDecalController.placements.description.image=Displays an image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.animation=Debug Decal Controller (Animated Image)
-entities.GameHelper/DebugDecalController.placements.description.animation=Displays an animated image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal Controller (Rectangle)
-entities.GameHelper/DebugDecalController.placements.description.rectangle=Displays an rectangle (tile) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal Controller (Line)
-entities.GameHelper/DebugDecalController.placements.description.line=Displays a line in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal Controller (Text)
+entities.GameHelper/DebugDecalController.placements.description.image=Displays an image (like a decal) in the Debug Map.
+entities.GameHelper/DebugDecalController.placements.description.animation=Displays an animated image (like a decal) in the Debug Map.
+entities.GameHelper/DebugDecalController.placements.description.rectangle=Displays an rectangle (tile) in the Debug Map.
+entities.GameHelper/DebugDecalController.placements.description.line=Displays a line in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.description.text=Displays an message pulled from your English.txt in the Debug Map.
 entities.GameHelper/DebugDecalController.attributes.description.sprite=The path of the image that should be displayed, relative to Atlases/Gameplay/.
 entities.GameHelper/DebugDecalController.attributes.description.spriteName=The path of the image group that should be displayed, relative to Atlases/Gameplay/ or Atlases/Gui/.\nIt will cycle through all images with that name+numbers in order.
@@ -277,40 +311,53 @@ entities.GameHelper/TileDebugDecalConverter.placements.description.fg=Place Debu
 entities.GameHelper/TileDebugDecalConverter.placements.description.bg=Place Debug Decal tiles on all background tiles of the specified type in this room.
 
 entities.GameHelper/AutoSaveIntervalController.placements.name.normal=Auto Save Interval Controller
+entities.GameHelper/AutoSaveIntervalController.placements.description.normal=Saves the game automatically every few minutes. For wonky maps. See also: Auto Save Trigger
 entities.GameHelper/AutoSaveIntervalController.attributes.name.interval=Interval (Minutes)
 
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
+triggers.GameHelper/ExtinguishTrigger.placements.description.ext=A trigger to reset the Roaster Controller effect.
 
 triggers.GameHelper/RegisterHeartTrigger.placements.name.rht=Register Level Heart
+triggers.GameHelper/RegisterHeartTrigger.placements.description.rht=Functions like a crystal heart in terms of stats, but as a trigger.
 triggers.GameHelper/RegisterHeartTrigger.attributes.description.flag=Leave empty for no requirement.
 
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withTrigger=Exit Collab Level + Register Heart
 triggers.GameHelper/ExitCollabLevelTrigger.placements.name.withoutTrigger=Exit Collab Level
+triggers.GameHelper/ExitCollabLevelTrigger.placements.description.withTrigger=A combination of Exit Collab and Register Heart triggers. Acts like a CU2 mini heart.
+triggers.GameHelper/ExitCollabLevelTrigger.placements.description.withoutTrigger=Exits the collab level without awarding a heart. Use with caution,\nthe level is technically completed but all collabs use the heart for completion stats.
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.delay=Amount of seconds to wait before showing the endscreen.
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.timeRate=Game speed during the waiting period (default 0.5).
 triggers.GameHelper/ExitCollabLevelTrigger.attributes.description.flag=Leave empty for no requirement.
 
 triggers.GameHelper/FlagZoneTrigger.placements.name.fzt=Flag Zone (Reset Flag on Leave)
+triggers.GameHelper/FlagZoneTrigger.placements.description.fzt=The trigger sets a flag mirroring whether you're inside it.
 
 triggers.GameHelper/CrashGameTrigger.placements.name.cgt=Crash Game
+triggers.GameHelper/CrashGameTrigger.placements.description.cgt=What do you think it does.
 triggers.GameHelper/CrashGameTrigger.attributes.description.message=The error message displayed in the error log.
-triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress might be lost on old Everest versions).
+triggers.GameHelper/CrashGameTrigger.attributes.description.saveGame=Save the game before crashing (otherwise progress might be lost on ancient Everest versions).
 
 triggers.GameHelper/ShieldTrigger.placements.name.shield=Player Shield (Invincibility)
+triggers.GameHelper/ShieldTrigger.placements.description.shield=Gives a shield to the player which makes them invincible once.
 triggers.GameHelper/ShieldTrigger.attributes.description.flashAmount=The amount of flashes the shield does after a hit before vanishing, 0.2 seconds per flash (default 3).
 triggers.GameHelper/ShieldTrigger.attributes.description.enable=Whether the shield should be enabled or disabled.
 
 triggers.GameHelper/AutoSaveTrigger.placements.name.st=Auto Save
+triggers.GameHelper/AutoSaveTrigger.placements.description.st=Saves the game. See also: Auto Save Interval Controller
 
 triggers.GameHelper/PlayerShadowBlocker.placements.name.normal=Player Shadow Blocker
+triggers.GameHelper/PlayerShadowBlocker.placements.description.normal=A zone where the Player Shadow Controller doesn't work.
 
 triggers.GameHelper/TemporaryFlagTrigger.placements.name.normal=Temporary Flag (Reset Flag on Death/Transition)
+triggers.GameHelper/TemporaryFlagTrigger.placements.description.normal=Sets a flag that is unset on death or transition.
 triggers.GameHelper/TemporaryFlagTrigger.attributes.description.invert=If checked the trigger will instead set the flag to false and back to true on death/transition.
 
 triggers.GameHelper/GuideArrowTrigger.placements.name.normal=Guide Arrow
+triggers.GameHelper/GuideArrowTrigger.placements.description.normal=Displays a arrow above the players head that points towards the node.\nA trigger without a node removes the arrow.
 triggers.GameHelper/GuideArrowTrigger.attributes.description.duration=The amount of seconds the arrow should last.\nSet 0 for infinite duration (you can remove them later with a nodeless trigger).
 
 triggers.GameHelper/NotifyChangeRespawnTrigger.placements.name.normal=Notify Change Respawn
+triggers.GameHelper/NotifyChangeRespawnTrigger.placements.description.normal=A respawn trigger that gives the player a signal with particles and a sound.
 triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.invertFlag=Whether the trigger should only work if the flag is false instead.
 triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.sfxPath=The audio event to play, leave empty for the default sound.
