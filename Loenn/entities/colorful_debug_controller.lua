@@ -3,7 +3,7 @@ local cdc = {}
 cdc.name = "GameHelper/ColorfulDebugController"
 cdc.depth = -999999999
 cdc.texture = "loenn/GameHelper/colorful_debug_controller"
-cdc.justification = {0.0, 0.0}
+cdc.justification = { 0.0, 0.0 }
 cdc.placements = {
     {
         name = "normal",

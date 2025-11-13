@@ -11,8 +11,8 @@ local returnTypes = {
 mover.name = "GameHelper/EntityMover"
 mover.depth = -999999999
 mover.texture = "loenn/GameHelper/entity_mover_generic"
-mover.justification = {0, 0}
-mover.nodeLimits = {1, -1}
+mover.justification = { 0, 0 }
+mover.nodeLimits = { 1, -1 }
 mover.nodeLineRenderType = "line"
 mover.placements = {
     {
@@ -30,7 +30,8 @@ mover.placements = {
             nodeSound = "",
             holdPositionOnWait = false
         }
-    }, {
+    },
+    {
         name = "nodeWait",
         data = {
             moveTime = 5.0,

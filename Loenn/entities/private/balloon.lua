@@ -11,7 +11,7 @@ local balloon = {}
 
 balloon.name = "GameHelper/Balloon"
 balloon.depth = 8998
-balloon.justification = {0.0, 0.18}
+balloon.justification = { 0.0, 0.18 }
 balloon.fieldInformation = {
     color = {
         options = colorOptions,

@@ -3,8 +3,8 @@ local respriter = {}
 respriter.name = "GameHelper/EntityRespriter"
 respriter.depth = -999999999
 respriter.texture = "loenn/GameHelper/entity_respriter"
-respriter.justification = {0, 0}
-respriter.nodeLimits = {0, -1}
+respriter.justification = { 0, 0 }
+respriter.nodeLimits = { 0, -1 }
 respriter.placements = {
     {
         name = "direct",
@@ -15,7 +15,7 @@ respriter.placements = {
             offsetY = 0.0,
             flipX = false,
             flipY = false,
-            delay = 1/60,
+            delay = 1 / 60,
             fieldName = "sprite",
             onlyType = "",
             allEntities = false,
@@ -26,7 +26,8 @@ respriter.placements = {
             doNewlyAddedEntities = false
         }
     },
-    {   name = "xml",
+    {
+        name = "xml",
         data = {
             xmlPath = "",
             spriteID = "",

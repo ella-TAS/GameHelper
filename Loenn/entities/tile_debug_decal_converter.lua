@@ -4,7 +4,7 @@ local tdd = {}
 tdd.name = "GameHelper/TileDebugDecalConverter"
 tdd.depth = -999999999
 tdd.texture = "loenn/GameHelper/colorful_debug_controller"
-tdd.justification = {0.0, 0.0}
+tdd.justification = { 0.0, 0.0 }
 tdd.placements = {
     {
         name = "fg",

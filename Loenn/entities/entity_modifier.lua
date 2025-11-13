@@ -16,8 +16,8 @@ local vectorOptions = {
 
 modifier.name = "GameHelper/EntityModifier"
 modifier.depth = -999999999
-modifier.justification = {0, 0}
-modifier.nodeLimits = {0, -1}
+modifier.justification = { 0, 0 }
+modifier.nodeLimits = { 0, -1 }
 modifier.nodeLineRenderType = "fan"
 modifier.placements = {
     {
@@ -109,8 +109,10 @@ modifier.placements = {
 }
 modifier.fieldOrder = {
     "x", "y",
-    "fieldName", "valueNumber", "valueString", "valueBool", "vectorMode", "valueX", "valueY", "changeActive", "changeCollidable", "changeVisible",
-    "onlyType", "allEntities", "doNewlyAddedEntities", "activationFlag", "invertFlag", "onlyOnce", "everyFrame", "integer", "debug", "onlyX", "onlyY"
+    "fieldName", "valueNumber", "valueString", "valueBool", "vectorMode", "valueX", "valueY", "changeActive",
+    "changeCollidable", "changeVisible",
+    "onlyType", "allEntities", "doNewlyAddedEntities", "activationFlag", "invertFlag", "onlyOnce", "everyFrame",
+    "integer", "debug", "onlyX", "onlyY"
 }
 modifier.fieldInformation = {
     changeActive = {

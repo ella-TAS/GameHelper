@@ -15,8 +15,8 @@ local approachModi = {
 mover.name = "GameHelper/EntityMoverFollow"
 mover.depth = -999999999
 mover.texture = "loenn/GameHelper/entity_mover_follow"
-mover.justification = {0, 0}
-mover.nodeLimits = {1, 1}
+mover.justification = { 0, 0 }
+mover.nodeLimits = { 1, 1 }
 mover.nodeLineRenderType = "line"
 mover.placements = {
     name = "follow",
@@ -43,9 +43,9 @@ mover.placements = {
 }
 mover.fieldOrder = {
     "x", "y",
-    "approachMode", "speedFactor",  "onlyType", "targetOnlyType", "minDistance", "maxDistance",
+    "approachMode", "speedFactor", "onlyType", "targetOnlyType", "minDistance", "maxDistance",
     "offsetX", "offsetY", "approachSound", "playSoundAtDistance", "flag",
-    "onlyX", "onlyY", "naiveMovement", "holdPositionOnWait","awaitPlayerMovement", "stopSoundOnLeave", "debug"
+    "onlyX", "onlyY", "naiveMovement", "holdPositionOnWait", "awaitPlayerMovement", "stopSoundOnLeave", "debug"
 }
 mover.fieldInformation = {
     approachMode = {

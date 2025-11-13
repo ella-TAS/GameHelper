@@ -5,7 +5,7 @@ local solid = {}
 
 solid.name = "GameHelper/McFlammable"
 solid.depth = 8998
-solid.canResize = {true, true}
+solid.canResize = { true, true }
 solid.placements = {
     name = "normal",
     data = {

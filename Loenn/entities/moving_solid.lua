@@ -6,8 +6,8 @@ local solid = {}
 
 solid.name = "GameHelper/MovingSolid"
 solid.depth = 8998
-solid.canResize = {true, true}
-solid.nodeLimits = {1, 1}
+solid.canResize = { true, true }
+solid.nodeLimits = { 1, 1 }
 solid.nodeLineRenderType = "line"
 solid.nodeVisibility = "always"
 solid.placements = {

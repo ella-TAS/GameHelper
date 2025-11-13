@@ -4,7 +4,7 @@ local drawableText = require("structs.drawable_text")
 local ddc = {}
 
 ddc.name = "GameHelper/DebugDecalController"
-ddc.justification = {0.5, 0.5}
+ddc.justification = { 0.5, 0.5 }
 ddc.nodeLineRenderType = "line"
 ddc.depth = -99999
 ddc.placements = {
@@ -76,26 +76,26 @@ ddc.fieldOrder = {
 
 function ddc.canResize(room, entity)
     if entity.type == "Rectangle" then
-        return {true, true}
+        return { true, true }
     else
-        return {false, false}
+        return { false, false }
     end
 end
 
 function ddc.nodeLimits(room, entity)
     if entity.type == "Line" then
-        return {1, 1}
+        return { 1, 1 }
     else
-        return {0, 0}
+        return { 0, 0 }
     end
 end
 
 function ddc.color(room, entity)
-    local color = {1, 1, 1}
+    local color = { 1, 1, 1 }
     if entity.color then
         local success, r, g, b = utils.parseHexColor(entity.color)
         if success then
-            color = {r, g, b}
+            color = { r, g, b }
         end
     end
     return color
@@ -148,7 +148,8 @@ function ddc.draw(room, entity, viewport)
         if entity.dialog ~= "" then
             local offsetX = love.graphics.getFont():getWidth(entity.dialog) * entity.scale * 8 / 2
             local offsetY = love.graphics.getFont():getHeight(entity.dialog) * entity.scale * 8 / 2
-            love.graphics.print(entity.dialog, entity.x - offsetX, entity.y - offsetY, 0.0, entity.scale * 8, entity.scale * 8)
+            love.graphics.print(entity.dialog, entity.x - offsetX, entity.y - offsetY, 0.0, entity.scale * 8,
+                entity.scale * 8)
         else
             local default = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
             default:setScale(1, 1)
@@ -178,7 +179,7 @@ function ddc.selection(room, entity)
     elseif entity.type == "Line" then
         local node = entity.nodes[1]
         local nodeRectangle = utils.rectangle(node.x - 8, node.y - 8, 16, 16)
-        return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16), {nodeRectangle}
+        return utils.rectangle(entity.x - 8, entity.y - 8, 16, 16), { nodeRectangle }
     elseif entity.type == "Text" then
         return utils.rectangle(entity.x - 16, entity.y - 16, 32, 32)
     else

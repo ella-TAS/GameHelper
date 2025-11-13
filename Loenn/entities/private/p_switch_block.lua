@@ -4,11 +4,11 @@ local drawableSprite = require("structs.drawable_sprite")
 
 local solid = {}
 
-local coinSpriteOptions = {"normal", "blue"}
+local coinSpriteOptions = { "normal", "blue" }
 
 solid.name = "GameHelper/PSwitchBlock"
 solid.depth = 8998
-solid.canResize = {true, true}
+solid.canResize = { true, true }
 solid.placements = {
     name = "normal",
     data = {
@@ -34,7 +34,8 @@ solid.fieldInformation = function(entity)
 end
 
 function solid.sprite(room, entity, viewport)
-    sprite = entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or drawableSprite.fromTexture("objects/GameHelper/p_switch/" .. (entity.coinSprite or "blue") .. "/coin00", entity)
+    local sprite = entity.startAsBlock and fakeTilesHelper.getEntitySpriteFunction("tiletype")(room, entity) or
+        drawableSprite.fromTexture("objects/GameHelper/p_switch/" .. (entity.coinSprite or "blue") .. "/coin00", entity)
     if not entity.startAsBlock then
         sprite:setJustification(0.0, 0.0)
     end

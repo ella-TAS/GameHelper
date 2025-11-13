@@ -15,11 +15,11 @@ dispenser.placements = {
 }
 
 function dispenser.scale(room, entity)
-    return {entity.faceLeft and -1 or 1, 1}
+    return { entity.faceLeft and -1 or 1, 1 }
 end
 
 function dispenser.justification(room, entity)
-    return {entity.faceLeft and 1 or 0, 0}
+    return { entity.faceLeft and 1 or 0, 0 }
 end
 
 return dispenser

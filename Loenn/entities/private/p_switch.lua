@@ -1,10 +1,10 @@
 local pswitch = {}
 
-local spriteOptions = {"normal", "blue"}
+local spriteOptions = { "normal", "blue" }
 
 pswitch.name = "GameHelper/PSwitch"
 pswitch.depth = 8998
-pswitch.justification = {0.5, 1.0}
+pswitch.justification = { 0.5, 1.0 }
 pswitch.placements = {
     name = "normal",
     data = {
