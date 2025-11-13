@@ -15,7 +15,7 @@ cdc.placements = {
             berryColor = "FFB6C1",
             checkpointColor = "00FF00",
             jumpthruColor = "FFFF00",
-            roomPrefix = ""
+            roomPrefix = "*"
         }
     }
 }

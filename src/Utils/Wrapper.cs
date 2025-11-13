@@ -62,6 +62,16 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
         return (T) entity;
     }
 
+    public Entity FindById(int id) {
+        foreach(Entity e in SceneAs<Level>().Entities) {
+            if(e.SourceId.ID == id) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
     public void ComplainEntityNotFound(string wrapperName) {
         Logger.Warn("GameHelper", wrapperName + " found no target in room " + SceneAs<Level>().Session.LevelData.Name);
         RemoveSelf();
