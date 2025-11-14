@@ -1,3 +1,6 @@
+## Documentation
+See https://maddie480.ovh/celeste/custom-entity-catalog#game-helper
+
 ## Credits
 ### Code
 EllaTAS (literally everything)  
