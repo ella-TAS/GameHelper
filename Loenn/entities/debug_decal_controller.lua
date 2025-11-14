@@ -157,7 +157,7 @@ function ddc.draw(room, entity, viewport)
         end
     elseif entity.type == "Line" and (entity.thickness == 0.0 or (entity.x == entity.nodes[1].x and entity.y == entity.nodes[1].y)) then
         -- rest of Line is handled below in node
-        debugImage = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
+        local debugImage = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
         debugImage:draw()
     end
     love.graphics.setColor(1, 1, 1, 1)

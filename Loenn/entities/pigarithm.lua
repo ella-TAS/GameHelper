@@ -35,7 +35,7 @@ pigarithm.placements = {
 }
 
 function pigarithm.justification(room, entity)
-    y = entity.flipSprite and 1.0 or 0.0
+    local y = entity.flipSprite and 1.0 or 0.0
     if entity.sprite == "pigarithm_small" then
         return { 0.28, y }
     elseif entity.sprite == "pigarithm_medium" then

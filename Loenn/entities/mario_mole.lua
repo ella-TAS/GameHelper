@@ -21,7 +21,7 @@ mole.placements = {
 }
 
 function mole.justification(room, entity)
-    y = entity.flipSprite and 1.0 or 0.0
+    local y = entity.flipSprite and 1.0 or 0.0
     return entity.startRight and { 0.1, y } or { 0.9, y }
 end
 
