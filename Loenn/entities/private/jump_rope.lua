@@ -8,8 +8,9 @@ bridge.nodeVisibility = "always"
 bridge.placements = {
     name = "normal",
     data = {
-        renderLeftEnd = false,
-        renderRightEnd = false
+        renderLeftEnd = true,
+        renderRightEnd = true,
+        texturePath = "objects/GameHelper/rope/"
     }
 }
 

@@ -87,4 +87,15 @@ public static class Util {
             berry.OnCollect();
         }
     }
+
+    public static string TexturePathClean(EntityData data, string field, string fallback) {
+        string texturePath = data.Attr(field, fallback);
+        if(texturePath.Length == 0) {
+            texturePath = fallback;
+        }
+        if(!texturePath.EndsWith('/')) {
+            texturePath += "/";
+        }
+        return texturePath;
+    }
 }
