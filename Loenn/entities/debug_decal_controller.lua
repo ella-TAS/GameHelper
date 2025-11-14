@@ -160,7 +160,7 @@ function ddc.draw(room, entity, viewport)
         debugImage = drawableSprite.fromTexture("loenn/GameHelper/debug_decal_controller", entity)
         debugImage:draw()
     end
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function ddc.nodeDraw(room, entity, node, nodeIndex, viewport)
@@ -170,7 +170,7 @@ function ddc.nodeDraw(room, entity, node, nodeIndex, viewport)
     love.graphics.setLineWidth(entity.thickness * 8.0)
     love.graphics.line(entity.x, entity.y, node.x, node.y)
     love.graphics.setLineWidth(width)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function ddc.selection(room, entity)
