@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 namespace Celeste.Mod.GameHelper.Features.DebugMap;
 
 public static partial class ColorfulDebug {
+    internal static event Func<Session, LevelData, EntityData, Dictionary<string, object>> GenerateDebugDecalEvent;
+
     private const string CONTROLLER_COLOR = "GameHelper/ColorfulDebugController";
     private const string CONTROLLER_DECAL = "GameHelper/DebugDecalController";
     private const string CONTROLLER_TILES = "GameHelper/TileDebugDecalConverter";
@@ -36,14 +38,19 @@ public static partial class ColorfulDebug {
     private static Dictionary<string, Color[]> ColorIndex => GameHelper.Session.DebugColors;
     private static Dictionary<string, List<DebugDecalData>> DecalIndex => GameHelper.Session.DebugDecals;
 
+    private static int generatedDecals;
+
     private static void IndexLevel(Session session) {
         GameHelper.Session.DebugColors ??= new();
         GameHelper.Session.DebugDecals ??= new();
 
+        generatedDecals = 0;
         bool success;
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
         foreach(LevelData level in mapData.Levels) {
             foreach(EntityData entity in level.Entities) {
+                InvokeGeneratorHooks(session, level, entity);
+
                 switch(entity.Name) {
                     case CONTROLLER_COLOR:
                         string prefix = entity.Attr("roomPrefix");
@@ -144,6 +151,58 @@ public static partial class ColorfulDebug {
                         break;
                 }
             }
+        }
+        if(generatedDecals > 0) {
+            Logger.Info("GameHelper", $"Added {generatedDecals} Debug Decals via GenerateDebugDecalsEvent");
+        }
+    }
+
+    private static void InvokeGeneratorHooks(Session session, LevelData level, EntityData entity) {
+        if(GenerateDebugDecalEvent == null) {
+            return;
+        }
+
+        foreach(Delegate subscriber in GenerateDebugDecalEvent.GetInvocationList()) {
+            if(subscriber is not Func<Session, LevelData, EntityData, Dictionary<string, object>> castSubscriber) {
+                throw new Exception("Debug Decal Generator: wrong subscriber type");
+            }
+
+            Dictionary<string, object> newDecalData = castSubscriber(session, level, entity);
+
+            if(newDecalData == null) {
+                continue;
+            }
+
+            if(!DecalIndex.TryGetValue(level.Name, out List<DebugDecalData> list)) {
+                list = new();
+                DecalIndex.Add(level.Name, list);
+            }
+
+            void SafeAssign<T>(ref T dest, string key) {
+                if(newDecalData.TryGetValue(key, out object read)) {
+                    if(read is not T res) throw new ArgumentException($"Debug Decal Generator: wrong type for key {key}");
+                    dest = res;
+                }
+            }
+
+            DebugDecalData data = new();
+            SafeAssign(ref data.type, "type");
+            SafeAssign(ref data.position, "position");
+            SafeAssign(ref data.width, "width");
+            SafeAssign(ref data.height, "height");
+            SafeAssign(ref data.hollow, "hollow");
+            SafeAssign(ref data.thickness, "thickness");
+            SafeAssign(ref data.data, "data");
+            SafeAssign(ref data.scaleX, "scaleX");
+            SafeAssign(ref data.scaleY, "scaleY");
+            SafeAssign(ref data.color, "color");
+            SafeAssign(ref data.textures, "textures");
+            SafeAssign(ref data.animationSpeed, "animationSpeed");
+            SafeAssign(ref data.useGui, "useGui");
+            SafeAssign(ref data.rotation, "rotation");
+
+            list.Add(data);
+            generatedDecals++;
         }
     }
 

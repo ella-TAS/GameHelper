@@ -45,28 +45,6 @@
             "presentation": {
                 "reveal": "silent"
             }
-        },
-        {
-            "label": "public zip build",
-            "command": "C:/Program Files/7-Zip/7z.exe",
-            "args": [
-                "a",
-                "${workspaceFolder}/GameHelper-semipublic.zip",
-                "${workspaceFolder}/Audio",
-                "${workspaceFolder}/Graphics",
-                "${workspaceFolder}/Loenn",
-                "${workspaceFolder}/bin",
-                "${workspaceFolder}/everest.yaml",
-                "${workspaceFolder}/LICENSE"
-            ],
-            "type": "process",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "presentation": {
-                "reveal": "silent"
-            }
         }
     ]
 }

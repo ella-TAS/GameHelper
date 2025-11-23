@@ -283,11 +283,11 @@ entities.GameHelper/ColorfulDebugController.placements.name.normal=Colorful Debu
 entities.GameHelper/ColorfulDebugController.placements.description.normal=A controller that can recolor various parts of your debug map.\nCan be applied per room, room prefix or for the whole map.
 entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=The (case sensitive) prefix of all rooms this should apply to.\nLeave empty to affect the room it is placed in.\n Put * to affect all rooms.
 
-entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal Controller (Image)
-entities.GameHelper/DebugDecalController.placements.name.animation=Debug Decal Controller (Animated Image)
-entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal Controller (Rectangle)
-entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal Controller (Line)
-entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal Controller (Text)
+entities.GameHelper/DebugDecalController.placements.name.image=Debug Decal (Image)
+entities.GameHelper/DebugDecalController.placements.name.animation=Debug Decal (Animated Image)
+entities.GameHelper/DebugDecalController.placements.name.rectangle=Debug Decal (Rectangle)
+entities.GameHelper/DebugDecalController.placements.name.line=Debug Decal (Line)
+entities.GameHelper/DebugDecalController.placements.name.text=Debug Decal (Text)
 entities.GameHelper/DebugDecalController.placements.description.image=Displays an image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.description.animation=Displays an animated image (like a decal) in the Debug Map.
 entities.GameHelper/DebugDecalController.placements.description.rectangle=Displays an rectangle (tile) in the Debug Map.

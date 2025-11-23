@@ -3,7 +3,7 @@ using System;
 
 namespace Celeste.Mod.GameHelper.Features;
 
-public static partial class MiscHooks {
+public static class MiscHooks {
     private static bool? isParrot = null;
 
     private static string DialogClean(On.Celeste.Dialog.orig_Clean orig, string name, Language language) {
