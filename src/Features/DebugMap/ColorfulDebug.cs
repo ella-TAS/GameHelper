@@ -130,10 +130,11 @@ public static partial class ColorfulDebug {
                             list = new();
                             DecalIndex.Add(level.Name, list);
                         }
+                        bool fg = entity.Bool("fg");
                         char match = entity.Char("tileset");
                         Color color = entity.HexColor("color");
                         Regex tileRegex = TileRegex();
-                        string[] tileRows = tileRegex.Split(entity.Bool("fg") ? level.Solids : level.Bg);
+                        string[] tileRows = tileRegex.Split(fg ? level.Solids : level.Bg);
                         for(int i = 0; i < tileRows.Length; i++) {
                             for(int j = 0; j < tileRows[i].Length; j++) {
                                 if(tileRows[i][j] == match) {
@@ -143,7 +144,7 @@ public static partial class ColorfulDebug {
                                         width = 1,
                                         height = 1,
                                         hollow = false,
-                                        color = color,
+                                        color = fg ? color : (color * 0.5f),
                                     });
                                 }
                             }
