@@ -35,7 +35,7 @@ public class Chainsaw : Entity {
         base.Update();
 
         //tracking
-        if(
+        if (
             !charging &&
             !stunned &&
             SceneAs<Level>().Tracker.GetEntity<Player>() is { } player &&
@@ -48,10 +48,10 @@ public class Chainsaw : Entity {
         }
 
         //movement
-        if(charging) {
+        if (charging) {
             speed = Calc.Approach(speed, maxSpeed, accel);
             Position = Calc.Approach(Position, targetPos, speed);
-            if(Position == targetPos) {
+            if (Position == targetPos) {
                 targetPos = homePos;
                 homePos = Position;
                 charging = false;

@@ -31,32 +31,32 @@ public class Balloon : Entity {
 
         // check if inside a Collidable VortexHelper bubble
         bool collideBubble = false;
-        foreach(Type t in SceneAs<Level>().Tracker.Entities.Keys) {
+        foreach (Type t in SceneAs<Level>().Tracker.Entities.Keys) {
             // check if DashBubbles are tracked
-            if(t.ToString() == "Celeste.Mod.VortexHelper.Entities.DashBubble") {
+            if (t.ToString() == "Celeste.Mod.VortexHelper.Entities.DashBubble") {
                 collideBubble = SceneAs<Level>().Tracker.Entities[t].Any(e => e.Collidable && CollideCheck(e));
                 break;
             }
         }
-        if(collideBubble && !inBubble) {
+        if (collideBubble && !inBubble) {
             Collidable = false;
             inBubble = true;
         }
-        if(!collideBubble && inBubble) {
+        if (!collideBubble && inBubble) {
             Collidable = true;
             inBubble = false;
         }
 
         sprite.RenderPosition = Position + (1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset)));
-        if(isLead) {
-            if(SceneAs<Level>().Tracker.GetEntity<Player>()?.OnGround() == true) {
+        if (isLead) {
+            if (SceneAs<Level>().Tracker.GetEntity<Player>()?.OnGround() == true) {
                 BalloonCount = 0;
             }
         }
     }
 
     private void onPlayer(Player player) {
-        if(superBounce) {
+        if (superBounce) {
             float speedX = player.Speed.X;
             player.SuperBounce(Y);
             player.Speed.X = speedX;
@@ -67,7 +67,7 @@ public class Balloon : Entity {
         player.Speed.X *= 1.2f;
         sprite.Play("pop");
         Audio.Play("event:/GameHelper/balloon/Balloon_pop", "balloon_count", BalloonCount);
-        if(BalloonCount < 7) {
+        if (BalloonCount < 7) {
             BalloonCount++;
         }
         Collidable = false;
@@ -76,7 +76,7 @@ public class Balloon : Entity {
 
     private IEnumerator RoutineRespawn() {
         yield return 2.5f;
-        if(oneUse) {
+        if (oneUse) {
             RemoveSelf();
             yield break;
         }
@@ -91,7 +91,7 @@ public class Balloon : Entity {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(BalloonCount == -1) {
+        if (BalloonCount == -1) {
             isLead = true;
             BalloonCount = 0;
         }

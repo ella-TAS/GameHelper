@@ -29,11 +29,11 @@ public class DashMagnet : Entity {
     }
 
     private void onCollide(Player p) {
-        if(p.StateMachine.State == PlayerState.StDash) {
-            if(!used) {
+        if (p.StateMachine.State == PlayerState.StDash) {
+            if (!used) {
                 sprite.Play("flash");
                 Direction = (Center - p.Center).SafeNormalize();
-                if(Direction == Vector2.Zero) {
+                if (Direction == Vector2.Zero) {
                     Direction = -Vector2.UnitY;
                 }
                 used = true;
@@ -41,7 +41,7 @@ public class DashMagnet : Entity {
             p.DashDir = Direction;
             p.Speed = Speed * Direction;
             timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, 1f, 0.1f);
-        } else if(bulletTime && p.Dashes > 0) {
+        } else if (bulletTime && p.Dashes > 0) {
             timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, 0.2f, 0.1f);
         }
         inside = true;
@@ -49,16 +49,16 @@ public class DashMagnet : Entity {
 
     public override void Update() {
         base.Update();
-        if(inside && !wasInside) {
+        if (inside && !wasInside) {
             wasInside = true;
             InsideMagnet = true;
         }
-        if(!inside && wasInside) {
+        if (!inside && wasInside) {
             wasInside = used = false;
             InsideMagnet = false;
             timeRateModifier.Multiplier = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if(p != null && p.StateMachine.State == PlayerState.StDash && !p.StartedDashing) {
+            if (p != null && p.StateMachine.State == PlayerState.StDash && !p.StartedDashing) {
                 p.StateMachine.State = PlayerState.StNormal;
             }
         }
@@ -88,11 +88,11 @@ public class DashMagnet : Entity {
         const float sqrt2 = 1.41421353816986083984f;
         IEnumerator origEnum = orig(p).SafeEnumerate();
 
-        while(origEnum.MoveNext()) {
+        while (origEnum.MoveNext()) {
             yield return origEnum.Current;
-            if(InsideMagnet) {
-                while(true) {
-                    if(p.OnGround()) {
+            if (InsideMagnet) {
+                while (true) {
+                    if (p.OnGround()) {
                         p.Speed = Vector2.UnitX * p.Speed.Length() / sqrt2 * (p.Speed.X > 0 ? 1 : -1);
                     }
                     yield return null;
@@ -104,7 +104,7 @@ public class DashMagnet : Entity {
     public static void Load() {
         //precalc indicator offsets
         RenderPoints = new Vector2[36];
-        for(int i = 0; i < 36; i++) {
+        for (int i = 0; i < 36; i++) {
             RenderPoints[i] = Calc.AngleToVector(0.1745329f * i, 30f); //10°
         }
 
@@ -119,7 +119,7 @@ public class DashMagnet : Entity {
 
     public override void Render() {
         base.Render();
-        foreach(Vector2 pos in RenderPoints) {
+        foreach (Vector2 pos in RenderPoints) {
             Draw.Point(Center + pos, Color.White);
         }
     }

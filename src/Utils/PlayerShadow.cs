@@ -24,14 +24,14 @@ public class PlayerShadow : Entity {
 
     private void onPlayer(Player p) {
         Audio.Play("event:/game/general/thing_booped", Position);
-        if(freezeFrames) Celeste.Freeze(0.05f);
-        if(oneUse) {
+        if (freezeFrames) Celeste.Freeze(0.05f);
+        if (oneUse) {
             Image disperse = Get<Image>();
             SceneAs<Level>().Add(new DisperseImage(Position + renderOffset, Vector2.UnitY, disperse.Origin, Vector2.One, disperse.Texture));
             RemoveSelf();
         }
         p.Speed.X *= 1.2f;
-        if(clipToTop) {
+        if (clipToTop) {
             p.Bounce(Top + 2f);
         } else {
             p.Bounce(p.Y);
@@ -41,7 +41,7 @@ public class PlayerShadow : Entity {
     }
 
     private IEnumerator uncollideRoutine() {
-        while(CollideCheck<Player>()) {
+        while (CollideCheck<Player>()) {
             yield return null;
         }
         Collidable = true;

@@ -17,7 +17,7 @@ public static class EntitySearch {
         public int Compare(string x, string y) {
             bool xMod = x.Contains('/');
             bool yMod = y.Contains('/');
-            if(xMod == yMod) {
+            if (xMod == yMod) {
                 return StringComparer.CurrentCultureIgnoreCase.Compare(x, y);
             }
             return xMod ? 1 : -1;
@@ -39,10 +39,10 @@ public static class EntitySearch {
         GameHelper.Session.SearchMode = Mode.Entities;
 
         MapData mapData = AreaData.Areas[session.Area.ID].Mode[(int) session.Area.Mode].MapData;
-        foreach(LevelData level in mapData.Levels) {
+        foreach (LevelData level in mapData.Levels) {
             // entities
-            foreach(EntityData entity in level.Entities) {
-                if(!EntitySearchData.SpecificOffset.TryGetValue(entity.Name, out int[] offset)) {
+            foreach (EntityData entity in level.Entities) {
+                if (!EntitySearchData.SpecificOffset.TryGetValue(entity.Name, out int[] offset)) {
                     offset = [0, 0];
                 }
 
@@ -53,20 +53,20 @@ public static class EntitySearch {
                     (int) (entity.Height / 8f),
                     entity.ID
                 ];
-                if(!EntityIndex.TryGetValue(entity.Name, out List<int[]> list)) {
+                if (!EntityIndex.TryGetValue(entity.Name, out List<int[]> list)) {
                     list = new List<int[]>();
                     EntityIndex.Add(entity.Name, list);
                 }
                 list.Add(data);
 
                 // groups
-                foreach(KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
-                    if(group.Value.Contains(entity.Name)
+                foreach (KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
+                    if (group.Value.Contains(entity.Name)
                         || group.Key.Equals("AllEntities")
                         || (group.Key.Equals("VanillaEntities") && !entity.Name.Contains('/'))
                         || (group.Key.Equals("ModdedEntities") && entity.Name.Contains('/'))
                     ) {
-                        if(!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
+                        if (!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
                             list2 = new List<int[]>();
                             GroupIndex.Add(group.Key, list2);
                         }
@@ -76,8 +76,8 @@ public static class EntitySearch {
             }
 
             // spawnpoints
-            foreach(Vector2 spawn in level.Spawns) {
-                if(!EntityIndex.TryGetValue("spawnpoint", out List<int[]> list)) {
+            foreach (Vector2 spawn in level.Spawns) {
+                if (!EntityIndex.TryGetValue("spawnpoint", out List<int[]> list)) {
                     list = new List<int[]>();
                     EntityIndex.Add("spawnpoint", list);
                 }
@@ -85,8 +85,8 @@ public static class EntitySearch {
             }
 
             // triggers
-            foreach(EntityData trigger in level.Triggers) {
-                if(!TriggerIndex.TryGetValue(trigger.Name, out List<int[]> list)) {
+            foreach (EntityData trigger in level.Triggers) {
+                if (!TriggerIndex.TryGetValue(trigger.Name, out List<int[]> list)) {
                     list = new List<int[]>();
                     TriggerIndex.Add(trigger.Name, list);
                 }
@@ -100,9 +100,9 @@ public static class EntitySearch {
                 list.Add(data);
 
                 // groups
-                foreach(KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
-                    if(group.Value.Contains(trigger.Name) || group.Key.Equals("AllTriggers")) {
-                        if(!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
+                foreach (KeyValuePair<string, string[]> group in EntitySearchData.Groups) {
+                    if (group.Value.Contains(trigger.Name) || group.Key.Equals("AllTriggers")) {
+                        if (!GroupIndex.TryGetValue(group.Key, out List<int[]> list2)) {
                             list2 = new List<int[]>();
                             GroupIndex.Add(group.Key, list2);
                         }
@@ -112,7 +112,7 @@ public static class EntitySearch {
             }
         }
 
-        if(!GroupIndex.ContainsKey("ModdedEntities")) {
+        if (!GroupIndex.ContainsKey("ModdedEntities")) {
             // AllEntities and VanillaEntities are the same
             GroupIndex.Remove("VanillaEntities");
         }
@@ -120,14 +120,14 @@ public static class EntitySearch {
 
     private static void OnMapEditorUpdate(On.Celeste.Editor.MapEditor.orig_Update orig, MapEditor self) {
         EntitySearchUI ui = self.Entities.FindFirst<EntitySearchUI>();
-        if(ui != null) {
+        if (ui != null) {
             ui.Update();
             return;
         }
 
         orig(self);
-        if(MInput.Keyboard.Pressed(Keys.F7)) {
-            if(EntityIndex == null) {
+        if (MInput.Keyboard.Pressed(Keys.F7)) {
+            if (EntityIndex == null) {
                 IndexLevel(DynamicData.For(self).Get<Session>("CurrentSession"));
             }
             self.Add(new EntitySearchUI());
@@ -141,20 +141,20 @@ public static class EntitySearch {
     }
 
     private static void OnUpdateMouse(On.Celeste.Editor.MapEditor.orig_UpdateMouse orig, MapEditor self) {
-        if(self.Entities.FindFirst<EntitySearchUI>() == null) {
+        if (self.Entities.FindFirst<EntitySearchUI>() == null) {
             orig(self);
         }
     }
 
     private static void OnRenderManualText(On.Celeste.Editor.MapEditor.orig_RenderManualText orig, MapEditor self) {
-        if(self.Entities.FindFirst<EntitySearchUI>() == null) {
+        if (self.Entities.FindFirst<EntitySearchUI>() == null) {
             orig(self);
         }
     }
 
     private static void ILRenderManualText(ILContext context) {
         ILCursor cursor = new(context);
-        if(cursor.TryGotoNext(
+        if (cursor.TryGotoNext(
             ins => ins.MatchLdstr((string) typeof(MapEditor).GetField("ManualText", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null))
         )) {
             cursor.Index++;

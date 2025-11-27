@@ -28,8 +28,8 @@ public class EntitySearchRenderer(string key, EntitySearch.Mode mode) : Entity {
         Draw.SpriteBatch.End();
 
         Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, MapEditor.Camera.Matrix * Engine.ScreenMatrix);
-        foreach(int[] data in Index[key]) {
-            if(data[2] > 0 || data[3] > 0 || mode == EntitySearch.Mode.Groups) {
+        foreach (int[] data in Index[key]) {
+            if (data[2] > 0 || data[3] > 0 || mode == EntitySearch.Mode.Groups) {
                 // sized entity
                 Draw.HollowRect(data[0], data[1] - (data[3] == 0 ? 1 : 0), Calc.Max(data[2], 1), Calc.Max(data[3], 1), Color.Cyan);
             } else {
@@ -45,8 +45,8 @@ public class EntitySearchRenderer(string key, EntitySearch.Mode mode) : Entity {
         ActiveFont.Draw("Showing " + Index[key].Count + " " + key, new Vector2(16f, 4f), Color.Cyan);
         ActiveFont.Draw("F8 to highlight", new Vector2(1904f, 4f), Vector2.UnitX, Vector2.One, Color.Cyan);
 
-        if(MInput.Keyboard.Check(Keys.F8)) {
-            foreach(int[] data in Index[key]) {
+        if (MInput.Keyboard.Check(Keys.F8)) {
+            foreach (int[] data in Index[key]) {
                 // entity ID
                 ActiveFont.DrawOutline(
                     key == "spawnpoint" ? "X" : data[4].ToString(),

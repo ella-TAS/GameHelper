@@ -14,7 +14,7 @@ public class HangingBridge : Entity {
         parabolaExtremity = data.Float("parabolaExtremity");
 
         endVector = data.Nodes[0] + levelOffset;
-        if(endVector.X < X) {
+        if (endVector.X < X) {
             // switch nodes so end is always right
             Vector2 newPos = endVector;
             endVector = Position;
@@ -25,7 +25,7 @@ public class HangingBridge : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
 
-        if(parabolaExtremity == 0) {
+        if (parabolaExtremity == 0) {
             Logger.Warn("GameHelper", "parabolaExtremity must be non-zero in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
             return;
@@ -42,7 +42,7 @@ public class HangingBridge : Entity {
         float offset = Y - k * (X - vertex) * (X - vertex);
 
         // create a segment for every pixel until the end position
-        for(Vector2 current = Position; current.X < x2; current.X += 1f) {
+        for (Vector2 current = Position; current.X < x2; current.X += 1f) {
             current.Y = k * (current.X - vertex) * (current.X - vertex) + offset;
             SceneAs<Level>().Add(new RopeSegment(current));
         }

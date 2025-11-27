@@ -15,10 +15,10 @@ public class ImmediateFeather : FlyFeather {
         System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = p => {
             orig(p);
-            if(data.Bool("startBoost") && p.Speed.Length() < 600f) {
+            if (data.Bool("startBoost") && p.Speed.Length() < 600f) {
                 p.Speed *= 600f / p.Speed.Length();
             }
-            if(!data.Bool("startBoost")) {
+            if (!data.Bool("startBoost")) {
                 p.Speed *= 1.2f;
             }
             p.starFlyTransforming = false;

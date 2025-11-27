@@ -21,7 +21,7 @@ public class McFlammable : Solid {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(CollideCheck<Player>() || CollideAll<McFlammable>().Any(fuel => (fuel as McFlammable)?.id.ID > id.ID)) {
+        if (CollideCheck<Player>() || CollideAll<McFlammable>().Any(fuel => (fuel as McFlammable)?.id.ID > id.ID)) {
             RemoveSelf();
             return;
         }

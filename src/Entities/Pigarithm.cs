@@ -31,18 +31,18 @@ public class Pigarithm : Solid {
     }
 
     public override void Update() {
-        if(!resting && Util.GetFlag(flag, Scene, true)) {
+        if (!resting && Util.GetFlag(flag, Scene, true)) {
             bool collided = MoveHCollideSolidsAndBounds(SceneAs<Level>(), (movingRight ? 1 : -1) * speedX * Engine.DeltaTime, thruDashBlocks: true);
-            if(!collided) {
-                foreach(SeekerBarrier s in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {
-                    if(s.CollideCheck(this)) {
+            if (!collided) {
+                foreach (SeekerBarrier s in SceneAs<Level>().Tracker.GetEntities<SeekerBarrier>()) {
+                    if (s.CollideCheck(this)) {
                         collided = true;
                         MoveH((movingRight ? -1 : 1) * speedX * Engine.DeltaTime);
                         break;
                     }
                 }
             }
-            if(collided) {
+            if (collided) {
                 movingRight = !movingRight;
                 sprite.Play("spin");
                 Add(new Coroutine(routineRest()));
@@ -60,7 +60,7 @@ public class Pigarithm : Solid {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(!kill) return;
+        if (!kill) return;
         Spikes s;
         s = new(
             TopLeft + new Vector2(2, 0),

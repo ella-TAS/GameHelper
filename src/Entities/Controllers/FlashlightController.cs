@@ -32,13 +32,13 @@ public class FlashlightController : Entity {
     public override void Update() {
         base.Update();
         cooldown -= Engine.DeltaTime;
-        if(Binding.Pressed && !SceneAs<Level>().Paused && cooldown <= 0) {
+        if (Binding.Pressed && !SceneAs<Level>().Paused && cooldown <= 0) {
             Binding.ConsumePress();
             level.Lighting.Alpha = 0;
             cooldown = maxCooldown;
             sprite.Visible = true;
             Audio.Play("event:/GameHelper/Flashlight");
-        } else if(cooldown <= 0) {
+        } else if (cooldown <= 0) {
             sprite.Visible = false;
         }
         level.Lighting.Alpha = Calc.Approach(level.Lighting.Alpha, baseAlpha, fadeSpeed * Engine.DeltaTime);
@@ -48,7 +48,7 @@ public class FlashlightController : Entity {
         base.Added(scene);
         level = SceneAs<Level>();
         baseAlpha = level.DarkRoom ? level.Session.DarkRoomAlpha : level.BaseLightingAlpha;
-        if(maxCooldown <= 0) {
+        if (maxCooldown <= 0) {
             Logger.Warn("GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }
@@ -59,7 +59,7 @@ public class FlashlightController : Entity {
     }
 
     internal static void addBinding(string levelSID, ButtonBinding binding) {
-        if(!keyBinds.TryAdd(levelSID, binding)) {
+        if (!keyBinds.TryAdd(levelSID, binding)) {
             Logger.Warn("GameHelper", "FlashlightController keybinds already contain key " + levelSID);
             return;
         }

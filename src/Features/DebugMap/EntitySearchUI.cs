@@ -53,8 +53,8 @@ public class EntitySearchUI : Entity {
     public bool Searching {
         get => searching;
         set {
-            if(value != searching) { // Prevent multiple subscriptions
-                if(value) {
+            if (value != searching) { // Prevent multiple subscriptions
+                if (value) {
                     TextInput.OnInput += OnTextInput;
                     cursorStart = Scene.TimeActive;
                 } else {
@@ -76,27 +76,27 @@ public class EntitySearchUI : Entity {
     }
 
     public void OnTextInput(char c) {
-        if(c == (char) 13) {
+        if (c == (char) 13) {
             // Enter
             Scene.OnEndOfFrame += () => {
                 switchMenu();
 
                 // execute directly if only one item
-                if(itemCount == 1) {
+                if (itemCount == 1) {
                     items[0].OnPressed.Invoke();
                 }
             };
 
             goto ValidButton;
 
-        } else if(c == (char) 8) {
+        } else if (c == (char) 8) {
             // Backspace - trim.
-            if(search.Length > 0) {
+            if (search.Length > 0) {
                 search = search[..^1];
                 Audio.Play(SFX.ui_main_rename_entry_backspace);
                 goto ValidButton;
             } else {
-                if(Input.MenuCancel.Pressed) {
+                if (Input.MenuCancel.Pressed) {
                     Audio.Play(SFX.ui_main_button_back);
                     switchMenu();
                     goto ValidButton;
@@ -104,20 +104,20 @@ public class EntitySearchUI : Entity {
                 return;
             }
 
-        } else if(c == ' ') {
+        } else if (c == ' ') {
             // Space - append.
-            if(search.Length > 0) {
-                if(ActiveFont.Measure(search + c + "_").X < 542)
+            if (search.Length > 0) {
+                if (ActiveFont.Measure(search + c + "_").X < 542)
                     search += c;
             }
             Audio.Play(SFX.ui_main_rename_entry_space);
             goto ValidButton;
 
-        } else if(!char.IsControl(c)) {
+        } else if (!char.IsControl(c)) {
             // Any other character - append.
-            if(ActiveFont.FontSize.Characters.ContainsKey(c)) {
+            if (ActiveFont.FontSize.Characters.ContainsKey(c)) {
                 Audio.Play(SFX.ui_main_rename_entry_char);
-                if(ActiveFont.Measure(search + c + "_").X < 542)
+                if (ActiveFont.Measure(search + c + "_").X < 542)
                     search += c;
                 goto ValidButton;
             } else {
@@ -142,7 +142,7 @@ public class EntitySearchUI : Entity {
         Vector2 position = Vector2.Zero;
 
         int selected = -1;
-        if(menu != null) {
+        if (menu != null) {
             position = menu.Position;
             selected = menu.Selection;
         }
@@ -172,7 +172,7 @@ public class EntitySearchUI : Entity {
         menu.rightMenu.Add(resultHeader = new TextMenu.SubHeader(""));
         ReloadItems();
 
-        if(selected >= 0) {
+        if (selected >= 0) {
             menu.Selection = selected;
             menu.Position = position;
         }
@@ -185,7 +185,7 @@ public class EntitySearchUI : Entity {
 
         items.ForEach(i => menu.rightMenu.Remove(i));
         items.Clear();
-        if(otherHeader != null) {
+        if (otherHeader != null) {
             menu.rightMenu.Remove(otherHeader);
             otherHeader = null;
         }
@@ -196,8 +196,8 @@ public class EntitySearchUI : Entity {
             .Select(pair => pair.Value);
 
         bool recent = false;
-        foreach(string key in RecentSearch.Reverse<string>()) {
-            if(SearchIndex.TryGetValue(key, out List<int[]> list) && key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
+        foreach (string key in RecentSearch.Reverse<string>()) {
+            if (SearchIndex.TryGetValue(key, out List<int[]> list) && key.Contains(search, StringComparison.CurrentCultureIgnoreCase)) {
                 recent = true;
                 itemCount++;
                 string displayName = key.Length < NAME_MAX_LENGTH ? key : key[..(NAME_MAX_LENGTH - 1)] + "…";
@@ -212,13 +212,13 @@ public class EntitySearchUI : Entity {
             }
         }
 
-        if(recent) {
+        if (recent) {
             menu.rightMenu.Add(otherHeader = new TextMenu.SubHeader(""));
         }
 
         IEnumerable<KeyValuePair<string, List<int[]>>> orderedIndex = sortCount ? SearchIndex.OrderBy(pair => -pair.Value.Count) : SearchIndex;
-        foreach(KeyValuePair<string, List<int[]>> keyValue in orderedIndex) {
-            if(!RecentSearch.Contains(keyValue.Key) && (keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key)))) {
+        foreach (KeyValuePair<string, List<int[]>> keyValue in orderedIndex) {
+            if (!RecentSearch.Contains(keyValue.Key) && (keyValue.Key.Contains(search, StringComparison.CurrentCultureIgnoreCase) || aliases.Any(tag => tag.Equals(keyValue.Key)))) {
                 itemCount++;
                 string displayName = keyValue.Key.Length < NAME_MAX_LENGTH ? keyValue.Key : keyValue.Key[..(NAME_MAX_LENGTH - 1)] + "…";
                 TextMenu.Button button = new("(" + keyValue.Value.Count + ") " + displayName) {
@@ -237,14 +237,14 @@ public class EntitySearchUI : Entity {
 
         string info = string.Format(itemCount == 1 ? Dialog.Get("maplist_results_singular") : Dialog.Get("maplist_results_plural"), itemCount)
             + (itemCount > 0 && mode == EntitySearch.Mode.Groups ? ", Groups with [n] are a predefined list of Vanilla entities" : "");
-        if(recent) {
+        if (recent) {
             resultHeader.Title = "Recent searches";
             otherHeader.Title = info;
         } else {
             resultHeader.Title = info;
         }
 
-        if(menu.rightMenu.Height > menu.rightMenu.ScrollableMinSize) {
+        if (menu.rightMenu.Height > menu.rightMenu.ScrollableMinSize) {
             menu.rightMenu.Position.Y = menu.rightMenu.ScrollTargetY;
         }
 
@@ -262,7 +262,7 @@ public class EntitySearchUI : Entity {
         menu.Visible = Visible = true;
         menu.Focused = false;
 
-        for(float p = 0f; p < 1f; p += Engine.DeltaTime * 4f) {
+        for (float p = 0f; p < 1f; p += Engine.DeltaTime * 4f) {
             menu.X = offScreenX + -1920f * Ease.CubeOut(p);
             alpha = Ease.CubeOut(p);
             yield return null;
@@ -279,7 +279,7 @@ public class EntitySearchUI : Entity {
 
         Audio.Play(SFX.ui_main_whoosh_large_out);
 
-        for(float p = 0f; p < 1f; p += Engine.DeltaTime * 4f) {
+        for (float p = 0f; p < 1f; p += Engine.DeltaTime * 4f) {
             menu.X = onScreenX + 1920f * Ease.CubeIn(p);
             alpha = 1f - Ease.CubeIn(p);
             yield return null;
@@ -292,11 +292,11 @@ public class EntitySearchUI : Entity {
 
     private bool switchMenu() {
         bool nextIsLeft = !menu.leftFocused;
-        if(menu.Focused && (nextIsLeft || items.Count > 0)) {
+        if (menu.Focused && (nextIsLeft || items.Count > 0)) {
             menu.leftFocused = nextIsLeft;
             MInput.Disabled = nextIsLeft;
             menu.currentMenu.Selection = nextIsLeft ? 0 : 1;
-            if(nextIsLeft) {
+            if (nextIsLeft) {
                 Audio.Play(SFX.ui_main_button_toggle_off);
             } else {
                 Audio.Play(SFX.ui_main_button_toggle_on);
@@ -309,9 +309,9 @@ public class EntitySearchUI : Entity {
     public override void Update() {
         Searching = menu != null && menu.leftFocused && menu.leftMenu.Selection == 0;
 
-        if(Searching) {
-            if(MInput.Keyboard.Pressed(Keys.Delete)) {
-                if(search.Length > 0) {
+        if (Searching) {
+            if (MInput.Keyboard.Pressed(Keys.Delete)) {
+                if (search.Length > 0) {
                     search = "";
                     Audio.Play(SFX.ui_main_rename_entry_backspace);
                 } else {
@@ -324,15 +324,15 @@ public class EntitySearchUI : Entity {
         }
         searchConsumedButton = false;
 
-        if(menu != null && menu.Focused) {
-            if(search != searchPrev) {
+        if (menu != null && menu.Focused) {
+            if (search != searchPrev) {
                 ReloadItems();
                 searchPrev = search;
             }
 
-            if(Input.MenuCancel.Pressed || Input.Pause.Pressed || Input.ESC.Pressed) {
-                if(Searching && search != "") {
-                    if(!switchMenu()) {
+            if (Input.MenuCancel.Pressed || Input.Pause.Pressed || Input.ESC.Pressed) {
+                if (Searching && search != "") {
+                    if (!switchMenu()) {
                         cleanExit();
                     }
                 } else {
@@ -340,14 +340,14 @@ public class EntitySearchUI : Entity {
                 }
             }
 
-            if(Input.MenuRight.Pressed) {
-                if(!menu.leftFocused)
+            if (Input.MenuRight.Pressed) {
+                if (!menu.leftFocused)
                     return;
                 switchMenu();
             }
 
-            if(Input.MenuLeft.Pressed) {
-                if(menu.leftFocused)
+            if (Input.MenuLeft.Pressed) {
+                if (menu.leftFocused)
                     return;
                 switchMenu();
             }
@@ -361,10 +361,10 @@ public class EntitySearchUI : Entity {
     }
 
     public override void Render() {
-        if(menu == null) return;
+        if (menu == null) return;
 
         Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.AnisotropicClamp, DepthStencilState.None, RasterizerState.CullNone, null, Engine.ScreenMatrix);
-        if(alpha > 0f) {
+        if (alpha > 0f) {
             Draw.Rect(-10f, -10f, 1940f, 1100f, Color.Black * alpha * 0.8f);
         }
         TextMenu leftMenu = menu.leftMenu;
@@ -393,9 +393,9 @@ public class EntitySearchUI : Entity {
     }
 
     private void Inspect(string key) {
-        if(!RecentSearch.Contains(key)) {
+        if (!RecentSearch.Contains(key)) {
             RecentSearch.Add(key);
-            if(RecentSearch.Count > 5) {
+            if (RecentSearch.Count > 5) {
                 RecentSearch.RemoveAt(0);
             }
         }

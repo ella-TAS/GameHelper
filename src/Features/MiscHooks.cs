@@ -12,14 +12,14 @@ public static class MiscHooks {
             Util.GetCelesteSaveName(2).Equals("hi chat");
 
         // 21. June, on Parrot's install
-        if(isParrot == true && DateTime.Now.Month == 6 && DateTime.Now.Day is >= 21 and <= 23) {
-            switch(name.ToUpper()) {
-                case "MENU_BEGIN":
-                    return "PARROT";
-                case "FILE_BEGIN":
-                case "FILE_CONTINUE":
-                case "OVERWORLD_NORMAL":
-                    return "DASH";
+        if (isParrot == true && DateTime.Now.Month == 6 && DateTime.Now.Day is >= 21 and <= 23) {
+            switch (name.ToUpper()) {
+            case "MENU_BEGIN":
+                return "PARROT";
+            case "FILE_BEGIN":
+            case "FILE_CONTINUE":
+            case "OVERWORLD_NORMAL":
+                return "DASH";
             }
         }
         return orig(name, language);

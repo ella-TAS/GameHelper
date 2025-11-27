@@ -28,29 +28,29 @@ public class PushBox : Solid {
         base.Update();
 
         //player check, move X
-        if(Scene.Tracker.GetEntity<Player>() is Player p) {
+        if (Scene.Tracker.GetEntity<Player>() is Player p) {
             int playerSide = 0;
-            if(p.CollideCheck(this, p.Position + Vector2.UnitX)) {
+            if (p.CollideCheck(this, p.Position + Vector2.UnitX)) {
                 playerSide = -1;
-            } else if(p.CollideCheck(this, p.Position - Vector2.UnitX)) {
+            } else if (p.CollideCheck(this, p.Position - Vector2.UnitX)) {
                 playerSide = 1;
             }
 
-            if(HasPlayerClimbing()) {
-                if(canPull && p.OnGround() && Input.Aim.Value.X != 0) {
+            if (HasPlayerClimbing()) {
+                if (canPull && p.OnGround() && Input.Aim.Value.X != 0) {
                     MoveHor((float) Math.Ceiling(Input.Aim.Value.X) * speedX * Engine.DeltaTime);
                 }
-            } else if(playerSide != 0) {
+            } else if (playerSide != 0) {
                 MoveHor(-playerSide * speedX * Engine.DeltaTime);
             }
         }
 
         //move Y
         velY = Calc.Approach(velY, fallCap, gravity);
-        if(MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
+        if (MoveVCollideSolids(velY * Engine.DeltaTime, thruDashBlocks: true)) {
             velY = 0f;
         }
-        if(Top > SceneAs<Level>().Bounds.Bottom + 32f) {
+        if (Top > SceneAs<Level>().Bounds.Bottom + 32f) {
             RemoveSelf();
         }
     }
@@ -92,8 +92,8 @@ public class PushBox : Solid {
 
     //move boxes above any platform
     private static void OnSolidMoveHExact(On.Celeste.Solid.orig_MoveHExact orig, Solid self, int movedPx) {
-        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - 3 * Vector2.UnitY)) {
-            if(box.Bottom > self.Position.Y) {
+        foreach (PushBox box in self.CollideAll<PushBox>(self.Position - 3 * Vector2.UnitY)) {
+            if (box.Bottom > self.Position.Y) {
                 continue;
             }
             box.MoveHor(movedPx);
@@ -102,8 +102,8 @@ public class PushBox : Solid {
     }
 
     private static void OnSolidMoveVExact(On.Celeste.Solid.orig_MoveVExact orig, Solid self, int movedPx) {
-        foreach(PushBox box in self.CollideAll<PushBox>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
-            if(box.Bottom > self.Position.Y) {
+        foreach (PushBox box in self.CollideAll<PushBox>(self.Position - (movedPx + 3) * Vector2.UnitY)) {
+            if (box.Bottom > self.Position.Y) {
                 continue;
             }
             box.MoveVer(movedPx);

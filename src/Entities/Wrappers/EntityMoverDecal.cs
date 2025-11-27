@@ -25,47 +25,47 @@ public class EntityMoverDecal : EntityMover {
 
     public override void Update() {
         base.Update();
-        if(!Util.GetFlag(flag, Scene, true)) {
+        if (!Util.GetFlag(flag, Scene, true)) {
             return;
         }
         target.Position = Position = Calc.Approach(Position, nodes[nextNode], speed * Engine.DeltaTime);
-        if(Position != nodes[nextNode]) {
+        if (Position != nodes[nextNode]) {
             return;
         }
         //arrived at next node
-        if(!movingBack && nextNode == lastNode) {
+        if (!movingBack && nextNode == lastNode) {
             //arrived at the end node
-            switch(returnType) {
-                case "0":
-                case "Remove":
-                    target.RemoveSelf();
-                    RemoveSelf();
-                    break;
-                case "1":
-                case "Teleport":
-                    Position = nodes[0];
-                    nextNode = 1;
-                    break;
-                case "2":
-                case "Move_Start":
-                    nextNode = 0;
-                    movingBack = true;
-                    break;
-                case "3":
-                case "Move_Path":
-                    nextNode--;
-                    movingBack = true;
-                    break;
-                case "4":
-                case "Stop":
-                    RemoveSelf();
-                    break;
+            switch (returnType) {
+            case "0":
+            case "Remove":
+                target.RemoveSelf();
+                RemoveSelf();
+                break;
+            case "1":
+            case "Teleport":
+                Position = nodes[0];
+                nextNode = 1;
+                break;
+            case "2":
+            case "Move_Start":
+                nextNode = 0;
+                movingBack = true;
+                break;
+            case "3":
+            case "Move_Path":
+                nextNode--;
+                movingBack = true;
+                break;
+            case "4":
+            case "Stop":
+                RemoveSelf();
+                break;
             }
-            if(returnType != "0" && returnType != "Remove") {
+            if (returnType != "0" && returnType != "Remove") {
                 Decal decal = target as Decal;
                 decal.Scale = flip(decal.Scale);
             }
-        } else if(movingBack && nextNode == 0) {
+        } else if (movingBack && nextNode == 0) {
             //arrived at the start node
             movingBack = false;
             nextNode = 1;
@@ -77,10 +77,10 @@ public class EntityMoverDecal : EntityMover {
     }
 
     private Vector2 flip(Vector2 vector) {
-        if(flipX) {
+        if (flipX) {
             vector.X *= -1;
         }
-        if(flipY) {
+        if (flipY) {
             vector.Y *= -1;
         }
         return vector;
@@ -88,7 +88,7 @@ public class EntityMoverDecal : EntityMover {
 
     public override void Awake(Scene scene) {
         target = FindNearest<Decal>(Position);
-        if(target == null) {
+        if (target == null) {
             ComplainEntityNotFound("Decal Entity Mover");
             return;
         }

@@ -30,7 +30,7 @@ public class TemporaryFlagTrigger : Trigger {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(flag.Length == 0) {
+        if (flag.Length == 0) {
             Logger.Warn("GameHelper", "Temporary Flag Trigger flag empty in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }

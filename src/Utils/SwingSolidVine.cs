@@ -18,7 +18,7 @@ public class SwingSolidVine : Entity {
     public override void Added(Scene scene) {
         base.Added(scene);
 
-        for(int i = 0; i < (int) ((block.anchor - block.Center).Length() / 4); i++) {
+        for (int i = 0; i < (int) ((block.anchor - block.Center).Length() / 4); i++) {
             images.Add(new Image(GFX.Game[block.vinePath + GameHelper.Random.Range(1, 5)]));
         }
     }
@@ -28,9 +28,9 @@ public class SwingSolidVine : Entity {
         Vector2 unit = 8f * Vector2.UnitY;
         float rotation = (block.anchor - block.Center + unit).Angle() + (float) (Math.PI / 2);
         IEnumerator<Image> im = images.GetEnumerator();
-        for(Vector2 pos = block.anchor; pos != block.Center + unit; pos = Calc.Approach(pos, block.Center + unit, 8f)) {
+        for (Vector2 pos = block.anchor; pos != block.Center + unit; pos = Calc.Approach(pos, block.Center + unit, 8f)) {
             im.MoveNext();
-            if(im.Current == null) break;
+            if (im.Current == null) break;
             im.Current.SetOrigin(8f, 0f);
             im.Current.Position = pos - unit;
             im.Current.Rotation = rotation;

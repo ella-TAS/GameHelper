@@ -12,7 +12,7 @@ public class PlayerStateFlag : Entity {
 
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
         useStateName = data.Bool("useStateName");
-        if(useStateName) {
+        if (useStateName) {
             stateName = data.Attr("state");
         } else {
             state = data.Int("state");
@@ -28,8 +28,8 @@ public class PlayerStateFlag : Entity {
     public override void Update() {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p != null) {
-            if(debug) {
+        if (p != null) {
+            if (debug) {
                 Logger.Info("GameHelper", p.StateMachine.State.ToString() + " - \"" + p.StateMachine.GetStateName(p.StateMachine.State) + "\"");
             }
             bool isState =
@@ -42,7 +42,7 @@ public class PlayerStateFlag : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(flag?.Length == 0) {
+        if (flag?.Length == 0) {
             Logger.Warn("GameHelper", "PlayerStateFlag: no flag set");
             RemoveSelf();
         }

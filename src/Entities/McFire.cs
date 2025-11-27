@@ -35,18 +35,18 @@ public class McFire : Entity {
     public override void Update() {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p == null || p.JustRespawned) {
+        if (p == null || p.JustRespawned) {
             return;
         }
 
         delayTimer -= Engine.DeltaTime;
-        if(delayTimer <= 0) {
+        if (delayTimer <= 0) {
             fireTick();
         }
     }
 
     private void onPlayer(Player p) {
-        if(rotation == 0 && p.Speed.Y >= 0 ||
+        if (rotation == 0 && p.Speed.Y >= 0 ||
             rotation == 1 && p.Speed.X <= 0 ||
             rotation == 2 && p.Speed.Y <= 0 ||
             rotation == 3 && p.Speed.X >= 0) {
@@ -55,7 +55,7 @@ public class McFire : Entity {
     }
 
     private void fireTick() {
-        if(fuels.Count > 0) {
+        if (fuels.Count > 0) {
             fuels.ForEach(fuel => {
                 McFire nf = new(new EntityData() {
                     Position = fuel.Center,
@@ -64,7 +64,7 @@ public class McFire : Entity {
                 SceneAs<Level>().Add(nf);
                 fuel.RemoveSelf();
             });
-            if(!Audio.IsPlaying(sound)) {
+            if (!Audio.IsPlaying(sound)) {
                 sound = Audio.Play("event:/GameHelper/fire/fire_burn");
             }
         }
@@ -73,12 +73,12 @@ public class McFire : Entity {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(CollideAll<McFire>().Any(fire => (fire as McFire)?.id.ID > id.ID)) {
+        if (CollideAll<McFire>().Any(fire => (fire as McFire)?.id.ID > id.ID)) {
             RemoveSelf();
             return;
         }
         rotation = determineRotation();
-        if(rotation >= 0) {
+        if (rotation >= 0) {
             sprite = GameHelper.SpriteBank.Create("fire");
             sprite.Rotation = (float) (rotation * 0.5f * Math.PI);
             sprite.RenderPosition = new Vector2((rotation is > 0 and < 3) ? 8 : -8, rotation > 1 ? 8 : -8);
@@ -94,20 +94,20 @@ public class McFire : Entity {
 
     private int determineRotation() {
         int? foundRotation = null;
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             Vector2 p = Position + (-Vector2.UnitX).Rotate((float) ((preferredRotation + i) * 0.5f * Math.PI));
             McFlammable collide = CollideFirst<McFlammable>(p);
-            if(collide != null) {
-                if(collide.Claim()) fuels.Add(collide);
+            if (collide != null) {
+                if (collide.Claim()) fuels.Add(collide);
                 foundRotation = (preferredRotation + i + 1) % 4;
             }
         }
-        if(foundRotation != null) {
+        if (foundRotation != null) {
             Visible = true;
             return foundRotation.GetValueOrDefault();
         }
-        for(int i = 0; i < 4; i++) {
-            if(CollideCheck<Solid>(Position + Vector2.UnitY.Rotate((float) ((preferredRotation + i) * 0.5 * Math.PI)))) {
+        for (int i = 0; i < 4; i++) {
+            if (CollideCheck<Solid>(Position + Vector2.UnitY.Rotate((float) ((preferredRotation + i) * 0.5 * Math.PI)))) {
                 Visible = true;
                 return (preferredRotation + i) % 4;
             }

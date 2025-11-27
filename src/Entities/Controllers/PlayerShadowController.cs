@@ -28,7 +28,7 @@ public class PlayerShadowController : Entity {
     public override void Update() {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(uses != 0 && Binding.Pressed && !(p?.CollideCheck<PlayerShadowBlocker>() ?? true)) {
+        if (uses != 0 && Binding.Pressed && !(p?.CollideCheck<PlayerShadowBlocker>() ?? true)) {
             Binding.ConsumeBuffer();
             SceneAs<Level>().Add(new PlayerShadow(p.TopLeft, texture, oneUse, freezeFrames, clipToTop));
             uses--;
@@ -40,7 +40,7 @@ public class PlayerShadowController : Entity {
     }
 
     internal static void addBinding(string levelSID, ButtonBinding binding) {
-        if(!keyBinds.TryAdd(levelSID, binding)) {
+        if (!keyBinds.TryAdd(levelSID, binding)) {
             Logger.Warn("GameHelper", "PlayerShadowController keybinds already contain key " + levelSID);
             return;
         }

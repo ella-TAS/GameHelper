@@ -18,9 +18,9 @@ public class CrashGameTrigger : Trigger {
     }
 
     public override void OnEnter(Player p) {
-        if(!entered) {
+        if (!entered) {
             entered = true;
-            if(save) {
+            if (save) {
                 SceneAs<Level>().AutoSave();
                 Add(new Coroutine(routineCrash()));
             } else {
@@ -30,7 +30,7 @@ public class CrashGameTrigger : Trigger {
     }
 
     private IEnumerator routineCrash() {
-        while(SceneAs<Level>().IsAutoSaving()) {
+        while (SceneAs<Level>().IsAutoSaving()) {
             yield return null;
         }
         throw new TrollException(message);

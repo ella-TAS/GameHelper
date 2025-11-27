@@ -21,26 +21,26 @@ public class MouseHole : Solid {
         Depth = -1;
         Collider = new Hitbox(16, 16);
         Add(sprite = GameHelper.SpriteBank.Create("mouse_hole"));
-        if(!spawner) {
+        if (!spawner) {
             sprite.Play("exit");
         }
     }
 
     public override void Update() {
         base.Update();
-        if(spawner) {
+        if (spawner) {
             spawnTimer += Engine.DeltaTime;
             bool isFlag = Util.GetFlag(flag, Scene, true);
-            if(isFlag && !wasFlag) {
+            if (isFlag && !wasFlag) {
                 sprite.Play("opening");
                 wasFlag = true;
                 spawnTimer = 0.25f;
             }
-            if(!isFlag && wasFlag) {
+            if (!isFlag && wasFlag) {
                 sprite.Play("closing");
                 wasFlag = false;
             }
-            if(isFlag && spawnTimer >= 0.25f) {
+            if (isFlag && spawnTimer >= 0.25f) {
                 SceneAs<Level>().Add(new Mouse(Position));
                 Audio.Play("event:/GameHelper/annoyingmice/spawn");
                 spawnTimer = 0;
@@ -49,7 +49,7 @@ public class MouseHole : Solid {
     }
 
     public bool Complete() {
-        if(!spawner && !complete) {
+        if (!spawner && !complete) {
             SceneAs<Level>().Session.SetFlag(flag);
             sprite.Play("complete");
             Audio.Play("event:/GameHelper/annoyingmice/win");
@@ -60,21 +60,21 @@ public class MouseHole : Solid {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(!spawner && Util.GetFlag(flag, Scene, true)) {
+        if (!spawner && Util.GetFlag(flag, Scene, true)) {
             complete = true;
             sprite.Play("complete");
         }
     }
 
     public override void Removed(Scene scene) {
-        if(resetFlagOnDeath) {
+        if (resetFlagOnDeath) {
             SceneAs<Level>().Session.SetFlag(flag, false);
         }
         base.Removed(scene);
     }
 
     public override void SceneEnd(Scene scene) {
-        if(resetFlagOnDeath) {
+        if (resetFlagOnDeath) {
             SceneAs<Level>().Session.SetFlag(flag, false);
         }
         base.SceneEnd(scene);

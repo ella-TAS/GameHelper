@@ -16,21 +16,21 @@ public class RegisterHeartTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        if(!Util.GetFlag(flag, Scene, true)) {
+        if (!Util.GetFlag(flag, Scene, true)) {
             return;
         }
-        if(GameHelper.Session.HeartTriggerActivated) {
+        if (GameHelper.Session.HeartTriggerActivated) {
             RemoveSelf();
             return;
         }
         Collidable = false;
         Level level = SceneAs<Level>();
-        if(!SaveData.Instance.Areas_Safe[level.Session.Area.ID].Modes[(int) level.Session.Area.Mode].HeartGem) {
+        if (!SaveData.Instance.Areas_Safe[level.Session.Area.ID].Modes[(int) level.Session.Area.Mode].HeartGem) {
             SaveData.Instance.RegisterHeartGem(level.Session.Area);
             level.AutoSave();
         }
-        if(!hideAnimation) {
-            for(int i = 0; i < 25; i++) {
+        if (!hideAnimation) {
+            for (int i = 0; i < 25; i++) {
                 Scene.Add(new AbsorbOrb(player.Center));
             }
         }

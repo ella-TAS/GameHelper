@@ -16,7 +16,7 @@ public class MouseRotator : Solid {
         OnDashCollide = OnDashed;
         Depth = -1;
         Sprite sprite = GameHelper.SpriteBank.Create("mouse_rotator");
-        if(Clockwise) {
+        if (Clockwise) {
             sprite.Play("left");
         }
         Add(sprite);
@@ -24,10 +24,10 @@ public class MouseRotator : Solid {
 
     public override void Update() {
         base.Update();
-        if(Movement != Vector2.Zero) {
+        if (Movement != Vector2.Zero) {
             bool collideX = MoveHCollideSolidsAndBounds(SceneAs<Level>(), Movement.X * 120 * Engine.DeltaTime, false);
             bool collideY = MoveVCollideSolidsAndBounds(SceneAs<Level>(), Movement.Y * 120 * Engine.DeltaTime, false, null);
-            if(collideX || collideY) {
+            if (collideX || collideY) {
                 Movement = Vector2.Zero;
                 Audio.Play("event:/GameHelper/annoyingmice/stop", Center);
             }
@@ -36,14 +36,14 @@ public class MouseRotator : Solid {
 
     private DashCollisionResults OnDashed(Player player, Vector2 direction) {
         Movement = direction;
-        if(CollideCheck<Solid>(Position + Movement)) {
+        if (CollideCheck<Solid>(Position + Movement)) {
             bool chain = false;
-            foreach(MouseRotator m in CollideAll<MouseRotator>(Position + Movement)) {
+            foreach (MouseRotator m in CollideAll<MouseRotator>(Position + Movement)) {
                 m.Movement = Movement;
                 Movement = Vector2.Zero;
                 chain = true;
             }
-            if(!chain) {
+            if (!chain) {
                 Movement = -direction;
             }
         }

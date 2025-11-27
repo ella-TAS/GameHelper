@@ -37,7 +37,7 @@ public class FireTrap : Entity {
     }
 
     private void onPlayer(Player p) {
-        if(active) {
+        if (active) {
             p.Die(Vector2.Zero);
         } else {
             active = true;
@@ -48,7 +48,7 @@ public class FireTrap : Entity {
 
     public override void Update() {
         base.Update();
-        if(active) {
+        if (active) {
             Collider.Height = Calc.Approach(Collider.Height, 64f, 1.5f);
             Collider.Position.Y = Calc.Approach(Collider.Position.Y, -56f, 1.5f);
             SceneAs<Level>().ParticlesFG.Emit(fireParticles, 2, Position + new Vector2(5, 3), Vector2.UnitX * 2f, 4.7123890f);

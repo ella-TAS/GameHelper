@@ -24,21 +24,21 @@ public class Mouse : Actor {
     public override void Update() {
         base.Update();
         NaiveMove(dirToVector() * 120f * Engine.DeltaTime);
-        if(!deathRoutine && CollideCheck<Solid>()) {
+        if (!deathRoutine && CollideCheck<Solid>()) {
             bool surviveFrame = false;
-            foreach(MouseRotator m in CollideAll<MouseRotator>()) {
+            foreach (MouseRotator m in CollideAll<MouseRotator>()) {
                 rotate(m.Clockwise);
                 Audio.Play("event:/GameHelper/annoyingmice/rotate", Center);
                 surviveFrame = true;
             }
-            foreach(MouseHole n in CollideAll<MouseHole>()) {
-                if(n.Complete()) {
+            foreach (MouseHole n in CollideAll<MouseHole>()) {
+                if (n.Complete()) {
                     Add(new Coroutine(routineDestroy()));
                     deathRoutine = true;
                 }
                 surviveFrame = true;
             }
-            if(!surviveFrame) {
+            if (!surviveFrame) {
                 RemoveSelf();
             }
         }

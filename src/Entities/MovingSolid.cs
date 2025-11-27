@@ -28,14 +28,14 @@ public class MovingSolid : Solid {
     public override void Update() {
         base.Update();
 
-        if(stopTime > 0) {
+        if (stopTime > 0) {
             stopTime -= Engine.DeltaTime;
             return;
         }
 
         //movement
         currentTime += Engine.DeltaTime;
-        if(currentTime >= moveTime) {
+        if (currentTime >= moveTime) {
             currentTime = 0;
             stopTime = pauseDuration;
             (targetPos, homePos) = (homePos, targetPos);

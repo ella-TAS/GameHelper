@@ -27,7 +27,7 @@ public class FlagZoneTrigger : Trigger {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(flag?.Length == 0) {
+        if (flag?.Length == 0) {
             Logger.Warn("GameHelper", "FlagZoneTrigger: no flag set");
             RemoveSelf();
         }

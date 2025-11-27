@@ -25,15 +25,15 @@ public class CameraPeekController : Entity {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
         bool peekAllowed = p != null && p.StateMachine.State == PlayerState.StNormal && p.OnGround() && p.Speed.X == 0f;
 
-        if(peekAllowed && magnitudeUp > 0f && Input.Aim.Value.Y < -0.5f) {
+        if (peekAllowed && magnitudeUp > 0f && Input.Aim.Value.Y < -0.5f) {
             // up
-            if(!pressingUp) pressTimer = 0f;
+            if (!pressingUp) pressTimer = 0f;
             pressTimer += Engine.DeltaTime;
 
             pressingUp = true;
-        } else if(peekAllowed && magnitudeDown > 0f && Input.Aim.Value.Y > 0.5f) {
+        } else if (peekAllowed && magnitudeDown > 0f && Input.Aim.Value.Y > 0.5f) {
             // down
-            if(pressingUp) pressTimer = 0f;
+            if (pressingUp) pressTimer = 0f;
             pressTimer += Engine.DeltaTime;
 
             pressingUp = false;
@@ -41,8 +41,8 @@ public class CameraPeekController : Entity {
             pressTimer = 0f;
         }
 
-        if(pressTimer >= pressTime) {
-            if(!peekActive) {
+        if (pressTimer >= pressTime) {
+            if (!peekActive) {
                 // activate peek
                 originalOffset = SceneAs<Level>().CameraOffset;
                 SceneAs<Level>().CameraOffset.Y += pressingUp ? -magnitudeUp : magnitudeDown;
@@ -50,7 +50,7 @@ public class CameraPeekController : Entity {
 
             peekActive = true;
         } else {
-            if(peekActive) {
+            if (peekActive) {
                 // deactivate peek
                 SceneAs<Level>().CameraOffset = originalOffset;
             }

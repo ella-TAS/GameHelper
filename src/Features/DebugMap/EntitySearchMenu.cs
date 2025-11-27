@@ -29,7 +29,7 @@ public class EntitySearchMenu : Entity {
     public bool Focused {
         get => leftMenu.Focused || rightMenu.Focused;
         set {
-            if(value) {
+            if (value) {
                 leftFocused = true;
             } else {
                 leftMenu.Focused = false;

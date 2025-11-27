@@ -25,7 +25,7 @@ public class NotifyChangeRespawnTrigger : ChangeRespawnTrigger {
         atTrigger = data.Bool("atTrigger", true);
         sfxPath = data.Attr("sfxPath");
 
-        if(sfxPath.Length == 0) {
+        if (sfxPath.Length == 0) {
             sfxPath = DEFAULT_SFX;
         }
 
@@ -46,15 +46,15 @@ public class NotifyChangeRespawnTrigger : ChangeRespawnTrigger {
 
     public override void OnEnter(Player player) {
         Session session = SceneAs<Level>()?.Session;
-        if(session == null || !Util.GetFlag(flag, SceneAs<Level>(), true, invertFlag)) {
+        if (session == null || !Util.GetFlag(flag, SceneAs<Level>(), true, invertFlag)) {
             return;
         }
 
-        if(SolidCheck() && (!session.RespawnPoint.HasValue || session.RespawnPoint.Value != Target)) {
-            if(notifySound) {
+        if (SolidCheck() && (!session.RespawnPoint.HasValue || session.RespawnPoint.Value != Target)) {
+            if (notifySound) {
                 Audio.Play(sfxPath);
             }
-            if(notifyVisual) {
+            if (notifyVisual) {
                 SceneAs<Level>().ParticlesFG.Emit(pType, 100, atTrigger ? Center : player.Center, Vector2.One * 2f);
             }
         }
@@ -64,7 +64,7 @@ public class NotifyChangeRespawnTrigger : ChangeRespawnTrigger {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(SceneAs<Level>().Session.Area.SID.Equals(TERRARIA_SID)) {
+        if (SceneAs<Level>().Session.Area.SID.Equals(TERRARIA_SID)) {
             atTrigger = true;
         }
     }

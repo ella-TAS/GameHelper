@@ -22,7 +22,7 @@ public class SlowdownCobweb : Entity {
     }
 
     public void Decay() {
-        if(!decaying) {
+        if (!decaying) {
             decaying = true;
             sprite.Play("decay");
             Add(new Coroutine(routineDecay()));
@@ -37,13 +37,13 @@ public class SlowdownCobweb : Entity {
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
         bool inWeb = false;
-        foreach(SlowdownCobweb c in p.CollideAll<SlowdownCobweb>()) {
+        foreach (SlowdownCobweb c in p.CollideAll<SlowdownCobweb>()) {
             c.Decay();
             inWeb = true;
         }
-        if(inWeb && !p.DashAttacking) {
+        if (inWeb && !p.DashAttacking) {
             p.Speed.X = Calc.Approach(p.Speed.X, Input.Aim.Value.X * 10, 40);
-            if(!p.OnGround() || p.Speed.Y != 0) {
+            if (!p.OnGround() || p.Speed.Y != 0) {
                 p.AutoJump = true;
                 p.Speed.Y = Calc.Approach(p.Speed.Y, 0, 40);
                 p.varJumpTimer = 0f;
@@ -53,14 +53,14 @@ public class SlowdownCobweb : Entity {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(width == 8 && height == 8) {
+        if (width == 8 && height == 8) {
             Depth = -1;
             Collider = new Hitbox(8, 8);
             Add(sprite = GameHelper.SpriteBank.Create("cobweb" + GameHelper.Random.Next(3)));
             return;
         }
-        for(int w = 0; w < width; w += 8) {
-            for(int h = 0; h < height; h += 8) {
+        for (int w = 0; w < width; w += 8) {
+            for (int h = 0; h < height; h += 8) {
                 SceneAs<Level>().Add(new SlowdownCobweb(Position + new Vector2(w, h)));
             }
         }
@@ -68,7 +68,7 @@ public class SlowdownCobweb : Entity {
     }
 
     public override void DebugRender(Camera camera) {
-        if(decaying) {
+        if (decaying) {
             Collider.Render(camera, Color.Green);
         } else {
             base.DebugRender(camera);

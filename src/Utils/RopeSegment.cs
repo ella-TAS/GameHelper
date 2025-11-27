@@ -18,7 +18,7 @@ public class RopeSegment : JumpThru {
         Depth = -1;
         BlockWaterfalls = false;
         anchorY = position.Y;
-        if(sprite != null) {
+        if (sprite != null) {
             sprite.RenderPosition = -Vector2.UnitY;
             Add(sprite);
         }
@@ -42,14 +42,14 @@ public class RopeSegment : JumpThru {
         Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
         Vector2 liftBoost = default;
         float liftGrace = 0f;
-        if(player != null) {
+        if (player != null) {
             liftBoost = player.LiftSpeed;
             liftGrace = player.LiftSpeedGraceTime;
         }
 
         base.MoveVExact(move);
 
-        if(player != null) {
+        if (player != null) {
             player.LiftSpeed = liftBoost;
             player.LiftSpeedGraceTime = liftGrace;
         }
@@ -67,30 +67,30 @@ public class RopeSegment : JumpThru {
         orig(p);
 
         // reset V subpixels on the rope
-        if(p.CollideCheck<RopeSegment>(p.Position + Vector2.UnitY)) {
+        if (p.CollideCheck<RopeSegment>(p.Position + Vector2.UnitY)) {
             p.movementCounter.Y = 0f;
         }
 
         // avoid down-dash corner correction
-        if(p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0 && p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, 6))) {
+        if (p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0 && p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, 6))) {
             p.dashStartedOnGround = true;
         }
 
-        if(p.Speed.Y <= -166f || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
+        if (p.Speed.Y <= -166f || p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, -CORRECTION_BELOW))) {
             // dashing/boosting up or too far below
             return;
         }
 
         List<Entity> bridgeInside = p.CollideAll<RopeSegment>();
-        if(bridgeInside.Count > 0) {
+        if (bridgeInside.Count > 0) {
             float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;
             p.MoveVExact((int) (niveau - p.Y));
             p.Speed.Y = Calc.Max(p.Speed.Y, -30f);
             p.varJumpTimer = 0f;
             p.movementCounter.Y = 0f;
-        } else if(p.StateMachine.State == PlayerState.StNormal && p.Speed.Y >= 0) {
+        } else if (p.StateMachine.State == PlayerState.StNormal && p.Speed.Y >= 0) {
             bridgeInside = p.CollideAll<RopeSegment>(p.Position + new Vector2(0, CORRECTION_ABOVE));
-            if(bridgeInside.Count > 0) {
+            if (bridgeInside.Count > 0) {
                 float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;
                 p.MoveVExact((int) (niveau - p.Y));
                 p.Speed.Y = 0;

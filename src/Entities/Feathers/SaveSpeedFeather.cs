@@ -19,7 +19,7 @@ public class SaveSpeedFeather : FlyFeather {
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("singleUse")) {
         Depth = -1;
-        if(data.Bool("redirectSpeed")) {
+        if (data.Bool("redirectSpeed")) {
             color = flyColor = colorR;
         } else {
             color = colorN;
@@ -29,7 +29,7 @@ public class SaveSpeedFeather : FlyFeather {
         PlayerCollider pc = Get<PlayerCollider>();
         System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = p => {
-            if(StoredSpeed == 0) {
+            if (StoredSpeed == 0) {
                 Redirect = data.Bool("redirectSpeed");
                 StoredSpeed = 1.2f * (Redirect ? p.Speed.Length() : p.Speed.X);
             }
@@ -43,17 +43,17 @@ public class SaveSpeedFeather : FlyFeather {
 
     public override void Update() {
         base.Update();
-        if(isLead && StoredSpeed != 0) {
+        if (isLead && StoredSpeed != 0) {
             SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(Redirect ? colorR : flyColorN);
         }
     }
 
     private static IEnumerator OnStarFlyCoroutine(On.Celeste.Player.orig_StarFlyCoroutine orig, Player p) {
         IEnumerator origEnum = orig(p).SafeEnumerate();
-        while(origEnum.MoveNext()) {
-            if(p.starFlyTimer == 2f) {
+        while (origEnum.MoveNext()) {
+            if (p.starFlyTimer == 2f) {
                 FeatherDurationSetter comp = p.Get<FeatherDurationSetter>();
-                if(comp != null) {
+                if (comp != null) {
                     p.starFlyTimer = comp.getDuration();
                     p.Sprite.SetColor(comp.getColor());
                 }
@@ -66,8 +66,8 @@ public class SaveSpeedFeather : FlyFeather {
     private static void OnStarFlyEnd(On.Celeste.Player.orig_StarFlyEnd orig, Player p) {
         orig(p);
         p.Components.RemoveAll<FeatherDurationSetter>();
-        if(StoredSpeed != 0) {
-            if(Redirect) {
+        if (StoredSpeed != 0) {
+            if (Redirect) {
                 p.Speed *= StoredSpeed / p.Speed.Length();
             } else {
                 p.Speed.X = StoredSpeed;
@@ -94,7 +94,7 @@ public class SaveSpeedFeather : FlyFeather {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(!hasLead) {
+        if (!hasLead) {
             hasLead = true;
             isLead = true;
         }

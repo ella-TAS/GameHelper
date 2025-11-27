@@ -19,11 +19,11 @@ public class Arrow : Actor {
 
     public override void Update() {
         base.Update();
-        if(!Collidable) {
+        if (!Collidable) {
             return;
         }
         bool collided = MoveH((facingLeft ? -240 : 240) * Engine.DeltaTime);
-        if(collided) {
+        if (collided) {
             Collidable = false;
             X += facingLeft ? -2 : 2;
             Add(new Coroutine(routineDespawn()));

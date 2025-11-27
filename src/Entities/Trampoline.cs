@@ -21,7 +21,7 @@ public class Trampoline : Entity {
         refillDash = data.Bool("refillDash");
         oneUse = data.Bool("oneUse");
         sprite = GameHelper.SpriteBank.Create("trampoline");
-        if(!facingUpLeft) {
+        if (!facingUpLeft) {
             sprite.FlipX = true;
             sprite.RenderPosition = new Vector2(6f, 0f);
         }
@@ -32,24 +32,24 @@ public class Trampoline : Entity {
     }
 
     private void onCollide(Player player) {
-        if(frameBlocked) return;
-        if(!wasInside) {
+        if (frameBlocked) return;
+        if (!wasInside) {
             sprite.Play("hit");
             Audio.Play("event:/GameHelper/trampoline/hit");
             float speedX = player.Speed.X;
-            if(facingUpLeft) {
+            if (facingUpLeft) {
                 player.Speed.X = Math.Min(Math.Min(-player.Speed.Y - speedBoostX, -130), player.Speed.X - speedBoostX);
                 player.Speed.Y = Math.Min(-speedX - speedBoostY, -200);
             } else {
                 player.Speed.X = Math.Max(Math.Max(player.Speed.Y + speedBoostX, 130), player.Speed.X + speedBoostX);
                 player.Speed.Y = Math.Min(speedX - speedBoostY, -200);
             }
-            foreach(Trampoline t in SceneAs<Level>().Entities.FindAll<Trampoline>()) {
+            foreach (Trampoline t in SceneAs<Level>().Entities.FindAll<Trampoline>()) {
                 t.frameBlocked = true;
             }
             frameBlocked = false;
         }
-        if(oneUse) {
+        if (oneUse) {
             Collidable = false;
             sprite.Play("broken");
         }
@@ -59,18 +59,18 @@ public class Trampoline : Entity {
     public override void Update() {
         base.Update();
         frameBlocked = false;
-        if(inside && !wasInside) {
+        if (inside && !wasInside) {
             wasInside = true;
             //entered
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
             p.StateMachine.State = PlayerState.StNormal;
             p.AutoJump = true;
-            if(!p.Inventory.NoRefills && refillDash) {
+            if (!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();
             }
             p.RefillStamina();
         }
-        if(!inside && wasInside) {
+        if (!inside && wasInside) {
             wasInside = false;
         }
         inside = false;

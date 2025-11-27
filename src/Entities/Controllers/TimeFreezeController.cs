@@ -14,16 +14,16 @@ public class TimeFreezeController : Entity {
 
     public override void Update() {
         base.Update();
-        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
-            if(
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+            if (
                 p.JustRespawned && p.InControl
                 && Input.Aim.Value.Length() < 0.3f && !Input.Jump.Pressed && !Input.Dash.Pressed && !Input.CrouchDash.Pressed
             ) {
-                if(timeRateModifier.Multiplier > 0f) {
+                if (timeRateModifier.Multiplier > 0f) {
                     timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, 0f, 0.1f);
                     SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", true);
                 }
-            } else if(timeRateModifier.Multiplier < 1f) {
+            } else if (timeRateModifier.Multiplier < 1f) {
                 timeRateModifier.Multiplier = 1f;
                 p.JustRespawned = false;
                 SceneAs<Level>().Session.SetFlag("GameHelper_TimeFrozen", false);

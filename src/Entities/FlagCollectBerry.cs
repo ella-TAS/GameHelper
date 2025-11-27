@@ -32,20 +32,20 @@ public class FlagCollectBerry : Strawberry {
         Components.Update();
 
         //lose / collect check
-        if(Follower.Leader == null) {
+        if (Follower.Leader == null) {
             //berry not picked up
             return;
         }
-        if(!hadLeader) {
+        if (!hadLeader) {
             //just picked up
             AddStored();
             hadLeader = true;
         }
-        if(Util.GetFlag(loseFlag, Scene)) {
+        if (Util.GetFlag(loseFlag, Scene)) {
             RemoveStored();
             hadLeader = false;
             LoseBerry();
-        } else if(Util.GetFlag(collectFlag, Scene)) {
+        } else if (Util.GetFlag(collectFlag, Scene)) {
             RemoveStored();
             hadLeader = false;
             CollectBerry();
@@ -54,15 +54,15 @@ public class FlagCollectBerry : Strawberry {
 
     //methods can be overridden
     public virtual void AddStored() {
-        if(keepOnDeath) {
+        if (keepOnDeath) {
             GameHelper.Session.StoredBerries.Add(this);
         }
     }
 
     public virtual void RemoveStored() {
         //find the list clone with the correct ID
-        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
-            if(ID.Equals(f.ID)) {
+        foreach (FlagCollectBerry f in GameHelper.Session.StoredBerries) {
+            if (ID.Equals(f.ID)) {
                 GameHelper.Session.StoredBerries.Remove(f);
                 return;
             }
@@ -103,8 +103,8 @@ public class FlagCollectBerry : Strawberry {
     public override void Added(Scene scene) {
         base.Added(scene);
         GameHelper.Session.StoredBerries ??= new();
-        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
-            if(!hadLeader && ID.Equals(f.ID)) {
+        foreach (FlagCollectBerry f in GameHelper.Session.StoredBerries) {
+            if (!hadLeader && ID.Equals(f.ID)) {
                 //berry exists
                 RemoveSelf();
                 return;
@@ -115,7 +115,7 @@ public class FlagCollectBerry : Strawberry {
     private static void OnPlayerAdded(On.Celeste.Player.orig_Added orig, Player p, Scene s) {
         orig(p, s);
         GameHelper.Session.StoredBerries ??= new();
-        foreach(FlagCollectBerry f in GameHelper.Session.StoredBerries) {
+        foreach (FlagCollectBerry f in GameHelper.Session.StoredBerries) {
             f.AddClone(p, s);
         }
     }

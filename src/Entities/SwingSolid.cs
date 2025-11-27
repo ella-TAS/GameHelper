@@ -36,21 +36,21 @@ public class SwingSolid : Solid {
     }
 
     private DashCollisionResults OnDash(Player player, Vector2 direction) {
-        if(direction.X != 0f) {
+        if (direction.X != 0f) {
             Audio.Play("event:/GameHelper/swingblock/hit");
             Celeste.Freeze(0.05f);
             left = direction.X < 0f;
             maxAng = (float) (maximumAngle / 180f * Math.PI);
             // brute force valid phase value
             float bestDist = float.MaxValue;
-            for(float i = (float) Math.PI / -2f; i < Math.PI / 2f; i += 0.01f) {
+            for (float i = (float) Math.PI / -2f; i < Math.PI / 2f; i += 0.01f) {
                 float localDist = Math.Abs(X - getToX(left, maxAng, i));
-                if(localDist < bestDist) {
+                if (localDist < bestDist) {
                     phase = i;
                     bestDist = localDist;
                 }
             }
-            if(coyoteJump) {
+            if (coyoteJump) {
                 player.jumpGraceTimer = 0.1f;
             }
             return DashCollisionResults.Rebound;
@@ -61,28 +61,28 @@ public class SwingSolid : Solid {
     public override void Update() {
         base.Update();
 
-        if(Input.Aim.Value.X == 0f) {
+        if (Input.Aim.Value.X == 0f) {
             inputNeutralTime += Engine.DeltaTime;
         } else {
             inputNeutralTime = 0f;
         }
 
         // first acceleration
-        if(maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) != 0) {
+        if (maxAng <= 0f && HasPlayerClimbing() && Math.Sign(Input.Aim.Value.X) != 0) {
             left = Input.Aim.Value.X < 0f;
             maxAng += Engine.DeltaTime / 3f;
             phase = 0;
         }
-        if(maxAng > 0f) {
+        if (maxAng > 0f) {
             phase += swingSpeed * 2f * Engine.DeltaTime;
             float moveX = getToX(left, maxAng, phase);
             MoveToX(moveX);
             MoveToY(getToY(maxAng, phase));
 
             bool accelerate = HasPlayerClimbing() && ((inputNeutralTime < 0.5f && Math.Abs(Math.Cos(Math.Sin(phase) - Math.PI / 2)) > 0.8f) || Math.Sign(Input.Aim.Value.X) == Math.Sign(moveX - previousX));
-            if(maxAng > 0f && !accelerate) {
+            if (maxAng > 0f && !accelerate) {
                 maxAng -= acceleration * Engine.DeltaTime / 6f;
-            } else if(maxAng < (float) (maximumAngle / 180f * Math.PI) && accelerate) {
+            } else if (maxAng < (float) (maximumAngle / 180f * Math.PI) && accelerate) {
                 maxAng += acceleration * Engine.DeltaTime / 6f;
             }
             previousX = moveX;

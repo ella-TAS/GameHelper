@@ -19,7 +19,7 @@ public class EntityMover : Wrapper {
         naiveMovement = data.Bool("naiveMovement");
         lastNode = data.Nodes.Length; // node 0 is home Position
         nodes = new Vector2[lastNode + 1];
-        for(int i = 0; i < lastNode; i++) {
+        for (int i = 0; i < lastNode; i++) {
             nodes[i + 1] = data.Nodes[i] + levelOffset;
         }
         nodes[0] = Position;
@@ -27,11 +27,11 @@ public class EntityMover : Wrapper {
     }
 
     protected void moveTo(Vector2 pos) {
-        if(!naiveMovement && target is Actor) {
+        if (!naiveMovement && target is Actor) {
             Actor a = target as Actor;
             a.MoveToX(pos.X);
             a.MoveToY(pos.Y);
-        } else if(!naiveMovement && target is Platform) {
+        } else if (!naiveMovement && target is Platform) {
             Platform s = target as Platform;
             s.MoveHCollideSolidsAndBounds(SceneAs<Level>(), pos.X - s.X, true);
             s.MoveVCollideSolidsAndBounds(SceneAs<Level>(), pos.Y - s.Y, true, checkBottom: true);
@@ -42,7 +42,7 @@ public class EntityMover : Wrapper {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(debug) {
+        if (debug) {
             LogAllEntities();
         }
     }

@@ -25,12 +25,12 @@ public class GuideArrowTrigger : Trigger {
         player.Components.RemoveAll<PlayerGuideArrow>();
 
         int i = 0;
-        foreach(Vector2 pos in nodes) {
+        foreach (Vector2 pos in nodes) {
             player.Add(new PlayerGuideArrow(pos, duration, i));
             i++;
         }
 
-        if(onlyOnce) {
+        if (onlyOnce) {
             RemoveSelf();
         }
     }

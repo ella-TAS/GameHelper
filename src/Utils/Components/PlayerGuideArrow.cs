@@ -13,16 +13,16 @@ public class PlayerGuideArrow(Vector2 target, float duration, int renderIndex) :
 
     public override void Update() {
         base.Update();
-        if(duration > 0) {
+        if (duration > 0) {
             duration -= Engine.DeltaTime;
-            if(duration <= 0) {
+            if (duration <= 0) {
                 RemoveSelf();
             }
         }
     }
 
     public override void Render() {
-        if(isTerraria && !SceneAs<Level>().Session.GetFlag("MO_CC_KoseiDiamond_Settings_SkyArrows")) {
+        if (isTerraria && !SceneAs<Level>().Session.GetFlag("MO_CC_KoseiDiamond_Settings_SkyArrows")) {
             return;
         }
 

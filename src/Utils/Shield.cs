@@ -17,7 +17,7 @@ public class Shield : Entity {
     }
 
     private static PlayerDeadBody OnDeath(On.Celeste.Player.orig_Die orig, Player p, Vector2 direction, bool evenIfInvincible, bool registerDeathInStats) {
-        if(!evenIfInvincible && GameHelper.Session.PlayerHasShield) {
+        if (!evenIfInvincible && GameHelper.Session.PlayerHasShield) {
             p.Scene.Entities.FindAll<Shield>().ForEach(s => s.Break());
             return null;
         } else {
@@ -26,7 +26,7 @@ public class Shield : Entity {
     }
 
     private void Break() {
-        if(!breaking) {
+        if (!breaking) {
             breaking = true;
             Add(new Coroutine(breakRoutine()));
         }
@@ -34,7 +34,7 @@ public class Shield : Entity {
 
     private IEnumerator breakRoutine() {
         Audio.Play("event:/GameHelper/shield/shield");
-        for(int i = 0; i < flashAmount; i++) {
+        for (int i = 0; i < flashAmount; i++) {
             Visible = false;
             yield return 0.1f;
             Visible = true;
@@ -60,7 +60,7 @@ public class Shield : Entity {
 
     public override void Render() {
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(SceneAs<Level>().Transitioning || p == null) return;
+        if (SceneAs<Level>().Transitioning || p == null) return;
         Position = p.Center + (p.Facing == Facings.Right ? -Vector2.UnitX : Vector2.Zero);
         base.Render();
     }

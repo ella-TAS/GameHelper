@@ -11,19 +11,19 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
         List<Entity> entities = new();
         //don't look for entity if allEntities and type is set
         Entity targetEntity = null;
-        if(!allEntities || onlyType?.Length == 0) {
+        if (!allEntities || onlyType?.Length == 0) {
             targetEntity = FindNearest(node, onlyType);
         }
 
-        if(allEntities) {
-            foreach(Entity e in SceneAs<Level>().Entities) {
-                if((onlyType?.Length == 0 && e.GetType() == targetEntity?.GetType()) || e.GetType().FullName == onlyType || e.GetType().Name == onlyType) {
+        if (allEntities) {
+            foreach (Entity e in SceneAs<Level>().Entities) {
+                if ((onlyType?.Length == 0 && e.GetType() == targetEntity?.GetType()) || e.GetType().FullName == onlyType || e.GetType().Name == onlyType) {
                     entities.Add(e);
                 }
             }
         } else {
             entities.Add(targetEntity);
-            foreach(Vector2 n in nodes) {
+            foreach (Vector2 n in nodes) {
                 entities.Add(FindNearest(n + nodeOffset, onlyType));
             }
         }
@@ -33,9 +33,9 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
     public Entity FindNearest(Vector2 pos, string type, Entity notEntity = null) {
         Entity entity = null;
         float minDistance = float.MaxValue;
-        foreach(Entity e in SceneAs<Level>().Entities) {
+        foreach (Entity e in SceneAs<Level>().Entities) {
             bool typeCorrect = e.GetType().FullName == type || e.GetType().Name == type;
-            if(
+            if (
                 e != notEntity &&
                 e is not Wrapper &&
                 e is not TrailManager &&
@@ -53,8 +53,8 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
     public T FindNearest<T>(Vector2 pos) where T : Entity {
         Entity entity = null;
         float minDistance = float.MaxValue;
-        foreach(T e in SceneAs<Level>().Entities.FindAll<T>()) {
-            if(Vector2.Distance(e.Center, pos) < minDistance) {
+        foreach (T e in SceneAs<Level>().Entities.FindAll<T>()) {
+            if (Vector2.Distance(e.Center, pos) < minDistance) {
                 entity = e;
                 minDistance = Vector2.Distance(e.Center, pos);
             }
@@ -63,8 +63,8 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
     }
 
     public Entity FindById(int id) {
-        foreach(Entity e in SceneAs<Level>().Entities) {
-            if(e.SourceId.ID == id) {
+        foreach (Entity e in SceneAs<Level>().Entities) {
+            if (e.SourceId.ID == id) {
                 return e;
             }
         }
@@ -79,11 +79,11 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
 
     public void LogAllEntities() {
         //only do so once per room
-        if(RoomLogged) {
+        if (RoomLogged) {
             return;
         }
         Logger.Info("GameHelper", "List of all entities in the room:");
-        foreach(Entity e in SceneAs<Level>().Entities) {
+        foreach (Entity e in SceneAs<Level>().Entities) {
             Logger.Info("GameHelper", e.GetType().ToString());
         }
         RoomLogged = true;

@@ -19,7 +19,7 @@ public class PSwitchBlock : DashBlock {
         flag = data.Attr("flag");
         startBlock = data.Bool("startAsBlock");
         OnDashCollide = delegate (Player p, Vector2 dir) {
-            if(!canDash) return DashCollisionResults.NormalCollision;
+            if (!canDash) return DashCollisionResults.NormalCollision;
             Break(p.Center, dir, true, true);
             return DashCollisionResults.Ignore;
         };
@@ -30,51 +30,51 @@ public class PSwitchBlock : DashBlock {
     public override void Update() {
         base.Update();
         Collidable = isBlock;
-        if(!collected && canDash && !isBlock && CollideCheck<Player>()) {
+        if (!collected && canDash && !isBlock && CollideCheck<Player>()) {
             collected = true;
             Audio.Play("event:/GameHelper/p_switch/p_switch");
             Add(new Coroutine(collectRoutine()));
-            if(permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
+            if (permanent) SceneAs<Level>().Session.DoNotLoad.Add(id);
         }
     }
 
     private IEnumerator collectRoutine() {
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             coinSprite.RenderPosition -= 2 * Vector2.UnitY;
             yield return null;
         }
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             coinSprite.RenderPosition -= Vector2.UnitY;
             yield return null;
         }
         yield return null;
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             coinSprite.RenderPosition += Vector2.UnitY;
             yield return null;
         }
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             coinSprite.RenderPosition += 2 * Vector2.UnitY;
             yield return null;
         }
-        while(coinSprite.CurrentAnimationFrame is not (3 or 9)) yield return null;
+        while (coinSprite.CurrentAnimationFrame is not (3 or 9)) yield return null;
         coinSprite.Play("collect");
-        while(coinSprite.Animating) yield return null;
+        while (coinSprite.Animating) yield return null;
         RemoveSelf();
     }
 
     public override void Render() {
         Get<LightOcclude>().Visible = isBlock;
-        if(isBlock) {
+        if (isBlock) {
             base.Render();
-        } else if(canDash) {
+        } else if (canDash) {
             coinSprite.Render();
         }
     }
 
     public override void Removed(Scene scene) {
         // no freeze frames
-        if(Components != null) {
-            foreach(Component component in Components) {
+        if (Components != null) {
+            foreach (Component component in Components) {
                 component.EntityRemoved(scene);
             }
         }

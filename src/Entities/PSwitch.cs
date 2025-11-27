@@ -47,7 +47,7 @@ public class PSwitch : Actor {
         Collider = new Hitbox(8f, 10f, -4f, -10f);
         Add(new VertexLight(Collider.Center, Color.White, 1f, 32, 64));
 
-        if(stationary) return;
+        if (stationary) return;
         Add(Hold = new() {
             PickupCollider = new Hitbox(16f, 22f, -8f, -16f),
             SlowFall = false,
@@ -65,61 +65,61 @@ public class PSwitch : Actor {
 
     public override void Update() {
         base.Update();
-        if(dead) return;
+        if (dead) return;
         hardVerticalHitSoundCooldown -= Engine.DeltaTime;
-        if(Hold?.IsHeld ?? false) {
+        if (Hold?.IsHeld ?? false) {
             prevLiftSpeed = Vector2.Zero;
-        } else if(!stationary) {
-            if(OnGround()) {
+        } else if (!stationary) {
+            if (OnGround()) {
                 float target = (!OnGround(Position + Vector2.UnitX * 3f)) ? 20f : (OnGround(Position - Vector2.UnitX * 3f) ? 0f : (-20f));
                 Speed.X = Calc.Approach(Speed.X, target, 800f * Engine.DeltaTime);
                 Vector2 liftSpeed = LiftSpeed;
-                if(liftSpeed == Vector2.Zero && prevLiftSpeed != Vector2.Zero) {
+                if (liftSpeed == Vector2.Zero && prevLiftSpeed != Vector2.Zero) {
                     Speed = prevLiftSpeed;
                     prevLiftSpeed = Vector2.Zero;
                     Speed.Y = Math.Min(Speed.Y * 0.6f, 0f);
-                    if(Speed.X != 0f && Speed.Y == 0f) Speed.Y = -60f;
-                    if(Speed.Y < 0f) noGravityTimer = 0.15f;
+                    if (Speed.X != 0f && Speed.Y == 0f) Speed.Y = -60f;
+                    if (Speed.Y < 0f) noGravityTimer = 0.15f;
                 } else {
                     prevLiftSpeed = liftSpeed;
-                    if(liftSpeed.Y < 0f && Speed.Y < 0f) Speed.Y = 0f;
+                    if (liftSpeed.Y < 0f && Speed.Y < 0f) Speed.Y = 0f;
                 }
-            } else if(Hold?.ShouldHaveGravity ?? false) {
+            } else if (Hold?.ShouldHaveGravity ?? false) {
                 float accelY = 800f;
-                if(Math.Abs(Speed.Y) <= 30f) accelY *= 0.5f;
+                if (Math.Abs(Speed.Y) <= 30f) accelY *= 0.5f;
                 float accelX = 350f;
-                if(Speed.Y < 0f) accelX *= 0.5f;
+                if (Speed.Y < 0f) accelX *= 0.5f;
                 Speed.X = Calc.Approach(Speed.X, 0f, accelX * Engine.DeltaTime);
-                if(noGravityTimer > 0f) noGravityTimer -= Engine.DeltaTime;
+                if (noGravityTimer > 0f) noGravityTimer -= Engine.DeltaTime;
                 else Speed.Y = Calc.Approach(Speed.Y, 200f, accelY * Engine.DeltaTime);
             }
             MoveH(Speed.X * Engine.DeltaTime, CollideH);
             MoveV(Speed.Y * Engine.DeltaTime, CollideV);
             Rectangle bounds = SceneAs<Level>().Bounds;
-            if(Right > bounds.Right) {
+            if (Right > bounds.Right) {
                 Right = bounds.Right;
                 Speed.X *= -0.4f;
-            } else if(Left < bounds.Left) {
+            } else if (Left < bounds.Left) {
                 Left = bounds.Left;
                 Speed.X *= -0.4f;
-            } else if(Top < bounds.Top - 4) {
+            } else if (Top < bounds.Top - 4) {
                 Top = bounds.Top + 4;
                 Speed.Y = 0f;
-            } else if(Top > bounds.Bottom + 12) Die();
+            } else if (Top > bounds.Bottom + 12) Die();
         }
 
-        if(pressed || dead) return;
+        if (pressed || dead) return;
         Hold?.CheckAgainstColliders();
-        if(!stationary && tutorialGui != null) {
-            if((!Hold?.IsHeld ?? false) && OnGround()) tutorialTimer += Engine.DeltaTime;
+        if (!stationary && tutorialGui != null) {
+            if ((!Hold?.IsHeld ?? false) && OnGround()) tutorialTimer += Engine.DeltaTime;
             else tutorialTimer = 0f;
             tutorialGui.Open = tutorialTimer > 0.25f;
         }
         //platform
-        if(platform.HasPlayerRider()) {
+        if (platform.HasPlayerRider()) {
             pressed = true;
             Hold?.RemoveSelf();
-            if(tutorialGui != null) tutorialGui.Open = false;
+            if (tutorialGui != null) tutorialGui.Open = false;
             Add(new Coroutine(pressRoutine()));
             Add(new PSwitchTimer(flag, flagDuration));
         }
@@ -141,7 +141,7 @@ public class PSwitch : Actor {
         base.Added(scene);
         scene.Add(platform);
         SceneAs<Level>().Session.SetFlag(flag, false);
-        if(showTutorial) {
+        if (showTutorial) {
             scene.Add(tutorialGui = new BirdTutorialGui(
                 this, new Vector2(0f, -24f), Dialog.Clean("tutorial_carry"), Dialog.Clean("tutorial_hold"), BirdTutorialGui.ButtonPrompt.Grab) {
                 Open = false
@@ -160,17 +160,17 @@ public class PSwitch : Actor {
     }
 
     private bool HitSpring(Spring spring) {
-        if(Hold.IsHeld) return false;
-        if(spring.Orientation == Spring.Orientations.Floor && Speed.Y >= 0f) {
+        if (Hold.IsHeld) return false;
+        if (spring.Orientation == Spring.Orientations.Floor && Speed.Y >= 0f) {
             Speed.X *= 0.5f;
             Speed.Y = -160f;
             noGravityTimer = 0.15f;
-        } else if(spring.Orientation == Spring.Orientations.WallLeft && Speed.X <= 0f) {
+        } else if (spring.Orientation == Spring.Orientations.WallLeft && Speed.X <= 0f) {
             MoveTowardsY(spring.CenterY + 5f, 4f);
             Speed.X = 220f;
             Speed.Y = -80f;
             noGravityTimer = 0.1f;
-        } else if(spring.Orientation == Spring.Orientations.WallRight && Speed.X >= 0f) {
+        } else if (spring.Orientation == Spring.Orientations.WallRight && Speed.X >= 0f) {
             MoveTowardsY(spring.CenterY + 5f, 4f);
             Speed.X = -220f;
             Speed.Y = -80f;
@@ -180,22 +180,22 @@ public class PSwitch : Actor {
     }
 
     private void OnCollideH(CollisionData data) {
-        if(data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitX * Math.Sign(Speed.X));
+        if (data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitX * Math.Sign(Speed.X));
         Audio.Play("event:/game/05_mirror_temple/crystaltheo_hit_side", Position);
-        if(Math.Abs(Speed.X) > 100f) ImpactParticles(data.Direction);
+        if (Math.Abs(Speed.X) > 100f) ImpactParticles(data.Direction);
         Speed.X *= -0.4f;
     }
 
     private void OnCollideV(CollisionData data) {
-        if(data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitY * Math.Sign(Speed.Y));
-        if(Speed.Y > 0f) {
-            if(hardVerticalHitSoundCooldown <= 0f) {
+        if (data.Hit is DashSwitch d) d.OnDashCollide(null, Vector2.UnitY * Math.Sign(Speed.Y));
+        if (Speed.Y > 0f) {
+            if (hardVerticalHitSoundCooldown <= 0f) {
                 Audio.Play("event:/game/05_mirror_temple/crystaltheo_hit_ground", Position, "crystal_velocity", Calc.ClampedMap(Speed.Y, 0f, 200f));
                 hardVerticalHitSoundCooldown = 0.5f;
             } else Audio.Play("event:/game/05_mirror_temple/crystaltheo_hit_ground", Position, "crystal_velocity", 0f);
         }
-        if(Speed.Y > 160f) ImpactParticles(data.Direction);
-        if(Speed.Y > 140f && data.Hit is not SwapBlock && data.Hit is not DashSwitch) Speed.Y *= -0.6f;
+        if (Speed.Y > 160f) ImpactParticles(data.Direction);
+        if (Speed.Y > 140f && data.Hit is not SwapBlock && data.Hit is not DashSwitch) Speed.Y *= -0.6f;
         else Speed.Y = 0f;
     }
 
@@ -203,15 +203,15 @@ public class PSwitch : Actor {
         float direction;
         Vector2 position;
         Vector2 positionRange;
-        if(dir.X > 0f) {
+        if (dir.X > 0f) {
             direction = MathF.PI;
             position = new Vector2(Right, Y - 4f);
             positionRange = Vector2.UnitY * 6f;
-        } else if(dir.X < 0f) {
+        } else if (dir.X < 0f) {
             direction = 0f;
             position = new Vector2(Left, Y - 4f);
             positionRange = Vector2.UnitY * 6f;
-        } else if(dir.Y > 0f) {
+        } else if (dir.Y > 0f) {
             direction = -MathF.PI / 2f;
             position = new Vector2(X, Bottom);
             positionRange = Vector2.UnitX * 10f;
@@ -228,7 +228,7 @@ public class PSwitch : Actor {
     }
 
     public override void OnSquish(CollisionData data) {
-        if(!TrySquishWiggle(data)) Die();
+        if (!TrySquishWiggle(data)) Die();
     }
 
     private void OnPickup() {
@@ -238,13 +238,13 @@ public class PSwitch : Actor {
 
     private void OnRelease(Vector2 force) {
         RemoveTag(Tags.Persistent);
-        if(force.X != 0f && force.Y == 0f) force.Y = -0.4f;
+        if (force.X != 0f && force.Y == 0f) force.Y = -0.4f;
         Speed = force * 200f;
-        if(Speed != Vector2.Zero) noGravityTimer = 0.1f;
+        if (Speed != Vector2.Zero) noGravityTimer = 0.1f;
     }
 
     public void Die() {
-        if(dead) return;
+        if (dead) return;
         dead = true;
         Hold.RemoveSelf();
         Collidable = sprite.Visible = platform.Collidable = AllowPushing = false;
@@ -253,7 +253,7 @@ public class PSwitch : Actor {
 
     private static void OnPlayerTransition(On.Celeste.Player.orig_OnTransition orig, Player p) {
         orig(p);
-        if(p.Holding?.Entity is PSwitch ps) {
+        if (p.Holding?.Entity is PSwitch ps) {
             p.SceneAs<Level>().Add(new DisperseImage(ps.Position + new Vector2(-10, -21), -Vector2.UnitY, ps.sprite.Origin, Vector2.One, ps.sprite.Texture));
             ps.RemoveSelf();
         }

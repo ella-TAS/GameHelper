@@ -27,33 +27,33 @@ public class CameraEntityTargetController : Wrapper {
     public override void Update() {
         base.Update();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(p == null) {
+        if (p == null) {
             RemoveSelf();
             return;
         }
-        if(Util.GetFlag(flag, Scene, true)) {
+        if (Util.GetFlag(flag, Scene, true)) {
             findTarget();
-            if(target == null) return;
+            if (target == null) return;
             p.CameraAnchor = target.Center - new Vector2(160, 90) + offset;
             p.CameraAnchorLerp = Vector2.One * lerp;
-        } else if(resetOnFalse) {
+        } else if (resetOnFalse) {
             p.CameraAnchor = p.CameraAnchorLerp = Vector2.Zero;
         }
     }
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(debug) LogAllEntities();
-        if(Util.GetFlag(flag, Scene, true)) findTarget();
+        if (debug) LogAllEntities();
+        if (Util.GetFlag(flag, Scene, true)) findTarget();
     }
 
     private void findTarget() {
-        if(target != null) return;
+        if (target != null) return;
 
         target = FindNearest(Position, onlyType);
-        if(target == null) {
+        if (target == null) {
             ComplainEntityNotFound("Camera Entity Target Trigger");
-        } else if(debug) {
+        } else if (debug) {
             Logger.Info("GameHelper", "Camera Entity Target Trigger found entity " + target.GetType());
         }
     }

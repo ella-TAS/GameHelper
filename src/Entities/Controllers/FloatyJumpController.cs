@@ -20,27 +20,27 @@ public class FloatyJumpController : Entity {
 
     public override void Update() {
         base.Update();
-        if(SceneAs<Level>().Tracker.GetEntity<Player>() == null) {
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() == null) {
             Audio.Stop(floatySound);
         }
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(Utils.Util.GetFlag(flag, Scene, true)) {
+        if (Utils.Util.GetFlag(flag, Scene, true)) {
             GameHelper.Session.FloatyJumps = enable;
         }
     }
 
     private static void OnPlayerUpdate(On.Celeste.Player.orig_Update orig, Player p) {
         orig(p);
-        if(GameHelper.Session.FloatyJumps) {
-            if(!p.OnGround() && p.Speed.Y > -40f && Input.Jump.Check && p.StateMachine.State == PlayerState.StNormal && p.InControl) {
-                if(actualYSpeed.Equals(float.MaxValue)) {
+        if (GameHelper.Session.FloatyJumps) {
+            if (!p.OnGround() && p.Speed.Y > -40f && Input.Jump.Check && p.StateMachine.State == PlayerState.StNormal && p.InControl) {
+                if (actualYSpeed.Equals(float.MaxValue)) {
                     actualYSpeed = p.Speed.Y;
                 }
                 p.Speed.Y = actualYSpeed = Calc.Approach(actualYSpeed, 22.5f, p.Speed.Y > 40 ? 22.5f : 7.5f);
-                if(!Audio.IsPlaying(floatySound)) {
+                if (!Audio.IsPlaying(floatySound)) {
                     floatySound = Audio.Play("event:/GameHelper/floatyjump/floating");
                 }
             } else {

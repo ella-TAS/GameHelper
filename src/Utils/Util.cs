@@ -15,9 +15,9 @@ public static class Util {
         float radius2 = (radius * radius) - 0.25f;
         int y = (int) Math.Round(radius);
         drawCirclePx(0, y);
-        for(int x = 1; x < y; x++) {
+        for (int x = 1; x < y; x++) {
             //(y-0.5)² = y²-y+0.25
-            if((x * x) + (y * y) - y > radius2) {
+            if ((x * x) + (y * y) - y > radius2) {
                 y--;
             }
             drawCirclePx(x, y);
@@ -48,7 +48,7 @@ public static class Util {
     }
 
     public static float EaseMode(float s, string mode) {
-        if(Easers.TryGetValue(mode, out Ease.Easer value)) {
+        if (Easers.TryGetValue(mode, out Ease.Easer value)) {
             return value(s);
         }
         Logger.Warn("GameHelper", "Ease Mode " + mode + " not found");
@@ -62,7 +62,7 @@ public static class Util {
     }
 
     public static bool GetFlag(string flag, Scene s, bool emptyReaction = false, bool invert = false) {
-        if(flag?.Length == 0) return emptyReaction;
+        if (flag?.Length == 0) return emptyReaction;
         return (s as Level).Session.GetFlag(flag) ^ invert;
     }
 
@@ -72,28 +72,28 @@ public static class Util {
     }
 
     public static void CollectBerries(Player p) {
-        if(p == null) {
+        if (p == null) {
             return;
         }
 
         List<IStrawberry> berries = new();
         ReadOnlyCollection<Type> berryTypes = StrawberryRegistry.GetBerryTypes();
-        foreach(Follower follower in p.Leader.Followers) {
-            if(berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry s) {
+        foreach (Follower follower in p.Leader.Followers) {
+            if (berryTypes.Contains(follower.Entity.GetType()) && follower.Entity is IStrawberry s) {
                 berries.Add(s);
             }
         }
-        foreach(IStrawberry berry in berries) {
+        foreach (IStrawberry berry in berries) {
             berry.OnCollect();
         }
     }
 
     public static string TexturePathClean(EntityData data, string field, string fallback) {
         string texturePath = data.Attr(field, fallback);
-        if(texturePath.Length == 0) {
+        if (texturePath.Length == 0) {
             texturePath = fallback;
         }
-        if(!texturePath.EndsWith('/')) {
+        if (!texturePath.EndsWith('/')) {
             texturePath += "/";
         }
         return texturePath;

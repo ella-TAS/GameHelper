@@ -16,7 +16,7 @@ public class PushBoxButton : Entity {
         resetFlagOnDeath = data.Bool("resetFlagOnDeath");
         Add(sprite = GameHelper.SpriteBank.Create("push_box_button"));
         Collider = new Hitbox(16f, 8f);
-        if(data.Bool("playerActivates")) {
+        if (data.Bool("playerActivates")) {
             Add(new PlayerCollider(onCollide));
         }
         Depth = -2;
@@ -29,14 +29,14 @@ public class PushBoxButton : Entity {
     public override void Update() {
         base.Update();
         //push box collision
-        if(!inside && CollideCheck<PushBox>()) {
+        if (!inside && CollideCheck<PushBox>()) {
             inside = true;
         }
-        if(inside && !wasInside) {
+        if (inside && !wasInside) {
             sprite.Play("down");
             SceneAs<Level>().Session.SetFlag(flag);
             wasInside = true;
-        } else if(!inside && wasInside) {
+        } else if (!inside && wasInside) {
             sprite.Play("idle");
             SceneAs<Level>().Session.SetFlag(flag, false);
             wasInside = false;
@@ -45,14 +45,14 @@ public class PushBoxButton : Entity {
     }
 
     public override void Removed(Scene scene) {
-        if(resetFlagOnDeath) {
+        if (resetFlagOnDeath) {
             SceneAs<Level>().Session.SetFlag(flag, false);
         }
         base.Removed(scene);
     }
 
     public override void SceneEnd(Scene scene) {
-        if(resetFlagOnDeath) {
+        if (resetFlagOnDeath) {
             SceneAs<Level>().Session.SetFlag(flag, false);
         }
         base.SceneEnd(scene);

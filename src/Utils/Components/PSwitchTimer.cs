@@ -21,11 +21,11 @@ public class PSwitchTimer : Component {
 
     public override void Update() {
         timer -= Engine.DeltaTime;
-        if(timer <= 1f && !soundPlayed) {
+        if (timer <= 1f && !soundPlayed) {
             Audio.Play("event:/GameHelper/p_switch/p_switch_timer");
             soundPlayed = true;
         }
-        if(timer <= 0f) {
+        if (timer <= 0f) {
             GameHelper.Session.PSwitchTimers.Remove(flag);
             RemoveSelf();
         }
@@ -34,7 +34,7 @@ public class PSwitchTimer : Component {
     public override void Added(Entity entity) {
         base.Added(entity);
         GameHelper.Session.PSwitchTimers ??= new Dictionary<string, PSwitchTimer>();
-        if(GameHelper.Session.PSwitchTimers.TryGetValue(flag, out PSwitchTimer p)) {
+        if (GameHelper.Session.PSwitchTimers.TryGetValue(flag, out PSwitchTimer p)) {
             p.RemoveSelf();
             GameHelper.Session.PSwitchTimers.Remove(flag);
         }
@@ -48,7 +48,7 @@ public class PSwitchTimer : Component {
     }
 
     public override void Render() {
-        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
             Vector2 bar = p.Position - new Vector2(6f, 20f);
             Draw.Rect(bar - Vector2.UnitY, 12, 4, Color.Black);
             Draw.Rect(bar - Vector2.UnitX, 14, 2, Color.Black);

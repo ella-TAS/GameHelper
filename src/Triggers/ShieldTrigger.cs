@@ -16,7 +16,7 @@ public class ShieldTrigger : Trigger {
 
     public override void OnEnter(Player p) {
         p.Scene.Entities.FindAll<Shield>().ForEach(s => s.RemoveSelf());
-        if(enable) {
+        if (enable) {
             SceneAs<Level>().Add(new Shield(flashes));
         }
     }

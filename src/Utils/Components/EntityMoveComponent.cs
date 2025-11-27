@@ -20,7 +20,7 @@ public class EntityMoveComponent(Entity moveEntity, Vector2? offset = null, bool
 
     public override void EntityRemoved(Scene scene) {
         base.EntityRemoved(scene);
-        if(removeCascade) {
+        if (removeCascade) {
             moveEntity.RemoveSelf();
         }
     }

@@ -30,21 +30,21 @@ public class RicochetFist : Actor {
         base.Update();
         bool collideX = MoveH(direction.X * Engine.DeltaTime);
         bool collideY = MoveV(direction.Y * Engine.DeltaTime);
-        if(collideX || collideY) {
+        if (collideX || collideY) {
             Audio.Play("event:/GameHelper/fist/bullet_collide");
             stamina--;
-            if(stamina == 4) {
+            if (stamina == 4) {
                 collideX = collideY = true;
-            } else if(stamina == 0) {
+            } else if (stamina == 0) {
                 collideX = collideY = true;
                 Position = homePos;
                 stamina = 8;
             }
-            if(collideX) {
+            if (collideX) {
                 direction.X = -direction.X;
                 sprite.Rotation = 1.5707963f - sprite.Rotation; // 45° sprite rotation
             }
-            if(collideY) {
+            if (collideY) {
                 direction.Y = -direction.Y;
                 sprite.Rotation = -1.5707963f - sprite.Rotation;
             }

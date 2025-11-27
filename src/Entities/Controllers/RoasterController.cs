@@ -40,13 +40,13 @@ public class RoasterController : Entity {
 
     public override void Update() {
         base.Update();
-        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
             SceneAs<Level>().Session.SetFlag(flag);
             bool ground = p.OnGround();
             bool wallL = p.CollideCheck<Solid>(p.Position + new Vector2(-3, 0));
             bool wallR = p.CollideCheck<Solid>(p.Position + new Vector2(3, 0));
             bool bino = SceneAs<Level>().Tracker.GetEntities<Lookout>().Any(e => (e as Lookout).interacting);
-            if(
+            if (
                 (!waterOnly && !ground && !wallL && !wallR) ||
                 (waterOnly && p.CollideCheck<Water>()) ||
                 p.JustRespawned ||
@@ -54,10 +54,10 @@ public class RoasterController : Entity {
             ) {
                 ResetTimer();
             }
-            if(!maxTimer.Equals(timer)) {
+            if (!maxTimer.Equals(timer)) {
                 createParticles(waterOnly, ground, wallL, wallR, p.Facing == Facings.Right);
             }
-            if(timer <= 0) {
+            if (timer <= 0) {
                 p.Die(Vector2.Zero);
                 Visible = false;
             }
@@ -70,16 +70,16 @@ public class RoasterController : Entity {
     }
 
     private void createParticles(bool water, bool ground = false, bool wallL = false, bool wallR = false, bool facing_right = false) {
-        if(water) {
+        if (water) {
             SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(facing_right ? 2 : 1, 5), Vector2.One * 6f, 4.7123890f);
         } else {
-            if(ground) {
+            if (ground) {
                 SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(facing_right ? 2 : 1, 10), Vector2.UnitX * 4f, 4.7123890f);
             }
-            if(wallR) {
+            if (wallR) {
                 SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(6, 3), new Vector2(0, 6), 3.9269908f);
             }
-            if(wallL) {
+            if (wallL) {
                 SceneAs<Level>().ParticlesFG.Emit(pType, 1, Position + new Vector2(-4, 3), new Vector2(0, 6), 5.4977871f);
             }
         }
@@ -91,14 +91,14 @@ public class RoasterController : Entity {
     }
 
     public override void Render() {
-        if(!SceneAs<Level>().Transitioning) {
+        if (!SceneAs<Level>().Transitioning) {
             Util.DrawCircle(Position, progress, color);
         }
     }
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(maxTimer <= 0) {
+        if (maxTimer <= 0) {
             Logger.Warn("GameHelper", "RoasterController has bad timer value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
         }

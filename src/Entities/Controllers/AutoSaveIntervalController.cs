@@ -15,7 +15,7 @@ public class AutoSaveIntervalController : Entity {
     public override void Update() {
         base.Update();
 
-        if(SceneAs<Level>().OnInterval(interval * 60)) {
+        if (SceneAs<Level>().OnInterval(interval * 60)) {
             SceneAs<Level>().AutoSave();
         }
     }

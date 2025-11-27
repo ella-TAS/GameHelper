@@ -14,7 +14,7 @@ public class SuperHotController : Entity {
 
     public override void Update() {
         base.Update();
-        if(SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() is Player p) {
             bool input = p.InControl && Input.Aim.Value.Length() < 0.3f && !Input.Jump && !Input.Dash && !Input.CrouchDash && !Input.Grab;
             timeRateModifier.Multiplier = Calc.Approach(timeRateModifier.Multiplier, input ? 0.1f : 1f, 0.1f);
         }

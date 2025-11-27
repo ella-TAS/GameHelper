@@ -40,17 +40,17 @@ public class EntityMoverFollow : EntityMover {
 
         float dist = (moveTarget.Position + offset - target.Position).Length();
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        if(
+        if (
             (maxDistance > 0 && dist > maxDistance) ||
             dist <= minDistance ||
             !Utils.Util.GetFlag(flag, Scene, true) ||
             (p != null && awaitPlayerMovement && (p.JustRespawned || p.IsIntroState))
         ) {
             soundPlayed = false;
-            if(holdPositionOnWait) {
+            if (holdPositionOnWait) {
                 moveTo(waitPosition);
             }
-            if(stopSoundOnLeave && dist > minDistance && Audio.IsPlaying(approachSoundEvent)) {
+            if (stopSoundOnLeave && dist > minDistance && Audio.IsPlaying(approachSoundEvent)) {
                 Audio.Stop(approachSoundEvent);
             }
             return;
@@ -61,8 +61,8 @@ public class EntityMoverFollow : EntityMover {
             moveTarget.Position + offset,
             approach(dist, approachMode, speedFactor)
         );
-        if(onlyX ^ onlyY) {
-            if(onlyX) {
+        if (onlyX ^ onlyY) {
+            if (onlyX) {
                 moveTo(new Vector2(targetPos.X, target.Position.Y));
             } else {
                 moveTo(new Vector2(target.Position.X, targetPos.Y));
@@ -72,23 +72,23 @@ public class EntityMoverFollow : EntityMover {
         }
         waitPosition = target.Position;
 
-        if(approachSound.Length == 0) return;
+        if (approachSound.Length == 0) return;
 
-        if((moveTarget.Position + offset - target.Position).Length() <= playSoundAtDistance) {
-            if(!soundPlayed) {
+        if ((moveTarget.Position + offset - target.Position).Length() <= playSoundAtDistance) {
+            if (!soundPlayed) {
                 soundPlayed = true;
                 approachSoundEvent = Audio.Play(approachSound);
             }
         } else {
             soundPlayed = false;
-            if(Audio.IsPlaying(approachSoundEvent)) {
+            if (Audio.IsPlaying(approachSoundEvent)) {
                 Audio.Stop(approachSoundEvent);
             }
         }
     }
 
     private static float approach(float dist, string modus, float factor) {
-        if(modus.StartsWith("Hyperbolic") || modus.StartsWith("Inverse")) {
+        if (modus.StartsWith("Hyperbolic") || modus.StartsWith("Inverse")) {
             dist = Math.Max(dist, 1f);
         }
         dist /= 60f;
@@ -109,7 +109,7 @@ public class EntityMoverFollow : EntityMover {
     public override void Awake(Scene scene) {
         target = FindNearest(nodes[0], onlyType);
         moveTarget = FindNearest(nodes[1], targetOnlyType, target);
-        if(target == null || moveTarget == null) {
+        if (target == null || moveTarget == null) {
             Logger.Warn("GameHelper",
                 "Follow Entity Mover found " +
                 (target == null ? "no entity" : "entity " + target.GetType().ToString()) + ", " +
@@ -119,7 +119,7 @@ public class EntityMoverFollow : EntityMover {
             RemoveSelf();
             return;
         }
-        if(debug) {
+        if (debug) {
             Logger.Info("GameHelper", "Follow Entity Mover found entity " + target.GetType().ToString() + " and target " + moveTarget.GetType().ToString());
         }
         target.Add(new RemoveEntityOnRemoval(this));
@@ -130,7 +130,7 @@ public class EntityMoverFollow : EntityMover {
 
     public override void Removed(Scene scene) {
         base.Removed(scene);
-        if(stopSoundOnLeave && Audio.IsPlaying(approachSoundEvent)) {
+        if (stopSoundOnLeave && Audio.IsPlaying(approachSoundEvent)) {
             Audio.Stop(approachSoundEvent);
         }
     }

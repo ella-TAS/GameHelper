@@ -28,7 +28,7 @@ public class ExitCollabLevelTrigger : Trigger {
     }
 
     public override void OnStay(Player player) {
-        if(!Util.GetFlag(flag, Scene, true)) {
+        if (!Util.GetFlag(flag, Scene, true)) {
             return;
         }
         Collidable = false;
@@ -42,7 +42,7 @@ public class ExitCollabLevelTrigger : Trigger {
         Util.CollectBerries(p);
         yield return delay;
         timeRateModifier.Multiplier = 1f;
-        if(p.Dead) {
+        if (p.Dead) {
             yield return float.MaxValue;
         }
         Tag = Tags.FrozenUpdate;
@@ -51,15 +51,15 @@ public class ExitCollabLevelTrigger : Trigger {
         SceneAs<Level>().RegisterAreaComplete();
 
         //collab utils endscreen
-        if(CollabModule.Instance.Settings.DisplayEndScreenForAllMaps) {
+        if (CollabModule.Instance.Settings.DisplayEndScreenForAllMaps) {
             Scene.Add(new AreaCompleteInfoInLevel());
             yield return 0.5f;
-            while(!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed) {
+            while (!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed) {
                 yield return null;
             }
         } else {
             float endscreenTime = 0f;
-            while(!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed && endscreenTime <= 1f) {
+            while (!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed && endscreenTime <= 1f) {
                 yield return null;
                 endscreenTime += Engine.DeltaTime;
             }
@@ -71,10 +71,10 @@ public class ExitCollabLevelTrigger : Trigger {
 
     public override void Added(Scene scene) {
         base.Added(scene);
-        if(!GameHelper.CollabUtilsLoaded) {
+        if (!GameHelper.CollabUtilsLoaded) {
             Logger.Warn("GameHelper", "ExitCollabLevelTrigger: CollabUtils2 not found");
             RemoveSelf();
-        } else if(addHeartTrigger) {
+        } else if (addHeartTrigger) {
             SceneAs<Level>().Add(new RegisterHeartTrigger(data, levelOffset));
         }
     }

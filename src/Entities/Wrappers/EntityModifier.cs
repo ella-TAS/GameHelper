@@ -33,45 +33,45 @@ public class EntityModifier : Wrapper {
         onlyOnce = data.Bool("onlyOnce");
         everyFrame = data.Bool("everyFrame");
         doNewlyAddedEntities = data.Bool("doNewlyAddedEntities");
-        switch(data.Attr("valueType")) {
-            case "number":
-                if(data.Bool("integer"))
-                    value = data.Int("valueNumber");
-                else
-                    value = data.Float("valueNumber");
-                break;
-            case "string":
-                value = data.Attr("valueString");
-                break;
-            case "bool":
-                value = data.Bool("valueBool");
-                break;
-            case "common":
-                isCommon = true;
-                doActive = data.Attr("changeActive");
-                doCollidable = data.Attr("changeCollidable");
-                doVisible = data.Attr("changeVisible");
-                break;
-            case "vector":
-                isVector = true;
-                vectorX = data.Float("valueX");
-                vectorY = data.Float("valueY");
-                vectorMode = data.Attr("vectorMode");
-                onlyX = data.Bool("onlyX");
-                onlyY = data.Bool("onlyY");
-                break;
+        switch (data.Attr("valueType")) {
+        case "number":
+            if (data.Bool("integer"))
+                value = data.Int("valueNumber");
+            else
+                value = data.Float("valueNumber");
+            break;
+        case "string":
+            value = data.Attr("valueString");
+            break;
+        case "bool":
+            value = data.Bool("valueBool");
+            break;
+        case "common":
+            isCommon = true;
+            doActive = data.Attr("changeActive");
+            doCollidable = data.Attr("changeCollidable");
+            doVisible = data.Attr("changeVisible");
+            break;
+        case "vector":
+            isVector = true;
+            vectorX = data.Float("valueX");
+            vectorY = data.Float("valueY");
+            vectorMode = data.Attr("vectorMode");
+            onlyX = data.Bool("onlyX");
+            onlyY = data.Bool("onlyY");
+            break;
         }
     }
 
     public override void Update() {
         base.Update();
         bool isFlag = getFlag();
-        if(isFlag && !wasFlag) {
+        if (isFlag && !wasFlag) {
             wasFlag = true;
             modify(targets);
-        } else if(isFlag && everyFrame) {
+        } else if (isFlag && everyFrame) {
             modify(targets);
-        } else if(!isFlag && wasFlag) {
+        } else if (!isFlag && wasFlag) {
             wasFlag = false;
             modify(targets);
         }
@@ -81,25 +81,25 @@ public class EntityModifier : Wrapper {
         bool isFlag = getFlag();
 
         targetEntities.RemoveAll(e => e?.Scene == null);
-        if(targetEntities.Count == 0 && !doNewlyAddedEntities) {
-            if(debug) {
+        if (targetEntities.Count == 0 && !doNewlyAddedEntities) {
+            if (debug) {
                 Logger.Info("GameHelper", "All entities were removed from the scene, killing modifier");
             }
             RemoveSelf();
             return;
         }
 
-        if(isCommon || isFlag) {
-            foreach(Entity target in targetEntities) {
-                if(debug) {
+        if (isCommon || isFlag) {
+            foreach (Entity target in targetEntities) {
+                if (debug) {
                     Logger.Info("GameHelper", "Modifying entity " + target.GetType());
                 }
 
-                if(isCommon) {
+                if (isCommon) {
                     modCommonBool(target, "Active", doActive, isFlag);
                     modCommonBool(target, "Collidable", doCollidable, isFlag);
                     modCommonBool(target, "Visible", doVisible, isFlag);
-                } else if(isVector) {
+                } else if (isVector) {
                     modVector(target, fieldName, new Vector2(vectorX, vectorY), vectorMode, onlyX, onlyY);
                 } else {
                     DynamicData.For(target).Set(fieldName, value);
@@ -107,58 +107,58 @@ public class EntityModifier : Wrapper {
             }
         }
 
-        if(onlyOnce && isFlag) {
+        if (onlyOnce && isFlag) {
             RemoveSelf();
         }
     }
 
     private static void modCommonBool(Entity target, string name, string mode, bool flag) {
-        if(mode == "ignore" || (!flag && mode != "set_flag")) {
+        if (mode == "ignore" || (!flag && mode != "set_flag")) {
             return;
         }
         bool val = false;
-        switch(mode) {
-            case "set_true":
-                val = true;
-                break;
-            case "set_flag":
-                val = flag;
-                break;
-            case "invert":
-                val = !DynamicData.For(target).Get<bool>(name);
-                break;
+        switch (mode) {
+        case "set_true":
+            val = true;
+            break;
+        case "set_flag":
+            val = flag;
+            break;
+        case "invert":
+            val = !DynamicData.For(target).Get<bool>(name);
+            break;
         }
         DynamicData.For(target).Set(name, val);
     }
 
     private static void modVector(Entity target, string name, Vector2 val, string mode, bool onlyX, bool onlyY) {
         Vector2 previous = DynamicData.For(target).Get<Vector2>(name);
-        switch(mode) {
-            case "set":
-                if(onlyX) {
-                    val.Y = previous.Y;
-                }
-                if(onlyY) {
-                    val.X = previous.X;
-                }
-                break;
-            case "add":
-                if(!onlyX) {
-                    val.Y += previous.Y;
-                }
-                if(!onlyY) {
-                    val.X += previous.X;
-                }
-                break;
-            case "multiply":
-                if(!onlyX) {
-                    previous.Y *= val.Y;
-                }
-                if(!onlyY) {
-                    previous.X *= val.X;
-                }
-                val = previous;
-                break;
+        switch (mode) {
+        case "set":
+            if (onlyX) {
+                val.Y = previous.Y;
+            }
+            if (onlyY) {
+                val.X = previous.X;
+            }
+            break;
+        case "add":
+            if (!onlyX) {
+                val.Y += previous.Y;
+            }
+            if (!onlyY) {
+                val.X += previous.X;
+            }
+            break;
+        case "multiply":
+            if (!onlyX) {
+                previous.Y *= val.Y;
+            }
+            if (!onlyY) {
+                previous.X *= val.X;
+            }
+            val = previous;
+            break;
         }
         DynamicData.For(target).Set(name, val);
     }
@@ -169,31 +169,31 @@ public class EntityModifier : Wrapper {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(debug) {
+        if (debug) {
             LogAllEntities();
         }
 
         targets = FindTargets(Position, nodes, levelOffset, allEntities, onlyType);
-        if(targets.Count == 0 && !doNewlyAddedEntities) {
+        if (targets.Count == 0 && !doNewlyAddedEntities) {
             ComplainEntityNotFound("Entity Modifier");
             return;
         }
 
         modify(targets);
 
-        if(getFlag()) {
+        if (getFlag()) {
             wasFlag = true;
 
-            if(flag?.Length == 0 && !everyFrame && !doNewlyAddedEntities) {
+            if (flag?.Length == 0 && !everyFrame && !doNewlyAddedEntities) {
                 RemoveSelf();
             }
         }
     }
 
     private void handleSceneAdd(Entity t) {
-        if(onlyType.Length > 0 && t.GetType().ToString() == onlyType && !targets.Contains(t)) {
+        if (onlyType.Length > 0 && t.GetType().ToString() == onlyType && !targets.Contains(t)) {
             targets.Add(t);
-            if(debug) {
+            if (debug) {
                 Logger.Info("GameHelper", "Newly added entity added: " + t.GetType());
             }
             modify([t]);
@@ -202,9 +202,9 @@ public class EntityModifier : Wrapper {
 
     private static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
         orig(s, t);
-        if(s is Level && s.Tracker.IsEntityTracked<EntityModifier>()) {
-            foreach(EntityModifier m in s.Tracker.GetEntities<EntityModifier>()) {
-                if(m.doNewlyAddedEntities) {
+        if (s is Level && s.Tracker.IsEntityTracked<EntityModifier>()) {
+            foreach (EntityModifier m in s.Tracker.GetEntities<EntityModifier>()) {
+                if (m.doNewlyAddedEntities) {
                     m.handleSceneAdd(t);
                 }
             }

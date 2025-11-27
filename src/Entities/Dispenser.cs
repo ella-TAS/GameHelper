@@ -45,7 +45,7 @@ public class Dispenser : Solid {
     private void shoot() {
         shootTimer = maxShootTimer;
         SceneAs<Level>().Add(new Arrow(Position + new Vector2(facingLeft ? -16 : 16, 8), facingLeft, arrowSprite));
-        if(!Audio.IsPlaying(sound)) {
+        if (!Audio.IsPlaying(sound)) {
             sound = Audio.Play("event:/GameHelper/dispenser/dispenser");
         }
         SceneAs<Level>().ParticlesFG.Emit(pType, 50, Position + new Vector2(facingLeft ? 1 : 17, 11), Vector2.UnitY, facingLeft ? MathF.PI : 0);
@@ -54,7 +54,7 @@ public class Dispenser : Solid {
     public override void Update() {
         base.Update();
         shootTimer -= Engine.DeltaTime;
-        if(shootTimer <= 0 && Utils.Util.GetFlag(flag, Scene)) {
+        if (shootTimer <= 0 && Utils.Util.GetFlag(flag, Scene)) {
             shoot();
         }
     }

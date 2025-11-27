@@ -43,24 +43,24 @@ public class EntityRespriter : Wrapper {
     public override void Update() {
         base.Update();
 
-        if(getFlag() && (!firstInjectDone || (!wasFlag && allEntities))) {
-            foreach(Entity e in targets) {
+        if (getFlag() && (!firstInjectDone || (!wasFlag && allEntities))) {
+            foreach (Entity e in targets) {
                 injectSprite(e);
             }
             firstInjectDone = true;
         }
 
-        if(getFlag() && !wasFlag) {
+        if (getFlag() && !wasFlag) {
             wasFlag = true;
         }
-        if(!getFlag() && wasFlag) {
+        if (!getFlag() && wasFlag) {
             wasFlag = false;
         }
     }
 
     private Sprite createSprite() {
         Sprite sprite;
-        if(spriteFolder != "") {
+        if (spriteFolder != "") {
             // direct
             sprite = new Sprite(GFX.Game, spriteFolder);
             sprite.AddLoop("idle", spriteName, delay);
@@ -76,10 +76,10 @@ public class EntityRespriter : Wrapper {
     }
 
     private void injectSprite(Entity targetEntity) {
-        if(targetEntity == null) {
+        if (targetEntity == null) {
             return;
         }
-        if(debug) {
+        if (debug) {
             Logger.Info("GameHelper", "Respriting entity " + targetEntity.GetType());
         }
 
@@ -87,13 +87,13 @@ public class EntityRespriter : Wrapper {
 
         //exchange component
         Sprite localSprite = createSprite();
-        if(removeAllComponents) {
+        if (removeAllComponents) {
             targetEntity.Components.RemoveAll<Image>();
-        } else if(fieldName?.Length == 0) {
+        } else if (fieldName?.Length == 0) {
             targetEntity.Get<Sprite>()?.RemoveSelf();
         } else {
-            foreach(Image s in targetEntity.Components.GetAll<Image>()) {
-                if(s == targetData.Get(fieldName)) {
+            foreach (Image s in targetEntity.Components.GetAll<Image>()) {
+                if (s == targetData.Get(fieldName)) {
                     s?.RemoveSelf();
                     break;
                 }
@@ -102,18 +102,18 @@ public class EntityRespriter : Wrapper {
         targetEntity.Add(localSprite);
 
         //set reference
-        if(fieldName != "") {
+        if (fieldName != "") {
             targetData.Set(fieldName, localSprite);
         }
     }
 
     private void handleSceneAdd(Entity t) {
-        if(onlyType.Length > 0 && (t.GetType().FullName == onlyType || t.GetType().Name == onlyType) && !targets.Contains(t)) {
+        if (onlyType.Length > 0 && (t.GetType().FullName == onlyType || t.GetType().Name == onlyType) && !targets.Contains(t)) {
             targets.Add(t);
-            if(debug) {
+            if (debug) {
                 Logger.Info("GameHelper", "Newly added entity added: " + t.GetType());
             }
-            if(getFlag()) {
+            if (getFlag()) {
                 injectSprite(t);
             }
         }
@@ -121,9 +121,9 @@ public class EntityRespriter : Wrapper {
 
     private static void OnSceneAdd(On.Monocle.Scene.orig_Add_Entity orig, Scene s, Entity t) {
         orig(s, t);
-        if(s is Level && s.Tracker.IsEntityTracked<EntityRespriter>()) {
-            foreach(EntityRespriter r in s.Tracker.GetEntities<EntityRespriter>()) {
-                if(r.doNewlyAddedEntities) {
+        if (s is Level && s.Tracker.IsEntityTracked<EntityRespriter>()) {
+            foreach (EntityRespriter r in s.Tracker.GetEntities<EntityRespriter>()) {
+                if (r.doNewlyAddedEntities) {
                     r.handleSceneAdd(t);
                 }
             }
@@ -137,23 +137,23 @@ public class EntityRespriter : Wrapper {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if(debug) {
+        if (debug) {
             LogAllEntities();
         }
 
         targets = FindTargets(Position, nodes, levelOffset, allEntities, onlyType);
-        if(targets.Count == 0 && !doNewlyAddedEntities) {
+        if (targets.Count == 0 && !doNewlyAddedEntities) {
             ComplainEntityNotFound("Entity Respriter");
             return;
         }
-        if(getFlag()) {
-            foreach(Entity e in targets) {
+        if (getFlag()) {
+            foreach (Entity e in targets) {
                 injectSprite(e);
             }
             firstInjectDone = true;
 
             // not needed anymore
-            if(!doNewlyAddedEntities) {
+            if (!doNewlyAddedEntities) {
                 RemoveSelf();
             }
         }
