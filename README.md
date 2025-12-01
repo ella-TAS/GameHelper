@@ -3,20 +3,10 @@ See https://maddie480.ovh/celeste/custom-entity-catalog#game-helper
 
 ## Credits
 ### Code
-EllaTAS (literally everything)  
-Everest Team – basis of EntitySearchUI  
-Jackal – original SwingSolid  
-Kosei – Fixes, FMOD, Debug Deco inspiration
-
-### Code help
-Snip – helpful and kind  
-microlith57  
-Popax21  
-psygamer  
-Wartori – 500000% lag reduction  
-maddie480  
-Viv  
-JaThePlayer – easing reflection
+EllaTAS – literally everything  
+Kosei – Fixes, FMOD, Debug Deco inspiration  
+Everest Team – basis of Entity Search UI  
+Jackal – original pendulum code
 
 ### Custom sprites
 Inferno_ – Flashlight UI, Annoying Mice  
@@ -26,6 +16,16 @@ Lua – Dead spring
 Purppelle – Chainsaw, Fist  
 Kosei – Cobwebs, Fire Trap, Shield  
 Pincii – Alternative P-Switch
+
+### Code help
+maddie480 – CollabUtils2 exports  
+Snip – helpful and kind  
+Wartori – 500000% lag reduction  
+microlith57  
+Popax21  
+psygamer  
+Viv  
+JaThePlayer – easing reflection
 
 ### SFX
 Inferno_  
