@@ -3,11 +3,11 @@
   Version: 1.9.1.1
   Dependencies:
     - Name: Everest
-      Version: 1.6026.0
+      Version: 1.5986.0
   OptionalDependencies:
     - Name: CollabUtils2
-      Version: 1.10.14
+      Version: 1.11.1
     - Name: SpeedrunTool
-      Version: 3.25.6
+      Version: 3.27.2
     - Name: VivHelper
       Version: 1.14.10
