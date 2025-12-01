@@ -1,5 +1,3 @@
-using Celeste.Mod.CollabUtils2;
-using Celeste.Mod.CollabUtils2.UI;
 using Celeste.Mod.Entities;
 using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
@@ -51,22 +49,8 @@ public class ExitCollabLevelTrigger : Trigger {
         SceneAs<Level>().RegisterAreaComplete();
 
         //collab utils endscreen
-        if (CollabModule.Instance.Settings.DisplayEndScreenForAllMaps) {
-            Scene.Add(new AreaCompleteInfoInLevel());
-            yield return 0.5f;
-            while (!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed) {
-                yield return null;
-            }
-        } else {
-            float endscreenTime = 0f;
-            while (!Input.MenuConfirm.Pressed && !Input.MenuCancel.Pressed && endscreenTime <= 1f) {
-                yield return null;
-                endscreenTime += Engine.DeltaTime;
-            }
-        }
-        level.DoScreenWipe(wipeIn: false, delegate {
-            Engine.Scene = new LevelExitToLobby(LevelExit.Mode.Completed, level.Session);
-        });
+        yield return new SwapImmediately(CollabUtils2Imports.DisplayCollabMapEndScreenIfEnabled());
+        CollabUtils2Imports.TriggerReturnToLobby();
     }
 
     public override void Added(Scene scene) {

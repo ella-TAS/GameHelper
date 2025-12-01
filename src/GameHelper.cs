@@ -27,6 +27,7 @@ public class GameHelper : EverestModule {
 
     public override void Load() {
         ModInteropManager.ModInterop(typeof(GameHelperExports));
+        typeof(CollabUtils2Imports).ModInterop();
 
         Logger.SetLogLevel("GameHelper", 0);
         CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {

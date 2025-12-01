@@ -35,6 +35,5 @@
         <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
         <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
         <Reference Include="FNA" HintPath="$(CELESTEGAMEPATH)\FNA.dll" />
-        <Reference Include="CollabUtils2" HintPath="$(CELESTEGAMEPATH)\Mods\Cache\CollabUtils2.CollabUtils2.dll" />
     </ItemGroup>
 </Project>
