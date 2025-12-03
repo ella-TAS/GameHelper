@@ -270,15 +270,6 @@ entities.GameHelper/CameraPeekController.attributes.description.magnitudeUp=How 
 entities.GameHelper/CameraPeekController.attributes.description.magnitudeDown=How much the camera should peek down (unit is the same as in camera offset triggers).\nSet to 0 to deactivate peeking Down.
 entities.GameHelper/CameraPeekController.attributes.description.pressDuration=The amount of seconds you need to press Up/Down to activate the peek.
 
-entities.GameHelper/HangingBridge.placements.name.normal=Deco Hanging Bridge
-entities.GameHelper/HangingBridge.placements.description.normal=A parabola shaped bridge.
-
-entities.GameHelper/JumpRope.placements.name.normal=Jump Rope (Mario)
-entities.GameHelper/JumpRope.placements.description.normal=A parabola shaped rope that can be jumped on for a vertical boost.
-entities.GameHelper/JumpRope.attributes.description.renderLeftEnd=Whether a stone end should be rendered on the left.
-entities.GameHelper/JumpRope.attributes.description.renderRightEnd=Whether a stone end should be rendered on the right.
-entities.GameHelper/JumpRope.attributes.description.texturePath=The path the rope should use for textures, starting from Graphics/Atlases/Gameplay/.\nUse the original sprites in objects/GameHelper/rope/ as base.
-
 entities.GameHelper/ColorfulDebugController.placements.name.normal=Colorful Debug Controller
 entities.GameHelper/ColorfulDebugController.placements.description.normal=A controller that can recolor various parts of your debug map.\nCan be applied per room, room prefix or for the whole map.
 entities.GameHelper/ColorfulDebugController.attributes.description.roomPrefix=The (case sensitive) prefix of all rooms this should apply to.\nLeave empty to affect the room it is placed in.\n Put * to affect all rooms.

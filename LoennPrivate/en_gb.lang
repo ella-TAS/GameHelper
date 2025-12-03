@@ -1,0 +1,8 @@
+entities.GameHelper/HangingBridge.placements.name.normal=Deco Hanging Bridge
+entities.GameHelper/HangingBridge.placements.description.normal=A parabola shaped bridge.
+
+entities.GameHelper/JumpRope.placements.name.normal=Jump Rope (Mario)
+entities.GameHelper/JumpRope.placements.description.normal=A parabola shaped rope that can be jumped on for a vertical boost.
+entities.GameHelper/JumpRope.attributes.description.renderLeftEnd=Whether a stone end should be rendered on the left.
+entities.GameHelper/JumpRope.attributes.description.renderRightEnd=Whether a stone end should be rendered on the right.
+entities.GameHelper/JumpRope.attributes.description.texturePath=The path the rope should use for textures, starting from Graphics/Atlases/Gameplay/.\nUse the original sprites in objects/GameHelper/rope/ as base.
