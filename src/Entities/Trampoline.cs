@@ -63,7 +63,7 @@ public class Trampoline : Entity {
             wasInside = true;
             //entered
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            p.StateMachine.State = PlayerState.StNormal;
+            p.StateMachine.State = Player.StNormal;
             p.AutoJump = true;
             if (!p.Inventory.NoRefills && refillDash) {
                 p.RefillDash();

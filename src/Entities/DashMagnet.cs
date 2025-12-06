@@ -29,7 +29,7 @@ public class DashMagnet : Entity {
     }
 
     private void onCollide(Player p) {
-        if (p.StateMachine.State == PlayerState.StDash) {
+        if (p.StateMachine.State == Player.StDash) {
             if (!used) {
                 sprite.Play("flash");
                 Direction = (Center - p.Center).SafeNormalize();
@@ -58,8 +58,8 @@ public class DashMagnet : Entity {
             InsideMagnet = false;
             timeRateModifier.Multiplier = 1f;
             Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if (p != null && p.StateMachine.State == PlayerState.StDash && !p.StartedDashing) {
-                p.StateMachine.State = PlayerState.StNormal;
+            if (p != null && p.StateMachine.State == Player.StDash && !p.StartedDashing) {
+                p.StateMachine.State = Player.StNormal;
             }
         }
         inside = false;

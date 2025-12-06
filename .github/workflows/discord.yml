@@ -40,7 +40,7 @@ jobs:
         }
 
         ZIPNAME="GameHelper-${TAG_NAME}.zip"
-        zip -qq -r $ZIPNAME Audio bin Graphics Loenn everest.yaml LICENSE README.md
+        zip -qq -r $ZIPNAME Audio bin Dialog Graphics Loenn everest.yaml LICENSE README.md
 
         # Output full git log for debugging
         echo "Full Git Log:"

@@ -23,7 +23,7 @@ public class CameraPeekController : Entity {
         base.Update();
 
         Player p = SceneAs<Level>().Tracker.GetEntity<Player>();
-        bool peekAllowed = p != null && p.StateMachine.State == PlayerState.StNormal && p.OnGround() && p.Speed.X == 0f;
+        bool peekAllowed = p != null && p.StateMachine.State == Player.StNormal && p.OnGround() && p.Speed.X == 0f;
 
         if (peekAllowed && magnitudeUp > 0f && Input.Aim.Value.Y < -0.5f) {
             // up

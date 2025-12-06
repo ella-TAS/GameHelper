@@ -5,11 +5,13 @@ using System.Collections;
 
 namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
+[Tracked]
 public class Mouse : Actor {
     public enum Direction { Left, Up, Right, Down }
     private readonly Sprite sprite;
     private Direction dir;
     private bool deathRoutine;
+    private bool tortureRoutine;
 
     public Mouse(Vector2 Position) : base(Position) {
         Collider = new Hitbox(16, 16);
@@ -23,6 +25,11 @@ public class Mouse : Actor {
 
     public override void Update() {
         base.Update();
+        if (!tortureRoutine && CollideAll<Mouse>().Count >= 10) {
+            tortureRoutine = true;
+            SceneAs<Level>().Entities.FindAll<MouseHole>().ForEach(m => m.RemoveSelf());
+            Add(new Coroutine(routinePreventMouseTorture()));
+        }
         NaiveMove(dirToVector() * 120f * Engine.DeltaTime);
         if (!deathRoutine && CollideCheck<Solid>()) {
             bool surviveFrame = false;
@@ -63,5 +70,15 @@ public class Mouse : Actor {
             Direction.Down => Vector2.UnitY,
             _ => Vector2.Zero,
         };
+    }
+
+    private IEnumerator routinePreventMouseTorture() {
+        if (SceneAs<Level>().Tracker.GetEntity<Player>() is not Player player) {
+            yield break;
+        }
+        player.StateMachine.State = Player.StDummy;
+        yield return Textbox.Say("GameHelper_MouseTorture");
+        player.Die(Vector2.Zero, true);
+        tortureRoutine = false;
     }
 }

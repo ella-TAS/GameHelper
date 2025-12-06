@@ -72,7 +72,7 @@ public class RopeSegment : JumpThru {
         }
 
         // avoid down-dash corner correction
-        if (p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0 && p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, 6))) {
+        if (p.StateMachine.State == Player.StDash && p.DashDir.Y > 0 && p.CollideCheck<RopeSegment>(p.Position + new Vector2(0, 6))) {
             p.dashStartedOnGround = true;
         }
 
@@ -88,7 +88,7 @@ public class RopeSegment : JumpThru {
             p.Speed.Y = Calc.Max(p.Speed.Y, -30f);
             p.varJumpTimer = 0f;
             p.movementCounter.Y = 0f;
-        } else if (p.StateMachine.State == PlayerState.StNormal && p.Speed.Y >= 0) {
+        } else if (p.StateMachine.State == Player.StNormal && p.Speed.Y >= 0) {
             bridgeInside = p.CollideAll<RopeSegment>(p.Position + new Vector2(0, CORRECTION_ABOVE));
             if (bridgeInside.Count > 0) {
                 float niveau = bridgeInside.MinBy(e => e.Position.Y).Y;

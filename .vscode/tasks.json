@@ -31,11 +31,13 @@
                 "a",
                 "${workspaceFolder}/GameHelper.zip",
                 "${workspaceFolder}/Audio",
+                "${workspaceFolder}/bin",
+                "${workspaceFolder}/Dialog",
                 "${workspaceFolder}/Graphics",
                 "${workspaceFolder}/Loenn",
-                "${workspaceFolder}/bin",
                 "${workspaceFolder}/everest.yaml",
-                "${workspaceFolder}/LICENSE"
+                "${workspaceFolder}/LICENSE",
+                "${workspaceFolder}/README.md"
             ],
             "type": "process",
             "group": {

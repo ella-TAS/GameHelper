@@ -57,13 +57,13 @@ public class JumpRope : Entity {
             segments.ForEach(s => s.BendByPlayer(Ease.QuintOut(moveTimer / MOVE_TIME), lastPlayerX));
 
             // down dash behavior
-            if (p.StateMachine.State == PlayerState.StDash && p.DashDir.Y > 0.7f) {
+            if (p.StateMachine.State == Player.StDash && p.DashDir.Y > 0.7f) {
                 dashed = true;
                 p.LiftSpeedGraceTime = 0.2f;
                 p.LiftSpeed = new Vector2(0f, -130f);
                 // roost is only allowed if the rope is already properly bent
                 if (moveTimer / MOVE_TIME > 0.75f && Input.Jump.Pressed) {
-                    p.StateMachine.State = PlayerState.StNormal;
+                    p.StateMachine.State = Player.StNormal;
                     p.RefillDash();
                     // uncrouch 1f later
                     Add(Coroutines.Timeout(delegate {
