@@ -7,8 +7,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/FlashlightController")]
 public class FlashlightController : Entity {
-    private static Dictionary<string, ButtonBinding> keyBinds = new();
-    public VirtualButton Binding => keyBinds.TryGetValue(SceneAs<Level>().Session.Area.SID, out ButtonBinding b) ? b.Button : Input.MenuJournal;
+    public static VirtualButton Binding => Input.MenuJournal;
 
     private readonly Sprite sprite;
     private Level level;
@@ -51,17 +50,6 @@ public class FlashlightController : Entity {
         if (maxCooldown <= 0) {
             Logger.Warn("GameHelper", "FlashlightController has bad cooldown value in room " + SceneAs<Level>().Session.LevelData.Name);
             RemoveSelf();
-        }
-    }
-
-    internal static void resetBindings() {
-        keyBinds = new();
-    }
-
-    internal static void addBinding(string levelSID, ButtonBinding binding) {
-        if (!keyBinds.TryAdd(levelSID, binding)) {
-            Logger.Warn("GameHelper", "FlashlightController keybinds already contain key " + levelSID);
-            return;
         }
     }
 }

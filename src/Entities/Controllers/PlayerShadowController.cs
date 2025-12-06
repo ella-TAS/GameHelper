@@ -9,8 +9,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/PlayerShadowController")]
 public class PlayerShadowController : Entity {
-    private static Dictionary<string, ButtonBinding> keyBinds = new();
-    public VirtualButton Binding => keyBinds.TryGetValue(SceneAs<Level>().Session.Area.SID, out ButtonBinding b) ? b.Button : Input.MenuJournal;
+    public static VirtualButton Binding => Input.MenuJournal;
 
     private int uses;
     private readonly bool oneUse, freezeFrames, clipToTop;
@@ -32,17 +31,6 @@ public class PlayerShadowController : Entity {
             Binding.ConsumeBuffer();
             SceneAs<Level>().Add(new PlayerShadow(p.TopLeft, texture, oneUse, freezeFrames, clipToTop));
             uses--;
-        }
-    }
-
-    internal static void resetBindings() {
-        keyBinds = new();
-    }
-
-    internal static void addBinding(string levelSID, ButtonBinding binding) {
-        if (!keyBinds.TryAdd(levelSID, binding)) {
-            Logger.Warn("GameHelper", "PlayerShadowController keybinds already contain key " + levelSID);
-            return;
         }
     }
 }

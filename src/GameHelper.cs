@@ -52,9 +52,6 @@ public class GameHelper : EverestModule {
         EntitySearch.Hook();
         ColorfulDebug.Hook();
         SuperHotController.Hook();
-
-        PlayerShadowController.resetBindings();
-        FlashlightController.resetBindings();
     }
 
     public override void Unload() {

@@ -9,42 +9,6 @@ namespace Celeste.Mod.GameHelper;
 [ModExportName("GameHelper")]
 public static class GameHelperExports {
     /// <summary>
-    /// Adds a custom button binding to the GameHelper Flashlight Controller
-    /// </summary>
-    /// <param name="levelSID">The level SID of the level where the button binding should apply</param>
-    /// <param name="binding">The custom ButtonBinding that should be applied</param>
-    /// public static Action<string, ButtonBinding> AddFlashlightBinding;
-    public static void AddFlashlightBinding(string levelSID, ButtonBinding binding) {
-        FlashlightController.addBinding(levelSID, binding);
-    }
-
-    /// <summary>
-    /// Resets all custom button bindings for the GameHelper Flashlight Controller
-    /// </summary>
-    /// public static Action ResetFlashlightBindings;
-    public static void ResetFlashlightBindings() {
-        FlashlightController.resetBindings();
-    }
-
-    /// <summary>
-    /// Adds a custom button binding to the GameHelper Player Shadow Controller
-    /// </summary>
-    /// <param name="levelSID">The level SID of the level where the button binding should apply</param>
-    /// <param name="binding">The custom ButtonBinding that should be applied</param>
-    /// public static Action<string, ButtonBinding> AddPlayerShadowBinding;
-    public static void AddPlayerShadowBinding(string levelSID, ButtonBinding binding) {
-        PlayerShadowController.addBinding(levelSID, binding);
-    }
-
-    /// <summary>
-    /// Resets all custom button bindings for the GameHelper Player Shadow Controller
-    /// </summary>
-    /// public static Action ResetPlayerShadowBindings;
-    public static void ResetPlayerShadowBindings() {
-        PlayerShadowController.resetBindings();
-    }
-
-    /// <summary>
     /// Hook the GenerateDebugDecalEvent that is called when an entity is indexed for addition to the debug map.
     /// Use this to generate map-wide debug decals for entities.
     /// Please check for session.Area.SID to restrict behavior to your map.
