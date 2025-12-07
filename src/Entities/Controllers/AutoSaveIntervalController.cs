@@ -22,6 +22,7 @@ public class AutoSaveIntervalController : Entity {
         }
 
         if (Triggered && SceneAs<Level>().Tracker.GetEntity<Player>() is Player player && player.JustRespawned) {
+            Logger.Info("GameHelper", "Auto Saving");
             SceneAs<Level>().AutoSave();
             Triggered = false;
         }
