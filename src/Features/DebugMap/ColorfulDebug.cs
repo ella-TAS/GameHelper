@@ -135,18 +135,35 @@ public static partial class ColorfulDebug {
                     Color color = entity.HexColor("color");
                     Regex tileRegex = TileRegex();
                     string[] tileRows = tileRegex.Split(fg ? level.Solids : level.Bg);
+                    int start = -1;
                     for (int i = 0; i < tileRows.Length; i++) {
                         for (int j = 0; j < tileRows[i].Length; j++) {
                             if (tileRows[i][j] == match) {
+                                if (start == -1) {
+                                    start = j;
+                                }
+                            } else if (start != -1) {
                                 list.Add(new() {
                                     type = TYPE_RECTANGLE,
-                                    position = new Vector2(j, i),
-                                    width = 1,
+                                    position = new Vector2(start, i),
+                                    width = j - start,
                                     height = 1,
                                     hollow = false,
                                     color = fg ? color : (color * 0.5f),
                                 });
+                                start = -1;
                             }
+                        }
+                        if (start != -1) {
+                            list.Add(new() {
+                                type = TYPE_RECTANGLE,
+                                position = new Vector2(start, i),
+                                width = tileRows[i].Length - start,
+                                height = 1,
+                                hollow = false,
+                                color = fg ? color : (color * 0.5f),
+                            });
+                            start = -1;
                         }
                     }
                     break;
