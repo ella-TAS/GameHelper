@@ -9,5 +9,8 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 public class DebugDecalController(EntityData data, Vector2 levelOffset) : Entity(data.Position + levelOffset) {
     // handled in ColorfulDebug.cs
 
-    public override void Added(Scene scene) { }
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        RemoveSelf();
+    }
 }
