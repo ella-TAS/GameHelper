@@ -135,6 +135,18 @@ public static partial class ColorfulDebug {
                     Color color = entity.HexColor("color");
                     Regex tileRegex = TileRegex();
                     string[] tileRows = tileRegex.Split(fg ? level.Solids : level.Bg);
+
+                    void addLine(Vector2 start, int width) {
+                        list.Add(new() {
+                            type = TYPE_RECTANGLE,
+                            position = start,
+                            width = width,
+                            height = 1,
+                            hollow = false,
+                            color = fg ? color : (color * 0.5f),
+                        });
+                    }
+
                     int start = -1;
                     for (int i = 0; i < tileRows.Length; i++) {
                         for (int j = 0; j < tileRows[i].Length; j++) {
@@ -143,26 +155,12 @@ public static partial class ColorfulDebug {
                                     start = j;
                                 }
                             } else if (start != -1) {
-                                list.Add(new() {
-                                    type = TYPE_RECTANGLE,
-                                    position = new Vector2(start, i),
-                                    width = j - start,
-                                    height = 1,
-                                    hollow = false,
-                                    color = fg ? color : (color * 0.5f),
-                                });
+                                addLine(new Vector2(start, i), j - start);
                                 start = -1;
                             }
                         }
                         if (start != -1) {
-                            list.Add(new() {
-                                type = TYPE_RECTANGLE,
-                                position = new Vector2(start, i),
-                                width = tileRows[i].Length - start,
-                                height = 1,
-                                hollow = false,
-                                color = fg ? color : (color * 0.5f),
-                            });
+                            addLine(new Vector2(start, i), tileRows[i].Length - start);
                             start = -1;
                         }
                     }
