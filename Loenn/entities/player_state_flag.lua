@@ -12,6 +12,7 @@ psf.placements = {
         useStateName = false,
         invert = false,
         dashAttack = false,
+        holding = false,
         debug = false,
     }
 }

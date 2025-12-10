@@ -8,7 +8,7 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 public class PlayerStateFlag : Entity {
     private readonly string flag, stateName;
     private readonly int state;
-    private readonly bool invert, dashAttack, useStateName, debug;
+    private readonly bool invert, dashAttack, holding, useStateName, debug;
 
     public PlayerStateFlag(EntityData data, Vector2 levelOffset) {
         useStateName = data.Bool("useStateName");
@@ -21,6 +21,7 @@ public class PlayerStateFlag : Entity {
         flag = data.Attr("flag");
         invert = data.Bool("invert");
         dashAttack = data.Bool("dashAttack");
+        holding = data.Bool("holding");
         debug = data.Bool("debug");
         Depth = -1;
     }
@@ -32,10 +33,15 @@ public class PlayerStateFlag : Entity {
             if (debug) {
                 Logger.Info("GameHelper", p.StateMachine.State.ToString() + " - \"" + p.StateMachine.GetStateName(p.StateMachine.State) + "\"");
             }
-            bool isState =
-                (!dashAttack && !useStateName && state == p.StateMachine.State) ||
-                (!dashAttack && useStateName && stateName.Equals(p.StateMachine.GetStateName(p.StateMachine.State))) ||
-                (dashAttack && p.DashAttacking);
+            bool isState;
+            if (dashAttack) {
+                isState = p.DashAttacking;
+            } else if (holding) {
+                isState = p.Holding != null;
+            } else {
+                isState = (!useStateName && state == p.StateMachine.State) ||
+                    (useStateName && stateName.Equals(p.StateMachine.GetStateName(p.StateMachine.State)));
+            }
             SceneAs<Level>().Session.SetFlag(flag, isState ^ invert);
         }
     }
