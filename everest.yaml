@@ -2,12 +2,12 @@
   Name: GameHelper
   Version: 1.10.3
   Dependencies:
-    - Name: Everest
-      Version: 1.5986.0
+  - Name: Everest
+    Version: 1.6064.0
   OptionalDependencies:
-    - Name: CollabUtils2
-      Version: 1.11.1
-    - Name: SpeedrunTool
-      Version: 3.27.10
-    - Name: VivHelper
-      Version: 1.14.10
+  - Name: CollabUtils2
+    Version: 1.12.1
+  - Name: SpeedrunTool
+    Version: 3.27.11
+  - Name: VivHelper
+    Version: 1.14.10

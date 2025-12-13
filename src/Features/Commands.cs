@@ -10,4 +10,10 @@ public static class Commands {
         Util.CollectBerries(level.Tracker.GetEntity<Player>());
         level.RegisterAreaComplete();
     }
+
+    [Command("auto_save", "Auto save.")]
+    public static void CmdAutoSave() {
+        Level level = (Level) Engine.Scene;
+        level.AutoSave();
+    }
 }
