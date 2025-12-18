@@ -6,25 +6,22 @@ namespace Celeste.Mod.GameHelper.Entities.Controllers;
 
 [CustomEntity("GameHelper/AutoSaveIntervalController")]
 public class AutoSaveIntervalController : Entity {
-    private static bool Triggered;
-
     private readonly int interval;
 
     public AutoSaveIntervalController(EntityData data, Vector2 levelOffset) {
         interval = data.Int("interval");
     }
 
-    public override void Update() {
-        base.Update();
+    public override void Added(Scene scene) {
+        base.Added(scene);
 
-        if (SceneAs<Level>().OnInterval(interval * 60)) {
-            Triggered = true;
+        if (GameHelper.LevelMeta == null || GameHelper.LevelMeta.AutoSaveInterval == 0) {
+            GameHelper.LevelMeta ??= new();
+            GameHelper.LevelMeta.AutoSaveInterval = interval;
+        } else {
+            Logger.Warn("GameHelper", $"AutoSaveIntervalController: Not replacing previously set interval of {GameHelper.LevelMeta.AutoSaveInterval} min");
         }
 
-        if (Triggered && SceneAs<Level>().Tracker.GetEntity<Player>() is Player player && player.JustRespawned) {
-            Logger.Info("GameHelper", "Auto Saving");
-            SceneAs<Level>().AutoSave();
-            Triggered = false;
-        }
+        RemoveSelf();
     }
 }

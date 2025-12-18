@@ -4,6 +4,7 @@ using Celeste.Mod.GameHelper.Entities.Feathers;
 using Celeste.Mod.GameHelper.Entities.Wrappers;
 using Celeste.Mod.GameHelper.Features;
 using Celeste.Mod.GameHelper.Features.DebugMap;
+using Celeste.Mod.GameHelper.Features.Meta;
 using Celeste.Mod.GameHelper.Utils;
 using Monocle;
 using MonoMod.ModInterop;
@@ -16,6 +17,7 @@ public class GameHelper : EverestModule {
     public override Type SessionType => typeof(GameHelperSession);
     public static GameHelperSession Session => (GameHelperSession) Instance._Session;
 
+    public static GameHelperLevelMeta LevelMeta;
     internal static SpriteBank SpriteBank;
     internal static Random Random;
     internal static bool CollabUtilsLoaded;
@@ -32,7 +34,7 @@ public class GameHelper : EverestModule {
         Logger.SetLogLevel("GameHelper", 0);
         CollabUtilsLoaded = Everest.Loader.DependencyLoaded(new() {
             Name = "CollabUtils2",
-            Version = new Version(1, 10, 14)
+            Version = new Version(1, 12, 0)
         });
 
         FloatyJumpController.Hook();
@@ -52,6 +54,8 @@ public class GameHelper : EverestModule {
         EntitySearch.Hook();
         ColorfulDebug.Hook();
         SuperHotController.Hook();
+        LevelMetaHooks.Hook();
+        AutoSaveInterval.Hook();
     }
 
     public override void Unload() {
@@ -71,6 +75,8 @@ public class GameHelper : EverestModule {
         EntitySearch.Unhook();
         ColorfulDebug.Unhook();
         SuperHotController.Unhook();
+        LevelMetaHooks.Unhook();
+        AutoSaveInterval.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {
