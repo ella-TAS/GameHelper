@@ -1,4 +1,3 @@
-using Celeste.Mod.GameHelper.Entities.Controllers;
 using Celeste.Mod.GameHelper.Features.DebugMap;
 using MonoMod.ModInterop;
 using System;
