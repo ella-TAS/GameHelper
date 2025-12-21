@@ -31,7 +31,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="Celeste" HintPath="$(CELESTEGAMEPATH)\Celeste.dll" />
         <Reference Include="MMHOOK_Celeste" HintPath="$(CELESTEGAMEPATH)\MMHOOK_Celeste.dll" />
         <Reference Include="YamlDotNet" HintPath="$(CELESTEGAMEPATH)\YamlDotNet.dll" />
         <Reference Include="FNA" HintPath="$(CELESTEGAMEPATH)\FNA.dll" />
