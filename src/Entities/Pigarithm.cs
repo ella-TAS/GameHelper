@@ -61,6 +61,7 @@ public class Pigarithm : Solid {
     public override void Added(Scene scene) {
         base.Added(scene);
         if (!kill) return;
+        Add(new ClimbBlocker(false));
         Spikes s;
         s = new(
             TopLeft + new Vector2(2, 0),
