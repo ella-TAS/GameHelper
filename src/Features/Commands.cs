@@ -14,12 +14,6 @@ public static class Commands {
         level.RegisterAreaComplete();
     }
 
-    [Command("auto_save", "Auto save.")]
-    public static void CmdAutoSave() {
-        Level level = (Level) Engine.Scene;
-        level.AutoSave();
-    }
-
     [Command("entities", "Output a list of entities for Debug purposes")]
     public static void CmdEntityList(bool full = false) {
         Level level = (Level) Engine.Scene;
