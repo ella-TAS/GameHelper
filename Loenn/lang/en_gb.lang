@@ -354,9 +354,9 @@ triggers.GameHelper/NotifyChangeRespawnTrigger.placements.description.normal=A r
 triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.invertFlag=Whether the trigger should only work if the flag is false instead.
 triggers.GameHelper/NotifyChangeRespawnTrigger.attributes.description.sfxPath=The audio event to play, leave empty for the default sound.
 
-triggers.CrossoverCollab/LoreTablet.placements.name.trigger=Lore Tablet
-triggers.CrossoverCollab/LoreTablet.placements.description.trigger=Upon interaction, it displays a message, and sets a flag after the message is read.
-triggers.CrossoverCollab/LoreTablet.attributes.description.dialog=The dialog id of the message displayed.
-triggers.CrossoverCollab/LoreTablet.attributes.description.flag=The name of the flag that is set after the dialog is read.
-triggers.CrossoverCollab/LoreTablet.attributes.description.flagValue=The state of the flag that will be set.
-triggers.CrossoverCollab/LoreTablet.attributes.description.onlyOnce=Whether the trigger should remove itself after being used once.
+triggers.GameHelper/LoreTablet.placements.name.trigger=Lore Tablet
+triggers.GameHelper/LoreTablet.placements.description.trigger=Upon interaction, it displays a message, and sets a flag after the message is read.
+triggers.GameHelper/LoreTablet.attributes.description.dialog=The dialog id of the message displayed.
+triggers.GameHelper/LoreTablet.attributes.description.flag=The name of the flag that is set after the dialog is read.
+triggers.GameHelper/LoreTablet.attributes.description.flagValue=The state of the flag that will be set.
+triggers.GameHelper/LoreTablet.attributes.description.onlyOnce=Whether the trigger should remove itself after being used once.
