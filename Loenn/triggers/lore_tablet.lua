@@ -7,12 +7,11 @@ trigger.placements = {
     name = "trigger",
     data = {
         dialog = "",
-		flag = "",
-		flagValue = true,
-		onlyOnce = false,
-        activateSfx = 
+        flag = "",
+        flagValue = true,
+        onlyOnce = false,
+        activateSfx = "event:/none",
         loopSfx = "event:/none"
-        audioSfx = "event:/none"
     }
 }
 
