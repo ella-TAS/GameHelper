@@ -248,7 +248,7 @@ entities.GameHelper/McFlammable.placements.description.normal=A block that can b
 
 entities.GameHelper/PSwitch.placements.name.normal=P-Switch (Mario)
 entities.GameHelper/PSwitch.placements.description.normal=A holdable P-Switch entity that sets a flag for a set amount of time when pressed.
-entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut 0 to let the flag stay on until transition/death.
+entities.GameHelper/PSwitch.attributes.description.flagDuration=Amount of seconds where the flag is activated.\nPut -1 to let the flag stay on until transition/death.
 entities.GameHelper/PSwitch.attributes.description.stationary=Whether the switch should be fixed to the ground instead.
 
 entities.GameHelper/PSwitchBlock.placements.name.normal=P-Switch Block (Mario)

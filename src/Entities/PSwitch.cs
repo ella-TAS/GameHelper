@@ -119,9 +119,13 @@ public class PSwitch : Actor {
         if (platform.HasPlayerRider()) {
             pressed = true;
             Hold?.RemoveSelf();
-            if (tutorialGui != null) tutorialGui.Open = false;
+            tutorialGui?.Open = false;
             Add(new Coroutine(pressRoutine()));
-            Add(new PSwitchTimer(flag, flagDuration));
+            if (flagDuration >= 0) {
+                Add(new PSwitchTimer(flag, flagDuration));
+            } else {
+                SceneAs<Level>().Session.SetFlag(flag);
+            }
         }
         platform.MoveTo(Position + new Vector2(-8, -16));
     }
