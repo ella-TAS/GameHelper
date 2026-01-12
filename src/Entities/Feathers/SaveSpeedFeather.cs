@@ -8,55 +8,49 @@ namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
 [CustomEntity("GameHelper/SaveSpeedFeather")]
 public class SaveSpeedFeather : FlyFeather {
-    private static float StoredSpeed;
-    private static bool Redirect, hasLead;
-    private readonly Color color, flyColor;
+    private readonly Color spriteColor, flyColor;
     private readonly Color colorN = Color.Aqua;
     private readonly Color flyColorN = Color.SeaGreen;
     private readonly Color colorR = Color.DarkRed;
-    private bool isLead;
 
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("singleUse")) {
         Depth = -1;
-        if (data.Bool("redirectSpeed")) {
-            color = flyColor = colorR;
+        bool redirect = data.Bool("redirectSpeed");
+        if (redirect) {
+            spriteColor = flyColor = colorR;
         } else {
-            color = colorN;
+            spriteColor = colorN;
             flyColor = flyColorN;
         }
-        sprite.Color = color;
+        sprite.Color = spriteColor;
         PlayerCollider pc = Get<PlayerCollider>();
         System.Action<Player> orig = pc.OnCollide;
         pc.OnCollide = p => {
-            if (StoredSpeed == 0) {
-                Redirect = data.Bool("redirectSpeed");
-                StoredSpeed = 1.2f * (Redirect ? p.Speed.Length() : p.Speed.X);
+            // conserve first speed storage, but replace duration setter
+            if (p.Get<FeatherSpeedStorage>() == null) {
+                p.Add(new FeatherSpeedStorage(1.2f * (redirect ? p.Speed.Length() : p.Speed.X), redirect));
             }
             orig(p);
             p.Sprite.SetColor(flyColor);
-            p.starFlyTimer = data.Float("flightDuration");
             p.Components.RemoveAll<FeatherDurationSetter>();
             p.Add(new FeatherDurationSetter(data.Float("flightDuration"), flyColor));
         };
     }
 
-    public override void Update() {
-        base.Update();
-        if (isLead && StoredSpeed != 0) {
-            SceneAs<Level>().Tracker.GetEntity<Player>()?.Sprite.SetColor(Redirect ? colorR : flyColorN);
+    private static void PlayerUpdate(Player p) {
+        if (p.Get<FeatherDurationSetter>() is { } comp) {
+            p.Sprite.SetColor(comp.getColor());
         }
     }
 
     private static IEnumerator OnStarFlyCoroutine(On.Celeste.Player.orig_StarFlyCoroutine orig, Player p) {
         IEnumerator origEnum = orig(p).SafeEnumerate();
         while (origEnum.MoveNext()) {
-            if (p.starFlyTimer == 2f) {
-                FeatherDurationSetter comp = p.Get<FeatherDurationSetter>();
-                if (comp != null) {
-                    p.starFlyTimer = comp.getDuration();
-                    p.Sprite.SetColor(comp.getColor());
-                }
+            if (p.Sprite.HairCount == 7 && p.Get<FeatherDurationSetter>() is FeatherDurationSetter comp) {
+                p.starFlyTimer = comp.getDuration();
+                p.Sprite.SetColor(comp.getColor());
+                comp.RemoveSelf();
             }
 
             yield return origEnum.Current;
@@ -66,47 +60,25 @@ public class SaveSpeedFeather : FlyFeather {
     private static void OnStarFlyEnd(On.Celeste.Player.orig_StarFlyEnd orig, Player p) {
         orig(p);
         p.Components.RemoveAll<FeatherDurationSetter>();
-        if (StoredSpeed != 0) {
-            if (Redirect) {
-                p.Speed *= StoredSpeed / p.Speed.Length();
+        if (p.Get<FeatherSpeedStorage>() is { } speed) {
+            if (speed.getRedirect()) {
+                p.Speed = p.Speed.SafeNormalize() * speed.getSpeed();
             } else {
-                p.Speed.X = StoredSpeed;
+                p.Speed.X = speed.getSpeed();
             }
-            StoredSpeed = 0;
+            speed.RemoveSelf();
         }
     }
 
     public static void Hook() {
         On.Celeste.Player.StarFlyEnd += OnStarFlyEnd;
         On.Celeste.Player.StarFlyCoroutine += OnStarFlyCoroutine;
+        Everest.Events.Player.OnAfterUpdate += PlayerUpdate;
     }
 
     public static void Unhook() {
         On.Celeste.Player.StarFlyEnd -= OnStarFlyEnd;
         On.Celeste.Player.StarFlyCoroutine -= OnStarFlyCoroutine;
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        StoredSpeed = 0;
-        hasLead = false;
-    }
-
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if (!hasLead) {
-            hasLead = true;
-            isLead = true;
-        }
-    }
-
-    public override void Removed(Scene scene) {
-        base.Removed(scene);
-        StoredSpeed = 0;
-    }
-
-    public override void SceneEnd(Scene scene) {
-        base.SceneEnd(scene);
-        StoredSpeed = 0;
+        Everest.Events.Player.OnAfterUpdate -= PlayerUpdate;
     }
 }
