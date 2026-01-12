@@ -23,30 +23,6 @@
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "zip build",
-            "command": "C:/Program Files/7-Zip/7z.exe",
-            "args": [
-                "a",
-                "${workspaceFolder}/GameHelper.zip",
-                "${workspaceFolder}/Audio",
-                "${workspaceFolder}/bin",
-                "${workspaceFolder}/Dialog",
-                "${workspaceFolder}/Graphics",
-                "${workspaceFolder}/Loenn",
-                "${workspaceFolder}/everest.yaml",
-                "${workspaceFolder}/LICENSE",
-                "${workspaceFolder}/README.md"
-            ],
-            "type": "process",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "presentation": {
-                "reveal": "silent"
-            }
         }
     ]
 }
