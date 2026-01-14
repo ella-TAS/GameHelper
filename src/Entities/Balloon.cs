@@ -13,7 +13,7 @@ public class Balloon : Entity {
     private readonly Sprite sprite;
     private readonly float floatyOffset;
     private readonly bool oneUse, superBounce;
-    private bool isLead, inBubble;
+    private bool inBubble;
 
     public Balloon(EntityData data, Vector2 levelOffset) : base(data.Position + levelOffset) {
         oneUse = data.Bool("oneUse");
@@ -48,11 +48,6 @@ public class Balloon : Entity {
         }
 
         sprite.RenderPosition = Position + (1.5f * Vector2.UnitY * (float) Math.Sin(2 * (Engine.Scene.TimeActive + floatyOffset)));
-        if (isLead) {
-            if (SceneAs<Level>().Tracker.GetEntity<Player>()?.OnGround() == true) {
-                BalloonCount = 0;
-            }
-        }
     }
 
     private void onPlayer(Player player) {
@@ -84,16 +79,22 @@ public class Balloon : Entity {
         sprite.Play("spawn");
     }
 
+    private static void PlayerUpdate(Player p) {
+        if (p.OnGround()) {
+            BalloonCount = 0;
+        }
+    }
+
     public override void Added(Scene scene) {
         base.Added(scene);
         BalloonCount = -1;
     }
 
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if (BalloonCount == -1) {
-            isLead = true;
-            BalloonCount = 0;
-        }
+    public static void Hook() {
+        Everest.Events.Player.OnAfterUpdate += PlayerUpdate;
+    }
+
+    public static void Unhook() {
+        Everest.Events.Player.OnAfterUpdate -= PlayerUpdate;
     }
 }

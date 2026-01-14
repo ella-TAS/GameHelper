@@ -42,6 +42,18 @@ entities.GameHelper/Balloon.placements.description.balloon=A bouncy balloon that
 entities.GameHelper/Balloon.attributes.description.color=The color of the sprite.
 entities.GameHelper/Balloon.attributes.description.superBounce=Whether the bounce should be higher (185 speed instead of 140).
 
+entities.GameHelper/CustomBalloon.placements.name.balloon=Custom Balloon
+entities.GameHelper/CustomBalloon.placements.description.balloon=A customizable bouncy balloon.
+entities.GameHelper/CustomBalloon.attributes.name.speedYBounce=Bounce Speed Y
+entities.GameHelper/CustomBalloon.attributes.description.speedYBounce=The amount of upwards speed the balloon bounce gives.
+entities.GameHelper/CustomBalloon.attributes.description.multiplySpeed=Whether the speed modifier should be multiplied or added in the facing direction.
+entities.GameHelper/CustomBalloon.attributes.name.speedXModifier=Speed Modifier X
+entities.GameHelper/CustomBalloon.attributes.description.speedXModifier=Multiply Speed checked: The speed multiplier, default 1.2\nMultiply Speed unchecked: The amount of speed that should be added in the facing direction.
+entities.GameHelper/CustomBalloon.attributes.description.popAudio=The audio event that should play when the balloon pops.\nThe audio can have a variable balloon_count from 0 to 7, specifying how many balloons have been hit in a row.
+entities.GameHelper/CustomBalloon.attributes.description.depth=The depth of the entity, determines whether it is rendered in front of or behind other things.
+entities.GameHelper/CustomBalloon.attributes.description.spriteXmlPath=Option 1: Use original sprites\nYou can use the original balloon sprites by putting in one of the colors\nred, green, blue, yellow\n\nOption 2: Custom Sprite XML\nFill in the tag name of the XML tag in your Sprites.xml file.\nMake sure the tag name is unique (e.g. yourname_mapname_tag).\nThe following animations are required:\nSpawn (with goto Idle)\nIdle\nPop
+entities.GameHelper/CustomBalloon.attributes.description.hitboxData=The hitbox size in the following format:\nwidth,height,offsetX,offsetY
+
 entities.GameHelper/DecalMover.placements.name.decal=Entity Mover (Decal)
 entities.GameHelper/DecalMover.placements.description.decal=This Entity Mover can move decals between nodes. For non-decal entities, please use the other Entity Mover versions.
 entities.GameHelper/DecalMover.attributes.description.speed=The speed the decal moves at (default 60).

@@ -56,6 +56,8 @@ public class GameHelper : EverestModule {
         SuperHotController.Hook();
         LevelMetaHooks.Hook();
         AutoSaveInterval.Hook();
+        Balloon.Hook();
+        CustomBalloon.Hook();
     }
 
     public override void Unload() {
@@ -77,6 +79,8 @@ public class GameHelper : EverestModule {
         SuperHotController.Unhook();
         LevelMetaHooks.Unhook();
         AutoSaveInterval.Unhook();
+        Balloon.Unhook();
+        CustomBalloon.Unhook();
     }
 
     public override void LoadContent(bool firstLoad) {

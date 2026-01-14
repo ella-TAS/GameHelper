@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.GameHelper.Utils;
 
-public static class Util {
+public static partial class Util {
     private static Dictionary<string, Ease.Easer> Easers;
 
     public static void DrawCircle(Vector2 center, float radius, Color color) {
@@ -98,4 +99,17 @@ public static class Util {
         }
         return texturePath;
     }
+
+    public static Hitbox ParseHitboxString(string data, EntityID eID) {
+        if (!HitboxPattern().IsMatch(data)) {
+            Logger.Warn("GameHelper", $"Incorrect hitbox data {data} in entity {eID.Level}:{eID.ID}");
+            return null;
+        }
+
+        List<int> values = [.. data.Split(',').Select(int.Parse)];
+        return new Hitbox(values[0], values[1], values[2], values[3]);
+    }
+
+    [GeneratedRegex("^(\\d+,){2}-?\\d+,-?\\d+$")]
+    private static partial Regex HitboxPattern();
 }
