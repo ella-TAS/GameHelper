@@ -12,6 +12,7 @@ public class SaveSpeedFeather : FlyFeather {
     private readonly Color colorN = Color.Aqua;
     private readonly Color flyColorN = Color.SeaGreen;
     private readonly Color colorR = Color.DarkRed;
+    private bool legacy;
 
     public SaveSpeedFeather(EntityData data, Vector2 levelOffset)
     : base(data.Position + levelOffset, data.Bool("shielded"), data.Bool("singleUse")) {
@@ -34,7 +35,7 @@ public class SaveSpeedFeather : FlyFeather {
             orig(p);
             p.Sprite.SetColor(flyColor);
             p.Components.RemoveAll<FeatherDurationSetter>();
-            p.Add(new FeatherDurationSetter(data.Float("flightDuration"), flyColor));
+            p.Add(new FeatherDurationSetter(data.Float("flightDuration"), flyColor, legacy));
         };
     }
 
@@ -47,10 +48,13 @@ public class SaveSpeedFeather : FlyFeather {
     private static IEnumerator OnStarFlyCoroutine(On.Celeste.Player.orig_StarFlyCoroutine orig, Player p) {
         IEnumerator origEnum = orig(p).SafeEnumerate();
         while (origEnum.MoveNext()) {
-            if (p.Sprite.HairCount == 7 && p.Get<FeatherDurationSetter>() is FeatherDurationSetter comp) {
+            if (p.Get<FeatherDurationSetter>() is FeatherDurationSetter comp
+                && ((p.starFlyTimer == 2f && comp.legacy) || (p.Sprite.HairCount == 7 && !comp.legacy))) {
                 p.starFlyTimer = comp.getDuration();
                 p.Sprite.SetColor(comp.getColor());
-                comp.RemoveSelf();
+                if (!comp.legacy) {
+                    comp.RemoveSelf();
+                }
             }
 
             yield return origEnum.Current;
@@ -67,6 +71,14 @@ public class SaveSpeedFeather : FlyFeather {
                 p.Speed.X = speed.getSpeed();
             }
             speed.RemoveSelf();
+        }
+    }
+
+    public override void Added(Scene scene) {
+        base.Added(scene);
+        // reenable infinite feather bug because it's used in gameplay
+        if (SceneAs<Level>().Session.Area.SID.StartsWith("CrossoverCollab/1-Submissions/")) {
+            legacy = true;
         }
     }
 
