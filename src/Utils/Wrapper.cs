@@ -5,8 +5,6 @@ using System.Collections.Generic;
 namespace Celeste.Mod.GameHelper.Utils;
 
 public abstract class Wrapper(Vector2 position) : Entity(position) {
-    private static bool RoomLogged;
-
     public List<Entity> FindTargets(Vector2 node, Vector2[] nodes, Vector2 nodeOffset, bool allEntities, string onlyType) {
         List<Entity> entities = new();
         //don't look for entity if allEntities and type is set
@@ -75,22 +73,5 @@ public abstract class Wrapper(Vector2 position) : Entity(position) {
     public void ComplainEntityNotFound(string wrapperName) {
         Logger.Warn("GameHelper", wrapperName + " found no target in room " + SceneAs<Level>().Session.LevelData.Name);
         RemoveSelf();
-    }
-
-    public void LogAllEntities() {
-        //only do so once per room
-        if (RoomLogged) {
-            return;
-        }
-        Logger.Info("GameHelper", "List of all entities in the room:");
-        foreach (Entity e in SceneAs<Level>().Entities) {
-            Logger.Info("GameHelper", e.GetType().ToString());
-        }
-        RoomLogged = true;
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        RoomLogged = false;
     }
 }

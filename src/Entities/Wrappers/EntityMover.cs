@@ -39,11 +39,4 @@ public class EntityMover : Wrapper {
             target.Position = pos;
         }
     }
-
-    public override void Awake(Scene scene) {
-        base.Awake(scene);
-        if (debug) {
-            LogAllEntities();
-        }
-    }
 }

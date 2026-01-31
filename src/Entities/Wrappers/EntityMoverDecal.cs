@@ -92,6 +92,9 @@ public class EntityMoverDecal : EntityMover {
             ComplainEntityNotFound("Decal Entity Mover");
             return;
         }
+        if (debug) {
+            Logger.Info("GameHelper", "Decal Entity Mover found decal");
+        }
         target.Add(new RemoveEntityOnRemoval(this));
         nodes[0] = Position = target.Position;
         base.Awake(scene);

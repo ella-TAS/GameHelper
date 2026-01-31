@@ -43,7 +43,6 @@ public class CameraEntityTargetController : Wrapper {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if (debug) LogAllEntities();
         if (Util.GetFlag(flag, Scene, true)) findTarget();
     }
 

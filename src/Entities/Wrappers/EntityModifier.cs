@@ -169,9 +169,6 @@ public class EntityModifier : Wrapper {
 
     public override void Awake(Scene scene) {
         base.Awake(scene);
-        if (debug) {
-            LogAllEntities();
-        }
 
         targets = FindTargets(Position, nodes, levelOffset, allEntities, onlyType);
         if (targets.Count == 0 && !doNewlyAddedEntities) {
