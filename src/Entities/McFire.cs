@@ -84,10 +84,10 @@ public class McFire : Entity {
             sprite.RenderPosition = new Vector2((rotation is > 0 and < 3) ? 8 : -8, rotation > 1 ? 8 : -8);
             Add(sprite);
             Collider = new Hitbox(
-                rotation % 2 == 0 ? 16 : 8,
-                rotation % 2 == 0 ? 8 : 16,
-                rotation == 3 ? 0 : -8,
-                rotation == 0 ? 0 : -8
+                rotation % 2 == 0 ? 16 : 6,
+                rotation % 2 == 0 ? 6 : 16,
+                rotation == 3 ? 2 : -8,
+                rotation == 0 ? 2 : -8
             );
         }
     }
