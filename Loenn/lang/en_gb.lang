@@ -318,6 +318,13 @@ entities.GameHelper/AutoSaveIntervalController.placements.name.normal=Auto Save 
 entities.GameHelper/AutoSaveIntervalController.placements.description.normal=Saves the game automatically every few minutes. For wonky maps. See also: Auto Save Trigger
 entities.GameHelper/AutoSaveIntervalController.attributes.name.interval=Interval (Minutes)
 
+entities.GameHelper/Forcefield.placements.name.normal=Forcefield
+entities.GameHelper/Forcefield.placements.name.speedCheck=Speed Check Forcefield
+entities.GameHelper/Forcefield.placements.description.normal=An area that applies the specified amount of speed in the specified direction every frame.
+entities.GameHelper/Forcefield.placements.description.speedCheck=An area that applies the specified amount of speed in the specified direction every frame.\nIncludes a golden key block on the opposite side for using the force field as speed check.
+entities.GameHelper/Forcefield.attributes.description.force=The amount of speed applied to Madeline every frame. A minimum of 20 is recommended to overpower the natural friction.
+entities.GameHelper/Forcefield.attributes.description.speedCheck=Adds a key block to the field edge opposite of the direction.\nWhen collided, it breaks and gives a speed boost.\nOnly works with horizontal fields.
+
 
 triggers.GameHelper/ExtinguishTrigger.placements.name.ext=Extinguish Roaster
 triggers.GameHelper/ExtinguishTrigger.placements.description.ext=A trigger to reset the Roaster Controller effect.

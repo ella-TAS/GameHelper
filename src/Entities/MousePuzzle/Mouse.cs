@@ -1,3 +1,4 @@
+using Celeste.Mod.GameHelper.Utils;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
@@ -7,16 +8,14 @@ namespace Celeste.Mod.GameHelper.Entities.MousePuzzle;
 
 [Tracked]
 public class Mouse : Actor {
-    public enum Direction { Left, Up, Right, Down }
     private readonly Sprite sprite;
-    private Direction dir;
+    private Direction dir = Direction.Down;
     private bool deathRoutine;
     private bool tortureRoutine;
 
     public Mouse(Vector2 Position) : base(Position) {
         Collider = new Hitbox(16, 16);
         Depth = -2;
-        dir = Direction.Down;
         sprite = GameHelper.SpriteBank.Create("mouse");
         sprite.CenterOrigin();
         sprite.RenderPosition = new Vector2(8, 8);
@@ -30,7 +29,7 @@ public class Mouse : Actor {
             SceneAs<Level>().Entities.FindAll<MouseHole>().ForEach(m => m.RemoveSelf());
             Add(new Coroutine(routinePreventMouseTorture()));
         }
-        NaiveMove(dirToVector() * 120f * Engine.DeltaTime);
+        NaiveMove(dir.ToVector() * 120f * Engine.DeltaTime);
         if (!deathRoutine && CollideCheck<Solid>()) {
             bool surviveFrame = false;
             foreach (MouseRotator m in CollideAll<MouseRotator>()) {
@@ -59,19 +58,9 @@ public class Mouse : Actor {
     }
 
     private void rotate(bool clockwise) {
-        NaiveMove(-dirToVector() * 120f * Engine.DeltaTime);
-        dir = (Direction) (((int) dir + (clockwise ? 1 : -1) + 4) % 4);
+        NaiveMove(-dir.ToVector() * 120f * Engine.DeltaTime);
+        dir = clockwise ? dir.RotateClock() : dir.RotateCounter();
         sprite.Rotation = (float) (((double) dir + 1) * 0.5 * Math.PI);
-    }
-
-    private Vector2 dirToVector() {
-        return dir switch {
-            Direction.Left => -Vector2.UnitX,
-            Direction.Up => -Vector2.UnitY,
-            Direction.Right => Vector2.UnitX,
-            Direction.Down => Vector2.UnitY,
-            _ => Vector2.Zero,
-        };
     }
 
     private IEnumerator routinePreventMouseTorture() {
