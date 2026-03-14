@@ -1,9 +1,11 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System.Linq;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
+[Tracked]
 [CustomEntity("GameHelper/FlagZoneTrigger")]
 public class FlagZoneTrigger : Trigger {
     private readonly string flag;
@@ -17,6 +19,10 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnLeave(Player p) {
+        if (!p.Dead && p.CollideAll<FlagZoneTrigger>().Any(e => (e as FlagZoneTrigger).flag == flag)) {
+            return;
+        }
+
         SceneAs<Level>()?.Session?.SetFlag(flag, false);
     }
 
