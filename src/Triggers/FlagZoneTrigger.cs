@@ -19,7 +19,8 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnLeave(Player p) {
-        if (!p.Dead && p.CollideAll<FlagZoneTrigger>().Any(e => (e as FlagZoneTrigger).flag == flag)) {
+        // don't reset flag if two flag triggers are connected
+        if (p?.Scene != null && !p.Dead && p.CollideAll<FlagZoneTrigger>().Any(e => ((FlagZoneTrigger) e).flag == flag)) {
             return;
         }
 
