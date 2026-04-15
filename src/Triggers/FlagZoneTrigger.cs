@@ -17,7 +17,10 @@ public class FlagZoneTrigger : Trigger {
     }
 
     public override void OnLeave(Player p) {
-        SceneAs<Level>()?.Session?.SetFlag(flag, false);
+        // don't reset flag if two flag triggers are connected
+        if (p?.Scene != null && !p.Dead && p.CollideAll<FlagZoneTrigger>().Any(e => ((FlagZoneTrigger) e).flag == flag)) {
+            SceneAs<Level>()?.Session?.SetFlag(flag, false);
+        }
     }
 
     public override void SceneEnd(Scene scene) {
