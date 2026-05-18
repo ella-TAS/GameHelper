@@ -1,5 +1,6 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Monocle;
 
 namespace Celeste.Mod.GameHelper.Entities.Feathers;
 
@@ -16,7 +17,11 @@ public class ImmediateFeather : FlyFeather {
         pc.OnCollide = p => {
             orig(p);
             if (data.Bool("startBoost") && p.Speed.Length() < 600f) {
-                p.Speed *= 600f / p.Speed.Length();
+                Vector2 dir = p.Speed.SafeNormalize();
+                if (dir.Length() == 0) {
+                    dir = Vector2.UnitX * (int) p.Facing;
+                }
+                p.Speed = 600f * dir;
             }
             if (!data.Bool("startBoost")) {
                 p.Speed *= 1.2f;
