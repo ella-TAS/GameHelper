@@ -48,7 +48,7 @@ public class SaveSpeedFeather : FlyFeather {
         IEnumerator origEnum = orig(p).SafeEnumerate();
         while (origEnum.MoveNext()) {
             if (p.Get<FeatherDurationSetter>() is FeatherDurationSetter comp
-                && p.Sprite.HairCount == 7) {
+                && !p.starFlyTransforming) {
                 p.starFlyTimer = comp.getDuration();
                 p.Sprite.SetColor(comp.getColor());
                 comp.RemoveSelf();
@@ -61,7 +61,7 @@ public class SaveSpeedFeather : FlyFeather {
     private static void OnStarFlyEnd(On.Celeste.Player.orig_StarFlyEnd orig, Player p) {
         orig(p);
         p.Components.RemoveAll<FeatherDurationSetter>();
-        if (p.Get<FeatherSpeedStorage>() is { } speed) {
+        if (p.Get<FeatherSpeedStorage>() is FeatherSpeedStorage speed) {
             if (speed.getRedirect()) {
                 p.Speed = p.Speed.SafeNormalize() * speed.getSpeed();
             } else {
