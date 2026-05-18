@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace Celeste.Mod.GameHelper.Triggers;
 
+[Tracked]
 [CustomEntity("GameHelper/FlagZoneTrigger")]
 public class FlagZoneTrigger : Trigger {
     private readonly string flag;
