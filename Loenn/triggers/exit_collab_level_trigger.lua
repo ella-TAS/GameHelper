@@ -2,6 +2,7 @@ local elt = {}
 
 elt.name = "GameHelper/ExitCollabLevelTrigger"
 elt.depth = 8998
+elt.associatedMods = {"GameHelper", "CollabUtils2"}
 elt.placements = {
     {
         name = "withTrigger",
